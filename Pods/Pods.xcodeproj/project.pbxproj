@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2FCEEFE6656441EE52B0461A68423830 /* SnapHTTP-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 62D09B832D01D227F060D1014E03FBFA /* SnapHTTP-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C6EE245EFBF6BC9212993DCA076EEDE /* Pods-SwiftWeather-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCD45BDEEEDCB4C10D0249B66769B23 /* Pods-SwiftWeather-dummy.m */; };
+		6618D85BAEC17B79EC9C3D4C39E8EC08 /* Pods-SwiftWeather-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBAEEAD4367763967BF3F1EB29AE98D /* Pods-SwiftWeather-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9FC2EE6518B7211090978F892442A73E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		AABA2E8583F07ABB626895CDB91D9980 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */; };
+		D95EB32527DF8C166699592320B7D237 /* http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C2E25FF818292243EF082B1E506C85 /* http.swift */; };
+		DDF641D76DF0EE8B4EB60D8E135BDCFA /* SnapHTTP-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DCCFC5F9AD3F11422B6F6A00126CEB4 /* SnapHTTP-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		40512C68333E83F3E03D1907DDADC437 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19B9471437EDC684A314042EF6B4A0E1;
+			remoteInfo = SnapHTTP;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		17EA5B3E107AF0DCCB79A94167DD1680 /* Pods-SwiftWeather.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SwiftWeather.modulemap"; sourceTree = "<group>"; };
+		1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		259C71756908D2A05F8B77C60C2F9438 /* SnapHTTP-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapHTTP-prefix.pch"; sourceTree = "<group>"; };
+		318B4CF631F6CF6FA5EF118C29668431 /* SnapHTTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapHTTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34C2E25FF818292243EF082B1E506C85 /* http.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = http.swift; path = SnapHTTP/http.swift; sourceTree = "<group>"; };
+		47BEC344245DA062B790C637F7E127BC /* Pods-SwiftWeather-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftWeather-acknowledgements.plist"; sourceTree = "<group>"; };
+		491A1D2D5AFEBDF720680FDAC3A04D04 /* Pods-SwiftWeather-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftWeather-acknowledgements.markdown"; sourceTree = "<group>"; };
+		5AC3F78DB6580794CB2738D37C2D2971 /* Pods_SwiftWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DCCFC5F9AD3F11422B6F6A00126CEB4 /* SnapHTTP-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnapHTTP-dummy.m"; sourceTree = "<group>"; };
+		60CBF95469E88819D5E3694A55E62F90 /* SnapHTTP.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapHTTP.xcconfig; sourceTree = "<group>"; };
+		62D09B832D01D227F060D1014E03FBFA /* SnapHTTP-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapHTTP-umbrella.h"; sourceTree = "<group>"; };
+		66B99257E6101490D135F06D3383CAF7 /* Pods-SwiftWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftWeather.release.xcconfig"; sourceTree = "<group>"; };
+		747ECAACDA52DC6A6C5798D0375E6CD2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7FBAEEAD4367763967BF3F1EB29AE98D /* Pods-SwiftWeather-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftWeather-umbrella.h"; sourceTree = "<group>"; };
+		88F7B88BD7117A61E540A39D35FB28B5 /* Pods-SwiftWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftWeather.debug.xcconfig"; sourceTree = "<group>"; };
+		9E18BBF98309FB799B6DA41E8B352735 /* Pods-SwiftWeather-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftWeather-resources.sh"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BBCD45BDEEEDCB4C10D0249B66769B23 /* Pods-SwiftWeather-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftWeather-dummy.m"; sourceTree = "<group>"; };
+		DB7C8E91CC367E2711FC4261A288EF47 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDD61C4DBBB89B51B7277FE403D6ACAA /* SnapHTTP.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnapHTTP.modulemap; sourceTree = "<group>"; };
+		DDF18705169430491413C590BB9B0D8D /* Pods-SwiftWeather-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftWeather-frameworks.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9DCA9012B4F49421C965CCD80218E189 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FC2EE6518B7211090978F892442A73E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BAEF312320B3326CD90E415DFFDA59FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABA2E8583F07ABB626895CDB91D9980 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		203AE8ECD59EB5481F2304A85FAA2265 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AC3F78DB6580794CB2738D37C2D2971 /* Pods_SwiftWeather.framework */,
+				318B4CF631F6CF6FA5EF118C29668431 /* SnapHTTP.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		215B805969560D4F7A03BFAFBBCD40C3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F3B36E8F0BAF1ADA9A494DC7ECADD3F2 /* SnapHTTP */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		28C17CEF104526ACA07B6EEE217EC43E /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				1CA6EBC2E57D96052268211209D6AA52 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28C17CEF104526ACA07B6EEE217EC43E /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
+				215B805969560D4F7A03BFAFBBCD40C3 /* Pods */,
+				203AE8ECD59EB5481F2304A85FAA2265 /* Products */,
+				DB362647CF11CC3F21926A1DEE11D7D6 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		886D1FE47166D457431E39817FDBA495 /* Pods-SwiftWeather */ = {
+			isa = PBXGroup;
+			children = (
+				DB7C8E91CC367E2711FC4261A288EF47 /* Info.plist */,
+				17EA5B3E107AF0DCCB79A94167DD1680 /* Pods-SwiftWeather.modulemap */,
+				491A1D2D5AFEBDF720680FDAC3A04D04 /* Pods-SwiftWeather-acknowledgements.markdown */,
+				47BEC344245DA062B790C637F7E127BC /* Pods-SwiftWeather-acknowledgements.plist */,
+				BBCD45BDEEEDCB4C10D0249B66769B23 /* Pods-SwiftWeather-dummy.m */,
+				DDF18705169430491413C590BB9B0D8D /* Pods-SwiftWeather-frameworks.sh */,
+				9E18BBF98309FB799B6DA41E8B352735 /* Pods-SwiftWeather-resources.sh */,
+				7FBAEEAD4367763967BF3F1EB29AE98D /* Pods-SwiftWeather-umbrella.h */,
+				88F7B88BD7117A61E540A39D35FB28B5 /* Pods-SwiftWeather.debug.xcconfig */,
+				66B99257E6101490D135F06D3383CAF7 /* Pods-SwiftWeather.release.xcconfig */,
+			);
+			name = "Pods-SwiftWeather";
+			path = "Target Support Files/Pods-SwiftWeather";
+			sourceTree = "<group>";
+		};
+		AECB8D87278E0287EF04C5DC5B95CC5F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				747ECAACDA52DC6A6C5798D0375E6CD2 /* Info.plist */,
+				DDD61C4DBBB89B51B7277FE403D6ACAA /* SnapHTTP.modulemap */,
+				60CBF95469E88819D5E3694A55E62F90 /* SnapHTTP.xcconfig */,
+				5DCCFC5F9AD3F11422B6F6A00126CEB4 /* SnapHTTP-dummy.m */,
+				259C71756908D2A05F8B77C60C2F9438 /* SnapHTTP-prefix.pch */,
+				62D09B832D01D227F060D1014E03FBFA /* SnapHTTP-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SnapHTTP";
+			sourceTree = "<group>";
+		};
+		DB362647CF11CC3F21926A1DEE11D7D6 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				886D1FE47166D457431E39817FDBA495 /* Pods-SwiftWeather */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		F3B36E8F0BAF1ADA9A494DC7ECADD3F2 /* SnapHTTP */ = {
+			isa = PBXGroup;
+			children = (
+				34C2E25FF818292243EF082B1E506C85 /* http.swift */,
+				AECB8D87278E0287EF04C5DC5B95CC5F /* Support Files */,
+			);
+			path = SnapHTTP;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		573307BD285EEF9E43A2609D97F4BF71 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FCEEFE6656441EE52B0461A68423830 /* SnapHTTP-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5F5A80EA116183F5312005BAF9FC0201 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6618D85BAEC17B79EC9C3D4C39E8EC08 /* Pods-SwiftWeather-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		19B9471437EDC684A314042EF6B4A0E1 /* SnapHTTP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F078464D0B3BFA3F40EA00BD175B1D78 /* Build configuration list for PBXNativeTarget "SnapHTTP" */;
+			buildPhases = (
+				C1D19D47F3CDFBA8FCA36FF093DD8A1D /* Sources */,
+				BAEF312320B3326CD90E415DFFDA59FE /* Frameworks */,
+				573307BD285EEF9E43A2609D97F4BF71 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SnapHTTP;
+			productName = SnapHTTP;
+			productReference = 318B4CF631F6CF6FA5EF118C29668431 /* SnapHTTP.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		475E0BD5A312604074F9333C5EE7272C /* Pods-SwiftWeather */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A2DE7FAA9A1EF18892B7963A6D411BB /* Build configuration list for PBXNativeTarget "Pods-SwiftWeather" */;
+			buildPhases = (
+				93F0499CC20E7F90C987016ACF48A0E2 /* Sources */,
+				9DCA9012B4F49421C965CCD80218E189 /* Frameworks */,
+				5F5A80EA116183F5312005BAF9FC0201 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3CC0D149F08E1E66A663D54CF2A0287 /* PBXTargetDependency */,
+			);
+			name = "Pods-SwiftWeather";
+			productName = "Pods-SwiftWeather";
+			productReference = 5AC3F78DB6580794CB2738D37C2D2971 /* Pods_SwiftWeather.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 203AE8ECD59EB5481F2304A85FAA2265 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				475E0BD5A312604074F9333C5EE7272C /* Pods-SwiftWeather */,
+				19B9471437EDC684A314042EF6B4A0E1 /* SnapHTTP */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93F0499CC20E7F90C987016ACF48A0E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6EE245EFBF6BC9212993DCA076EEDE /* Pods-SwiftWeather-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1D19D47F3CDFBA8FCA36FF093DD8A1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D95EB32527DF8C166699592320B7D237 /* http.swift in Sources */,
+				DDF641D76DF0EE8B4EB60D8E135BDCFA /* SnapHTTP-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3CC0D149F08E1E66A663D54CF2A0287 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SnapHTTP;
+			target = 19B9471437EDC684A314042EF6B4A0E1 /* SnapHTTP */;
+			targetProxy = 40512C68333E83F3E03D1907DDADC437 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		10B2EE21B5D67EE2C819831CCC43832B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		129228AC9CF34585D1AE053C9B9A1B27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66B99257E6101490D135F06D3383CAF7 /* Pods-SwiftWeather.release.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-SwiftWeather/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/Pods-SwiftWeather/Pods-SwiftWeather.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_SwiftWeather;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		750779EE5A911789AB286F5C0EDA9DC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60CBF95469E88819D5E3694A55E62F90 /* SnapHTTP.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/SnapHTTP/SnapHTTP-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SnapHTTP/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/SnapHTTP/SnapHTTP.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SnapHTTP;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7C07D96CC7C445E83983A6C6420BC692 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B8905AF8F998154D44266562FE2FBE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60CBF95469E88819D5E3694A55E62F90 /* SnapHTTP.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/SnapHTTP/SnapHTTP-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SnapHTTP/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/SnapHTTP/SnapHTTP.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SnapHTTP;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D5607AB36FA3F87BEE13E67432456033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88F7B88BD7117A61E540A39D35FB28B5 /* Pods-SwiftWeather.debug.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-SwiftWeather/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULEMAP_FILE = "Target Support Files/Pods-SwiftWeather/Pods-SwiftWeather.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_SwiftWeather;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10B2EE21B5D67EE2C819831CCC43832B /* Debug */,
+				7C07D96CC7C445E83983A6C6420BC692 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A2DE7FAA9A1EF18892B7963A6D411BB /* Build configuration list for PBXNativeTarget "Pods-SwiftWeather" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5607AB36FA3F87BEE13E67432456033 /* Debug */,
+				129228AC9CF34585D1AE053C9B9A1B27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F078464D0B3BFA3F40EA00BD175B1D78 /* Build configuration list for PBXNativeTarget "SnapHTTP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				750779EE5A911789AB286F5C0EDA9DC7 /* Debug */,
+				9B8905AF8F998154D44266562FE2FBE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

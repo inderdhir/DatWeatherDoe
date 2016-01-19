@@ -1,0 +1,6 @@
+framework module SnapHTTP {
+  umbrella header "SnapHTTP-umbrella.h"
+
+  export *
+  module * { export * }
+}
