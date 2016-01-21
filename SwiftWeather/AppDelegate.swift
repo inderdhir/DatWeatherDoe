@@ -18,9 +18,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
+        let menu = NSMenu()
+        
+        menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
+        
+        statusItem.menu = menu
+        
         if let button = statusItem.button {
             button.image = NSImage(named: "sunny")
-            button.title = "Yo"
+//            button.title = "Yo"
 //            button.action = Selector("printQuote:")
         }
         
