@@ -21,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var APP_ID: String?
     
+    var eventMonitor: EventMonitor?
+    
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         if let filePath = NSBundle.mainBundle().pathForResource("Keys", ofType:"plist") {
@@ -42,6 +44,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "getWeather", userInfo: nil, repeats: true)
         timer.fire()
+        
+        eventMonitor = EventMonitor(mask: NSEventMask.LeftMouseDownMask) { [unowned self] event in
+            if self.popover.shown {
+                self.closePopover(event)
+            }
+        }
+        eventMonitor!.start()
     }
     
     func getWeather(){
@@ -127,10 +136,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusItem.button {
             popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: NSRectEdge.MinY)
         }
+        eventMonitor!.start()
     }
     
     func closePopover(sender: AnyObject?) {
         popover.performClose(sender)
+        eventMonitor!.stop()
     }
     
     func togglePopover(sender: AnyObject?) {
