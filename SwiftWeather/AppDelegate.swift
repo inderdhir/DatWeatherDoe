@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Configure ZipCode", action: Selector("togglePopover:"), keyEquivalent: "C"))
+        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
         menu.addItem(NSMenuItem.separatorItem())
         menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusItem.button {
             button.action = Selector("togglePopover:")
         }
-        popover.contentViewController = ZipCodeViewController(nibName: "ZipCodeViewController", bundle: nil)
+        popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
         
         let timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "getWeather", userInfo: nil, repeats: true)
         timer.fire()
