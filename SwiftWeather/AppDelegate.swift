@@ -30,6 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         
         let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Configure ZipCode", action: Selector("togglePopover:"), keyEquivalent: "C"))
+        menu.addItem(NSMenuItem.separatorItem())
         menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
         

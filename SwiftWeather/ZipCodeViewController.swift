@@ -10,9 +10,15 @@ import Cocoa
 
 class ZipCodeViewController: NSViewController {
 
+    @IBOutlet weak var zipCodeField: NSTextField!
+    var zipCode: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
     
+    @IBAction func doneButtonPressed(sender: AnyObject) {
+        zipCode = zipCodeField.stringValue
+    }
 }
