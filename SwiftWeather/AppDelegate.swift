@@ -21,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var APP_ID: String?
     
+    var zipCode: String?
+    var refreshInterval: NSTimeInterval?
+    
     var eventMonitor: EventMonitor?
     
 
@@ -30,9 +33,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.APP_ID = plist!["OPENWEATHERMAP_APP_ID"] as? String
         }
         
+        zipCode = "10021,us"
+        refreshInterval = 60
         
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
+        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separatorItem())
         menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
@@ -42,8 +47,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
         
-        let timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "getWeather", userInfo: nil, repeats: true)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeather", userInfo: nil, repeats: true)
         timer.fire()
+        timer.fire() // Fired twice due to a bug where the icon and temperature don't display properly the first time
         
         eventMonitor = EventMonitor(mask: NSEventMask.LeftMouseDownMask) { [unowned self] event in
             if self.popover.shown {
@@ -54,18 +60,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func getWeather(){
-        http.get("http://api.openweathermap.org/data/2.5/weather").params(["zip": "10021,us", "appid": APP_ID!]) { resp in
-            if let temp = ((resp.json as! NSDictionary)["main"] as! NSDictionary)["temp"]{
+        
+        http.get("http://api.openweathermap.org/data/2.5/weather").params(["zip": zipCode!, "appid": APP_ID!]) { resp in
+            
+            // Error
+            if resp.error != nil {
+                print("Connection error: \(resp.error!)")
+                return
+            }
+            
+            // Temperature
+            if let dict = resp.json as? NSDictionary, mainDict = dict["main"] as? NSDictionary, temp = mainDict["temp"] {
                 let doubleTemp = (temp as! NSNumber).doubleValue
                 let fahrenheitTemp = ((doubleTemp - 273.15) * 1.8) + 32
-                    
+                
                 let formatter = NSNumberFormatter()
                 formatter.numberStyle = .DecimalStyle
                 formatter.maximumSignificantDigits = 3
-                    
+                
                 self.currentFahrenheitTempString = formatter.stringFromNumber(fahrenheitTemp)! + "\u{00B0}"
             }
             
+            // Icon
             var iconString: String?
             if let weatherID = (((resp.json as! NSDictionary)["weather"] as! NSArray)[0] as! NSDictionary)["id"]{
                 let weatherIDInt = weatherID.intValue

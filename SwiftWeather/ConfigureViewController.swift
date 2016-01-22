@@ -17,7 +17,6 @@ class ConfigureViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         
         zipCodeField.placeholderString = "10021"
         refreshIntervals.removeAllItems()
@@ -26,5 +25,36 @@ class ConfigureViewController: NSViewController {
     }
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
+        let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+        var refreshInterval: NSTimeInterval? = nil
+        
+        switch refreshIntervals.indexOfSelectedItem {
+        case 1:
+            refreshInterval = NSTimeInterval(300)
+            break
+        case 2:
+            refreshInterval = NSTimeInterval(900)
+            break
+        case 3:
+            refreshInterval = NSTimeInterval(1800)
+            break
+        case 4:
+            refreshInterval = NSTimeInterval(3600)
+            break
+        default:
+            refreshInterval = NSTimeInterval(60)
+            break
+        }
+        
+        appDelegate.refreshInterval = refreshInterval!
+        if(zipCodeField.stringValue.characters.count > 0){
+            appDelegate.zipCode = zipCodeField.stringValue + ",us"
+        }
+        else{
+            appDelegate.zipCode = "10021,us"
+        }
+        appDelegate.getWeather()
+        100
+        self.view.window?.close()
     }
 }
