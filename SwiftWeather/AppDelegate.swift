@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         refreshInterval = 60
         
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
         menu.addItem(NSMenuItem.separatorItem())
         menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
