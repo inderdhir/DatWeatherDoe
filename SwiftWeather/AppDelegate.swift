@@ -13,13 +13,42 @@ import SnapHTTP
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
+    
+    let DARK_MODE = "Dark"
+    let LIGHT_MODE = "Light"
+    
+    let SUNNY = "Sunny"
+    let SUNNY_DARK = "SunnyDark"
+    let PARTLY_CLOUDY = "PartlyCloudy"
+    let PARTLY_CLOUDY_DARK = "PartlyCloudyDark"
+    let CLOUDY = "Cloudy"
+    let CLOUDY_DARK = "CloudyDark"
+    let MIST = "Mist"
+    let MIST_DARK = "MistDark"
+    let SNOW = "Snow"
+    let SNOW_DARK = "SnowDark"
+    let FREEZING_RAIN = "FreezingRain"
+    let FREEZING_RAIN_DARK = "FreezingRainDark"
+    let HEAVY_RAIN = "HeavyRain"
+    let HEAVY_RAIN_DARK = "HeavyRainDark"
+    let PARTLY_CLOUDY_RAIN = "PartlyCloudyRain"
+    let PARTLY_CLOUDY_RAIN_DARK = "PartlyCloudyRainDark"
+    let LIGHT_RAIN = "LightRain"
+    let LIGHT_RAIN_DARK = "LightRainDark"
+    let THUNDERSTORM = "Thunderstorm"
+    let THUNDERSTORM_DARK = "ThunderstormDark"
+    
+    var darkModeOn: Bool?
 
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+    
     var currentFahrenheitTempString: String?
     var currentImageData: NSImage?
     let popover = NSPopover()
     
     var APP_ID: String?
+    
+    let API_URL = "http://api.openweathermap.org/data/2.5/weather"
     
     var zipCode: String?
     var refreshInterval: NSTimeInterval?
@@ -28,6 +57,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        // Check if dark/light mode
+        darkModeOn = false
+        let appearance = NSUserDefaults.standardUserDefaults().stringForKey("AppleInterfaceStyle") ?? "Light"
+        if appearance == DARK_MODE {
+            darkModeOn = true
+        }
+        
         if let filePath = NSBundle.mainBundle().pathForResource("Keys", ofType:"plist") {
             let plist = NSDictionary(contentsOfFile:filePath)
             self.APP_ID = plist!["OPENWEATHERMAP_APP_ID"] as? String
@@ -60,12 +96,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func getWeather(){
-        
-        http.get("http://api.openweathermap.org/data/2.5/weather").params(["zip": zipCode!, "appid": APP_ID!]) { resp in
+        http.get(API_URL).params(["zip": zipCode!, "appid": APP_ID!]) { resp in
             
             // Error
             if resp.error != nil {
-                print("Connection error: \(resp.error!)")
+                print("\(resp.error!)")
                 return
             }
             
@@ -89,41 +124,88 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if weatherIDInt >= 800 && weatherIDInt <= 900{
                     switch(weatherIDInt){
                     case 800:
-                        iconString = "01d"
+                        if self.darkModeOn! == true {
+                            iconString = self.SUNNY_DARK
+                        }
+                        else {
+                            iconString = self.SUNNY
+                        }
                         break
                     case 801:
-                        iconString = "02d"
-                        break
-                    case 802:
-                        iconString = "03d"
+                        if self.darkModeOn! == true {
+                            iconString = self.PARTLY_CLOUDY_DARK
+                        }
+                        else {
+                            iconString = self.PARTLY_CLOUDY
+                        }
                         break
                     default:
-                        iconString = "04d"
+                        if self.darkModeOn! == true {
+                            iconString = self.CLOUDY_DARK
+                        }
+                        else {
+                            iconString = self.CLOUDY
+                        }
                         break
                     }
                 }
                 else if weatherIDInt >= 700{
-                    iconString = "50d"
+                    if self.darkModeOn! == true {
+                        iconString = self.MIST_DARK
+                    }
+                    else {
+                        iconString = self.MIST
+                    }
                 }
                 else if weatherIDInt >= 600{
-                    iconString = "13d"
+                    if self.darkModeOn! == true {
+                        iconString = self.SNOW_DARK
+                    }
+                    else{
+                        iconString = self.SNOW
+                    }
                 }
                 else if weatherIDInt >= 500{
                     if weatherIDInt == 511 {
-                        iconString = "13d"
+                        if self.darkModeOn! == true {
+                            iconString = self.FREEZING_RAIN_DARK
+                        }
+                        else {
+                            iconString = self.FREEZING_RAIN
+                        }
                     }
                     else if weatherIDInt <= 504 {
-                        iconString = "10d"
+                        if self.darkModeOn! == true {
+                            iconString = self.HEAVY_RAIN_DARK
+                        }
+                        else {
+                            iconString = self.HEAVY_RAIN
+                        }
                     }
                     else if weatherIDInt >= 520 {
-                        iconString = "09d"
+                        if self.darkModeOn! == true {
+                            iconString = self.PARTLY_CLOUDY_RAIN_DARK
+                        }
+                        else {
+                            iconString = self.PARTLY_CLOUDY_RAIN
+                        }
                     }
                 }
                 else if weatherIDInt >= 300{
-                    iconString = "09d"
+                    if self.darkModeOn! == true {
+                        iconString = self.LIGHT_RAIN_DARK
+                    }
+                    else {
+                        iconString = self.LIGHT_RAIN
+                    }
                 }
                 else if weatherIDInt >= 200{
-                    iconString = "11d"
+                    if self.darkModeOn! == true {
+                        iconString = self.THUNDERSTORM_DARK
+                    }
+                    else {
+                        iconString = self.THUNDERSTORM
+                    }
                 }
             }
             if iconString != nil {
@@ -133,10 +215,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func getIcon(iconString: String){
-        http.get("http://openweathermap.org/img/w/" + iconString + ".png") { resp in
-            self.currentImageData = NSImage(data: resp.data)
-            self.updateWeather()
-        }
+        self.currentImageData = NSImage(named: iconString)
+        self.updateWeather()
     }
     
     func updateWeather(){
