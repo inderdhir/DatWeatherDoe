@@ -14,6 +14,7 @@ class ConfigureViewController: NSViewController {
     
     @IBOutlet weak var zipCodeField: NSTextField!
     @IBOutlet weak var refreshIntervals: NSPopUpButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,35 +27,42 @@ class ConfigureViewController: NSViewController {
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
         let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-        var refreshInterval: NSTimeInterval? = nil
+        var zipCode: String? = nil
+        var refreshInterval: Double? = nil
         
         switch refreshIntervals.indexOfSelectedItem {
         case 1:
-            refreshInterval = NSTimeInterval(300)
+            refreshInterval = 300
             break
         case 2:
-            refreshInterval = NSTimeInterval(900)
+            refreshInterval = 900
             break
         case 3:
-            refreshInterval = NSTimeInterval(1800)
+            refreshInterval = 1800
             break
         case 4:
-            refreshInterval = NSTimeInterval(3600)
+            refreshInterval = 3600
             break
         default:
-            refreshInterval = NSTimeInterval(60)
+            refreshInterval = 60
             break
         }
         
-        appDelegate.refreshInterval = refreshInterval!
         if(zipCodeField.stringValue.characters.count > 0){
-            appDelegate.zipCode = zipCodeField.stringValue + ",us"
+            zipCode = zipCodeField.stringValue + ",us"
         }
         else{
-            appDelegate.zipCode = "10021,us"
+            zipCode = "10021,us"
         }
+        
+        appDelegate.zipCode = zipCode!
+        appDelegate.refreshInterval = NSTimeInterval(refreshInterval!)
         appDelegate.getWeather()
-        100
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(zipCode!, forKey: appDelegate.ZIP_CODE_CONFIG)
+        defaults.setObject(String(refreshInterval!), forKey: appDelegate.REFRESH_INTERVAL_CONFIG)
+        
         self.view.window?.close()
     }
 }

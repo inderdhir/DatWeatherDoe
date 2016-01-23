@@ -14,6 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
+    let ZIP_CODE_CONFIG = "ZipCodeConfig"
+    let REFRESH_INTERVAL_CONFIG = "RefreshIntervalConfig"
+    
     let DARK_MODE = "Dark"
     let LIGHT_MODE = "Light"
     
@@ -69,8 +72,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.APP_ID = plist!["OPENWEATHERMAP_APP_ID"] as? String
         }
         
-        zipCode = "10021,us"
-        refreshInterval = 60
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let savedZipCode = defaults.stringForKey(ZIP_CODE_CONFIG){
+            zipCode = savedZipCode
+        }
+        else {
+            zipCode = "10021,us"
+        }
+        if let savedRefreshInterval = defaults.stringForKey(REFRESH_INTERVAL_CONFIG){
+            refreshInterval = NSTimeInterval(savedRefreshInterval)
+        }
+        else {
+            refreshInterval = 60
+        }
+        
+        print(zipCode)
+        print(refreshInterval)
         
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
