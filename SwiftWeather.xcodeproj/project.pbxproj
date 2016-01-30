@@ -14,6 +14,7 @@
 		202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 202C319E1C528958003D5E5A /* ConfigureViewController.xib */; };
 		202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C31A11C528FE7003D5E5A /* EventMonitor.swift */; };
 		20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */; };
+		20459C641C5C50DA004D0DC1 /* DefaultsChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* DefaultsChecker.swift */; };
 		2097A4011C5277B1001EA615 /* Keys.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2097A4001C5277B1001EA615 /* Keys.example.plist */; };
 		2097A4031C527878001EA615 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2097A4021C527878001EA615 /* Keys.plist */; };
 		6F2C960B055038A1106167A1 /* Pods_SwiftWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131FC65360DA4CD8251F4174 /* Pods_SwiftWeather.framework */; };
@@ -30,6 +31,7 @@
 		202C319E1C528958003D5E5A /* ConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureViewController.xib; sourceTree = "<group>"; };
 		202C31A11C528FE7003D5E5A /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherConditions.swift; sourceTree = "<group>"; };
+		20459C631C5C50DA004D0DC1 /* DefaultsChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsChecker.swift; sourceTree = "<group>"; };
 		2097A4001C5277B1001EA615 /* Keys.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.example.plist; sourceTree = "<group>"; };
 		2097A4021C527878001EA615 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		46B01A4D76F1AB5EC81A50DF /* Pods-SwiftWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftWeather/Pods-SwiftWeather.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				202C319E1C528958003D5E5A /* ConfigureViewController.xib */,
 				202C31A11C528FE7003D5E5A /* EventMonitor.swift */,
 				20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */,
+				20459C631C5C50DA004D0DC1 /* DefaultsChecker.swift */,
 			);
 			path = SwiftWeather;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */,
+				20459C641C5C50DA004D0DC1 /* DefaultsChecker.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
 				2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */,
 				202C319F1C528958003D5E5A /* ConfigureViewController.swift in Sources */,

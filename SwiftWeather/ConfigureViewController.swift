@@ -59,9 +59,8 @@ class ConfigureViewController: NSViewController {
         appDelegate.refreshInterval = NSTimeInterval(refreshInterval!)
         appDelegate.getWeather()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(zipCode!, forKey: appDelegate.ZIP_CODE_CONFIG)
-        defaults.setObject(String(refreshInterval!), forKey: appDelegate.REFRESH_INTERVAL_CONFIG)
+        DefaultsChecker.setDefaultZipCode(zipCode!)
+        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
         
         self.view.window?.close()
     }
