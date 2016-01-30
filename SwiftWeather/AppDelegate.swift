@@ -20,27 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let DARK_MODE = "Dark"
     let LIGHT_MODE = "Light"
     
-    let SUNNY = "Sunny"
-    let SUNNY_DARK = "SunnyDark"
-    let PARTLY_CLOUDY = "PartlyCloudy"
-    let PARTLY_CLOUDY_DARK = "PartlyCloudyDark"
-    let CLOUDY = "Cloudy"
-    let CLOUDY_DARK = "CloudyDark"
-    let MIST = "Mist"
-    let MIST_DARK = "MistDark"
-    let SNOW = "Snow"
-    let SNOW_DARK = "SnowDark"
-    let FREEZING_RAIN = "FreezingRain"
-    let FREEZING_RAIN_DARK = "FreezingRainDark"
-    let HEAVY_RAIN = "HeavyRain"
-    let HEAVY_RAIN_DARK = "HeavyRainDark"
-    let PARTLY_CLOUDY_RAIN = "PartlyCloudyRain"
-    let PARTLY_CLOUDY_RAIN_DARK = "PartlyCloudyRainDark"
-    let LIGHT_RAIN = "LightRain"
-    let LIGHT_RAIN_DARK = "LightRainDark"
-    let THUNDERSTORM = "Thunderstorm"
-    let THUNDERSTORM_DARK = "ThunderstormDark"
-    
     var darkModeOn: Bool?
 
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
@@ -142,86 +121,86 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     switch(weatherIDInt){
                     case 800:
                         if self.darkModeOn! == true {
-                            iconString = self.SUNNY_DARK
+                            iconString = WeatherConditions.SUNNY_DARK.rawValue
                         }
                         else {
-                            iconString = self.SUNNY
+                            iconString = WeatherConditions.SUNNY.rawValue
                         }
                         break
                     case 801:
                         if self.darkModeOn! == true {
-                            iconString = self.PARTLY_CLOUDY_DARK
+                            iconString = WeatherConditions.PARTLY_CLOUDY_DARK.rawValue
                         }
                         else {
-                            iconString = self.PARTLY_CLOUDY
+                            iconString = WeatherConditions.PARTLY_CLOUDY.rawValue
                         }
                         break
                     default:
                         if self.darkModeOn! == true {
-                            iconString = self.CLOUDY_DARK
+                            iconString = WeatherConditions.CLOUDY_DARK.rawValue
                         }
                         else {
-                            iconString = self.CLOUDY
+                            iconString = WeatherConditions.CLOUDY.rawValue
                         }
                         break
                     }
                 }
                 else if weatherIDInt >= 700{
                     if self.darkModeOn! == true {
-                        iconString = self.MIST_DARK
+                        iconString = WeatherConditions.MIST_DARK.rawValue
                     }
                     else {
-                        iconString = self.MIST
+                        iconString = WeatherConditions.MIST.rawValue
                     }
                 }
                 else if weatherIDInt >= 600{
                     if self.darkModeOn! == true {
-                        iconString = self.SNOW_DARK
+                        iconString = WeatherConditions.SNOW_DARK.rawValue
                     }
                     else{
-                        iconString = self.SNOW
+                        iconString = WeatherConditions.SNOW.rawValue
                     }
                 }
                 else if weatherIDInt >= 500{
                     if weatherIDInt == 511 {
                         if self.darkModeOn! == true {
-                            iconString = self.FREEZING_RAIN_DARK
+                            iconString = WeatherConditions.FREEZING_RAIN_DARK.rawValue
                         }
                         else {
-                            iconString = self.FREEZING_RAIN
+                            iconString = WeatherConditions.FREEZING_RAIN.rawValue
                         }
                     }
                     else if weatherIDInt <= 504 {
                         if self.darkModeOn! == true {
-                            iconString = self.HEAVY_RAIN_DARK
+                            iconString = WeatherConditions.HEAVY_RAIN_DARK.rawValue
                         }
                         else {
-                            iconString = self.HEAVY_RAIN
+                            iconString = WeatherConditions.HEAVY_RAIN.rawValue
                         }
                     }
                     else if weatherIDInt >= 520 {
                         if self.darkModeOn! == true {
-                            iconString = self.PARTLY_CLOUDY_RAIN_DARK
+                            iconString = WeatherConditions.PARTLY_CLOUDY_RAIN_DARK.rawValue
                         }
                         else {
-                            iconString = self.PARTLY_CLOUDY_RAIN
+                            iconString = WeatherConditions.PARTLY_CLOUDY_RAIN.rawValue
                         }
                     }
                 }
                 else if weatherIDInt >= 300{
                     if self.darkModeOn! == true {
-                        iconString = self.LIGHT_RAIN_DARK
+                        iconString = WeatherConditions.LIGHT_RAIN_DARK.rawValue
                     }
                     else {
-                        iconString = self.LIGHT_RAIN
+                        iconString = WeatherConditions.LIGHT_RAIN.rawValue
                     }
                 }
                 else if weatherIDInt >= 200{
                     if self.darkModeOn! == true {
-                        iconString = self.THUNDERSTORM_DARK
+                        iconString = WeatherConditions.THUNDERSTORM_DARK.rawValue
                     }
                     else {
-                        iconString = self.THUNDERSTORM
+                        iconString = WeatherConditions.THUNDERSTORM.rawValue
                     }
                 }
             }
