@@ -34,7 +34,7 @@ class ConfigureViewController: NSViewController {
         case 1:
             refreshInterval = 300
             break
-        case 2:
+        case 2  :
             refreshInterval = 900
             break
         case 3:

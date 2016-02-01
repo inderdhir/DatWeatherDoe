@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F266B342401644F881FFED7D'
+               BlueprintIdentifier = '39D92D4AE042441FD11834F9'
                BlueprintName = 'Pods-SwiftWeather'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_SwiftWeather.framework'>
