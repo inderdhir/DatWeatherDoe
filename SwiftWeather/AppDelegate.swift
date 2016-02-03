@@ -8,16 +8,19 @@
 
 import Cocoa
 import SnapHTTP
+import CoreLocation
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
     let DARK_MODE = "Dark"
-        
+    
     let weatherRetriever = WeatherRetriever()
-
+    let locationManager = CLLocationManager()
+    let locationTimerInterval = NSTimeInterval(900)
+    
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
     
     var currentTempString: String?
@@ -40,6 +43,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             weatherRetriever.setDarkMode(true)
         }
         
+        // Location
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.distanceFilter = 3000
+        
+        let locationTimer = NSTimer.scheduledTimerWithTimeInterval(locationTimerInterval, target: self, selector: "getLocation", userInfo: nil, repeats: true)
+        locationTimer.fire()
+        
         // Defaults
         self.zipCode = DefaultsChecker.getDefaultZipCode()
         self.refreshInterval = DefaultsChecker.getDefaultRefreshInterval()
@@ -57,10 +68,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
         
-        // Timer
-        let timer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeather", userInfo: nil, repeats: true)
-        timer.fire()
-        timer.fire() // Fired twice due to a bug where the icon and temperature don't display properly the first time
+        // Weather Timer
+        let weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeather", userInfo: nil, repeats: true)
+        weatherTimer.fire()
+        weatherTimer.fire() // Fired twice due to a bug where the icon and temperature don't display properly the first time
         
         // Event monitor to listen for clicks outside the popover
         eventMonitor = EventMonitor(mask: NSEventMask.LeftMouseDownMask) { [unowned self] event in
@@ -69,6 +80,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         eventMonitor!.start()
+    }
+    
+    func getLocation() {
+        locationManager.startUpdatingLocation();
     }
     
     func getWeather(){
@@ -121,6 +136,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+    }
+    
+    //CLLocationManagerDelegate
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }
 
