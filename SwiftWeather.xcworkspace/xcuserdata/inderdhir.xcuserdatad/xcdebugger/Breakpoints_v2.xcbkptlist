@@ -10,27 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftWeather/AppDelegate.swift"
-            timestampString = "475811692.584897"
+            timestampString = "475946202.317736"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "getWeather()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftWeather/AppDelegate.swift"
-            timestampString = "475811692.584897"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "applicationDidFinishLaunching(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -57,14 +41,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SwiftWeather/AppDelegate.swift"
-            timestampString = "475811692.584897"
+            filePath = "SwiftWeather/WeatherRetriever.swift"
+            timestampString = "475866624.611374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "applicationDidFinishLaunching(_:)"
-            landmarkType = "5">
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "WeatherRetriever"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,12 +58,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftWeather/AppDelegate.swift"
-            timestampString = "475811589.68395"
+            timestampString = "476162966.887158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "getWeather()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftWeather.AppDelegate.getWeather (SwiftWeather.AppDelegate)() -&gt; ()"
+                  moduleName = "SwiftWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/inderdhir/Stuff/XCodeProjects/SwiftWeather/SwiftWeather/AppDelegate.swift"
+                  timestampString = "476162287.120137"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "217">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftWeather.AppDelegate.(getWeather (SwiftWeather.AppDelegate) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "SwiftWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/inderdhir/Stuff/XCodeProjects/SwiftWeather/SwiftWeather/AppDelegate.swift"
+                  timestampString = "476162287.120274"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftWeather/WeatherRetriever.swift"
+            timestampString = "476163126.295721"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getWeather(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
