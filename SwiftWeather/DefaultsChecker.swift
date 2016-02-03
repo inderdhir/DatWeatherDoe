@@ -14,7 +14,8 @@ final class DefaultsChecker {
     
     static let ZIP_CODE_CONFIG = "ZipCodeConfig"
     static let REFRESH_INTERVAL_CONFIG = "RefreshIntervalConfig"
-    static let UNIT_CONFIG = "Unit"
+    static let UNIT_CONFIG = "UnitConfig"
+    static let LOCATION_CONFIG = "LocationConfig"
     
 
     static func getDefaultZipCode() -> String {
@@ -37,10 +38,24 @@ final class DefaultsChecker {
     
     static func getDefaultUnit() -> String {
         if let savedUnit = defaults.stringForKey(UNIT_CONFIG) {
-            return savedUnit
+            if savedUnit == TemperatureUnits.F_UNIT.rawValue || savedUnit == TemperatureUnits.C_UNIT.rawValue {
+                return savedUnit
+            }
+            else {
+                return TemperatureUnits.F_UNIT.rawValue
+            }
         }
         else {
             return TemperatureUnits.F_UNIT.rawValue
+        }
+    }
+    
+    static func getDefaultLocationUsedToggle() -> Bool {
+        if let savedUnit: Bool? = defaults.boolForKey(LOCATION_CONFIG) {
+            return savedUnit!
+        }
+        else {
+            return true
         }
     }
     
@@ -54,5 +69,9 @@ final class DefaultsChecker {
     
     static func setDefaultUnit(unit: String) {
         defaults.setObject(unit, forKey: UNIT_CONFIG)
+    }
+    
+    static func setDefaultLocationUsedToggle(isUsed: Bool) {
+        defaults.setBool(isUsed, forKey: UNIT_CONFIG)
     }
 }
