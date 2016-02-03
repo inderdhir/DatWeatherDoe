@@ -1,4 +1,4 @@
-    //
+//
 //  AppDelegate.swift
 //  SwiftWeather
 //
@@ -20,17 +20,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     let weatherRetriever = WeatherRetriever()
     let locationManager = CLLocationManager()
     let locationTimerInterval = NSTimeInterval(900)
+    var locationTimer: NSTimer?
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+    
+    var firstTimeLocationUse: Bool?
+    var weatherTimer: NSTimer?
     
     var currentTempString: String?
     var currentIconString: String?
     var currentImageData: NSImage?
+    var currentLocation: CLLocationCoordinate2D?
     let popover = NSPopover()
             
     var zipCode: String?
     var refreshInterval: NSTimeInterval?
     var unit: String?
+    var locationUsed: Bool?
     
     var eventMonitor: EventMonitor?
     
@@ -44,17 +50,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
         
         // Location
+        firstTimeLocationUse = true
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        locationManager.distanceFilter = 3000
+        locationManager.distanceFilter = 3000 // Only worry about location distance above 3 km
         
-        let locationTimer = NSTimer.scheduledTimerWithTimeInterval(locationTimerInterval, target: self, selector: "getLocation", userInfo: nil, repeats: true)
-        locationTimer.fire()
+        self.locationTimer = createLocationTimer()
         
         // Defaults
         self.zipCode = DefaultsChecker.getDefaultZipCode()
         self.refreshInterval = DefaultsChecker.getDefaultRefreshInterval()
         self.unit = DefaultsChecker.getDefaultUnit()
+        self.locationUsed = DefaultsChecker.getDefaultLocationUsedToggle()
         
         // Menu
         let menu = NSMenu()
@@ -69,9 +76,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
         
         // Weather Timer
-        let weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeather", userInfo: nil, repeats: true)
-        weatherTimer.fire()
-        weatherTimer.fire() // Fired twice due to a bug where the icon and temperature don't display properly the first time
+        if self.locationUsed == true {
+            self.weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeatherViaLocation", userInfo: nil, repeats: true)
+            self.locationTimer!.fire()
+        }
+        else {
+            self.weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeatherViaZipCode", userInfo: nil, repeats: true)
+        }
+        
+        self.weatherTimer!.fire()
+        self.weatherTimer!.fire() // Fired twice due to a bug where the icon and temperature don't display properly the first time
         
         // Event monitor to listen for clicks outside the popover
         eventMonitor = EventMonitor(mask: NSEventMask.LeftMouseDownMask) { [unowned self] event in
@@ -86,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation();
     }
     
-    func getWeather(){
+    func getWeatherViaZipCode() {
         if zipCode != nil {
             self.weatherRetriever.getWeather(self.zipCode!, unit: self.unit!) {
                 (currentTempString: String, iconString: String) in
@@ -95,6 +109,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
                     self.updateUI()
             }
         }
+    }
+    
+    func getWeatherViaLocation() {
+        if self.firstTimeLocationUse == true {
+            getLocation()
+        }
+        else if currentLocation != nil {
+            self.weatherRetriever.getWeather(self.currentLocation!, unit: self.unit!) {
+                (currentTempString: String, iconString: String) in
+                self.updateWeather(currentTempString)
+                self.updateIcon(iconString)
+                self.updateUI()
+            }
+        }
+    }
+    
+    func createLocationTimer() -> NSTimer {
+        return NSTimer.scheduledTimerWithTimeInterval(locationTimerInterval, target: self, selector: "getLocation", userInfo: nil, repeats: true)
     }
     
     func updateIcon(iconString: String){
@@ -114,6 +146,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
     }
     
+    /* Popover stuff for listening for clicks outside the configure window */
     func showPopover(sender: AnyObject?) {
         if let button = statusItem.button {
             popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: NSRectEdge.MinY)
@@ -135,14 +168,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
+
         // Insert code here to tear down your application
+        DefaultsChecker.setDefaultZipCode(zipCode!)
+        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
+        DefaultsChecker.setDefaultUnit(unit!)
+        DefaultsChecker.setDefaultLocationUsedToggle(self.locationUsed!)
+    }
+    
+    // If user declines location permission
+    func locationManager(manager: CLLocationManager,
+        didFailWithError error: NSError) {
+        self.getWeatherViaZipCode()
+        self.locationUsed = false
+        self.locationTimer?.invalidate()
+            
+        // Remember location toggle
+        DefaultsChecker.setDefaultLocationUsedToggle(false)
     }
     
     //CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        self.currentLocation = manager.location!.coordinate
         
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        if self.firstTimeLocationUse == true {
+            self.firstTimeLocationUse = false
+            self.getWeatherViaLocation()
+        }
+        
+        // Remember location toggle
+        DefaultsChecker.setDefaultLocationUsedToggle(true)
     }
 }
 
