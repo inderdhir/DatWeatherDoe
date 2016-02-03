@@ -35,7 +35,7 @@ class WeatherRetriever {
         darkModeOn = value
     }
 
-    func getWeather(zipCode: String, completion: (currentFahrenheitTempString: String, iconString: String) -> Void){
+    func getWeather(zipCode: String, unit: String, completion: (currentTempString: String, iconString: String) -> Void){
         http.get(API_URL).params([ZIP: zipCode, APPID: APP_ID!]) { resp in
             
             // Error
@@ -45,16 +45,23 @@ class WeatherRetriever {
             }
             
             // Temperature
-            var currentFahrenheitTempString: String? = nil
+            var currentTempString: String? = nil
             if let dict = resp.json as? NSDictionary, mainDict = dict["main"] as? NSDictionary, temp = mainDict["temp"] {
                 let doubleTemp = (temp as! NSNumber).doubleValue
-                let fahrenheitTemp = ((doubleTemp - 273.15) * 1.8) + 32
+                var temperature: Double? = nil
+                
+                if unit == TemperatureUnits.F_UNIT.rawValue {
+                    temperature = ((doubleTemp - 273.15) * 1.8) + 32
+                }
+                else {
+                    temperature = doubleTemp - 273.15
+                }
                 
                 let formatter = NSNumberFormatter()
                 formatter.numberStyle = .DecimalStyle
-                formatter.maximumSignificantDigits = 3
+                formatter.maximumFractionDigits = 1
                 
-                currentFahrenheitTempString = formatter.stringFromNumber(fahrenheitTemp)! + "\u{00B0}"
+                currentTempString = formatter.stringFromNumber(temperature!)! + "\u{00B0}"
             }
             
             // Icon
@@ -150,7 +157,7 @@ class WeatherRetriever {
                 }
             }
             
-            completion(currentFahrenheitTempString: currentFahrenheitTempString!, iconString: iconString!)
+            completion(currentTempString: currentTempString!, iconString: iconString!)
         }
     }
 }

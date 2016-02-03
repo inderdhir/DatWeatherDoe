@@ -20,13 +20,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
     
-    var currentFahrenheitTempString: String?
+    var currentTempString: String?
     var currentIconString: String?
     var currentImageData: NSImage?
     let popover = NSPopover()
             
     var zipCode: String?
     var refreshInterval: NSTimeInterval?
+    var unit: String?
     
     var eventMonitor: EventMonitor?
     
@@ -42,6 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Defaults
         self.zipCode = DefaultsChecker.getDefaultZipCode()
         self.refreshInterval = DefaultsChecker.getDefaultRefreshInterval()
+        self.unit = DefaultsChecker.getDefaultUnit()
         
         // Menu
         let menu = NSMenu()
@@ -71,9 +73,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func getWeather(){
         if zipCode != nil {
-            self.weatherRetriever.getWeather(self.zipCode!) {
-                (currentFahrenheitTempString: String, iconString: String) in
-                    self.updateWeather(currentFahrenheitTempString)
+            self.weatherRetriever.getWeather(self.zipCode!, unit: self.unit!) {
+                (currentTempString: String, iconString: String) in
+                    self.updateWeather(currentTempString)
                     self.updateIcon(iconString)
                     self.updateUI()
             }
@@ -84,16 +86,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.currentImageData = NSImage(named: iconString)
     }
     
-    func updateWeather(currentFahrenheitTempString: String){
-        self.currentFahrenheitTempString = currentFahrenheitTempString
+    func updateWeather(currentTempString: String){
+        self.currentTempString = currentTempString
     }
     
     func updateUI(){
         if currentImageData != nil {
             self.statusItem.image = currentImageData!
         }
-        if currentFahrenheitTempString != nil {
-            self.statusItem.title = self.currentFahrenheitTempString!
+        if currentTempString != nil {
+            self.statusItem.title = self.currentTempString!
         }
     }
     
