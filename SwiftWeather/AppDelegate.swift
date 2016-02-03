@@ -71,37 +71,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func getWeather(){
         if zipCode != nil {
-//            (self.currentFahrenheitTempString!, self.currentIconString!) = weatherRetriever.getWeather(zipCode!)
+            self.weatherRetriever.getWeather(self.zipCode!) {
+                (currentFahrenheitTempString: String, iconString: String) in
+                    self.updateWeather(currentFahrenheitTempString)
+                    self.updateIcon(iconString)
+                    self.updateUI()
+            }
         }
-        
-        self.weatherRetriever.getWeather(self.zipCode!)
-        print(self.weatherRetriever.currentFahrenheitTempString)
-
-//        dispatch_sync(dispatch_get_main_queue(), {
-//            print(self.weatherRetriever.currentFahrenheitTempString)
-//        })
-        
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//            // Background work
-//            self.weatherRetriever.getWeather(self.zipCode!)
-//
-//            dispatch_async(dispatch_get_main_queue(), {
-//                print(self.weatherRetriever.currentFahrenheitTempString)
-//
-//            })
-//        })
-    
-//        if self.currentIconString != nil {
-//            self.getIcon(self.currentIconString!)
-//        }
     }
     
-    func getIcon(iconString: String){
+    func updateIcon(iconString: String){
         self.currentImageData = NSImage(named: iconString)
-        self.updateWeather()
     }
     
-    func updateWeather(){
+    func updateWeather(currentFahrenheitTempString: String){
+        self.currentFahrenheitTempString = currentFahrenheitTempString
+    }
+    
+    func updateUI(){
         if currentImageData != nil {
             self.statusItem.image = currentImageData!
         }

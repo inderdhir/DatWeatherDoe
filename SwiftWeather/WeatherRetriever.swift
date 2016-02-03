@@ -19,9 +19,6 @@ class WeatherRetriever {
     
     var APP_ID: String?
     var darkModeOn: Bool?
-
-    var currentFahrenheitTempString: String?
-    var iconString: String?
     
     
     init(){
@@ -38,9 +35,9 @@ class WeatherRetriever {
         darkModeOn = value
     }
 
-    func getWeather(zipCode: String){
+    func getWeather(zipCode: String, completion: (currentFahrenheitTempString: String, iconString: String) -> Void){
         http.get(API_URL).params([ZIP: zipCode, APPID: APP_ID!]) { resp in
-    
+            
             // Error
             if resp.error != nil {
                 print("\(resp.error!)")
@@ -48,6 +45,7 @@ class WeatherRetriever {
             }
             
             // Temperature
+            var currentFahrenheitTempString: String? = nil
             if let dict = resp.json as? NSDictionary, mainDict = dict["main"] as? NSDictionary, temp = mainDict["temp"] {
                 let doubleTemp = (temp as! NSNumber).doubleValue
                 let fahrenheitTemp = ((doubleTemp - 273.15) * 1.8) + 32
@@ -56,11 +54,11 @@ class WeatherRetriever {
                 formatter.numberStyle = .DecimalStyle
                 formatter.maximumSignificantDigits = 3
                 
-                self.currentFahrenheitTempString = formatter.stringFromNumber(fahrenheitTemp)! + "\u{00B0}"
+                currentFahrenheitTempString = formatter.stringFromNumber(fahrenheitTemp)! + "\u{00B0}"
             }
             
             // Icon
-            var iconString: String?
+            var iconString: String? = nil
             if let weatherID = (((resp.json as! NSDictionary)["weather"] as! NSArray)[0] as! NSDictionary)["id"]{
                 let weatherIDInt = weatherID.intValue
                 
@@ -68,89 +66,91 @@ class WeatherRetriever {
                     switch(weatherIDInt){
                     case 800:
                         if self.darkModeOn! == true {
-                            self.iconString = WeatherConditions.SUNNY_DARK.rawValue
+                            iconString = WeatherConditions.SUNNY_DARK.rawValue
                         }
                         else {
-                            self.iconString = WeatherConditions.SUNNY.rawValue
+                            iconString = WeatherConditions.SUNNY.rawValue
                         }
                         break
                     case 801:
                         if self.darkModeOn! == true {
-                            self.iconString = WeatherConditions.PARTLY_CLOUDY_DARK.rawValue
+                            iconString = WeatherConditions.PARTLY_CLOUDY_DARK.rawValue
                         }
                         else {
-                            self.iconString = WeatherConditions.PARTLY_CLOUDY.rawValue
+                            iconString = WeatherConditions.PARTLY_CLOUDY.rawValue
                         }
                         break
                     default:
                         if self.darkModeOn! == true {
-                            self.iconString = WeatherConditions.CLOUDY_DARK.rawValue
+                            iconString = WeatherConditions.CLOUDY_DARK.rawValue
                         }
                         else {
-                            self.iconString = WeatherConditions.CLOUDY.rawValue
+                            iconString = WeatherConditions.CLOUDY.rawValue
                         }
                         break
                     }
                 }
                 else if weatherIDInt >= 700{
                     if self.darkModeOn! == true {
-                        self.iconString = WeatherConditions.MIST_DARK.rawValue
+                        iconString = WeatherConditions.MIST_DARK.rawValue
                     }
                     else {
-                        self.iconString = WeatherConditions.MIST.rawValue
+                        iconString = WeatherConditions.MIST.rawValue
                     }
                 }
                 else if weatherIDInt >= 600{
                     if self.darkModeOn! == true {
-                        self.iconString = WeatherConditions.SNOW_DARK.rawValue
+                        iconString = WeatherConditions.SNOW_DARK.rawValue
                     }
                     else{
-                        self.iconString = WeatherConditions.SNOW.rawValue
+                        iconString = WeatherConditions.SNOW.rawValue
                     }
                 }
                 else if weatherIDInt >= 500{
                     if weatherIDInt == 511 {
                         if self.darkModeOn! == true {
-                            self.iconString = WeatherConditions.FREEZING_RAIN_DARK.rawValue
+                            iconString = WeatherConditions.FREEZING_RAIN_DARK.rawValue
                         }
                         else {
-                            self.iconString = WeatherConditions.FREEZING_RAIN.rawValue
+                            iconString = WeatherConditions.FREEZING_RAIN.rawValue
                         }
                     }
                     else if weatherIDInt <= 504 {
                         if self.darkModeOn! == true {
-                            self.iconString = WeatherConditions.HEAVY_RAIN_DARK.rawValue
+                            iconString = WeatherConditions.HEAVY_RAIN_DARK.rawValue
                         }
                         else {
-                            self.iconString = WeatherConditions.HEAVY_RAIN.rawValue
+                            iconString = WeatherConditions.HEAVY_RAIN.rawValue
                         }
                     }
                     else if weatherIDInt >= 520 {
                         if self.darkModeOn! == true {
-                            self.iconString = WeatherConditions.PARTLY_CLOUDY_RAIN_DARK.rawValue
+                            iconString = WeatherConditions.PARTLY_CLOUDY_RAIN_DARK.rawValue
                         }
                         else {
-                            self.iconString = WeatherConditions.PARTLY_CLOUDY_RAIN.rawValue
+                            iconString = WeatherConditions.PARTLY_CLOUDY_RAIN.rawValue
                         }
                     }
                 }
                 else if weatherIDInt >= 300{
                     if self.darkModeOn! == true {
-                        self.iconString = WeatherConditions.LIGHT_RAIN_DARK.rawValue
+                        iconString = WeatherConditions.LIGHT_RAIN_DARK.rawValue
                     }
                     else {
-                        self.iconString = WeatherConditions.LIGHT_RAIN.rawValue
+                        iconString = WeatherConditions.LIGHT_RAIN.rawValue
                     }
                 }
                 else if weatherIDInt >= 200{
                     if self.darkModeOn! == true {
-                        self.iconString = WeatherConditions.THUNDERSTORM_DARK.rawValue
+                        iconString = WeatherConditions.THUNDERSTORM_DARK.rawValue
                     }
                     else {
-                        self.iconString = WeatherConditions.THUNDERSTORM.rawValue
+                        iconString = WeatherConditions.THUNDERSTORM.rawValue
                     }
                 }
             }
+            
+            completion(currentFahrenheitTempString: currentFahrenheitTempString!, iconString: iconString!)
         }
     }
 }
