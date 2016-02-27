@@ -19,6 +19,10 @@ final class DefaultsChecker {
     
 
     static func getDefaultZipCode() -> String {
+        if defaults.objectForKey(ZIP_CODE_CONFIG) == nil {
+            return "10021,us"
+        }
+        
         if let savedZipCode = defaults.stringForKey(ZIP_CODE_CONFIG) {
             return savedZipCode
         }
@@ -51,6 +55,11 @@ final class DefaultsChecker {
     }
     
     static func getDefaultLocationUsedToggle() -> Bool {
+        // Needed since non-existant key returns false
+        if defaults.objectForKey(LOCATION_CONFIG) == nil {
+            return true
+        }
+        
         if let savedUnit: Bool? = defaults.boolForKey(LOCATION_CONFIG) {
             return savedUnit!
         }
@@ -72,6 +81,6 @@ final class DefaultsChecker {
     }
     
     static func setDefaultLocationUsedToggle(isUsed: Bool) {
-        defaults.setBool(isUsed, forKey: UNIT_CONFIG)
+        defaults.setBool(isUsed, forKey: LOCATION_CONFIG)
     }
 }

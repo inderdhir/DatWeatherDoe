@@ -79,10 +79,9 @@ class WeatherRetriever {
     // Response
     func parseResponse(resp: HTTP.Response, unit: String, completion: (currentTempString: String, iconString: String) -> Void)
     {
-        
         // Temperature
         var currentTempString: String? = nil
-        if let dict = resp.json as? NSDictionary, mainDict = dict["main"] as? NSDictionary, weatherDict = dict["weather"] as? NSArray, temp = mainDict["temp"] {
+        if let dict = resp.json as? NSDictionary, mainDict = dict["main"] as? NSDictionary, temp = mainDict["temp"], weatherDict = ((dict["weather"] as! NSArray)[0] as? NSDictionary) {
             let doubleTemp = (temp as! NSNumber).doubleValue
             var temperature: Double? = nil
             
@@ -97,7 +96,7 @@ class WeatherRetriever {
             
             // Icon
             var iconString: String? = nil
-            if let weatherID = (weatherDict[0] as? NSDictionary)!["id"]{
+            if let weatherID = weatherDict["id"]{
                 let weatherIDInt = weatherID.intValue
                 
                 if weatherIDInt >= 800 && weatherIDInt <= 900{
@@ -188,6 +187,7 @@ class WeatherRetriever {
                 }
             }
             completion(currentTempString: currentTempString!, iconString: iconString!)
+        
         }
     }
 }
