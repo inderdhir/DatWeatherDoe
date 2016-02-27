@@ -2,6 +2,7 @@
 Keys.plist
 
 # Xcode
+.DS_Store
 
 ## Build generated
 build/
