@@ -65,8 +65,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         
         // Menu
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
+        menu.addItem(NSMenuItem(title: "Refresh", action: Selector("getWeather:"), keyEquivalent: "R"))
         menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
         menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
         statusItem.menu = menu
         
@@ -98,6 +99,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     
     func getLocation() {
         locationManager.startUpdatingLocation();
+    }
+    
+    func getWeather(sender: AnyObject?) {
+        if locationUsed == true {
+            getWeatherViaLocation()
+        }
+        else {
+            getWeatherViaZipCode()
+        }
     }
     
     func getWeatherViaZipCode() {
