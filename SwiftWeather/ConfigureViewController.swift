@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ConfigureViewController: NSViewController {
+class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     let intervalStrings: [String] = ["1 min", "5 min", "15 min", "30 min", "60 min"]
     
@@ -25,7 +25,6 @@ class ConfigureViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        zipCodeField.placeholderString = "10021"
         refreshIntervals.removeAllItems()
         refreshIntervals.addItemsWithTitles(intervalStrings)
         refreshIntervals.setTitle(intervalStrings[0])
@@ -50,6 +49,8 @@ class ConfigureViewController: NSViewController {
             useLocationToggleCheckBox.state = NSOffState
             locationEnabledUpdate(false)
         }
+        
+        zipCodeField.delegate = self
     }
     
     
@@ -107,7 +108,7 @@ class ConfigureViewController: NSViewController {
         
         // Save all preferences
         if(zipCodeField.stringValue.characters.count > 0){
-            zipCode = zipCodeField.stringValue + ",us"
+            zipCode = zipCodeField.stringValue
         }
         else{
             zipCode = "10021,us"

@@ -12,6 +12,8 @@ import CoreLocation
 
 class WeatherRetriever {
     
+    let CMC_STATIONS = "cmc stations"
+    
     let API_URL = "http://api.openweathermap.org/data/2.5/weather"
     let OPENWEATHERMAP_APP_ID = "OPENWEATHERMAP_APP_ID"
     
@@ -75,6 +77,28 @@ class WeatherRetriever {
             self.parseResponse(resp, unit: unit, completion: completion)
         }
     }
+    
+//    func validateZipCode(zipCode: String, completion: (zipCodeValid: Bool) -> Void){
+//        http.get(API_URL).params([ZIP: zipCode, APPID: APP_ID!]) { resp in
+//            var valid = false
+//
+//            // Error
+//            if resp.error != nil {
+//                print("\(resp.error!)")
+//                return
+//            }
+//            
+//            if let dict = resp.json as? NSDictionary {
+//                if let base = dict["base"] as? NSString {
+//                    if base != self.CMC_STATIONS {
+//                        valid = true
+//                    }
+//                }
+//            }
+//            
+//            completion(zipCodeValid: valid)
+//        }
+//    }
     
     // Response
     func parseResponse(resp: HTTP.Response, unit: String, completion: (currentTempString: String, iconString: String) -> Void)
