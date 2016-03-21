@@ -180,10 +180,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     func applicationWillTerminate(aNotification: NSNotification) {
 
         // Insert code here to tear down your application
-        DefaultsChecker.setDefaultZipCode(zipCode!)
-        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
-        DefaultsChecker.setDefaultUnit(unit!)
-        DefaultsChecker.setDefaultLocationUsedToggle(self.locationUsed!)
+        
+//        DefaultsChecker.setDefaultZipCode(zipCode!)
+//        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
+//        DefaultsChecker.setDefaultUnit(unit!)
+//        DefaultsChecker.setDefaultLocationUsedToggle(self.locationUsed!)
     }
     
     // If user declines location permission

@@ -29,6 +29,8 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         refreshIntervals.addItemsWithTitles(intervalStrings)
         refreshIntervals.setTitle(intervalStrings[0])
         
+        zipCodeField.delegate = self
+
         // Radio buttons
         fahrenheitRadioButton.title = FAHRENHEIT_STRING
         celsiusRadioButton.title = CELSIUS_STRING
@@ -43,19 +45,32 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
         if DefaultsChecker.getDefaultLocationUsedToggle() == true {
             useLocationToggleCheckBox.state = NSOnState
-            locationEnabledUpdate(true)
+            zipCodeField.enabled = false
         }
         else {
             useLocationToggleCheckBox.state = NSOffState
-            locationEnabledUpdate(false)
+            zipCodeField.enabled = true
         }
+        zipCodeField.placeholderString = DefaultsChecker.getDefaultZipCode()
         
-        zipCodeField.delegate = self
-    }
-    
-    
-    func locationEnabledUpdate(enabled: Bool) {
-        zipCodeField.enabled = !enabled
+        let refreshInterval = Int(DefaultsChecker.getDefaultRefreshInterval())
+        switch refreshInterval {
+        case 300:
+            refreshIntervals.selectItemAtIndex(1)
+            break
+        case 900:
+            refreshIntervals.selectItemAtIndex(2)
+            break
+        case 1800:
+            refreshIntervals.selectItemAtIndex(3)
+            break
+        case 3600:
+            refreshIntervals.selectItemAtIndex(4)
+            break
+        default:
+            refreshIntervals.selectItemAtIndex(0)
+            break
+        }
     }
     
     @IBAction func radioButtonClicked(sender: NSButton) {
@@ -75,10 +90,10 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func uselocationCheckboxClicked(sender: NSButton) {
         if sender.state == NSOnState {
-            locationEnabledUpdate(true)
+            zipCodeField.enabled = false
         }
         else {
-            locationEnabledUpdate(false)
+            zipCodeField.enabled = true
         }
     }
     
