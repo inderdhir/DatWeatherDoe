@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-SwiftWeather.xcscheme</key>
+		<key>Pods-DatWeatherDoe.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>19B9471437EDC684A314042EF6B4A0E1</key>
+		<key>2E6F9DD082501F711588576FD693B875</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>475E0BD5A312604074F9333C5EE7272C</key>
+		<key>685D10A7CF54E478C39FEF62C3B95A5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
