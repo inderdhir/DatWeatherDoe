@@ -65,24 +65,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         
         // Menu
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Refresh", action: Selector("getWeather:"), keyEquivalent: "R"))
+        menu.addItem(NSMenuItem(title: "Refresh", action: #selector(getWeather), keyEquivalent: "R"))
         menu.addItem(NSMenuItem.separatorItem())
-        menu.addItem(NSMenuItem(title: "Configure", action: Selector("togglePopover:"), keyEquivalent: "C"))
-        menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Configure", action: #selector(togglePopover), keyEquivalent: "C"))
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(terminate), keyEquivalent: "q"))
         statusItem.menu = menu
         
         if let button = statusItem.button {
-            button.action = Selector("togglePopover:")
+            button.action = #selector(togglePopover)
         }
         popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
         
         // Weather Timer
         if self.locationUsed == true {
-            self.weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeatherViaLocation", userInfo: nil, repeats: true)
+            self.weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: #selector(getWeatherViaLocation), userInfo: nil, repeats: true)
             self.locationTimer!.fire()
         }
         else {
-            self.weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: "getWeatherViaZipCode", userInfo: nil, repeats: true)
+            self.weatherTimer = NSTimer.scheduledTimerWithTimeInterval(refreshInterval!, target: self, selector: #selector(getWeatherViaZipCode), userInfo: nil, repeats: true)
         }
         
         self.weatherTimer!.fire()
@@ -136,7 +136,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
     
     func createLocationTimer() -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(locationTimerInterval, target: self, selector: "getLocation", userInfo: nil, repeats: true)
+        return NSTimer.scheduledTimerWithTimeInterval(locationTimerInterval, target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
     }
     
     func updateIcon(iconString: String){
@@ -175,6 +175,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         } else {
             showPopover(sender)
         }
+    }
+    
+    func terminate(){
+        NSApp.terminate(self)
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
