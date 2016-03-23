@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '2B6FA8C19471DE56900E0F2E'
+               BlueprintIdentifier = 'B36BDD66B00AAAEB38B46488'
                BlueprintName = 'SnapHTTP'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SnapHTTP.framework'>

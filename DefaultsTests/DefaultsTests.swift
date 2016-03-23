@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SwiftWeather
+@testable import DatWeatherDoe
 
 class DefaultsTests: XCTestCase {
     
