@@ -24,10 +24,10 @@ class DefaultsTests: XCTestCase {
 //        }
 //        NSUserDefaults.standardUserDefaults().synchronize()
 
-        let appDomain = NSBundle.mainBundle().bundleIdentifier!
-        NSUserDefaults.resetStandardUserDefaults()
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        let appDomain = Bundle.main.bundleIdentifier!
+        UserDefaults.resetStandardUserDefaults()
+        UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        UserDefaults.standard.synchronize()
     }
     
     override func tearDown() {

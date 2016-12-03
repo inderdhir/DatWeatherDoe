@@ -9,22 +9,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SnapHTTP.xcscheme</key>
+		<key>SwiftHTTP.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2E6F9DD082501F711588576FD693B875</key>
+		<key>59B0CAE83442E990AF1C05C9971BC27D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>685D10A7CF54E478C39FEF62C3B95A5B</key>
+		<key>C7C1694475DB6D72C1B684CAE21938D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

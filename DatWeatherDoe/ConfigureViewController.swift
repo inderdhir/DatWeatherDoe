@@ -26,7 +26,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         super.viewDidLoad()
         
         refreshIntervals.removeAllItems()
-        refreshIntervals.addItemsWithTitles(intervalStrings)
+        refreshIntervals.addItems(withTitles: intervalStrings)
         refreshIntervals.setTitle(intervalStrings[0])
         
         zipCodeField.delegate = self
@@ -45,35 +45,35 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
         if DefaultsChecker.getDefaultLocationUsedToggle() == true {
             useLocationToggleCheckBox.state = NSOnState
-            zipCodeField.enabled = false
+            zipCodeField.isEnabled = false
         }
         else {
             useLocationToggleCheckBox.state = NSOffState
-            zipCodeField.enabled = true
+            zipCodeField.isEnabled = true
         }
         zipCodeField.placeholderString = DefaultsChecker.getDefaultZipCode()
         
         let refreshInterval = Int(DefaultsChecker.getDefaultRefreshInterval())
         switch refreshInterval {
         case 300:
-            refreshIntervals.selectItemAtIndex(1)
+            refreshIntervals.selectItem(at: 1)
             break
         case 900:
-            refreshIntervals.selectItemAtIndex(2)
+            refreshIntervals.selectItem(at: 2)
             break
         case 1800:
-            refreshIntervals.selectItemAtIndex(3)
+            refreshIntervals.selectItem(at: 3)
             break
         case 3600:
-            refreshIntervals.selectItemAtIndex(4)
+            refreshIntervals.selectItem(at: 4)
             break
         default:
-            refreshIntervals.selectItemAtIndex(0)
+            refreshIntervals.selectItem(at: 0)
             break
         }
     }
     
-    @IBAction func radioButtonClicked(sender: NSButton) {
+    @IBAction func radioButtonClicked(_ sender: NSButton) {
         if sender.title == FAHRENHEIT_STRING {
             if fahrenheitRadioButton.state == NSOffState {
                 sender.state = NSOnState
@@ -88,17 +88,17 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    @IBAction func uselocationCheckboxClicked(sender: NSButton) {
+    @IBAction func uselocationCheckboxClicked(_ sender: NSButton) {
         if sender.state == NSOnState {
-            zipCodeField.enabled = false
+            zipCodeField.isEnabled = false
         }
         else {
-            zipCodeField.enabled = true
+            zipCodeField.isEnabled = true
         }
     }
     
-    @IBAction func doneButtonPressed(sender: AnyObject) {
-        let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+    @IBAction func doneButtonPressed(_ sender: AnyObject) {
+        let appDelegate = NSApplication.shared().delegate as! AppDelegate
         var zipCode: String? = nil
         var refreshInterval: Double? = nil
         var unit: String? = nil
@@ -137,7 +137,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         
         
         appDelegate.zipCode = zipCode!
-        appDelegate.refreshInterval = NSTimeInterval(refreshInterval!)
+        appDelegate.refreshInterval = TimeInterval(refreshInterval!)
         appDelegate.unit = unit
         appDelegate.getWeatherViaZipCode()
         

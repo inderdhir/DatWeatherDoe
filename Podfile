@@ -4,5 +4,5 @@
 use_frameworks!
 
 target ‘DatWeatherDoe’ do
-    pod 'SnapHTTP'
+    pod 'SwiftHTTP', '~> 2.0.0'
 end

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SnapHTTP
+import SwiftHTTP
 import CoreLocation
 
 class WeatherRetriever {
@@ -17,8 +17,8 @@ class WeatherRetriever {
     let API_URL = "http://api.openweathermap.org/data/2.5/weather"
     let OPENWEATHERMAP_APP_ID = "OPENWEATHERMAP_APP_ID"
     
-    let formatter = NSNumberFormatter()
-
+    let formatter = NumberFormatter()
+    
     // Params
     let ZIP = "zip"
     let APPID = "appid"
@@ -31,187 +31,183 @@ class WeatherRetriever {
     
     init(){
         // Get App ID
-        if let filePath = NSBundle.mainBundle().pathForResource("Keys", ofType:"plist") {
+        if let filePath = Bundle.main.path(forResource: "Keys", ofType:"plist") {
             let plist = NSDictionary(contentsOfFile:filePath)
             self.APP_ID = plist![OPENWEATHERMAP_APP_ID] as? String
         }
         
         // Weather string formatter
-        formatter.numberStyle = .DecimalStyle
+        formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 1
         
         darkModeOn = false
     }
-        
-    func setDarkMode(value: Bool){
+    
+    func setDarkMode(_ value: Bool){
         darkModeOn = value
     }
-
+    
     // Zipcode-based weather
-    func getWeather(zipCode: String, unit: String, completion: (currentTempString: String, iconString: String) -> Void){
-        http.get(API_URL).params([ZIP: zipCode, APPID: APP_ID!]) { resp in
-            
-            // Error
-            if resp.error != nil {
-                print("\(resp.error!)")
-                return
+    func getWeather(_ zipCode: String, unit: String, completion: @escaping (_ currentTempString: String, _ iconString: String) -> Void){
+        do {
+            try HTTP.GET(API_URL, parameters: [ZIP: zipCode, APPID: APP_ID!]).start { response in
+                if let err = response.error {
+                    print("error: \(err.localizedDescription)")
+                    return //also notify app of failure as needed
+                }
+                self.parseResponse(response, unit: unit, completion: completion)
+                
+                print("opt finished: \(response.description)")
+                //print("data is: \(response.data)") access the response of the data with response.data
+                
             }
-            
-            self.parseResponse(resp, unit: unit, completion: completion)
+        } catch let error {
+            print("got an error creating the request: \(error)")
         }
     }
     
+    
     // Location-based weather
-    func getWeather(location: CLLocationCoordinate2D, unit: String, completion: (currentTempString: String, iconString: String) -> Void){
+    func getWeather(_ location: CLLocationCoordinate2D, unit: String, completion: @escaping (_ currentTempString: String, _ iconString: String) -> Void){
         let latitude: String = "\(location.latitude)"
         let longitude: String = "\(location.longitude)"
         
-        http.get(API_URL).params([LATITUDE: latitude, LONGITUDE: longitude, APPID: APP_ID!]) { resp in
-            
-            // Error
-            if resp.error != nil {
-                print("\(resp.error!)")
-                return
+        do {
+            try HTTP.GET(API_URL, parameters: [LATITUDE: latitude, LONGITUDE: longitude, APPID: APP_ID!]).start { response in
+                if let err = response.error {
+                    print("error: \(err.localizedDescription)")
+                    return //also notify app of failure as needed
+                }
+                
+                self.parseResponse(response, unit: unit, completion: completion)
+                
+                print("opt finished: \(response.description)")
+                //print("data is: \(response.data)") access the response of the data with response.data
             }
-
-            self.parseResponse(resp, unit: unit, completion: completion)
+        } catch let error {
+            print("got an error creating the request: \(error)")
         }
     }
     
-//    func validateZipCode(zipCode: String, completion: (zipCodeValid: Bool) -> Void){
-//        http.get(API_URL).params([ZIP: zipCode, APPID: APP_ID!]) { resp in
-//            var valid = false
-//
-//            // Error
-//            if resp.error != nil {
-//                print("\(resp.error!)")
-//                return
-//            }
-//            
-//            if let dict = resp.json as? NSDictionary {
-//                if let base = dict["base"] as? NSString {
-//                    if base != self.CMC_STATIONS {
-//                        valid = true
-//                    }
-//                }
-//            }
-//            
-//            completion(zipCodeValid: valid)
-//        }
-//    }
-    
     // Response
-    func parseResponse(resp: HTTP.Response, unit: String, completion: (currentTempString: String, iconString: String) -> Void)
+    func parseResponse(_ resp: Response, unit: String, completion: (_ currentTempString: String, _ iconString: String) -> Void)
     {
         // Temperature
         var currentTempString: String? = nil
-        if let dict = resp.json as? NSDictionary, mainDict = dict["main"] as? NSDictionary, temp = mainDict["temp"], weatherDict = ((dict["weather"] as! NSArray)[0] as? NSDictionary) {
-            let doubleTemp = (temp as! NSNumber).doubleValue
-            var temperature: Double? = nil
-            
-            if unit == TemperatureUnits.F_UNIT.rawValue {
-                temperature = ((doubleTemp - 273.15) * 1.8) + 32
-            }
-            else {
-                temperature = doubleTemp - 273.15
-            }
-            
-            currentTempString = formatter.stringFromNumber(temperature!)! + "\u{00B0}"
-            
-            // Icon
-            var iconString: String? = nil
-            if let weatherID = weatherDict["id"]{
-                let weatherIDInt = weatherID.intValue
-                
-                if weatherIDInt >= 800 && weatherIDInt <= 900{
-                    switch(weatherIDInt){
-                    case 800:
-                        if self.darkModeOn! == true {
-                            iconString = WeatherConditions.SUNNY_DARK.rawValue
-                        }
-                        else {
-                            iconString = WeatherConditions.SUNNY.rawValue
-                        }
-                        break
-                    case 801:
-                        if self.darkModeOn! == true {
-                            iconString = WeatherConditions.PARTLY_CLOUDY_DARK.rawValue
-                        }
-                        else {
-                            iconString = WeatherConditions.PARTLY_CLOUDY.rawValue
-                        }
-                        break
-                    default:
-                        if self.darkModeOn! == true {
-                            iconString = WeatherConditions.CLOUDY_DARK.rawValue
-                        }
-                        else {
-                            iconString = WeatherConditions.CLOUDY.rawValue
-                        }
-                        break
-                    }
-                }
-                else if weatherIDInt >= 700{
-                    if self.darkModeOn! == true {
-                        iconString = WeatherConditions.MIST_DARK.rawValue
-                    }
-                    else {
-                        iconString = WeatherConditions.MIST.rawValue
-                    }
-                }
-                else if weatherIDInt >= 600{
-                    if self.darkModeOn! == true {
-                        iconString = WeatherConditions.SNOW_DARK.rawValue
-                    }
-                    else{
-                        iconString = WeatherConditions.SNOW.rawValue
-                    }
-                }
-                else if weatherIDInt >= 500{
-                    if weatherIDInt == 511 {
-                        if self.darkModeOn! == true {
-                            iconString = WeatherConditions.FREEZING_RAIN_DARK.rawValue
-                        }
-                        else {
-                            iconString = WeatherConditions.FREEZING_RAIN.rawValue
-                        }
-                    }
-                    else if weatherIDInt <= 504 {
-                        if self.darkModeOn! == true {
-                            iconString = WeatherConditions.HEAVY_RAIN_DARK.rawValue
-                        }
-                        else {
-                            iconString = WeatherConditions.HEAVY_RAIN.rawValue
-                        }
-                    }
-                    else if weatherIDInt >= 520 {
-                        if self.darkModeOn! == true {
-                            iconString = WeatherConditions.PARTLY_CLOUDY_RAIN_DARK.rawValue
-                        }
-                        else {
-                            iconString = WeatherConditions.PARTLY_CLOUDY_RAIN.rawValue
-                        }
-                    }
-                }
-                else if weatherIDInt >= 300{
-                    if self.darkModeOn! == true {
-                        iconString = WeatherConditions.LIGHT_RAIN_DARK.rawValue
-                    }
-                    else {
-                        iconString = WeatherConditions.LIGHT_RAIN.rawValue
-                    }
-                }
-                else if weatherIDInt >= 200{
-                    if self.darkModeOn! == true {
-                        iconString = WeatherConditions.THUNDERSTORM_DARK.rawValue
-                    }
-                    else {
-                        iconString = WeatherConditions.THUNDERSTORM.rawValue
-                    }
-                }
-            }
-            completion(currentTempString: currentTempString!, iconString: iconString!)
         
+        do {
+            let response: Any? = try JSONSerialization.jsonObject(with: resp.data, options: JSONSerialization.ReadingOptions())
+            
+            if let dict = response as? NSDictionary, let mainDict = dict["main"] as? NSDictionary, let temp = mainDict["temp"], let weatherDict = ((dict["weather"] as! NSArray)[0] as? NSDictionary) {
+                let doubleTemp = (temp as! NSNumber).doubleValue
+                var temperature: Double? = nil
+                
+                if unit == TemperatureUnits.F_UNIT.rawValue {
+                    temperature = ((doubleTemp - 273.15) * 1.8) + 32
+                }
+                else {
+                    temperature = doubleTemp - 273.15
+                }
+                
+                currentTempString = formatter.string(from: NSNumber(value: temperature!))! + "\u{00B0}"
+                
+                // Icon
+                var iconString: String? = nil
+                if let weatherID = weatherDict["id"]{
+                    if let weatherIDInt = weatherID as? Int {
+                        
+                        if weatherIDInt >= 800 && weatherIDInt <= 900{
+                            switch(weatherIDInt){
+                            case 800:
+                                if self.darkModeOn! == true {
+                                    iconString = WeatherConditions.SUNNY_DARK.rawValue
+                                }
+                                else {
+                                    iconString = WeatherConditions.SUNNY.rawValue
+                                }
+                                break
+                            case 801:
+                                if self.darkModeOn! == true {
+                                    iconString = WeatherConditions.PARTLY_CLOUDY_DARK.rawValue
+                                }
+                                else {
+                                    iconString = WeatherConditions.PARTLY_CLOUDY.rawValue
+                                }
+                                break
+                            default:
+                                if self.darkModeOn! == true {
+                                    iconString = WeatherConditions.CLOUDY_DARK.rawValue
+                                }
+                                else {
+                                    iconString = WeatherConditions.CLOUDY.rawValue
+                                }
+                                break
+                            }
+                        }
+                        else if weatherIDInt >= 700{
+                            if self.darkModeOn! == true {
+                                iconString = WeatherConditions.MIST_DARK.rawValue
+                            }
+                            else {
+                                iconString = WeatherConditions.MIST.rawValue
+                            }
+                        }
+                        else if weatherIDInt >= 600{
+                            if self.darkModeOn! == true {
+                                iconString = WeatherConditions.SNOW_DARK.rawValue
+                            }
+                            else{
+                                iconString = WeatherConditions.SNOW.rawValue
+                            }
+                        }
+                        else if weatherIDInt >= 500{
+                            if weatherIDInt == 511 {
+                                if self.darkModeOn! == true {
+                                    iconString = WeatherConditions.FREEZING_RAIN_DARK.rawValue
+                                }
+                                else {
+                                    iconString = WeatherConditions.FREEZING_RAIN.rawValue
+                                }
+                            }
+                            else if weatherIDInt <= 504 {
+                                if self.darkModeOn! == true {
+                                    iconString = WeatherConditions.HEAVY_RAIN_DARK.rawValue
+                                }
+                                else {
+                                    iconString = WeatherConditions.HEAVY_RAIN.rawValue
+                                }
+                            }
+                            else if weatherIDInt >= 520 {
+                                if self.darkModeOn! == true {
+                                    iconString = WeatherConditions.PARTLY_CLOUDY_RAIN_DARK.rawValue
+                                }
+                                else {
+                                    iconString = WeatherConditions.PARTLY_CLOUDY_RAIN.rawValue
+                                }
+                            }
+                        }
+                        else if weatherIDInt >= 300{
+                            if self.darkModeOn! == true {
+                                iconString = WeatherConditions.LIGHT_RAIN_DARK.rawValue
+                            }
+                            else {
+                                iconString = WeatherConditions.LIGHT_RAIN.rawValue
+                            }
+                        }
+                        else if weatherIDInt >= 200{
+                            if self.darkModeOn! == true {
+                                iconString = WeatherConditions.THUNDERSTORM_DARK.rawValue
+                            }
+                            else {
+                                iconString = WeatherConditions.THUNDERSTORM.rawValue
+                            }
+                        }
+                    }
+                }
+                completion(currentTempString!, iconString!)
+            }
+        } catch let error {
+            print("got an error parsing the response: \(error)")
         }
     }
 }
