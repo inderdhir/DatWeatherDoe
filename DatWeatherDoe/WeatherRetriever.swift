@@ -52,17 +52,22 @@ class WeatherRetriever {
         do {
             try HTTP.GET(API_URL, parameters: [ZIP: zipCode, APPID: APP_ID!]).start { response in
                 if let err = response.error {
-                    print("error: \(err.localizedDescription)")
+                    #if DEBUG
+                        print("error: \(err.localizedDescription)")
+                    #endif
                     return //also notify app of failure as needed
                 }
                 self.parseResponse(response, unit: unit, completion: completion)
                 
-                print("opt finished: \(response.description)")
-                //print("data is: \(response.data)") access the response of the data with response.data
+                #if DEBUG
+                    print("opt finished: \(response.description)")
+                #endif
                 
             }
         } catch let error {
-            print("got an error creating the request: \(error)")
+            #if DEBUG
+                print("got an error creating the request: \(error)")
+            #endif
         }
     }
     
@@ -75,17 +80,22 @@ class WeatherRetriever {
         do {
             try HTTP.GET(API_URL, parameters: [LATITUDE: latitude, LONGITUDE: longitude, APPID: APP_ID!]).start { response in
                 if let err = response.error {
-                    print("error: \(err.localizedDescription)")
+                    #if DEBUG
+                        print("error: \(err.localizedDescription)")
+                    #endif
                     return //also notify app of failure as needed
                 }
                 
                 self.parseResponse(response, unit: unit, completion: completion)
                 
-                print("opt finished: \(response.description)")
-                //print("data is: \(response.data)") access the response of the data with response.data
+                #if DEBUG
+                    print("opt finished: \(response.description)")
+                #endif
             }
         } catch let error {
-            print("got an error creating the request: \(error)")
+            #if DEBUG
+                print("got an error creating the request: \(error)")
+            #endif
         }
     }
     
@@ -207,7 +217,9 @@ class WeatherRetriever {
                 completion(currentTempString!, iconString!)
             }
         } catch let error {
-            print("got an error parsing the response: \(error)")
+            #if DEBUG
+                print("got an error parsing the response: \(error)")
+            #endif
         }
     }
 }
