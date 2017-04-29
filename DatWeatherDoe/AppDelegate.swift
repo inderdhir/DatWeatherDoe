@@ -15,28 +15,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var window: NSWindow!
     
     let DARK_MODE = "Dark"
-    
-    let weatherRetriever = WeatherRetriever()
+    let weatherService = WeatherService()
     let locationManager = CLLocationManager()
     let locationTimerInterval = TimeInterval(900)
     var locationTimer: Timer?
-    
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     
-    var firstTimeLocationUse: Bool?
+    var firstTimeLocationUse: Bool = false
     var weatherTimer: Timer?
-    
     var currentTempString: String?
     var currentIconString: String?
     var currentImageData: NSImage?
     var currentLocation: CLLocationCoordinate2D?
     let popover = NSPopover()
-            
     var zipCode: String?
     var refreshInterval: TimeInterval?
     var unit: String?
-    var locationUsed: Bool?
-    
+    var locationUsed: Bool = false
     var eventMonitor: EventMonitor?
     
 
@@ -44,10 +39,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         
         // Check if dark/light mode
         let appearance = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"
-        if appearance == DARK_MODE {
-            weatherRetriever.setDarkMode(true)
-        }
-        
+        weatherService.setDarkMode(appearance == DARK_MODE)
+
         // Location
         firstTimeLocationUse = true
         locationManager.delegate = self;
@@ -76,16 +69,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
         
         // Weather Timer
-        if self.locationUsed == true {
-            self.weatherTimer = Timer.scheduledTimer(timeInterval: refreshInterval!, target: self, selector: #selector(getWeatherViaLocation), userInfo: nil, repeats: true)
-            self.locationTimer!.fire()
-        }
-        else {
-            self.weatherTimer = Timer.scheduledTimer(timeInterval: refreshInterval!, target: self, selector: #selector(getWeatherViaZipCode), userInfo: nil, repeats: true)
-        }
-        
+        self.weatherTimer = Timer.scheduledTimer(timeInterval: refreshInterval!, target: self,
+                                                 selector: self.locationUsed ?
+                                                    #selector(getWeatherViaLocation) : #selector(getWeatherViaZipCode),
+                                                 userInfo: nil, repeats: true)
+
+        // Fired twice due to a bug where the icon and temperature don't display properly the first time
         self.weatherTimer!.fire()
-        self.weatherTimer!.fire() // Fired twice due to a bug where the icon and temperature don't display properly the first time
+        self.weatherTimer!.fire()
         
         // Event monitor to listen for clicks outside the popover
         eventMonitor = EventMonitor(mask: NSEventMask.leftMouseDown) { [unowned self] event in
@@ -93,7 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
                 self.closePopover(event)
             }
         }
-        eventMonitor!.start()
+        eventMonitor?.start()
     }
     
     func getLocation() {
@@ -101,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
     
     func getWeather(_ sender: AnyObject?) {
-        if locationUsed == true {
+        if locationUsed {
             getWeatherViaLocation()
         }
         else {
@@ -111,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     
     func getWeatherViaZipCode() {
         if zipCode != nil {
-            self.weatherRetriever.getWeather(self.zipCode!, unit: self.unit!) {
+            self.weatherService.getWeather(self.zipCode!, unit: self.unit!) {
                 (currentTempString: String, iconString: String) in
                     self.updateWeather(currentTempString)
                     self.updateIcon(iconString)
@@ -121,11 +112,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
     
     func getWeatherViaLocation() {
-        if self.firstTimeLocationUse == true {
+        if self.firstTimeLocationUse {
             getLocation()
         }
         else if currentLocation != nil {
-            self.weatherRetriever.getWeather(self.currentLocation!, unit: self.unit!) {
+            self.weatherService.getWeather(self.currentLocation!, unit: self.unit!) {
                 (currentTempString: String, iconString: String) in
                 self.updateWeather(currentTempString)
                 self.updateIcon(iconString)
@@ -135,7 +126,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
     
     func createLocationTimer() -> Timer {
-        return Timer.scheduledTimer(timeInterval: locationTimerInterval, target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
+        return Timer.scheduledTimer(timeInterval: locationTimerInterval, target: self,
+                                    selector: #selector(getLocation), userInfo: nil, repeats: true)
     }
     
     func updateIcon(_ iconString: String){
@@ -147,11 +139,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
     
     func updateUI(){
-        if currentImageData != nil {
-            self.statusItem.image = currentImageData!
+        if let imageData = currentImageData {
+            self.statusItem.image = imageData
         }
-        if currentTempString != nil {
-            self.statusItem.title = self.currentTempString!
+        if let tempString = currentTempString {
+            self.statusItem.title = tempString
         }
     }
     
@@ -160,12 +152,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
-        eventMonitor!.start()
+        eventMonitor?.start()
     }
     
     func closePopover(_ sender: AnyObject?) {
         popover.performClose(sender)
-        eventMonitor!.stop()
+        eventMonitor?.stop()
     }
     
     func togglePopover(_ sender: AnyObject?) {
@@ -181,13 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-
         // Insert code here to tear down your application
-        
-//        DefaultsChecker.setDefaultZipCode(zipCode!)
-//        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
-//        DefaultsChecker.setDefaultUnit(unit!)
-//        DefaultsChecker.setDefaultLocationUsedToggle(self.locationUsed!)
     }
     
     // If user declines location permission
@@ -203,15 +189,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     
     //CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.currentLocation = manager.location!.coordinate
-        
-        if self.firstTimeLocationUse == true {
-            self.firstTimeLocationUse = false
-            self.getWeatherViaLocation()
+        if let location = manager.location {
+            self.currentLocation = location.coordinate
+
+            if self.firstTimeLocationUse {
+                self.firstTimeLocationUse = false
+                self.getWeatherViaLocation()
+            }
+
+            // Remember location toggle
+            DefaultsChecker.setDefaultLocationUsedToggle(true)
         }
-        
-        // Remember location toggle
-        DefaultsChecker.setDefaultLocationUsedToggle(true)
     }
 }
 
