@@ -47,3 +47,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 The above adds CocoaPods, 
+
+Pods/
+Podfile.lock
