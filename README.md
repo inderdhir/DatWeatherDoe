@@ -12,4 +12,4 @@ This project uses cocoapods: https://cocoapods.org/
 - Get your personal API key for openweathermap here: http://openweathermap.org/appid . 
 - Add your key in Keys.plist. 
 
-[Download DMG](DatWeatherDoe.dmg)
+[Download DMG](https://github.com/inderdhir/DatWeatherDoe/releases/latest)
