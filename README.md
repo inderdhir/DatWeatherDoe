@@ -8,6 +8,6 @@ This project uses cocoapods: https://cocoapods.org/
 
 # Setup
 
-- Create a keys.plist file under DatWeatherDoe/ that should look similar to Keys.example.plist.
+- Create a keys.plist file under DatWeatherDoe/ that should look similar to keys.example.plist.
 - Get your personal API key for openweathermap here: http://openweathermap.org/appid . 
 - Add your key in keys.plist. 
