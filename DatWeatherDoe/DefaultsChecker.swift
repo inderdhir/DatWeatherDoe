@@ -11,63 +11,62 @@ import Foundation
 final class DefaultsChecker {
 
     static let defaults = UserDefaults.standard
-    static let ZIP_CODE_CONFIG = "ZipCodeConfig"
-    static let REFRESH_INTERVAL_CONFIG = "RefreshIntervalConfig"
-    static let UNIT_CONFIG = "UnitConfig"
-    static let LOCATION_CONFIG = "LocationConfig"
-    
+    static let zipCodeConfig = "ZipCodeConfig"
+    static let refreshIntervalConfig = "RefreshIntervalConfig"
+    static let unitConfig = "UnitConfig"
+    static let locationConfig = "LocationConfig"
 
     static func getDefaultZipCode() -> String {
-        if defaults.object(forKey: ZIP_CODE_CONFIG) == nil {
+        if defaults.object(forKey: zipCodeConfig) == nil {
             return "10021,us"
         }
         
-        if let savedZipCode = defaults.string(forKey: ZIP_CODE_CONFIG) {
+        if let savedZipCode = defaults.string(forKey: zipCodeConfig) {
             return savedZipCode
         }
         return "10021,us"
     }
     
     static func getDefaultRefreshInterval() -> TimeInterval {
-        if let savedRefreshInterval = defaults.string(forKey: REFRESH_INTERVAL_CONFIG) {
+        if let savedRefreshInterval = defaults.string(forKey: refreshIntervalConfig) {
             return TimeInterval(savedRefreshInterval)!
         }
         return 60
     }
 
     static func getDefaultUnit() -> String {
-        if let savedUnit = defaults.string(forKey: UNIT_CONFIG) {
-            if savedUnit == TemperatureUnits.F_UNIT.rawValue || savedUnit == TemperatureUnits.C_UNIT.rawValue {
+        if let savedUnit = defaults.string(forKey: unitConfig) {
+            if savedUnit == TemperatureUnits.fahrenheit.rawValue ||
+                savedUnit == TemperatureUnits.celsius.rawValue {
                 return savedUnit
-            }
-            else {
-                return TemperatureUnits.F_UNIT.rawValue
+            } else {
+                return TemperatureUnits.fahrenheit.rawValue
             }
         }
-        return TemperatureUnits.F_UNIT.rawValue
+        return TemperatureUnits.fahrenheit.rawValue
     }
 
     static func getDefaultLocationUsedToggle() -> Bool {
         // Needed since non-existant key returns false
-        if defaults.object(forKey: LOCATION_CONFIG) == nil {
+        if defaults.object(forKey: locationConfig) == nil {
             return true
         }
-        return defaults.bool(forKey: LOCATION_CONFIG)
+        return defaults.bool(forKey: locationConfig)
     }
     
     static func setDefaultZipCode(_ zipCode: String) {
-        defaults.set(zipCode, forKey: ZIP_CODE_CONFIG)
+        defaults.set(zipCode, forKey: zipCodeConfig)
     }
     
     static func setDefaultRefreshInterval(_ refreshInterval: String) {
-        defaults.set(refreshInterval, forKey: REFRESH_INTERVAL_CONFIG)
+        defaults.set(refreshInterval, forKey: refreshIntervalConfig)
     }
     
     static func setDefaultUnit(_ unit: String) {
-        defaults.set(unit, forKey: UNIT_CONFIG)
+        defaults.set(unit, forKey: unitConfig)
     }
     
     static func setDefaultLocationUsedToggle(_ isUsed: Bool) {
-        defaults.set(isUsed, forKey: LOCATION_CONFIG)
+        defaults.set(isUsed, forKey: locationConfig)
     }
 }

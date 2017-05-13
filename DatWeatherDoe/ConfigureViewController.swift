@@ -11,8 +11,8 @@ import Cocoa
 class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     let intervalStrings: [String] = ["1 min", "5 min", "15 min", "30 min", "60 min"]
-    let FAHRENHEIT_STRING: String = "\u{00B0}F"
-    let CELSIUS_STRING: String = "\u{00B0}C"
+    let fahrenheightString: String = "\u{00B0}F"
+    let celsiusString: String = "\u{00B0}C"
     
     @IBOutlet weak var zipCodeField: NSTextField!
     @IBOutlet weak var refreshIntervals: NSPopUpButton!
@@ -30,22 +30,20 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         zipCodeField.delegate = self
 
         // Radio buttons
-        fahrenheitRadioButton.title = FAHRENHEIT_STRING
-        celsiusRadioButton.title = CELSIUS_STRING
+        fahrenheitRadioButton.title = fahrenheightString
+        celsiusRadioButton.title = celsiusString
         
         // Defaults
         let savedUnit = DefaultsChecker.getDefaultUnit()
-        if savedUnit == TemperatureUnits.F_UNIT.rawValue {
+        if savedUnit == TemperatureUnits.fahrenheit.rawValue {
             fahrenheitRadioButton.state = NSOnState
-        }
-        else {
+        } else {
             celsiusRadioButton.state = NSOnState
         }
         if DefaultsChecker.getDefaultLocationUsedToggle() {
             useLocationToggleCheckBox.state = NSOnState
             zipCodeField.isEnabled = false
-        }
-        else {
+        } else {
             useLocationToggleCheckBox.state = NSOffState
             zipCodeField.isEnabled = true
         }
@@ -72,13 +70,12 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func radioButtonClicked(_ sender: NSButton) {
-        if sender.title == FAHRENHEIT_STRING {
+        if sender.title == fahrenheightString {
             if fahrenheitRadioButton.state == NSOffState {
                 sender.state = NSOnState
                 celsiusRadioButton.state = NSOffState
             }
-        }
-        else {
+        } else {
             if celsiusRadioButton.state == NSOffState {
                 sender.state = NSOnState
                 fahrenheitRadioButton.state = NSOffState
@@ -91,7 +88,6 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
-        let appDelegate = NSApplication.shared().delegate as! AppDelegate
         var zipCode: String? = nil
         var refreshInterval: Double? = nil
         var unit: String? = nil
@@ -115,19 +111,21 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
         
         // Save all preferences
-        zipCode = zipCodeField.stringValue.characters.count > 0 ? zipCodeField.stringValue : "10021,us"
+        zipCode = !zipCodeField.stringValue.characters.isEmpty ? zipCodeField.stringValue : "10021,us"
         unit = fahrenheitRadioButton.state == NSOnState ?
-            TemperatureUnits.F_UNIT.rawValue : TemperatureUnits.C_UNIT.rawValue
-        
-        appDelegate.zipCode = zipCode!
-        appDelegate.refreshInterval = TimeInterval(refreshInterval!)
-        appDelegate.unit = unit
-        appDelegate.getWeatherViaZipCode()
-        
-        DefaultsChecker.setDefaultZipCode(zipCode!)
-        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
-        DefaultsChecker.setDefaultUnit(unit!)
-        DefaultsChecker.setDefaultLocationUsedToggle(useLocationToggleCheckBox.state == NSOnState)
+            TemperatureUnits.fahrenheit.rawValue : TemperatureUnits.celsius.rawValue
+
+        if let appDelegate = NSApplication.shared().delegate as? AppDelegate {
+            appDelegate.zipCode = zipCode!
+            appDelegate.refreshInterval = TimeInterval(refreshInterval!)
+            appDelegate.unit = unit
+            appDelegate.getWeatherViaZipCode()
+
+            DefaultsChecker.setDefaultZipCode(zipCode!)
+            DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
+            DefaultsChecker.setDefaultUnit(unit!)
+            DefaultsChecker.setDefaultLocationUsedToggle(useLocationToggleCheckBox.state == NSOnState)
+        }
 
         self.view.window?.close()
     }

@@ -154,6 +154,7 @@
 				2023EDA11C4ED09C0087FD67 /* Resources */,
 				3E699B4E9A93F0A798C4D761 /* [CP] Embed Pods Frameworks */,
 				0693B469D72425F2FCD081F6 /* [CP] Copy Pods Resources */,
+				201CECC61EC7774500636C91 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -265,6 +266,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DatWeatherDoe/Pods-DatWeatherDoe-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		201CECC61EC7774500636C91 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
 		};
 		3E699B4E9A93F0A798C4D761 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
