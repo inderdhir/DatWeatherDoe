@@ -36,14 +36,14 @@ final class DefaultsChecker {
 
     static func getDefaultUnit() -> String {
         if let savedUnit = defaults.string(forKey: unitConfig) {
-            if savedUnit == TemperatureUnits.fahrenheit.rawValue ||
-                savedUnit == TemperatureUnits.celsius.rawValue {
+            if savedUnit == TemperatureUnit.fahrenheit.rawValue ||
+                savedUnit == TemperatureUnit.celsius.rawValue {
                 return savedUnit
             } else {
-                return TemperatureUnits.fahrenheit.rawValue
+                return TemperatureUnit.fahrenheit.rawValue
             }
         }
-        return TemperatureUnits.fahrenheit.rawValue
+        return TemperatureUnit.fahrenheit.rawValue
     }
 
     static func getDefaultLocationUsedToggle() -> Bool {

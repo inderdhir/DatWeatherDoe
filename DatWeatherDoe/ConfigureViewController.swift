@@ -35,7 +35,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         
         // Defaults
         let savedUnit = DefaultsChecker.getDefaultUnit()
-        if savedUnit == TemperatureUnits.fahrenheit.rawValue {
+        if savedUnit == TemperatureUnit.fahrenheit.rawValue {
             fahrenheitRadioButton.state = NSOnState
         } else {
             celsiusRadioButton.state = NSOnState
@@ -53,19 +53,14 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         switch refreshInterval {
         case 300:
             refreshIntervals.selectItem(at: 1)
-            break
         case 900:
             refreshIntervals.selectItem(at: 2)
-            break
         case 1800:
             refreshIntervals.selectItem(at: 3)
-            break
         case 3600:
             refreshIntervals.selectItem(at: 4)
-            break
         default:
             refreshIntervals.selectItem(at: 0)
-            break
         }
     }
     
@@ -95,25 +90,20 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         switch refreshIntervals.indexOfSelectedItem {
         case 1:
             refreshInterval = 300
-            break
         case 2  :
             refreshInterval = 900
-            break
         case 3:
             refreshInterval = 1800
-            break
         case 4:
             refreshInterval = 3600
-            break
         default:
             refreshInterval = 60
-            break
         }
         
         // Save all preferences
-        zipCode = !zipCodeField.stringValue.characters.isEmpty ? zipCodeField.stringValue : "10021,us"
+        zipCode = !zipCodeField.stringValue.isEmpty ? zipCodeField.stringValue : "10021,us"
         unit = fahrenheitRadioButton.state == NSOnState ?
-            TemperatureUnits.fahrenheit.rawValue : TemperatureUnits.celsius.rawValue
+            TemperatureUnit.fahrenheit.rawValue : TemperatureUnit.celsius.rawValue
 
         if let appDelegate = NSApplication.shared().delegate as? AppDelegate {
             appDelegate.zipCode = zipCode!

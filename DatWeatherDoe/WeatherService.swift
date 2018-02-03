@@ -40,25 +40,18 @@ class WeatherService {
     // Zipcode-based weather
     func getWeather(_ zipCode: String, unit: String,
                     completion: @escaping (_ currentTempString: String, _ iconString: String) -> Void) {
-        do {
-            try HTTP.GET(apiUrl, parameters: [zipString: zipCode, appIdString: appId!])
-                .start { [unowned self] response in
-                if let err = response.error {
-                    #if DEBUG
-                        print("error: \(err.localizedDescription)")
-                    #endif
-                    return //also notify app of failure as needed
-                }
-                self.parseResponse(response, unit: unit, completion: completion)
-
+        HTTP.GET(apiUrl, parameters: [zipString: zipCode, appIdString: appId!])
+        { [weak self] response in
+            if let err = response.error {
                 #if DEBUG
-                    print("opt finished: \(response.description)")
+                    print("error: \(err.localizedDescription)")
                 #endif
-
+                return //also notify app of failure as needed
             }
-        } catch let error {
+            self?.parseResponse(response, unit: unit, completion: completion)
+
             #if DEBUG
-                print("got an error creating the request: \(error)")
+                print("opt finished: \(response.description)")
             #endif
         }
     }
@@ -70,34 +63,28 @@ class WeatherService {
         let latitude: String = "\(location.latitude)"
         let longitude: String = "\(location.longitude)"
 
-        do {
-            try HTTP.GET(apiUrl, parameters: [latitudeString: latitude,
-                                              longitudeString: longitude, appIdString: appId!])
-                .start { [unowned self] response in
-                if let err = response.error {
-                    #if DEBUG
-                        print("error: \(err.localizedDescription)")
-                    #endif
-                    return //also notify app of failure as needed
-                }
-
-                self.parseResponse(response, unit: unit, completion: completion)
-
+        HTTP.GET(apiUrl, parameters: [latitudeString: latitude,
+                                      longitudeString: longitude, appIdString: appId!]) {
+                                        [weak self] response in
+            if let err = response.error {
                 #if DEBUG
-                    print("opt finished: \(response.description)")
+                    print("error: \(err.localizedDescription)")
                 #endif
+                return //also notify app of failure as needed
             }
-        } catch let error {
+
+            self?.parseResponse(response, unit: unit, completion: completion)
+
             #if DEBUG
-                print("got an error creating the request: \(error)")
+                print("opt finished: \(response.description)")
             #endif
         }
     }
 
     // Response
     func parseResponse(_ resp: Response, unit: String, completion:
-        (_ currentTempString: String, _ iconString: String) -> Void)
-    {
+        (_ currentTempString: String, _ iconString: String) -> Void) {
+
         // Temperature
         var currentTempString: String? = nil
 
@@ -113,7 +100,7 @@ class WeatherService {
 
                 var temperature: Double? = nil
 
-                if unit == TemperatureUnits.fahrenheit.rawValue {
+                if unit == TemperatureUnit.fahrenheit.rawValue {
                     temperature = ((doubleTemp - 273.15) * 1.8) + 32
                 } else {
                     temperature = doubleTemp - 273.15
@@ -129,16 +116,13 @@ class WeatherService {
                     case 800:
                         iconString = darkModeOn ?
                             WeatherConditions.sunnyDark.rawValue : WeatherConditions.sunny.rawValue
-                        break
                     case 801:
                         iconString = darkModeOn ?
                             WeatherConditions.partlyCloudyDark.rawValue :
                             WeatherConditions.partlyCloudy.rawValue
-                        break
                     default:
                         iconString = darkModeOn ?
                             WeatherConditions.cloudyDark.rawValue : WeatherConditions.cloudy.rawValue
-                        break
                     }
                 } else if weatherIDInt >= 700 {
                     iconString = darkModeOn ?

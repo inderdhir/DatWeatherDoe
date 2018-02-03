@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		201C6C4420254C3E0065E795 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 201C6C4320254C3E0065E795 /* Keys.plist */; };
 		2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */; };
 		2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2023EDA81C4ED09C0087FD67 /* Assets.xcassets */; };
 		2023EDAC1C4ED09C0087FD67 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2023EDAA1C4ED09C0087FD67 /* MainMenu.xib */; };
@@ -16,9 +17,8 @@
 		20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */; };
 		20459C641C5C50DA004D0DC1 /* DefaultsChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* DefaultsChecker.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherService.swift */; };
-		20563BE11DF33B4E005BB2AB /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20563BE01DF33B4E005BB2AB /* Keys.plist */; };
 		2097A4011C5277B1001EA615 /* Keys.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2097A4001C5277B1001EA615 /* Keys.example.plist */; };
-		20BF08EB1C61B7F100C18C51 /* TemperatureUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF08EA1C61B7F100C18C51 /* TemperatureUnits.swift */; };
+		20BF08EB1C61B7F100C18C51 /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF08EA1C61B7F100C18C51 /* TemperatureUnit.swift */; };
 		61D04A321C7B7BCF00CBE6AE /* DefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */; };
 		8A91995EA40B49B002FC3BD8 /* Pods_DatWeatherDoe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140AD2E03B0FF7278C195744 /* Pods_DatWeatherDoe.framework */; };
 /* End PBXBuildFile section */
@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		140AD2E03B0FF7278C195744 /* Pods_DatWeatherDoe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatWeatherDoe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8A3ADF1A74CF6ACEA60C98 /* Pods-DatWeatherDoe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatWeatherDoe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DatWeatherDoe/Pods-DatWeatherDoe.debug.xcconfig"; sourceTree = "<group>"; };
+		201C6C4320254C3E0065E795 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatWeatherDoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2023EDA81C4ED09C0087FD67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,9 +48,8 @@
 		20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherConditions.swift; sourceTree = "<group>"; };
 		20459C631C5C50DA004D0DC1 /* DefaultsChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsChecker.swift; sourceTree = "<group>"; };
 		20459C651C5D24FF004D0DC1 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		20563BE01DF33B4E005BB2AB /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		2097A4001C5277B1001EA615 /* Keys.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.example.plist; sourceTree = "<group>"; };
-		20BF08EA1C61B7F100C18C51 /* TemperatureUnits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureUnits.swift; sourceTree = "<group>"; };
+		20BF08EA1C61B7F100C18C51 /* TemperatureUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureUnit.swift; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DefaultsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DefaultsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsTests.swift; sourceTree = "<group>"; };
 		61D04A331C7B7BCF00CBE6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,8 +109,8 @@
 				20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */,
 				20459C631C5C50DA004D0DC1 /* DefaultsChecker.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherService.swift */,
-				20BF08EA1C61B7F100C18C51 /* TemperatureUnits.swift */,
-				20563BE01DF33B4E005BB2AB /* Keys.plist */,
+				20BF08EA1C61B7F100C18C51 /* TemperatureUnit.swift */,
+				201C6C4320254C3E0065E795 /* Keys.plist */,
 			);
 			path = DatWeatherDoe;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
@@ -238,7 +238,7 @@
 				2023EDAC1C4ED09C0087FD67 /* MainMenu.xib in Resources */,
 				2097A4011C5277B1001EA615 /* Keys.example.plist in Resources */,
 				202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */,
-				20563BE11DF33B4E005BB2AB /* Keys.plist in Resources */,
+				201C6C4420254C3E0065E795 /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,9 +286,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DatWeatherDoe/Pods-DatWeatherDoe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftHTTP/SwiftHTTP.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHTTP.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -301,13 +304,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DatWeatherDoe-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -321,7 +327,7 @@
 				20459C641C5C50DA004D0DC1 /* DefaultsChecker.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
 				20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */,
-				20BF08EB1C61B7F100C18C51 /* TemperatureUnits.swift in Sources */,
+				20BF08EB1C61B7F100C18C51 /* TemperatureUnit.swift in Sources */,
 				2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */,
 				202C319F1C528958003D5E5A /* ConfigureViewController.swift in Sources */,
 			);
@@ -365,14 +371,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -412,14 +424,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
