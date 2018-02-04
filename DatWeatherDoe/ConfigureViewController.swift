@@ -7,19 +7,20 @@
 //
 
 import Cocoa
+import SwiftyUserDefaults
 
 class ConfigureViewController: NSViewController, NSTextFieldDelegate {
-    
-    let intervalStrings: [String] = ["1 min", "5 min", "15 min", "30 min", "60 min"]
-    let fahrenheightString: String = "\u{00B0}F"
-    let celsiusString: String = "\u{00B0}C"
-    
+
     @IBOutlet weak var zipCodeField: NSTextField!
     @IBOutlet weak var refreshIntervals: NSPopUpButton!
     @IBOutlet weak var useLocationToggleCheckBox: NSButton!
     @IBOutlet weak var fahrenheitRadioButton: NSButton!
     @IBOutlet weak var celsiusRadioButton: NSButton!
-    
+
+    let intervalStrings: [String] = ["1 min", "5 min", "15 min", "30 min", "60 min"]
+    let fahrenheightString: String = "\u{00B0}F"
+    let celsiusString: String = "\u{00B0}C"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,33 +35,28 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         celsiusRadioButton.title = celsiusString
         
         // Defaults
-        let savedUnit = DefaultsChecker.getDefaultUnit()
+        let savedUnit = Defaults[.unit]
         if savedUnit == TemperatureUnit.fahrenheit.rawValue {
             fahrenheitRadioButton.state = NSOnState
         } else {
             celsiusRadioButton.state = NSOnState
         }
-        if DefaultsChecker.getDefaultLocationUsedToggle() {
+        if Defaults[.usingLocation] {
             useLocationToggleCheckBox.state = NSOnState
             zipCodeField.isEnabled = false
         } else {
             useLocationToggleCheckBox.state = NSOffState
             zipCodeField.isEnabled = true
         }
-        zipCodeField.placeholderString = DefaultsChecker.getDefaultZipCode()
+        zipCodeField.placeholderString = Defaults[.zipCode]
         
-        let refreshInterval = Int(DefaultsChecker.getDefaultRefreshInterval())
+        let refreshInterval = Int(Defaults[.refreshInterval])
         switch refreshInterval {
-        case 300:
-            refreshIntervals.selectItem(at: 1)
-        case 900:
-            refreshIntervals.selectItem(at: 2)
-        case 1800:
-            refreshIntervals.selectItem(at: 3)
-        case 3600:
-            refreshIntervals.selectItem(at: 4)
-        default:
-            refreshIntervals.selectItem(at: 0)
+        case 300: refreshIntervals.selectItem(at: 1)
+        case 900: refreshIntervals.selectItem(at: 2)
+        case 1800: refreshIntervals.selectItem(at: 3)
+        case 3600: refreshIntervals.selectItem(at: 4)
+        default: refreshIntervals.selectItem(at: 0)
         }
     }
     
@@ -83,40 +79,33 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
-        var zipCode: String? = nil
-        var refreshInterval: Double? = nil
-        var unit: String? = nil
-        
+        var refreshInterval: Double!
         switch refreshIntervals.indexOfSelectedItem {
-        case 1:
-            refreshInterval = 300
-        case 2  :
-            refreshInterval = 900
-        case 3:
-            refreshInterval = 1800
-        case 4:
-            refreshInterval = 3600
-        default:
-            refreshInterval = 60
+        case 1: refreshInterval = 300
+        case 2: refreshInterval = 900
+        case 3: refreshInterval = 1800
+        case 4: refreshInterval = 3600
+        default: refreshInterval = 60
         }
         
         // Save all preferences
-        zipCode = !zipCodeField.stringValue.isEmpty ? zipCodeField.stringValue : "10021,us"
-        unit = fahrenheitRadioButton.state == NSOnState ?
+        let zipCode = !zipCodeField.stringValue.isEmpty ?
+            zipCodeField.stringValue : "10021,us"
+        let unit = fahrenheitRadioButton.state == NSOnState ?
             TemperatureUnit.fahrenheit.rawValue : TemperatureUnit.celsius.rawValue
 
         if let appDelegate = NSApplication.shared().delegate as? AppDelegate {
-            appDelegate.zipCode = zipCode!
-            appDelegate.refreshInterval = TimeInterval(refreshInterval!)
+            appDelegate.zipCode = zipCode
+            appDelegate.refreshInterval = TimeInterval(refreshInterval)
             appDelegate.unit = unit
             appDelegate.getWeatherViaZipCode()
 
-            DefaultsChecker.setDefaultZipCode(zipCode!)
-            DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval!))
-            DefaultsChecker.setDefaultUnit(unit!)
-            DefaultsChecker.setDefaultLocationUsedToggle(useLocationToggleCheckBox.state == NSOnState)
+            Defaults[.zipCode] = zipCode
+            Defaults[.refreshInterval] = refreshInterval!
+            Defaults[.unit] = unit
+            Defaults[.usingLocation] = (useLocationToggleCheckBox.state == NSOnState)
         }
 
-        self.view.window?.close()
+        view.window?.close()
     }
 }

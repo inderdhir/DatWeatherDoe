@@ -6,13 +6,12 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-import Foundation
 import Cocoa
 
-open class EventMonitor {
-    fileprivate var monitor: AnyObject?
-    fileprivate let mask: NSEventMask
-    fileprivate let handler: (NSEvent?) -> Void
+class EventMonitor {
+    private var monitor: AnyObject?
+    private let mask: NSEventMask
+    private let handler: (NSEvent?) -> Void
     
     public init(mask: NSEventMask, handler: @escaping (NSEvent?) -> Void) {
         self.mask = mask
@@ -23,13 +22,14 @@ open class EventMonitor {
         stop()
     }
     
-    open func start() {
-        monitor = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler) as AnyObject?
+    func start() {
+        monitor = NSEvent.addGlobalMonitorForEvents(
+            matching: mask, handler: handler) as AnyObject?
     }
     
-    open func stop() {
-        if monitor != nil {
-            NSEvent.removeMonitor(monitor!)
+    func stop() {
+        if let mon = monitor {
+            NSEvent.removeMonitor(mon)
             monitor = nil
         }
     }

@@ -6,8 +6,6 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-import Foundation
-
 enum TemperatureUnit: String {
     case fahrenheit = "F"
     case celsius = "C"

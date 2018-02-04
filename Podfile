@@ -6,4 +6,5 @@ use_frameworks!
 target ‘DatWeatherDoe’ do
     pod 'SwiftHTTP'    
     pod 'SwiftLint'
+    pod 'SwiftyUserDefaults'
 end
