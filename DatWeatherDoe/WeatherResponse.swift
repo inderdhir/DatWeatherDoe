@@ -21,15 +21,15 @@ struct WeatherResponse: Decodable {
     let temperature: Double
     let weatherId: Int
 
-    enum RootKeys: String, CodingKey {
+    private enum RootKeys: String, CodingKey {
         case main, weather
     }
 
-    enum TemperatureKeys: String, CodingKey {
+    private enum TemperatureKeys: String, CodingKey {
         case temperature = "temp"
     }
 
-    enum WeatherKeys: String, CodingKey {
+    private enum WeatherKeys: String, CodingKey {
         case id
     }
 
@@ -91,10 +91,9 @@ struct WeatherResponse: Decodable {
     }
 
     var temperatureString: String? {
-        let doubleTemp = (temperature as NSNumber).doubleValue
         let temperatureInUnits =
             Defaults[.unit] == TemperatureUnit.fahrenheit.rawValue ?
-                ((doubleTemp - 273.15) * 1.8) + 32 : doubleTemp - 273.15
+                ((temperature - 273.15) * 1.8) + 32 : temperature - 273.15
         return WeatherResponse.temperatureFormatter.string(
             from: NSNumber(value: temperatureInUnits))! + "\u{00B0}"
     }

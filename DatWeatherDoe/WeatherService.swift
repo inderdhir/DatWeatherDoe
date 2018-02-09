@@ -9,6 +9,11 @@
 import SwiftHTTP
 import CoreLocation
 
+enum TemperatureUnit: String {
+    case fahrenheit = "F"
+    case celsius = "C"
+}
+
 class WeatherService {
 
     let apiUrl = "http://api.openweathermap.org/data/2.5/weather"
@@ -28,7 +33,7 @@ class WeatherService {
     func getWeather(zipCode: String, unit: String,
                     completion: @escaping (_ currentTempString: String, _ iconString: String) -> Void) {
         HTTP.GET(apiUrl, parameters: ["zip": zipCode, appIdString: appId]) { [weak self] response in
-            if response.error != nil { return }
+            guard response.error == nil else { return }
             self?.parseResponse(response, unit: unit, completion: completion)
         }
     }
@@ -40,7 +45,7 @@ class WeatherService {
         HTTP.GET(apiUrl, parameters: ["lat": String(describing: location.latitude),
                                       "lon": String(describing: location.longitude),
                                       appIdString: appId]) { [weak self] response in
-            if response.error != nil { return }
+            guard response.error == nil else { return }
             self?.parseResponse(response, unit: unit, completion: completion)
         }
     }
@@ -49,7 +54,9 @@ class WeatherService {
     func parseResponse(_ resp: Response, unit: String, completion:
         (_ currentTempString: String, _ iconString: String) -> Void) {
         guard let response = try? JSONDecoder().decode(
-            WeatherResponse.self, from: resp.data) else { return }
-        completion(response.temperatureString!, response.icon!)
+            WeatherResponse.self, from: resp.data),
+            let temperature = response.temperatureString,
+            let icon = response.icon else { return }
+        completion(temperature, icon)
     }
 }

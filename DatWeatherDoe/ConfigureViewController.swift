@@ -17,9 +17,9 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var fahrenheitRadioButton: NSButton!
     @IBOutlet weak var celsiusRadioButton: NSButton!
 
-    let intervalStrings: [String] = ["1 min", "5 min", "15 min", "30 min", "60 min"]
-    let fahrenheightString: String = "\u{00B0}F"
-    let celsiusString: String = "\u{00B0}C"
+    private let intervalStrings: [String] = ["1 min", "5 min", "15 min", "30 min", "60 min"]
+    private let fahrenheightString: String = "\u{00B0}F"
+    private let celsiusString: String = "\u{00B0}C"
 
     override func viewDidLoad() {
         super.viewDidLoad()

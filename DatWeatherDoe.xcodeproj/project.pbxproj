@@ -19,7 +19,6 @@
 		20459C641C5C50DA004D0DC1 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* Defaults.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherService.swift */; };
 		2097A4011C5277B1001EA615 /* Keys.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2097A4001C5277B1001EA615 /* Keys.example.plist */; };
-		20BF08EB1C61B7F100C18C51 /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF08EA1C61B7F100C18C51 /* TemperatureUnit.swift */; };
 		61D04A321C7B7BCF00CBE6AE /* DefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */; };
 		8A91995EA40B49B002FC3BD8 /* Pods_DatWeatherDoe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140AD2E03B0FF7278C195744 /* Pods_DatWeatherDoe.framework */; };
 /* End PBXBuildFile section */
@@ -51,7 +50,6 @@
 		20459C631C5C50DA004D0DC1 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		20459C651C5D24FF004D0DC1 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		2097A4001C5277B1001EA615 /* Keys.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.example.plist; sourceTree = "<group>"; };
-		20BF08EA1C61B7F100C18C51 /* TemperatureUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureUnit.swift; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DefaultsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DefaultsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsTests.swift; sourceTree = "<group>"; };
 		61D04A331C7B7BCF00CBE6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 				20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */,
 				20459C631C5C50DA004D0DC1 /* Defaults.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherService.swift */,
-				20BF08EA1C61B7F100C18C51 /* TemperatureUnit.swift */,
 				201C6C4320254C3E0065E795 /* Keys.plist */,
 				201C6C4520262E380065E795 /* WeatherResponse.swift */,
 			);
@@ -332,7 +329,6 @@
 				20459C641C5C50DA004D0DC1 /* Defaults.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
 				20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */,
-				20BF08EB1C61B7F100C18C51 /* TemperatureUnit.swift in Sources */,
 				2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */,
 				202C319F1C528958003D5E5A /* ConfigureViewController.swift in Sources */,
 				201C6C4620262E380065E795 /* WeatherResponse.swift in Sources */,

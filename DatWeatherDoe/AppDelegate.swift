@@ -15,25 +15,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    let weatherService = WeatherService()
-    let locationManager = CLLocationManager()
-    let locationTimerInterval = TimeInterval(900)
-    var locationTimer: Timer?
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    private let statusItem = NSStatusBar.system()
+        .statusItem(withLength: NSVariableStatusItemLength)
+    private let weatherService = WeatherService()
+    private let locationManager = CLLocationManager()
+    private let locationTimerInterval = TimeInterval(900)
+    private var locationTimer: Timer?
 
-    var firstTimeLocationUse: Bool = false
-    var weatherTimer: Timer?
-    var currentTempString: String?
-    var currentIconString: String?
-    var currentImageData: NSImage?
-    var currentLocation: CLLocationCoordinate2D?
-    var eventMonitor: EventMonitor?
-    let popover = NSPopover()
+    private var firstTimeLocationUse = false
+    private var weatherTimer: Timer?
+    private var currentTempString: String?
+    private var currentIconString: String?
+    private var currentImageData: NSImage?
+    private var currentLocation: CLLocationCoordinate2D?
+    private var eventMonitor: EventMonitor?
+    private let popover = NSPopover()
 
     var zipCode: String?
     var refreshInterval: TimeInterval?
     var unit: String?
-    var locationUsed: Bool = false
+    var locationUsed = false
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Location
@@ -51,7 +52,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         unit = Defaults[.unit]
         locationUsed = Defaults[.usingLocation]
 
-        // Menu
         let menu = NSMenu()
         menu.addItem(NSMenuItem(title: "Refresh",
                                 action: #selector(getWeather), keyEquivalent: "R"))
@@ -70,13 +70,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
         // Weather Timer
         weatherTimer = Timer.scheduledTimer(timeInterval: refreshInterval!, target: self,
-                                                 selector: self.locationUsed ?
-                                                    #selector(getWeatherViaLocation) :
-                                                    #selector(getWeatherViaZipCode),
+                                                 selector: #selector(getWeather),
                                                  userInfo: nil, repeats: true)
         weatherTimer?.fire()
 
-        // Event monitor to listen for clicks outside the popover
+        // Close popover if clicked outside the popover
         eventMonitor = EventMonitor(mask: .leftMouseDown) { [weak self] event in
             guard let strongSelf = self else { return }
             if strongSelf.popover.isShown {
@@ -86,12 +84,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         eventMonitor?.start()
     }
 
-    func getLocation() {
-        locationManager.startUpdatingLocation()
-    }
-
     func getWeather(_ sender: AnyObject?) {
         locationUsed ? getWeatherViaLocation() : getWeatherViaZipCode()
+    }
+
+    func getLocation() {
+        locationManager.startUpdatingLocation()
     }
 
     func getWeatherViaZipCode() {
@@ -160,7 +158,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         NSApp.terminate(self)
     }
 
-    // If user declines location permission
+    // MARK: CLLocationManagerDelegate
+
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
         getWeatherViaZipCode()
@@ -171,7 +170,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         Defaults[.usingLocation] = false
     }
 
-    // MARK: CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = manager.location {
             currentLocation = location.coordinate
