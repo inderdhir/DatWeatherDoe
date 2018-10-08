@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		201C6C4420254C3E0065E795 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 201C6C4320254C3E0065E795 /* Keys.plist */; };
+		200D8712216BD3850069C9BB /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 200D8711216BD3850069C9BB /* Keys.plist */; };
 		201C6C4620262E380065E795 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201C6C4520262E380065E795 /* WeatherResponse.swift */; };
 		2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */; };
 		2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2023EDA81C4ED09C0087FD67 /* Assets.xcassets */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		140AD2E03B0FF7278C195744 /* Pods_DatWeatherDoe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DatWeatherDoe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8A3ADF1A74CF6ACEA60C98 /* Pods-DatWeatherDoe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DatWeatherDoe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DatWeatherDoe/Pods-DatWeatherDoe.debug.xcconfig"; sourceTree = "<group>"; };
-		201C6C4320254C3E0065E795 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		200D8711216BD3850069C9BB /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		201C6C4520262E380065E795 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatWeatherDoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,8 +109,8 @@
 				20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */,
 				20459C631C5C50DA004D0DC1 /* Defaults.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherService.swift */,
-				201C6C4320254C3E0065E795 /* Keys.plist */,
 				201C6C4520262E380065E795 /* WeatherResponse.swift */,
+				200D8711216BD3850069C9BB /* Keys.plist */,
 			);
 			path = DatWeatherDoe;
 			sourceTree = "<group>";
@@ -153,7 +153,6 @@
 				2023EDA01C4ED09C0087FD67 /* Frameworks */,
 				2023EDA11C4ED09C0087FD67 /* Resources */,
 				3E699B4E9A93F0A798C4D761 /* [CP] Embed Pods Frameworks */,
-				0693B469D72425F2FCD081F6 /* [CP] Copy Pods Resources */,
 				201CECC61EC7774500636C91 /* ShellScript */,
 			);
 			buildRules = (
@@ -238,7 +237,7 @@
 				2023EDAC1C4ED09C0087FD67 /* MainMenu.xib in Resources */,
 				2097A4011C5277B1001EA615 /* Keys.example.plist in Resources */,
 				202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */,
-				201C6C4420254C3E0065E795 /* Keys.plist in Resources */,
+				200D8712216BD3850069C9BB /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,21 +251,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0693B469D72425F2FCD081F6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DatWeatherDoe/Pods-DatWeatherDoe-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		201CECC61EC7774500636C91 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -16,7 +16,7 @@ enum TemperatureUnit: String {
 
 class WeatherService {
 
-    let apiUrl = "http://api.openweathermap.org/data/2.5/weather"
+    let apiUrl = "https://api.openweathermap.org/data/2.5/weather"
     let appIdString = "appid"
     let appId: String
 
