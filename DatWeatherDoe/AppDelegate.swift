@@ -15,8 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    private let statusItem = NSStatusBar.system()
-        .statusItem(withLength: NSVariableStatusItemLength)
+    private let statusItem = NSStatusBar.system
+        .statusItem(withLength: NSStatusItem.variableLength)
     private let weatherService = WeatherService()
     private let locationManager = CLLocationManager()
     private let locationTimerInterval = TimeInterval(900)
@@ -53,18 +53,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         locationUsed = Defaults[.usingLocation]
 
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Refresh",
-                                action: #selector(getWeather), keyEquivalent: "R"))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Configure",
-                                action: #selector(togglePopover), keyEquivalent: "C"))
-        menu.addItem(NSMenuItem(title: "Quit",
-                                action: #selector(terminate), keyEquivalent: "q"))
-        statusItem.menu = menu
+        menu.addItem(withTitle: "Refresh", action: #selector(getWeather), keyEquivalent: "R")
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "C")
+        menu.addItem(withTitle: "Quit", action: #selector(terminate), keyEquivalent: "q")
 
-        if let button = statusItem.button {
-            button.action = #selector(togglePopover)
-        }
+        statusItem.menu = menu
+        statusItem.button?.action = #selector(togglePopover)
+
         popover.contentViewController =
             ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
 
@@ -76,15 +72,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
         // Close popover if clicked outside the popover
         eventMonitor = EventMonitor(mask: .leftMouseDown) { [weak self] event in
-            guard let strongSelf = self else { return }
-            if strongSelf.popover.isShown {
-                strongSelf.closePopover(event)
-            }
+            if self?.popover.isShown == true { self?.closePopover(event) }
         }
         eventMonitor?.start()
     }
 
-    func getWeather(_ sender: AnyObject?) {
+    @objc func getWeather(_ sender: AnyObject?) {
         locationUsed ? getWeatherViaLocation() : getWeatherViaZipCode()
     }
 
@@ -117,8 +110,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
 
     func createLocationTimer() -> Timer {
-        return Timer.scheduledTimer(timeInterval: locationTimerInterval, target: self,
-                                    selector: #selector(getLocation), userInfo: nil, repeats: true)
+        return Timer.scheduledTimer(
+            withTimeInterval: locationTimerInterval,
+            repeats: true,
+            block: { [weak self] _ in self?.getLocation() }
+        )
     }
 
     func updateIcon(_ iconString: String) {
@@ -150,13 +146,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         eventMonitor?.stop()
     }
 
-    func togglePopover(_ sender: AnyObject?) {
+    @objc func togglePopover(_ sender: AnyObject?) {
         popover.isShown ? closePopover(sender) : showPopover(sender)
     }
 
-    func terminate() {
-        NSApp.terminate(self)
-    }
+    @objc func terminate() { NSApp.terminate(self) }
 
     // MARK: CLLocationManagerDelegate
 

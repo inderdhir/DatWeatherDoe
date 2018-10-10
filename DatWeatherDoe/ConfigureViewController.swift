@@ -37,15 +37,15 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         // Defaults
         let savedUnit = Defaults[.unit]
         if savedUnit == TemperatureUnit.fahrenheit.rawValue {
-            fahrenheitRadioButton.state = NSOnState
+            fahrenheitRadioButton.state = .on
         } else {
-            celsiusRadioButton.state = NSOnState
+            celsiusRadioButton.state = .on
         }
         if Defaults[.usingLocation] {
-            useLocationToggleCheckBox.state = NSOnState
+            useLocationToggleCheckBox.state = .on
             zipCodeField.isEnabled = false
         } else {
-            useLocationToggleCheckBox.state = NSOffState
+            useLocationToggleCheckBox.state = .off
             zipCodeField.isEnabled = true
         }
         zipCodeField.placeholderString = Defaults[.zipCode]
@@ -62,20 +62,20 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func radioButtonClicked(_ sender: NSButton) {
         if sender.title == fahrenheightString {
-            if fahrenheitRadioButton.state == NSOffState {
-                sender.state = NSOnState
-                celsiusRadioButton.state = NSOffState
+            if fahrenheitRadioButton.state == .off {
+                sender.state = .on
+                celsiusRadioButton.state = .off
             }
         } else {
-            if celsiusRadioButton.state == NSOffState {
-                sender.state = NSOnState
-                fahrenheitRadioButton.state = NSOffState
+            if celsiusRadioButton.state == .off {
+                sender.state = .on
+                fahrenheitRadioButton.state = .off
             }
         }
     }
     
     @IBAction func uselocationCheckboxClicked(_ sender: NSButton) {
-        zipCodeField.isEnabled = sender.state != NSOnState
+        zipCodeField.isEnabled = sender.state != .on
     }
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
@@ -91,10 +91,10 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         // Save all preferences
         let zipCode = !zipCodeField.stringValue.isEmpty ?
             zipCodeField.stringValue : "10021,us"
-        let unit = fahrenheitRadioButton.state == NSOnState ?
+        let unit = fahrenheitRadioButton.state == .on ?
             TemperatureUnit.fahrenheit.rawValue : TemperatureUnit.celsius.rawValue
 
-        if let appDelegate = NSApplication.shared().delegate as? AppDelegate {
+        if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
             appDelegate.zipCode = zipCode
             appDelegate.refreshInterval = TimeInterval(refreshInterval)
             appDelegate.unit = unit
@@ -103,7 +103,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
             Defaults[.zipCode] = zipCode
             Defaults[.refreshInterval] = refreshInterval!
             Defaults[.unit] = unit
-            Defaults[.usingLocation] = (useLocationToggleCheckBox.state == NSOnState)
+            Defaults[.usingLocation] = (useLocationToggleCheckBox.state == .on)
         }
 
         view.window?.close()
