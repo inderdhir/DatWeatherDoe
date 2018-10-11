@@ -18,19 +18,18 @@ class EventMonitor {
         self.handler = handler
     }
     
-    deinit {
-        stop()
-    }
+    deinit { stop() }
     
     func start() {
         monitor = NSEvent.addGlobalMonitorForEvents(
-            matching: mask, handler: handler) as AnyObject?
+            matching: mask, handler: handler
+        ) as AnyObject?
     }
     
     func stop() {
-        if let mon = monitor {
-            NSEvent.removeMonitor(mon)
-            monitor = nil
+        if let monitor = monitor {
+            NSEvent.removeMonitor(monitor)
+            self.monitor = nil
         }
     }
 }

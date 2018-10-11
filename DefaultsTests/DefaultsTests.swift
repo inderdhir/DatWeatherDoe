@@ -13,25 +13,11 @@ class DefaultsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        // Clear defaults for each test
-//        var defaults = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()
-//        for item in defaults {
-//            let key = item.0
-//            if key == DefaultsChecker.ZIP_CODE_CONFIG || key == DefaultsChecker.REFRESH_INTERVAL_CONFIG || key == DefaultsChecker.UNIT_CONFIG || key == DefaultsChecker.LOCATION_CONFIG {
-//                defaults.removeValueForKey(key)
-//            }
-//        }
-//        NSUserDefaults.standardUserDefaults().synchronize()
-
-        let appDomain = Bundle.main.bundleIdentifier!
-        UserDefaults.resetStandardUserDefaults()
-        UserDefaults.standard.removePersistentDomain(forName: appDomain)
-        UserDefaults.standard.synchronize()
+        clearUserDefaults()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        clearUserDefaults()
         super.tearDown()
     }
     
@@ -90,5 +76,11 @@ class DefaultsTests: XCTestCase {
         refreshInterval = 300
         DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval))
         XCTAssertEqual(refreshInterval, DefaultsChecker.getDefaultRefreshInterval())
+    }
+
+    private func clearUserDefaults() {
+        let appDomain = Bundle.main.bundleIdentifier!
+        UserDefaults.resetStandardUserDefaults()
+        UserDefaults.standard.removePersistentDomain(forName: appDomain)
     }
 }

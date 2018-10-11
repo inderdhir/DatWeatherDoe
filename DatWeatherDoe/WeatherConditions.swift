@@ -6,8 +6,6 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-import Foundation
-
 enum WeatherConditions: String {
     case sunny = "Sunny"
     case sunnyDark = "SunnyDark"

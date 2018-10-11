@@ -6,37 +6,48 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-import SwiftyUserDefaults
+import Foundation
 
-public extension DefaultsKeys {
-    static let zipCode = DefaultsKey<String>("zipCode")
-    static let refreshInterval = DefaultsKey<TimeInterval>("refreshInterval")
-    static let unit = DefaultsKey<String>("unit")
-    static let usingLocation = DefaultsKey<Bool>("location")
-}
+class DefaultsManager {
 
-extension UserDefaults {
+    public static let shared = DefaultsManager()
 
-    subscript(key: DefaultsKey<String>) -> String {
-        get {
-            if let existingValue = unarchive(key) {
-                return existingValue
-            }
-
-            switch key._key {
-            case "zipCode":
-                return "10021,us"
-            case "unit":
-                return TemperatureUnit.fahrenheit.rawValue
-            default:
-                return ""
-            }
-        }
-        set { archive(key, newValue) }
+    private enum DefaultsKeys: String {
+        case zipCode, refreshInterval, unit, usingLocation
     }
 
-    subscript(key: DefaultsKey<TimeInterval>) -> TimeInterval {
-        get { return unarchive(key) ?? 60 }
-        set { archive(key, newValue) }
+    public var zipCode: String {
+        get {
+            if let zipCode = UserDefaults.standard.string(forKey: DefaultsKeys.zipCode.rawValue),
+                !zipCode.isEmpty {
+                return zipCode
+            }
+            return "10021,us"
+        }
+        set { UserDefaults.standard.set(newValue, forKey: DefaultsKeys.zipCode.rawValue) }
+    }
+
+    public var refreshInterval: TimeInterval {
+        get {
+            var interval = UserDefaults.standard.double(forKey: DefaultsKeys.refreshInterval.rawValue)
+            if interval == 0 { interval = 60 }
+            return interval
+        }
+        set { UserDefaults.standard.set(newValue, forKey: DefaultsKeys.refreshInterval.rawValue) }
+    }
+
+    public var unit: TemperatureUnit {
+        get {
+            if let temperatureString = UserDefaults.standard.string(forKey: DefaultsKeys.unit.rawValue) {
+                return TemperatureUnit(rawValue: temperatureString) ?? .fahrenheit
+            }
+            return .fahrenheit
+        }
+        set { UserDefaults.standard.setValue(newValue.rawValue, forKey: DefaultsKeys.unit.rawValue) }
+    }
+
+    public var usingLocation: Bool {
+        get { return UserDefaults.standard.bool(forKey: DefaultsKeys.usingLocation.rawValue) }
+        set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.usingLocation.rawValue) }
     }
 }

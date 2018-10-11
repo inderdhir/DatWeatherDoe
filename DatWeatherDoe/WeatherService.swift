@@ -6,57 +6,95 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-import SwiftHTTP
 import CoreLocation
+import AppKit
 
 enum TemperatureUnit: String {
-    case fahrenheit = "F"
-    case celsius = "C"
+    case fahrenheit, celsius
 }
 
 class WeatherService {
 
-    let apiUrl = "https://api.openweathermap.org/data/2.5/weather"
-    let appIdString = "appid"
-    let appId: String
+    public static let shared = WeatherService()
 
-    init() {
+    private let apiUrl = "https://api.openweathermap.org/data/2.5/weather"
+    private let appId: String
+
+    private init() {
         guard let filePath = Bundle.main.path(forResource: "Keys", ofType:"plist"),
             let plist = NSDictionary(contentsOfFile: filePath),
             let appId = plist["OPENWEATHERMAP_APP_ID"] as? String else {
-            fatalError()
+            fatalError("Unable to find OpenWeatherMap APP ID")
         }
         self.appId = appId
     }
 
-    // Zipcode-based weather
-    func getWeather(zipCode: String, unit: String,
-                    completion: @escaping (_ currentTempString: String, _ iconString: String) -> Void) {
-        HTTP.GET(apiUrl, parameters: ["zip": zipCode, appIdString: appId]) { [weak self] response in
-            guard response.error == nil else { return }
-            self?.parseResponse(response, unit: unit, completion: completion)
+    /// Zipcode-based weather
+    func getWeather(
+        zipCode: String,
+        completion: @escaping (_ temperature: String, _ icon: NSImage?) -> Void
+        ) {
+
+        var urlComps = URLComponents(string: apiUrl)
+        urlComps?.queryItems = [
+            URLQueryItem(name: "zip", value: zipCode),
+            URLQueryItem(name: "appid", value: appId)
+        ]
+        guard let url = urlComps?.url else {
+            fatalError("Unable to construct URL for zipcode based weather")
         }
+
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let data = data, error == nil else {
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                return
+            }
+
+            self?.parseResponse(data, completion: completion)
+        }.resume()
     }
 
-    // Location-based weather
-    func getWeather(location: CLLocationCoordinate2D, unit: String,
-                    completion: @escaping (_ currentTempString: String,
-                    _ iconString: String) -> Void) {
-        HTTP.GET(apiUrl, parameters: ["lat": String(describing: location.latitude),
-                                      "lon": String(describing: location.longitude),
-                                      appIdString: appId]) { [weak self] response in
-            guard response.error == nil else { return }
-            self?.parseResponse(response, unit: unit, completion: completion)
+    /// Location-based weather
+    func getWeather(
+        location: CLLocationCoordinate2D,
+        completion: @escaping (_ temperature: String, _ icon: NSImage?) -> Void
+        ) {
+
+        var urlComps = URLComponents(string: apiUrl)
+        urlComps?.queryItems = [
+            URLQueryItem(name: "lat", value: String(describing: location.latitude)),
+            URLQueryItem(name: "lon", value: String(describing: location.longitude)),
+            URLQueryItem(name: "appid", value: appId)
+        ]
+        guard let url = urlComps?.url else {
+            fatalError("Unable to construct URL for zipcode based weather")
         }
+
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let data = data, error == nil else {
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                return
+            }
+
+            self?.parseResponse(data, completion: completion)
+        }.resume()
     }
 
-    // Response
-    func parseResponse(_ resp: Response, unit: String, completion:
-        (_ currentTempString: String, _ iconString: String) -> Void) {
-        guard let response = try? JSONDecoder().decode(
-            WeatherResponse.self, from: resp.data),
+    private func parseResponse(
+        _ data: Data,
+        completion: (_ temperature: String, _ icon: NSImage?) -> Void
+        ) {
+
+        guard let response = try? JSONDecoder().decode(WeatherResponse.self, from: data),
             let temperature = response.temperatureString,
-            let icon = response.icon else { return }
-        completion(temperature, icon)
+            let icon = response.icon else {
+                fatalError("Unable to parse weather response")
+        }
+
+        completion(temperature, NSImage(named: icon))
     }
 }
