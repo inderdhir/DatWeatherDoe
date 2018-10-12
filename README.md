@@ -12,8 +12,6 @@
 
 ![alt tag](https://user-images.githubusercontent.com/2235307/46848653-16cd5780-cdb9-11e8-9240-a46632aa170b.png)
 
-![alt_tag](https://user-images.githubusercontent.com/2235307/46848107-04055380-cdb6-11e8-8f9b-074ba9522ef7.png)
-
 # Setup
 
 - Create a Keys.plist file under DatWeatherDoe/ that should look similar to Keys.example.plist.
