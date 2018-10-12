@@ -12,14 +12,17 @@ import CoreLocation
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
+    @IBOutlet weak var window: NSWindow!
+
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let locationManager = CLLocationManager()
     private let locationTimerInterval = TimeInterval(900)
+    private let popover = NSPopover()
+    private var defaultsChanged = false
     private var locationTimer: Timer?
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
     private var eventMonitor: EventMonitor?
-    private let popover = NSPopover()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Location
@@ -39,20 +42,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
         popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
 
-        // Weather Timer
-        weatherTimer = Timer.scheduledTimer(
-            timeInterval: DefaultsManager.shared.refreshInterval,
-            target: self,
-            selector: #selector(getWeather),
-            userInfo: nil, repeats: true
-        )
-        weatherTimer?.fire()
+        resetWeatherTimer()
 
         // Close popover if clicked outside the popover
         eventMonitor = EventMonitor(mask: .leftMouseDown) { [weak self] event in
             if self?.popover.isShown == true { self?.closePopover(event) }
         }
         eventMonitor?.start()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(defaultsDidChange),
+            name: UserDefaults.didChangeNotification,
+            object: nil
+        )
     }
 
     @objc func getWeather(_ sender: AnyObject?) {
@@ -65,6 +68,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             repeats: true,
             block: { [weak self] _ in self?.getLocation() }
         )
+    }
+
+    @objc func togglePopover(_ sender: AnyObject?) {
+        if popover.isShown {
+            defaultsChanged = true
+            closePopover(sender)
+        } else {
+            showPopover(sender)
+        }
+    }
+
+    @objc func defaultsDidChange(_ sender: AnyObject?) {
+        if defaultsChanged {
+            defaultsChanged = false
+            resetWeatherTimer()
+        }
+    }
+
+    @objc func terminate() { NSApp.terminate(self) }
+
+    private func resetWeatherTimer() {
+        weatherTimer?.invalidate()
+        weatherTimer = Timer.scheduledTimer(
+            timeInterval: DefaultsManager.shared.refreshInterval,
+            target: self,
+            selector: #selector(getWeather),
+            userInfo: nil, repeats: true
+        )
+        weatherTimer?.fire()
     }
 
     private func getWeatherViaZipCode() {
@@ -104,12 +136,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         popover.performClose(sender)
         eventMonitor?.stop()
     }
-
-    @objc func togglePopover(_ sender: AnyObject?) {
-        popover.isShown ? closePopover(sender) : showPopover(sender)
-    }
-
-    @objc func terminate() { NSApp.terminate(self) }
 
     // MARK: CLLocationManagerDelegate
 
