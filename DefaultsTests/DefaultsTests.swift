@@ -22,60 +22,43 @@ class DefaultsTests: XCTestCase {
     }
     
     func testDefaultZipCode() {
-        let zipCode = DefaultsChecker.getDefaultZipCode()
-        XCTAssertEqual(zipCode, "10021,us")
+        XCTAssertEqual(DefaultsManager.shared.zipCode, "10021,us")
     }
     
     func testZipCodeSaved() {
-        var zipCode = DefaultsChecker.getDefaultZipCode()
-        XCTAssertEqual(zipCode, "10021,us")
-        
-        zipCode = TemperatureUnits.C_UNIT.rawValue
-        DefaultsChecker.setDefaultZipCode(zipCode)
-        XCTAssertEqual(zipCode, DefaultsChecker.getDefaultZipCode())
+        XCTAssertEqual(DefaultsManager.shared.zipCode, "10021,us")
+        DefaultsManager.shared.zipCode = "30907,us"
+        XCTAssertEqual(DefaultsManager.shared.zipCode, "30907,us")
     }
     
     func testDefaultTemperatureUnit() {
-        let tempUnit = DefaultsChecker.getDefaultUnit()
-        XCTAssertEqual(tempUnit, TemperatureUnits.F_UNIT.rawValue)
+        XCTAssertEqual(DefaultsManager.shared.unit, TemperatureUnit.fahrenheit)
     }
     
     func testTemperatureUnitSaved() {
-        var tempUnit = DefaultsChecker.getDefaultUnit()
-        XCTAssertEqual(tempUnit, TemperatureUnits.F_UNIT.rawValue)
-        
-        tempUnit = TemperatureUnits.C_UNIT.rawValue
-        DefaultsChecker.setDefaultUnit(tempUnit)
-        XCTAssertEqual(tempUnit, DefaultsChecker.getDefaultUnit())
+        XCTAssertEqual(DefaultsManager.shared.unit, TemperatureUnit.fahrenheit)
+        DefaultsManager.shared.unit = .celsius
+        XCTAssertEqual(DefaultsManager.shared.unit, TemperatureUnit.celsius)
     }
     
     func testDefaultLocationUsedToggle() {
-        let locationToggle = DefaultsChecker.getDefaultLocationUsedToggle()
-        print(locationToggle)
-        XCTAssertTrue(locationToggle)
+        XCTAssertEqual(DefaultsManager.shared.usingLocation, false)
     }
     
     func testLocationUsedToggleSaved() {
-        var locationToggle = DefaultsChecker.getDefaultLocationUsedToggle()
-        XCTAssertTrue(locationToggle)
-        
-        locationToggle = false
-        DefaultsChecker.setDefaultLocationUsedToggle(locationToggle)
-        XCTAssertFalse(DefaultsChecker.getDefaultLocationUsedToggle())
+        XCTAssertEqual(DefaultsManager.shared.usingLocation, false)
+        DefaultsManager.shared.usingLocation = true
+        XCTAssertEqual(DefaultsManager.shared.usingLocation, true)
     }
     
     func testDefaultRefreshInterval() {
-        let refreshInterval = DefaultsChecker.getDefaultRefreshInterval()
-        XCTAssertEqual(refreshInterval, 60)
+        XCTAssertEqual(DefaultsManager.shared.refreshInterval, 60)
     }
     
     func testRefreshIntervalSaved() {
-        var refreshInterval = DefaultsChecker.getDefaultRefreshInterval()
-        XCTAssertEqual(refreshInterval, 60)
-        
-        refreshInterval = 300
-        DefaultsChecker.setDefaultRefreshInterval(String(refreshInterval))
-        XCTAssertEqual(refreshInterval, DefaultsChecker.getDefaultRefreshInterval())
+        XCTAssertEqual(DefaultsManager.shared.refreshInterval, 60)
+        DefaultsManager.shared.refreshInterval = 300
+        XCTAssertEqual(DefaultsManager.shared.refreshInterval, 300)
     }
 
     private func clearUserDefaults() {

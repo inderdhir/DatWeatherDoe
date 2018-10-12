@@ -59,17 +59,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         DefaultsManager.shared.usingLocation ? getWeatherViaLocation() : getWeatherViaZipCode()
     }
 
-    func getLocation() {
-        locationManager.startUpdatingLocation()
+    func createLocationTimer() -> Timer {
+        return Timer.scheduledTimer(
+            withTimeInterval: locationTimerInterval,
+            repeats: true,
+            block: { [weak self] _ in self?.getLocation() }
+        )
     }
 
-    func getWeatherViaZipCode() {
+    private func getWeatherViaZipCode() {
         WeatherService.shared.getWeather(zipCode: DefaultsManager.shared.zipCode) { [weak self] (temperature, icon) in
             self?.updateUI(temperature: temperature, icon: icon)
         }
     }
 
-    func getWeatherViaLocation() {
+    private func getWeatherViaLocation() {
         if let currentLocation = currentLocation {
             WeatherService.shared.getWeather(location: currentLocation) { [weak self] (temperature, icon) in
                 self?.updateUI(temperature: temperature, icon: icon)
@@ -79,22 +83,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
     }
 
-    func createLocationTimer() -> Timer {
-        return Timer.scheduledTimer(
-            withTimeInterval: locationTimerInterval,
-            repeats: true,
-            block: { [weak self] _ in self?.getLocation() }
-        )
-    }
-
-    func updateUI(temperature: String, icon: NSImage?) {
+    private func updateUI(temperature: String, icon: NSImage?) {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = temperature
             self?.statusItem.image = icon
         }
     }
 
-    /* Popover stuff for listening for clicks outside the configure window */
+    private func getLocation() { locationManager.startUpdatingLocation() }
+
+    /// Popover stuff for listening for clicks outside the configure window
     private func showPopover(_ sender: AnyObject?) {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
