@@ -15,7 +15,6 @@
 		202C319F1C528958003D5E5A /* ConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C319D1C528958003D5E5A /* ConfigureViewController.swift */; };
 		202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 202C319E1C528958003D5E5A /* ConfigureViewController.xib */; };
 		202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C31A11C528FE7003D5E5A /* EventMonitor.swift */; };
-		2036E859217003790011E55A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61D04A331C7B7BCF00CBE6AE /* Info.plist */; };
 		2036E85C21700EC70011E55A /* DefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */; };
 		20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */; };
 		20459C641C5C50DA004D0DC1 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* Defaults.swift */; };
@@ -171,7 +170,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
@@ -193,7 +192,7 @@
 			};
 			buildConfigurationList = 2023ED9E1C4ED09C0087FD67 /* Build configuration list for PBXProject "DatWeatherDoe" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -227,7 +226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2036E859217003790011E55A /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -329,7 +328,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -337,6 +336,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -377,7 +377,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -396,7 +396,7 @@
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -415,7 +415,7 @@
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -428,7 +428,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DefaultsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DatWeatherDoe.app/Contents/MacOS/DatWeatherDoe";
 			};
 			name = Debug;
@@ -442,7 +442,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DefaultsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DatWeatherDoe.app/Contents/MacOS/DatWeatherDoe";
 			};
 			name = Release;
