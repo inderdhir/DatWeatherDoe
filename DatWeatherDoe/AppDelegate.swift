@@ -100,14 +100,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
 
     private func getWeatherViaZipCode() {
-        WeatherService.shared.getWeather(zipCode: DefaultsManager.shared.zipCode) { [weak self] (temperature, icon) in
+        WeatherService.shared.getWeather(zipCode: DefaultsManager.shared.zipCode) { [weak self] temperature, icon in
             self?.updateUI(temperature: temperature, icon: icon)
         }
     }
 
     private func getWeatherViaLocation() {
         if let currentLocation = currentLocation {
-            WeatherService.shared.getWeather(location: currentLocation) { [weak self] (temperature, icon) in
+            WeatherService.shared.getWeather(location: currentLocation) { [weak self] temperature, icon in
                 self?.updateUI(temperature: temperature, icon: icon)
             }
         } else {
@@ -115,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
     }
 
-    private func updateUI(temperature: String, icon: NSImage?) {
+    private func updateUI(temperature: String?, icon: NSImage?) {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = temperature
             self?.statusItem.image = icon

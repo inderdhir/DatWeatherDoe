@@ -32,7 +32,7 @@ class WeatherService {
     /// Zipcode-based weather
     func getWeather(
         zipCode: String,
-        completion: @escaping (_ temperature: String, _ icon: NSImage?) -> Void
+        completion: @escaping (_ temperature: String?, _ icon: NSImage?) -> Void
         ) {
 
         var urlComps = URLComponents(string: apiUrl)
@@ -59,7 +59,7 @@ class WeatherService {
     /// Location-based weather
     func getWeather(
         location: CLLocationCoordinate2D,
-        completion: @escaping (_ temperature: String, _ icon: NSImage?) -> Void
+        completion: @escaping (_ temperature: String?, _ icon: NSImage?) -> Void
         ) {
 
         var urlComps = URLComponents(string: apiUrl)
@@ -86,13 +86,17 @@ class WeatherService {
 
     private func parseResponse(
         _ data: Data,
-        completion: (_ temperature: String, _ icon: NSImage?) -> Void
+        completion: (_ temperature: String?, _ icon: NSImage?) -> Void
         ) {
 
         guard let response = try? JSONDecoder().decode(WeatherResponse.self, from: data),
             let temperature = response.temperatureString,
             let icon = response.icon else {
-                fatalError("Unable to parse weather response")
+                print("Unable to parse weather response")
+
+                let isDarkModeOn = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
+                completion(nil, NSImage(named: isDarkModeOn ? "SunnyDark" : "Sunny"))
+                return
         }
 
         completion(temperature, NSImage(named: icon))
