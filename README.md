@@ -18,4 +18,6 @@
 - Get your personal API key for openweathermap here: http://openweathermap.org/appid . 
 - Add your key in Keys.plist. 
 
-[Download latest release](https://github.com/inderdhir/DatWeatherDoe/releases/latest)
+[Download latest release](https://github.com/inderdhir/DatWeatherDoe/releases/latest) or install via Homebrew Cask:
+
+    brew cask install datweatherdoe
