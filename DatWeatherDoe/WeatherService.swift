@@ -99,6 +99,8 @@ class WeatherService {
                 return
         }
 
-        completion(temperature, NSImage(named: icon))
+        let image = NSImage(named: icon)
+        image?.isTemplate = true
+        completion(temperature, image)
     }
 }

@@ -42,49 +42,27 @@ struct WeatherResponse: Decodable {
     }
 
     var icon: String? {
-        let isDarkModeOn = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
-
         switch weatherId {
         case 800:
-            return isDarkModeOn ?
-                WeatherConditions.sunnyDark.rawValue :
-                WeatherConditions.sunny.rawValue
+            return WeatherConditions.sunny.rawValue
         case 801:
-            return isDarkModeOn ?
-                WeatherConditions.partlyCloudyDark.rawValue :
-                WeatherConditions.partlyCloudy.rawValue
+            return WeatherConditions.partlyCloudy.rawValue
         case 802...900:
-            return isDarkModeOn ?
-                WeatherConditions.cloudyDark.rawValue :
-                WeatherConditions.cloudy.rawValue
+            return WeatherConditions.cloudy.rawValue
         case 700..<800:
-            return isDarkModeOn ?
-                WeatherConditions.mistDark.rawValue :
-                WeatherConditions.mist.rawValue
+            return WeatherConditions.mist.rawValue
         case 600..<700:
-            return isDarkModeOn ?
-                WeatherConditions.snowDark.rawValue :
-                WeatherConditions.snow.rawValue
+            return WeatherConditions.snow.rawValue
         case 520..<600:
-            return isDarkModeOn ?
-                WeatherConditions.partlyCloudyRainDark.rawValue :
-                WeatherConditions.partlyCloudyRain.rawValue
+            return WeatherConditions.partlyCloudyRain.rawValue
         case 511:
-            return isDarkModeOn ?
-                WeatherConditions.freezingRainDark.rawValue :
-                WeatherConditions.freezingRain.rawValue
+            return WeatherConditions.freezingRain.rawValue
         case 500...504:
-            return isDarkModeOn ?
-                WeatherConditions.heavyRainDark.rawValue :
-                WeatherConditions.heavyRain.rawValue
+            return WeatherConditions.heavyRain.rawValue
         case 300..<500:
-            return isDarkModeOn ?
-                WeatherConditions.lightRainDark.rawValue :
-                WeatherConditions.lightRain.rawValue
+            return WeatherConditions.lightRain.rawValue
         case 200..<300:
-            return isDarkModeOn ?
-                WeatherConditions.thunderstormDark.rawValue :
-                WeatherConditions.thunderstorm.rawValue
+            return WeatherConditions.thunderstorm.rawValue
         default:
             break
         }
