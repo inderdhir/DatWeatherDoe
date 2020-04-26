@@ -14,8 +14,7 @@
 
 # Setup
 
-- Create a Keys.plist file under DatWeatherDoe/ that should look similar to Keys.example.plist.
 - Get your personal API key for openweathermap here: http://openweathermap.org/appid . 
-- Add your key in Keys.plist. 
+- Set the value of "OPENWEATHERMAP_APP_ID" to your key in Keys.plist. 
 
 [Download latest release](https://github.com/inderdhir/DatWeatherDoe/releases/latest)

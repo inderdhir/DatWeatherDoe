@@ -18,7 +18,7 @@
 		20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */; };
 		20459C641C5C50DA004D0DC1 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* Defaults.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherService.swift */; };
-		2097A4011C5277B1001EA615 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2097A4001C5277B1001EA615 /* Keys.plist */; };
+		20FF84E82456301D00FC9DAA /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20FF84E72456301D00FC9DAA /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 		20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherConditions.swift; sourceTree = "<group>"; };
 		20459C631C5C50DA004D0DC1 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		20459C651C5D24FF004D0DC1 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		2097A4001C5277B1001EA615 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		20FF84E72456301D00FC9DAA /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DefaultsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DefaultsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsTests.swift; sourceTree = "<group>"; };
 		61D04A331C7B7BCF00CBE6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,7 +94,6 @@
 				2023EDA81C4ED09C0087FD67 /* Assets.xcassets */,
 				2023EDAA1C4ED09C0087FD67 /* MainMenu.xib */,
 				2023EDAD1C4ED09C0087FD67 /* Info.plist */,
-				2097A4001C5277B1001EA615 /* Keys.plist */,
 				202C319D1C528958003D5E5A /* ConfigureViewController.swift */,
 				202C319E1C528958003D5E5A /* ConfigureViewController.xib */,
 				202C31A11C528FE7003D5E5A /* EventMonitor.swift */,
@@ -102,6 +101,7 @@
 				20459C631C5C50DA004D0DC1 /* Defaults.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherService.swift */,
 				201C6C4520262E380065E795 /* WeatherResponse.swift */,
+				20FF84E72456301D00FC9DAA /* Keys.plist */,
 			);
 			path = DatWeatherDoe;
 			sourceTree = "<group>";
@@ -211,9 +211,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20FF84E82456301D00FC9DAA /* Keys.plist in Resources */,
 				2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */,
 				2023EDAC1C4ED09C0087FD67 /* MainMenu.xib in Resources */,
-				2097A4011C5277B1001EA615 /* Keys.plist in Resources */,
 				202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
