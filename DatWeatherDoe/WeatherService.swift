@@ -93,9 +93,7 @@ class WeatherService {
             let temperature = response.temperatureString,
             let icon = response.icon else {
                 print("Unable to parse weather response")
-
-                let isDarkModeOn = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
-                completion(nil, NSImage(named: isDarkModeOn ? "SunnyDark" : "Sunny"))
+                completion(nil, NSImage(named: "Sunny"))
                 return
         }
 
