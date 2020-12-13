@@ -6,7 +6,8 @@
 
 ✅ Dark mode support
 
-![alt tag](screenshot.png)
+![alt tag](screenshot_1.png)
+![alt tag](screenshot_2.png)
 
 ## Installation
 
@@ -14,7 +15,7 @@
 
     brew cask install datweatherdoe
 
-## Using location services
+## Using Location Services
 
 If using location, please make sure that the app has permission to access location services on MacOS.
 
