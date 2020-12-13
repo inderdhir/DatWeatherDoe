@@ -31,17 +31,36 @@ class WeatherService {
 
     /// Zipcode-based weather
     func getWeather(
-        zipCode: String,
+        zipCode: String?,
+        latLong: String?,
         completion: @escaping (_ temperature: String?, _ icon: NSImage?) -> Void
         ) {
 
-        var urlComps = URLComponents(string: apiUrl)
-        urlComps?.queryItems = [
-            URLQueryItem(name: "zip", value: zipCode),
+        var queryItems: [URLQueryItem] = [
             URLQueryItem(name: "appid", value: appId)
         ]
+        if let zipCode = zipCode, !zipCode.isEmpty {
+            queryItems.append(URLQueryItem(name: "zip", value: zipCode))
+        } else if let latLong = latLong, !latLong.isEmpty {
+            let latLongCombo = latLong.split(separator: ",")
+            guard latLongCombo.count == 2 else {
+                print("Incorrect format for lat/lon")
+                return
+            }
+
+            queryItems.append(contentsOf: [
+                URLQueryItem(name: "lat", value: String(latLongCombo[0])),
+                URLQueryItem(name: "lon", value: String(latLongCombo[1]))
+            ])
+        } else {
+            print("Unable to get zipcode or lat/lon for fetching weather")
+            return
+        }
+
+        var urlComps = URLComponents(string: apiUrl)
+        urlComps?.queryItems = queryItems
         guard let url = urlComps?.url else {
-            fatalError("Unable to construct URL for zipcode based weather")
+            fatalError("Unable to construct URL for zipcode/lat,long based weather")
         }
 
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in

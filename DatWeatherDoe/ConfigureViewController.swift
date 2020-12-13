@@ -11,6 +11,7 @@ import Cocoa
 class ConfigureViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet weak var zipCodeField: NSTextField!
+    @IBOutlet weak var latLongField: NSTextField!
     @IBOutlet weak var refreshIntervals: NSPopUpButton!
     @IBOutlet weak var useLocationToggleCheckBox: NSButton!
     @IBOutlet weak var fahrenheitRadioButton: NSButton!
@@ -24,8 +25,9 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         refreshIntervals.removeAllItems()
         refreshIntervals.addItems(withTitles: intervalStrings)
         refreshIntervals.setTitle(intervalStrings[0])
-        
+
         zipCodeField.delegate = self
+        latLongField.delegate = self
 
         fahrenheitRadioButton.title = "\u{00B0}F"
         celsiusRadioButton.title = "\u{00B0}C"
@@ -35,9 +37,12 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
 
         let usingLocation = DefaultsManager.shared.usingLocation
         useLocationToggleCheckBox.state = usingLocation ? .on : .off
+
         zipCodeField.isEnabled = !usingLocation
         zipCodeField.placeholderString = DefaultsManager.shared.zipCode
-        
+        latLongField.isEnabled = !usingLocation
+        latLongField.placeholderString = DefaultsManager.shared.latLong
+
         switch DefaultsManager.shared.refreshInterval {
         case 300: refreshIntervals.selectItem(at: 1)
         case 900: refreshIntervals.selectItem(at: 2)
@@ -54,6 +59,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func uselocationCheckboxClicked(_ sender: NSButton) {
         zipCodeField.isEnabled = sender.state != .on
+        latLongField.isEnabled = sender.state != .on
     }
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
@@ -66,14 +72,12 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         default: refreshInterval = 60
         }
 
-        if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
-            DefaultsManager.shared.zipCode = zipCodeField.stringValue
-            DefaultsManager.shared.refreshInterval = refreshInterval
-            DefaultsManager.shared.unit = fahrenheitRadioButton.state == .on ? .fahrenheit : .celsius
-            DefaultsManager.shared.usingLocation = useLocationToggleCheckBox.state == .on
-
-            appDelegate.getWeather(nil)
-        }
+        DefaultsManager.shared.zipCode = zipCodeField.stringValue
+        DefaultsManager.shared.latLong = latLongField.stringValue
+        DefaultsManager.shared.refreshInterval = refreshInterval
+        DefaultsManager.shared.unit = fahrenheitRadioButton.state == .on ? .fahrenheit : .celsius
+        DefaultsManager.shared.usingLocation = useLocationToggleCheckBox.state == .on
+        (NSApplication.shared.delegate as? AppDelegate)?.getWeather(nil)
 
         view.window?.close()
     }

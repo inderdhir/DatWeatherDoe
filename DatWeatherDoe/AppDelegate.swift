@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
 
     @objc func getWeather(_ sender: AnyObject?) {
-        DefaultsManager.shared.usingLocation ? getWeatherViaLocation() : getWeatherViaZipCode()
+        DefaultsManager.shared.usingLocation ? getWeatherViaLocation() : getWeatherViaZipCodeOrLatLong()
     }
 
     func createLocationTimer() -> Timer {
@@ -99,26 +99,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         weatherTimer?.fire()
     }
 
-    private func getWeatherViaZipCode() {
-        WeatherService.shared.getWeather(zipCode: DefaultsManager.shared.zipCode) { [weak self] temperature, icon in
-            self?.updateUI(temperature: temperature, icon: icon)
+    private func getWeatherViaZipCodeOrLatLong() {
+        WeatherService.shared.getWeather(
+            zipCode: DefaultsManager.shared.zipCode,
+            latLong: DefaultsManager.shared.latLong
+        ) { [weak self] temperature, image in
+            self?.updateUI(temperature: temperature, image: image)
         }
     }
 
     private func getWeatherViaLocation() {
         if let currentLocation = currentLocation {
-            WeatherService.shared.getWeather(location: currentLocation) { [weak self] temperature, icon in
-                self?.updateUI(temperature: temperature, icon: icon)
+            WeatherService.shared.getWeather(location: currentLocation) { [weak self] temperature, image in
+                self?.updateUI(temperature: temperature, image: image)
             }
         } else {
             getLocation()
         }
     }
 
-    private func updateUI(temperature: String?, icon: NSImage?) {
+    private func updateUI(temperature: String?, image: NSImage?) {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = temperature
-            self?.statusItem.image = icon
+            self?.statusItem.image = image
         }
     }
 
@@ -142,7 +145,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         DefaultsManager.shared.usingLocation = false
         locationTimer?.invalidate()
-        getWeatherViaZipCode()
+        getWeatherViaZipCodeOrLatLong()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

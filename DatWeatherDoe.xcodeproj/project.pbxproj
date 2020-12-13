@@ -16,7 +16,7 @@
 		202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C31A11C528FE7003D5E5A /* EventMonitor.swift */; };
 		2036E85C21700EC70011E55A /* DefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D04A311C7B7BCF00CBE6AE /* DefaultsTests.swift */; };
 		20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */; };
-		20459C641C5C50DA004D0DC1 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* Defaults.swift */; };
+		20459C641C5C50DA004D0DC1 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* DefaultsManager.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherService.swift */; };
 		20FF84E82456301D00FC9DAA /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20FF84E72456301D00FC9DAA /* Keys.plist */; };
 /* End PBXBuildFile section */
@@ -42,7 +42,7 @@
 		202C319E1C528958003D5E5A /* ConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureViewController.xib; sourceTree = "<group>"; };
 		202C31A11C528FE7003D5E5A /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherConditions.swift; sourceTree = "<group>"; };
-		20459C631C5C50DA004D0DC1 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		20459C631C5C50DA004D0DC1 /* DefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		20459C651C5D24FF004D0DC1 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		20FF84E72456301D00FC9DAA /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				202C319E1C528958003D5E5A /* ConfigureViewController.xib */,
 				202C31A11C528FE7003D5E5A /* EventMonitor.swift */,
 				20459C611C5C4E2D004D0DC1 /* WeatherConditions.swift */,
-				20459C631C5C50DA004D0DC1 /* Defaults.swift */,
+				20459C631C5C50DA004D0DC1 /* DefaultsManager.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherService.swift */,
 				201C6C4520262E380065E795 /* WeatherResponse.swift */,
 				20FF84E72456301D00FC9DAA /* Keys.plist */,
@@ -235,7 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20459C621C5C4E2D004D0DC1 /* WeatherConditions.swift in Sources */,
-				20459C641C5C50DA004D0DC1 /* Defaults.swift in Sources */,
+				20459C641C5C50DA004D0DC1 /* DefaultsManager.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
 				20459C661C5D24FF004D0DC1 /* WeatherService.swift in Sources */,
 				2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */,
@@ -322,7 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -373,7 +373,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

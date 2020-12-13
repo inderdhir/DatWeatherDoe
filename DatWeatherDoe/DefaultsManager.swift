@@ -1,5 +1,5 @@
 //
-//  Defaults.swift
+//  DefaultsManager.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/29/16.
@@ -13,18 +13,17 @@ class DefaultsManager {
     public static let shared = DefaultsManager()
 
     private enum DefaultsKeys: String {
-        case zipCode, refreshInterval, unit, usingLocation
+        case zipCode, latLong, refreshInterval, unit, usingLocation
     }
 
-    public var zipCode: String {
-        get {
-            if let zipCode = UserDefaults.standard.string(forKey: DefaultsKeys.zipCode.rawValue),
-                !zipCode.isEmpty {
-                return zipCode
-            }
-            return "10021,us"
-        }
+    public var zipCode: String? {
+        get { return UserDefaults.standard.string(forKey: DefaultsKeys.zipCode.rawValue) }
         set { UserDefaults.standard.set(newValue, forKey: DefaultsKeys.zipCode.rawValue) }
+    }
+
+    public var latLong: String? {
+        get { return UserDefaults.standard.string(forKey: DefaultsKeys.latLong.rawValue) }
+        set { UserDefaults.standard.set(newValue, forKey: DefaultsKeys.latLong.rawValue) }
     }
 
     public var refreshInterval: TimeInterval {
