@@ -6,6 +6,8 @@
 
 ✅ Dark mode support
 
+✅ Supports macOS 10.12 or higher
+
 ![alt tag](screenshot_1.png)
 ![alt tag](screenshot_2.png)
 
