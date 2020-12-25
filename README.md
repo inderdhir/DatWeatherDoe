@@ -15,7 +15,7 @@
 
 [Download latest release](https://github.com/inderdhir/DatWeatherDoe/releases/latest) or install via Homebrew Cask:
 
-    brew cask install datweatherdoe
+    brew install --cask datweatherdoe
 
 ## Using Location Services
 
