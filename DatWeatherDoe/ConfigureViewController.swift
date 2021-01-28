@@ -78,7 +78,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         DefaultsManager.shared.unit = fahrenheitRadioButton.state == .on ? .fahrenheit : .celsius
         DefaultsManager.shared.usingLocation = useLocationToggleCheckBox.state == .on
         (NSApplication.shared.delegate as? AppDelegate)?.getWeather(nil)
-
-        view.window?.close()
+        // close the popover
+        (NSApplication.shared.delegate as? AppDelegate)?.togglePopover(sender)
     }
 }
