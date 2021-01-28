@@ -13,7 +13,7 @@ class DefaultsManager {
     public static let shared = DefaultsManager()
 
     private enum DefaultsKeys: String {
-        case zipCode, latLong, refreshInterval, unit, usingLocation
+        case zipCode, latLong, refreshInterval, unit, usingLocation, showHumidity
     }
 
     public var zipCode: String? {
@@ -48,5 +48,10 @@ class DefaultsManager {
     public var usingLocation: Bool {
         get { return UserDefaults.standard.bool(forKey: DefaultsKeys.usingLocation.rawValue) }
         set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.usingLocation.rawValue) }
+    }
+
+    public var showHumidity: Bool {
+        get { return UserDefaults.standard.bool(forKey: DefaultsKeys.showHumidity.rawValue) }
+        set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.showHumidity.rawValue) }
     }
 }
