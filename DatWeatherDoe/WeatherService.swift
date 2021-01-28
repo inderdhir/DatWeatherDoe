@@ -33,7 +33,7 @@ class WeatherService {
     func getWeather(
         zipCode: String?,
         latLong: String?,
-        completion: @escaping (_ temperature: String?, _ icon: NSImage?) -> Void
+        completion: @escaping (_ temperature: String?, _ location: String?, _ icon: NSImage?) -> Void
         ) {
 
         var queryItems: [URLQueryItem] = [
@@ -78,7 +78,7 @@ class WeatherService {
     /// Location-based weather
     func getWeather(
         location: CLLocationCoordinate2D,
-        completion: @escaping (_ temperature: String?, _ icon: NSImage?) -> Void
+        completion: @escaping (_ temperature: String?, _ location: String?, _ icon: NSImage?) -> Void
         ) {
 
         var urlComps = URLComponents(string: apiUrl)
@@ -105,18 +105,19 @@ class WeatherService {
 
     private func parseResponse(
         _ data: Data,
-        completion: (_ temperature: String?, _ icon: NSImage?) -> Void
+        completion: (_ temperature: String?, _ location: String?, _ icon: NSImage?) -> Void
         ) {
         guard let response = try? JSONDecoder().decode(WeatherResponse.self, from: data),
             let weather = response.weatherString,
+            let location = response.locationString,
             let icon = response.icon else {
-                print("Unable to parse weather response")
-                completion(nil, NSImage(named: "Sunny"))
-                return
+            print("Unable to parse weather response:", String(decoding: data, as: UTF8.self))
+            completion("Error", "Unknown", nil)
+            return
         }
 
         let image = NSImage(named: icon)
         image?.isTemplate = true
-        completion(weather, image)
+        completion(weather, location, image)
     }
 }
