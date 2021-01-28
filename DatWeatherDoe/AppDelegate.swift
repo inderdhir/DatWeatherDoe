@@ -32,6 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         locationTimer = createLocationTimer()
 
         let menu = NSMenu()
+        menu.addItem(withTitle: "Unknown Location", action: nil, keyEquivalent: "")
+        menu.addItem(.separator())
         menu.addItem(withTitle: "Refresh", action: #selector(getWeather), keyEquivalent: "R")
         menu.addItem(.separator())
         menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "C")
@@ -103,24 +105,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         WeatherService.shared.getWeather(
             zipCode: DefaultsManager.shared.zipCode,
             latLong: DefaultsManager.shared.latLong
-        ) { [weak self] temperature, image in
-            self?.updateUI(temperature: temperature, image: image)
+        ) { [weak self] temperature, location, image in
+            self?.updateUI(temperature: temperature, location: location, image: image)
         }
     }
 
     private func getWeatherViaLocation() {
         if let currentLocation = currentLocation {
-            WeatherService.shared.getWeather(location: currentLocation) { [weak self] temperature, image in
-                self?.updateUI(temperature: temperature, image: image)
+            WeatherService.shared.getWeather(location: currentLocation) { [weak self] temperature, location, image in
+                self?.updateUI(temperature: temperature, location: location, image: image)
             }
         } else {
             getLocation()
         }
     }
 
-    private func updateUI(temperature: String?, image: NSImage?) {
+    private func updateUI(temperature: String?, location: String?, image: NSImage?) {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = temperature
+            self?.statusItem.menu?.item(at: 0).self?.title = location ?? "Unknown"
             self?.statusItem.image = image
         }
     }

@@ -23,10 +23,11 @@ struct WeatherResponse: Decodable {
     }()
     private let temperature: Double
     private let humidity: Int
+    private let location: String
     private let weatherId: Int
 
     private enum RootKeys: String, CodingKey {
-        case main, weather
+        case main, weather, name
     }
 
     private enum APIKeys: String, CodingKey {
@@ -44,6 +45,7 @@ struct WeatherResponse: Decodable {
             .decode(Double.self, forKey: .temperature)
         humidity = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .main)
             .decode(Int.self, forKey: .humidity)
+        location = try container.decode(String.self, forKey: .name)
 
         var weatherContainer = try container.nestedUnkeyedContainer(forKey: .weather)
         let weatherChildContainer = try weatherContainer.nestedContainer(keyedBy: WeatherKeys.self)
@@ -93,6 +95,10 @@ struct WeatherResponse: Decodable {
             fatalError("Unable to construct formatted humidity string")
         }
         return formattedString + "\u{0025}"
+    }
+
+    var locationString: String? {
+        return location
     }
 
     var weatherString: String? {
