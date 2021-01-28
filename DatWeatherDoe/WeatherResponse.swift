@@ -16,15 +16,22 @@ struct WeatherResponse: Decodable {
         formatter.maximumFractionDigits = 1
         return formatter
     }()
+    private static let humidityFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        return formatter
+    }()
     private let temperature: Double
+    private let humidity: Int
     private let weatherId: Int
 
     private enum RootKeys: String, CodingKey {
         case main, weather
     }
 
-    private enum TemperatureKeys: String, CodingKey {
+    private enum APIKeys: String, CodingKey {
         case temperature = "temp"
+        case humidity = "humidity"
     }
 
     private enum WeatherKeys: String, CodingKey {
@@ -33,8 +40,10 @@ struct WeatherResponse: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: RootKeys.self)
-        temperature = try container.nestedContainer(keyedBy: TemperatureKeys.self, forKey: .main)
+        temperature = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .main)
             .decode(Double.self, forKey: .temperature)
+        humidity = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .main)
+            .decode(Int.self, forKey: .humidity)
 
         var weatherContainer = try container.nestedUnkeyedContainer(forKey: .weather)
         let weatherChildContainer = try weatherContainer.nestedContainer(keyedBy: WeatherKeys.self)
@@ -64,6 +73,7 @@ struct WeatherResponse: Decodable {
         case 200..<300:
             return WeatherConditions.thunderstorm.rawValue
         default:
+            print("Unknown weather ID:", weatherId)
             break
         }
         return nil
@@ -73,8 +83,19 @@ struct WeatherResponse: Decodable {
         let temperatureInUnits = DefaultsManager.shared.unit == .fahrenheit ?
             ((temperature - 273.15) * 1.8) + 32 : temperature - 273.15
         guard let formattedString = WeatherResponse.temperatureFormatter.string(from: NSNumber(value: temperatureInUnits)) else {
-            fatalError("Unable to construct formatted weather string")
+            fatalError("Unable to construct formatted temperature string")
         }
         return formattedString + "\u{00B0}"
+    }
+
+    var humidityString: String? {
+        guard let formattedString = WeatherResponse.humidityFormatter.string(from: NSNumber(value: humidity)) else {
+            fatalError("Unable to construct formatted humidity string")
+        }
+        return formattedString + "\u{0025}"
+    }
+
+    var weatherString: String? {
+        return temperatureString! + (DefaultsManager.shared.showHumidity ? ("/" + humidityString!) : "")
     }
 }

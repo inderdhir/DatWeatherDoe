@@ -107,9 +107,8 @@ class WeatherService {
         _ data: Data,
         completion: (_ temperature: String?, _ icon: NSImage?) -> Void
         ) {
-
         guard let response = try? JSONDecoder().decode(WeatherResponse.self, from: data),
-            let temperature = response.temperatureString,
+            let weather = response.weatherString,
             let icon = response.icon else {
                 print("Unable to parse weather response")
                 completion(nil, NSImage(named: "Sunny"))
@@ -118,6 +117,6 @@ class WeatherService {
 
         let image = NSImage(named: icon)
         image?.isTemplate = true
-        completion(temperature, image)
+        completion(weather, image)
     }
 }

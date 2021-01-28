@@ -14,6 +14,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var latLongField: NSTextField!
     @IBOutlet weak var refreshIntervals: NSPopUpButton!
     @IBOutlet weak var useLocationToggleCheckBox: NSButton!
+    @IBOutlet weak var showHumidityToggleCheckBox: NSButton!
     @IBOutlet weak var fahrenheitRadioButton: NSButton!
     @IBOutlet weak var celsiusRadioButton: NSButton!
 
@@ -36,7 +37,9 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         celsiusRadioButton.state = DefaultsManager.shared.unit == .celsius ? .on : .off
 
         let usingLocation = DefaultsManager.shared.usingLocation
+        let showHumidity = DefaultsManager.shared.showHumidity
         useLocationToggleCheckBox.state = usingLocation ? .on : .off
+        showHumidityToggleCheckBox.state = showHumidity ? .on : .off
 
         zipCodeField.isEnabled = !usingLocation
         zipCodeField.placeholderString = DefaultsManager.shared.zipCode
@@ -77,6 +80,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         DefaultsManager.shared.refreshInterval = refreshInterval
         DefaultsManager.shared.unit = fahrenheitRadioButton.state == .on ? .fahrenheit : .celsius
         DefaultsManager.shared.usingLocation = useLocationToggleCheckBox.state == .on
+        DefaultsManager.shared.showHumidity = showHumidityToggleCheckBox.state == .on
         (NSApplication.shared.delegate as? AppDelegate)?.getWeather(nil)
         // close the popover
         (NSApplication.shared.delegate as? AppDelegate)?.togglePopover(sender)
