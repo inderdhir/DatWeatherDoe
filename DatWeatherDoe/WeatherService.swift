@@ -45,6 +45,7 @@ class WeatherService {
             let latLongCombo = latLong.split(separator: ",")
             guard latLongCombo.count == 2 else {
                 print("Incorrect format for lat/lon")
+                completion("Incorrect location", "Unknown", nil)
                 return
             }
 
@@ -54,6 +55,7 @@ class WeatherService {
             ])
         } else {
             print("Unable to get zipcode or lat/lon for fetching weather")
+            completion("Error getting weather", "Unknown", nil)
             return
         }
 
@@ -67,6 +69,7 @@ class WeatherService {
             guard let data = data, error == nil else {
                 if let error = error {
                     print(error.localizedDescription)
+                    completion("Error", "Unknown", nil)
                 }
                 return
             }
