@@ -32,7 +32,7 @@ struct WeatherResponse: Decodable {
 
     private enum APIKeys: String, CodingKey {
         case temperature = "temp"
-        case humidity = "humidity"
+        case humidity
     }
 
     private enum WeatherKeys: String, CodingKey {
@@ -87,21 +87,30 @@ struct WeatherResponse: Decodable {
         guard let formattedString = WeatherResponse.temperatureFormatter.string(from: NSNumber(value: temperatureInUnits)) else {
             fatalError("Unable to construct formatted temperature string")
         }
-        return formattedString + "\u{00B0}"
+        return "\(formattedString)\u{00B0}"
     }
 
     var humidityString: String? {
         guard let formattedString = WeatherResponse.humidityFormatter.string(from: NSNumber(value: humidity)) else {
             fatalError("Unable to construct formatted humidity string")
         }
-        return formattedString + "\u{0025}"
+        return "\(formattedString)\u{0025}"
     }
 
-    var locationString: String? {
-        return location
-    }
+    var locationString: String? { location }
 
     var weatherString: String? {
-        return temperatureString! + (DefaultsManager.shared.showHumidity ? ("/" + humidityString!) : "")
+        let tempString = temperatureString ?? ""
+        guard DefaultsManager.shared.showHumidity else {
+            return tempString
+        }
+
+        let humString: String
+        if let humidityString = humidityString {
+            humString = "/\(humidityString)"
+        } else {
+            humString = ""
+        }
+        return "\(tempString)\(humString)"
     }
 }

@@ -123,7 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private func updateUI(temperature: String?, location: String?, image: NSImage?) {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = temperature
-            self?.statusItem.menu?.item(at: 0).self?.title = location ?? "Unknown"
+            self?.statusItem.menu?.item(at: 0)?.title = location ?? "Unknown"
             self?.statusItem.image = image
         }
     }
