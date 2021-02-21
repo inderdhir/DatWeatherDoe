@@ -13,7 +13,22 @@ class DefaultsManager {
     public static let shared = DefaultsManager()
 
     private enum DefaultsKeys: String {
-        case zipCode, latLong, refreshInterval, unit, usingLocation, showHumidity
+        case unit, usingLocation, zipCode, latLong, refreshInterval, showHumidity, roundOffData
+    }
+
+    public var unit: TemperatureUnit {
+        get {
+            if let temperatureString = UserDefaults.standard.string(forKey: DefaultsKeys.unit.rawValue) {
+                return TemperatureUnit(rawValue: temperatureString) ?? .fahrenheit
+            }
+            return .fahrenheit
+        }
+        set { UserDefaults.standard.setValue(newValue.rawValue, forKey: DefaultsKeys.unit.rawValue) }
+    }
+
+    public var usingLocation: Bool {
+        get { return UserDefaults.standard.bool(forKey: DefaultsKeys.usingLocation.rawValue) }
+        set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.usingLocation.rawValue) }
     }
 
     public var zipCode: String? {
@@ -35,23 +50,13 @@ class DefaultsManager {
         set { UserDefaults.standard.set(newValue, forKey: DefaultsKeys.refreshInterval.rawValue) }
     }
 
-    public var unit: TemperatureUnit {
-        get {
-            if let temperatureString = UserDefaults.standard.string(forKey: DefaultsKeys.unit.rawValue) {
-                return TemperatureUnit(rawValue: temperatureString) ?? .fahrenheit
-            }
-            return .fahrenheit
-        }
-        set { UserDefaults.standard.setValue(newValue.rawValue, forKey: DefaultsKeys.unit.rawValue) }
-    }
-
-    public var usingLocation: Bool {
-        get { return UserDefaults.standard.bool(forKey: DefaultsKeys.usingLocation.rawValue) }
-        set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.usingLocation.rawValue) }
-    }
-
     public var showHumidity: Bool {
         get { return UserDefaults.standard.bool(forKey: DefaultsKeys.showHumidity.rawValue) }
         set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.showHumidity.rawValue) }
+    }
+
+    public var roundOffData: Bool {
+        get { return UserDefaults.standard.bool(forKey: DefaultsKeys.roundOffData.rawValue) }
+        set { UserDefaults.standard.setValue(newValue, forKey: DefaultsKeys.roundOffData.rawValue) }
     }
 }

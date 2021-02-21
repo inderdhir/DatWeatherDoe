@@ -10,15 +10,17 @@ import Cocoa
 
 struct WeatherResponse: Decodable {
 
-    private static let temperatureFormatter: NumberFormatter = {
+    static let temperatureFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 1
+        formatter.roundingMode = .halfUp
         return formatter
     }()
-    private static let humidityFormatter: NumberFormatter = {
+    static let humidityFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
+        formatter.maximumFractionDigits = 0
         return formatter
     }()
     private let temperature: Double
