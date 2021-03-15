@@ -89,7 +89,9 @@ struct WeatherResponse: Decodable {
         guard let formattedString = WeatherResponse.temperatureFormatter.string(from: NSNumber(value: temperatureInUnits)) else {
             fatalError("Unable to construct formatted temperature string")
         }
-        return "\(formattedString)\u{00B0}"
+        
+        let tempUnit = .fahrenheit ? "F" : "C"
+        return "\(formattedString)\u{00B0}\(tempUnit)"
     }
 
     var humidityString: String? {
