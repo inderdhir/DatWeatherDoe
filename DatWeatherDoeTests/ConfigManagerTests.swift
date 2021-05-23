@@ -33,34 +33,24 @@ class ConfigManagerTests: XCTestCase {
         XCTAssertEqual(configManager.temperatureUnit, TemperatureUnit.celsius.rawValue)
     }
 
-    func testDefaultLocationToggle() {
-        XCTAssertEqual(configManager.isUsingLocation, false)
+    func testDefaultWeatherSource() {
+        XCTAssertEqual(configManager.weatherSource, WeatherSource.location.rawValue)
     }
 
-    func testLocationToggleSaved() {
-        XCTAssertEqual(configManager.isUsingLocation, false)
-        configManager.isUsingLocation = true
-        XCTAssertEqual(configManager.isUsingLocation, true)
+    func testDefaultWeatherSourceSaved() {
+        XCTAssertEqual(configManager.weatherSource, WeatherSource.location.rawValue)
+        configManager.weatherSource = WeatherSource.latLong.rawValue
+        XCTAssertEqual(configManager.weatherSource, WeatherSource.latLong.rawValue)
     }
 
-    func testDefaultZipCode() {
-        XCTAssertEqual(configManager.zipCode, nil)
+    func testDefaultWeatherSourceText() {
+        XCTAssertEqual(configManager.weatherSourceText, nil)
     }
 
-    func testZipCodeSaved() {
-        XCTAssertEqual(configManager.zipCode, nil)
-        configManager.zipCode = "10021,us"
-        XCTAssertEqual(configManager.zipCode, "10021,us")
-    }
-
-    func testDefaultLatLong() {
-        XCTAssertEqual(configManager.latLong, nil)
-    }
-
-    func testLatLongSaved() {
-        XCTAssertEqual(configManager.latLong, nil)
-        configManager.latLong = "20,20"
-        XCTAssertEqual(configManager.latLong, "20,20")
+    func testWeatherSourceTextSaved() {
+        XCTAssertEqual(configManager.weatherSourceText, nil)
+        configManager.weatherSourceText = "10021,us"
+        XCTAssertEqual(configManager.weatherSourceText, "10021,us")
     }
 
     func testDefaultRefreshInterval() {
