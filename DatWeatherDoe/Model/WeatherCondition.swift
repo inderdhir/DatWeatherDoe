@@ -1,12 +1,12 @@
 //
-//  WeatherConditions.swift
+//  WeatherCondition.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/29/16.
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-enum WeatherConditions: String {
+enum WeatherCondition: String {
     case sunny = "Sunny"
     case partlyCloudy = "PartlyCloudy"
     case cloudy = "Cloudy"

@@ -8,6 +8,7 @@
 
 import Cocoa
 import CoreLocation
+import os
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
@@ -18,11 +19,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private let locationTimerInterval = TimeInterval(900)
     private let popover = NSPopover()
-    private var defaultsChanged = false
+    private let configManager: ConfigManagerType = ConfigManager()
+    private lazy var weatherRepository: WeatherRepositoryType = WeatherRepository(configManager: configManager)
+    private lazy var locationErrorString = "location_error".localized()
+    private lazy var latLongErrorString = "latLong_error".localized()
+    private lazy var zipCodeErrorString = "zipCode_error".localized()
+    private lazy var unknownString = "unknown".localized()
     private var locationTimer: Timer?
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
     private var eventMonitor: EventMonitor?
+
+    @available(macOS 11.0, *)
+    private(set) lazy var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier ?? "DatWeatherDoe",
+        category: "WeatherAppDelegate"
+    )
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Location
@@ -42,30 +54,44 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         statusItem.menu = menu
         statusItem.button?.action = #selector(togglePopover)
 
-        popover.contentViewController = ConfigureViewController(nibName: "ConfigureViewController", bundle: nil)
+        popover.contentViewController = ConfigureViewController(configManager: configManager)
 
         resetWeatherTimer()
 
         // Close popover if clicked outside the popover
         eventMonitor = EventMonitor(mask: .leftMouseDown) { [weak self] event in
-            if self?.popover.isShown == true { self?.closePopover(event) }
+            DispatchQueue.main.async {
+                if self?.popover.isShown == true { self?.closePopover(event) }
+            }
         }
         eventMonitor?.start()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(defaultsDidChange),
-            name: UserDefaults.didChangeNotification,
-            object: nil
-        )
     }
 
     @objc func getWeather(_ sender: AnyObject?) {
-        DefaultsManager.shared.usingLocation ? getWeatherViaLocation() : getWeatherViaZipCodeOrLatLong()
+        switch WeatherSource(rawValue: configManager.weatherSource) {
+        case .latLong:
+            guard let latLong = configManager.weatherSourceText else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.statusItem.title = self?.latLongErrorString
+                }
+                return
+            }
+            getWeatherViaCoordinates(latLong)
+        case .zipCode:
+            guard let zipCode = configManager.weatherSourceText else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.statusItem.title = self?.zipCodeErrorString
+                }
+                return
+            }
+            getWeatherViaZipCode(zipCode)
+        default:
+            getWeatherViaLocation()
+        }
     }
 
     func createLocationTimer() -> Timer {
-        return Timer.scheduledTimer(
+        Timer.scheduledTimer(
             withTimeInterval: locationTimerInterval,
             repeats: true,
             block: { [weak self] _ in self?.getLocation() }
@@ -74,17 +100,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     @objc func togglePopover(_ sender: AnyObject?) {
         if popover.isShown {
-            defaultsChanged = true
             closePopover(sender)
+            resetWeatherTimer()
         } else {
             showPopover(sender)
-        }
-    }
-
-    @objc func defaultsDidChange(_ sender: AnyObject?) {
-        if defaultsChanged {
-            defaultsChanged = false
-            resetWeatherTimer()
         }
     }
 
@@ -93,38 +112,70 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private func resetWeatherTimer() {
         weatherTimer?.invalidate()
         weatherTimer = Timer.scheduledTimer(
-            timeInterval: DefaultsManager.shared.refreshInterval,
+            timeInterval: configManager.refreshInterval,
             target: self,
             selector: #selector(getWeather),
-            userInfo: nil, repeats: true
+            userInfo: nil,
+            repeats: true
         )
         weatherTimer?.fire()
     }
 
-    private func getWeatherViaZipCodeOrLatLong() {
-        WeatherService.shared.getWeather(
-            zipCode: DefaultsManager.shared.zipCode,
-            latLong: DefaultsManager.shared.latLong
-        ) { [weak self] temperature, location, image in
-            self?.updateUI(temperature: temperature, location: location, image: image)
-        }
-    }
-
     private func getWeatherViaLocation() {
-        if let currentLocation = currentLocation {
-            WeatherService.shared.getWeather(location: currentLocation) { [weak self] temperature, location, image in
-                self?.updateUI(temperature: temperature, location: location, image: image)
+        guard let currentLocation = currentLocation else {
+            if #available(macOS 11.0, *) {
+                logger.debug("Current location empty: Getting current location")
             }
-        } else {
             getLocation()
+            return
         }
+
+        weatherRepository.getWeather(location: currentLocation, completion: { [weak self] result in
+            switch result {
+            case let .success(data):
+                self?.updateUI(data)
+            case .failure:
+                break
+            }
+        })
     }
 
-    private func updateUI(temperature: String?, location: String?, image: NSImage?) {
+    private func getWeatherViaCoordinates(_ latLong: String) {
+        weatherRepository.getWeather(latLong: latLong, completion: { [weak self] result in
+            switch result {
+            case let .success(data):
+                self?.updateUI(data)
+            case .failure:
+                DispatchQueue.main.async { [weak self] in
+                    self?.statusItem.title = self?.latLongErrorString
+                }
+            }
+        })
+    }
+
+    private func getWeatherViaZipCode(_ zipCode: String) {
+        weatherRepository.getWeather(zipCode: zipCode, completion: { [weak self] result in
+            switch result {
+            case let .success(data):
+                self?.updateUI(data)
+            case .failure:
+                DispatchQueue.main.async { [weak self] in
+                    self?.statusItem.title = self?.zipCodeErrorString
+                }
+            }
+        })
+    }
+
+    private func updateUI(_ data: WeatherData) {
         DispatchQueue.main.async { [weak self] in
-            self?.statusItem.title = temperature
-            self?.statusItem.menu?.item(at: 0)?.title = location ?? "Unknown"
-            self?.statusItem.image = image
+            guard let `self` = self else { return }
+
+            self.statusItem.title = data.textualRepresentation
+            self.statusItem.menu?.item(at: 0)?.title = data.location ?? self.unknownString
+
+            let image = NSImage(named: data.weatherCondition.rawValue)
+            image?.isTemplate = true
+            self.statusItem.image = image
         }
     }
 
@@ -146,9 +197,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     // MARK: CLLocationManagerDelegate
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        DefaultsManager.shared.usingLocation = false
-        locationTimer?.invalidate()
-        getWeatherViaZipCodeOrLatLong()
+        if #available(macOS 11.0, *) {
+            logger.error("Getting location failed")
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.statusItem.title = self?.locationErrorString
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

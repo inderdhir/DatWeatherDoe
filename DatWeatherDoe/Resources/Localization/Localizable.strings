@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  DatWeatherDoe
+
+  Created by Inder Dhir on 5/23/21.
+  Copyright © 2021 Inder Dhir. All rights reserved.
+*/
+
+location_error = "Location Error";
+latLong_error = "Lat/Long Error";
+zipCode_error = "Zip Code Rrror";
+unknown = "Unknown";
