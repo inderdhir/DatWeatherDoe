@@ -8,5 +8,5 @@
 
 location_error = "Location Error";
 latLong_error = "Lat/Long Error";
-zipCode_error = "Zip Code Rrror";
+zipCode_error = "Zip Code Error";
 unknown = "Unknown";
