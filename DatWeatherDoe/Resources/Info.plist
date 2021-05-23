@@ -31,7 +31,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2016 Inder Dhir. All rights reserved.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To provide weather</string>
+	<string>DatWeatherDoe optionally uses your current location to get the weather</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
