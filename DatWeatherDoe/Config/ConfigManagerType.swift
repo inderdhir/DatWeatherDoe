@@ -15,4 +15,5 @@ protocol ConfigManagerType: AnyObject {
     var refreshInterval: TimeInterval { get set }
     var isShowingHumidity: Bool { get set }
     var isRoundingOffData: Bool { get set }
+    var isWeatherConditionAsTextEnabled: Bool { get set }
 }

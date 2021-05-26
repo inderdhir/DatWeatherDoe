@@ -83,6 +83,16 @@ class ConfigManagerTests: XCTestCase {
         XCTAssertEqual(configManager.isRoundingOffData, true)
     }
 
+    func testWeatherConditionAsTextDefault() {
+        XCTAssertEqual(configManager.isWeatherConditionAsTextEnabled, false)
+    }
+
+    func testWeatherConditionAsTextSaved() {
+        XCTAssertEqual(configManager.isWeatherConditionAsTextEnabled, false)
+        configManager.isWeatherConditionAsTextEnabled = true
+        XCTAssertEqual(configManager.isWeatherConditionAsTextEnabled, true)
+    }
+
     private func clearUserDefaults() {
         let appDomain = Bundle.main.bundleIdentifier ?? "DatWeatherDoe"
         UserDefaults.resetStandardUserDefaults()

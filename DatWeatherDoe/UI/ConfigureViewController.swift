@@ -19,6 +19,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var refreshIntervals: NSPopUpButton!
     @IBOutlet weak var showHumidityToggleCheckBox: NSButton!
     @IBOutlet weak var roundOffData: NSButton!
+    @IBOutlet weak var weatherConditionAsTextCheckBox: NSButton!
     private let zipCodeHint = "[zipcode],[iso 3166 country code]"
     private let latLongHint = "[latitude],[longitude]"
     private let configManager: ConfigManagerType
@@ -72,8 +73,8 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
 
         showHumidityToggleCheckBox.state = configManager.isShowingHumidity ? .on : .off
-
         roundOffData.state = configManager.isRoundingOffData ? .on : .off
+        weatherConditionAsTextCheckBox.state = configManager.isWeatherConditionAsTextEnabled ? .on : .off
     }
 
     @IBAction func radioButtonClicked(_ sender: NSButton) {
@@ -93,6 +94,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
                 TemperatureUnit.fahrenheit.rawValue : TemperatureUnit.celsius.rawValue
             self.configManager.isShowingHumidity = self.showHumidityToggleCheckBox.state == .on
             self.configManager.isRoundingOffData = self.roundOffData.state == .on
+            self.configManager.isWeatherConditionAsTextEnabled = self.weatherConditionAsTextCheckBox.state == .on
 
             guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
             delegate.togglePopover(sender)

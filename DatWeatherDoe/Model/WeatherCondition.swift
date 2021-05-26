@@ -8,13 +8,13 @@
 
 enum WeatherCondition: String {
     case sunny = "Sunny"
-    case partlyCloudy = "PartlyCloudy"
+    case partlyCloudy = "Partly cloudy"
     case cloudy = "Cloudy"
     case mist = "Mist"
     case snow = "Snow"
-    case freezingRain = "FreezingRain"
-    case heavyRain = "HeavyRain"
-    case partlyCloudyRain = "PartlyCloudyRain"
-    case lightRain = "LightRain"
+    case freezingRain = "Freezing rain"
+    case heavyRain = "Heavy rain"
+    case partlyCloudyRain = "Partly cloudy with rain"
+    case lightRain = "Light rain"
     case thunderstorm = "Thunderstorm"
 }

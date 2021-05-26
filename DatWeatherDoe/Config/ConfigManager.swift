@@ -17,6 +17,7 @@ final class ConfigManager: ConfigManagerType {
         case refreshInterval
         case isShowingHumidity
         case isRoundingOffData
+        case isWeatherConditionAsTextEnabled
     }
 
     @Storage(key: DefaultsKeys.temperatureUnit.rawValue, defaultValue: TemperatureUnit.fahrenheit.rawValue)
@@ -36,4 +37,7 @@ final class ConfigManager: ConfigManagerType {
 
     @Storage(key: DefaultsKeys.isRoundingOffData.rawValue, defaultValue: false)
     public var isRoundingOffData: Bool
+
+    @Storage(key: DefaultsKeys.isWeatherConditionAsTextEnabled.rawValue, defaultValue: false)
+    public var isWeatherConditionAsTextEnabled: Bool
 }

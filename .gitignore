@@ -47,3 +47,6 @@ The above adds CocoaPods,
 
 Pods/
 Podfile.lock
+
+# Keys
+DatWeatherDoe/Resources/Keys.plist
