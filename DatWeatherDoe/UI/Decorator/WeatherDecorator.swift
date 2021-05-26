@@ -14,6 +14,7 @@ final class WeatherDecorator: WeatherDecoratorType {
     let response: WeatherAPIResponse
     let temperatureUnit: TemperatureUnit
     let isShowingHumidity: Bool
+    private let degreeString = "\u{00B0}"
     private let configManager: ConfigManagerType
 
     @available(macOS 11.0, *)
@@ -61,7 +62,7 @@ final class WeatherDecorator: WeatherDecoratorType {
         guard configManager.isShowingHumidity, let humidity = humidity else {
             return weatherConditionAndTempStr
         }
-        return "\(weatherConditionAndTempStr)/\(humidity)"
+        return "\(weatherConditionAndTempStr) | \(humidity)"
     }
 
     var weatherCondition: WeatherCondition {
@@ -90,22 +91,42 @@ final class WeatherDecorator: WeatherDecoratorType {
     }
 
     private var temperature: String? {
-        let isFahrenheit = temperatureUnit == .fahrenheit
-        let temperatureInUnits = isFahrenheit ?
-            ((response.temperature - 273.15) * 1.8) + 32 : response.temperature - 273.15
-
         WeatherDecorator.temperatureFormatter.maximumFractionDigits = configManager.isRoundingOffData ? 0 : 1
 
+        // All
+        guard temperatureUnit != .all else {
+            guard let formattedFahrenheitStr =
+                    WeatherDecorator.temperatureFormatter.string(
+                        from: NSNumber(value: response.temperature.fahrenheitTemperature)
+                    ),
+                  let formattedCelsiusStr = WeatherDecorator.temperatureFormatter.string(
+                    from: NSNumber(value: response.temperature.celsiusTemperature)
+                  ) else {
+                if #available(macOS 11.0, *) {
+                    logger.error("Unable to construct formatted \(TemperatureUnit.all.rawValue) string")
+                }
+                return nil
+            }
+            return [
+                [formattedFahrenheitStr, "F"].joined(separator: degreeString),
+                [formattedCelsiusStr, "C"].joined(separator: degreeString),
+            ]
+            .joined(separator: " / ")
+        }
+
+        // F or C
+        let isFahrenheit = temperatureUnit == .fahrenheit
+        let temperatureInUnits = isFahrenheit ?
+            response.temperature.fahrenheitTemperature : response.temperature.celsiusTemperature
         guard let formattedString =
                 WeatherDecorator.temperatureFormatter.string(from: NSNumber(value: temperatureInUnits)) else {
             if #available(macOS 11.0, *) {
-                logger.error("Unable to construct formatted temperature string")
+                logger.error("Unable to construct formatted \(self.temperatureUnit.rawValue) temperature string")
             }
             return nil
         }
 
-        let tempUnit = isFahrenheit ? "F" : "C"
-        return "\(formattedString)\u{00B0}\(tempUnit)"
+        return [formattedString, isFahrenheit ? "F" : "C"].joined(separator: degreeString)
     }
 
     private var humidity: String? {
@@ -118,4 +139,9 @@ final class WeatherDecorator: WeatherDecoratorType {
         }
         return "\(formattedString)\u{0025}"
     }
+}
+
+private extension Double {
+    var fahrenheitTemperature: Double { ((self - 273.15) * 1.8) + 32 }
+    var celsiusTemperature: Double { self - 273.15 }
 }
