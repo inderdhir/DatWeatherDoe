@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigureViewController" customModule="DatWeatherDoe" customModuleProvider="target">
             <connections>
+                <outlet property="allTempUnitsRadioButton" destination="Av1-Xc-FdQ" id="1hS-L4-uOL"/>
                 <outlet property="celsiusRadioButton" destination="2IG-IS-5ZK" id="Y6Q-e2-nog"/>
                 <outlet property="fahrenheitRadioButton" destination="51H-ay-84p" id="Euy-rU-woh"/>
                 <outlet property="refreshIntervals" destination="S3q-b0-MO0" id="WtB-xn-suT"/>
@@ -43,7 +44,7 @@
                     </textFieldCell>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="51H-ay-84p">
-                    <rect key="frame" x="340" y="248" width="18" height="18"/>
+                    <rect key="frame" x="316" y="248" width="18" height="18"/>
                     <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ILS-AJ-lUp">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -53,7 +54,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="2IG-IS-5ZK">
-                    <rect key="frame" x="374" y="248" width="18" height="18"/>
+                    <rect key="frame" x="345" y="248" width="18" height="18"/>
                     <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="uwc-Nf-6Bt">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -172,43 +173,55 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Av1-Xc-FdQ">
+                    <rect key="frame" x="374" y="248" width="18" height="18"/>
+                    <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="z8N-IY-kJK">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="radioButtonClicked:" target="-2" id="oI8-lt-xx9"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="S3q-b0-MO0" firstAttribute="centerY" secondItem="K94-U5-bQW" secondAttribute="centerY" id="1PB-f8-2pI"/>
+                <constraint firstItem="Av1-Xc-FdQ" firstAttribute="leading" secondItem="2IG-IS-5ZK" secondAttribute="trailing" constant="15" id="3KU-dD-NUD"/>
                 <constraint firstItem="HJW-Jl-JKC" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="4eg-N1-5Yb"/>
-                <constraint firstItem="tgM-j3-lwB" firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" id="5ES-OA-0p7"/>
                 <constraint firstItem="Q9Y-bS-pe0" firstAttribute="top" secondItem="K94-U5-bQW" secondAttribute="bottom" constant="15" id="78A-nd-FTt"/>
                 <constraint firstItem="K94-U5-bQW" firstAttribute="leading" secondItem="d6N-iZ-pSF" secondAttribute="leading" id="Br1-Fd-bGe"/>
                 <constraint firstItem="tgM-j3-lwB" firstAttribute="centerY" secondItem="Q4V-mx-SKP" secondAttribute="centerY" id="CQr-Wu-Ca5"/>
                 <constraint firstItem="Zvb-AL-nFh" firstAttribute="leading" secondItem="d6N-iZ-pSF" secondAttribute="leading" id="D6D-ns-itA"/>
                 <constraint firstItem="Q4V-mx-SKP" firstAttribute="leading" secondItem="d6N-iZ-pSF" secondAttribute="leading" id="EKu-tk-ZLB"/>
-                <constraint firstItem="DwG-dP-iKT" firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" id="EoY-qH-dZJ"/>
-                <constraint firstItem="S3q-b0-MO0" firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" id="Fgf-af-SjO"/>
                 <constraint firstItem="DwG-dP-iKT" firstAttribute="centerY" secondItem="agV-QH-H7B" secondAttribute="centerY" id="Fgn-op-zYZ"/>
                 <constraint firstItem="5Sp-WS-OAY" firstAttribute="centerY" secondItem="H5Y-DH-fXt" secondAttribute="centerY" id="HGC-yu-axb"/>
-                <constraint firstItem="5Sp-WS-OAY" firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" id="Prx-c8-b1J"/>
+                <constraint firstItem="tgM-j3-lwB" firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" id="MYK-BT-8ZV"/>
                 <constraint firstItem="HJW-Jl-JKC" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="QI3-pg-59k"/>
                 <constraint firstItem="Q4V-mx-SKP" firstAttribute="top" secondItem="d6N-iZ-pSF" secondAttribute="bottom" constant="15" id="QXE-nC-mlQ"/>
                 <constraint firstItem="H5Y-DH-fXt" firstAttribute="top" secondItem="Q9Y-bS-pe0" secondAttribute="bottom" constant="15" id="S0U-DR-TOw"/>
                 <constraint firstItem="M7V-5G-9IF" firstAttribute="width" secondItem="tgM-j3-lwB" secondAttribute="width" id="SMP-Kk-7yj"/>
-                <constraint firstItem="iif-tF-7jt" firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" id="TyO-B3-kOy"/>
                 <constraint firstItem="Q9Y-bS-pe0" firstAttribute="leading" secondItem="d6N-iZ-pSF" secondAttribute="leading" id="UZa-wr-ESf"/>
+                <constraint firstItem="DwG-dP-iKT" firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" id="W95-qV-0lE"/>
                 <constraint firstItem="S3q-b0-MO0" firstAttribute="top" secondItem="M7V-5G-9IF" secondAttribute="bottom" constant="15" id="XF4-27-s8T"/>
+                <constraint firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" constant="30" id="XkC-JH-KED"/>
                 <constraint firstItem="M7V-5G-9IF" firstAttribute="top" secondItem="Q4V-mx-SKP" secondAttribute="bottom" constant="15" id="Yz3-eQ-dEU"/>
                 <constraint firstAttribute="bottom" secondItem="HJW-Jl-JKC" secondAttribute="bottom" constant="15" id="ZUY-qZ-CjV"/>
                 <constraint firstItem="iif-tF-7jt" firstAttribute="centerY" secondItem="Q9Y-bS-pe0" secondAttribute="centerY" id="a3e-1T-6zf"/>
                 <constraint firstItem="Zvb-AL-nFh" firstAttribute="height" secondItem="M7V-5G-9IF" secondAttribute="height" multiplier="0.761905" id="cnx-iS-J6P"/>
+                <constraint firstItem="Av1-Xc-FdQ" firstAttribute="centerY" secondItem="d6N-iZ-pSF" secondAttribute="centerY" id="gX8-da-RE1"/>
+                <constraint firstItem="iif-tF-7jt" firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" id="kEx-Ux-lgF"/>
+                <constraint firstItem="S3q-b0-MO0" firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" id="lZK-LP-prp"/>
+                <constraint firstItem="M7V-5G-9IF" firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" id="lrI-EP-cfb"/>
                 <constraint firstItem="Zvb-AL-nFh" firstAttribute="centerY" secondItem="M7V-5G-9IF" secondAttribute="centerY" id="mOd-Gu-Gov"/>
                 <constraint firstItem="agV-QH-H7B" firstAttribute="leading" secondItem="d6N-iZ-pSF" secondAttribute="leading" id="njH-Sj-EIX"/>
                 <constraint firstItem="agV-QH-H7B" firstAttribute="top" secondItem="H5Y-DH-fXt" secondAttribute="bottom" constant="15" id="q0C-ov-Cdr"/>
-                <constraint firstItem="M7V-5G-9IF" firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" id="sKm-FM-Oe8"/>
+                <constraint firstItem="5Sp-WS-OAY" firstAttribute="trailing" secondItem="Av1-Xc-FdQ" secondAttribute="trailing" id="s61-w0-SnM"/>
                 <constraint firstItem="H5Y-DH-fXt" firstAttribute="leading" secondItem="d6N-iZ-pSF" secondAttribute="leading" id="sfL-13-WPf"/>
                 <constraint firstItem="51H-ay-84p" firstAttribute="centerY" secondItem="d6N-iZ-pSF" secondAttribute="centerY" id="tsN-JQ-XDn"/>
                 <constraint firstItem="d6N-iZ-pSF" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="15" id="uCF-4D-5gB"/>
                 <constraint firstItem="2IG-IS-5ZK" firstAttribute="centerY" secondItem="d6N-iZ-pSF" secondAttribute="centerY" id="v5l-jQ-hff"/>
                 <constraint firstItem="d6N-iZ-pSF" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="v7i-C4-A70"/>
-                <constraint firstItem="2IG-IS-5ZK" firstAttribute="leading" secondItem="51H-ay-84p" secondAttribute="trailing" constant="20" id="xdZ-Cn-TLV"/>
-                <constraint firstAttribute="trailing" secondItem="2IG-IS-5ZK" secondAttribute="trailing" constant="30" id="z9a-hb-dck"/>
+                <constraint firstItem="2IG-IS-5ZK" firstAttribute="leading" secondItem="51H-ay-84p" secondAttribute="trailing" constant="15" id="xdZ-Cn-TLV"/>
             </constraints>
             <point key="canvasLocation" x="613" y="412"/>
         </customView>

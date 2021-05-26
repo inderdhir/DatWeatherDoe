@@ -7,5 +7,5 @@
 //
 
 enum TemperatureUnit: String {
-    case fahrenheit, celsius
+    case fahrenheit, celsius, all
 }

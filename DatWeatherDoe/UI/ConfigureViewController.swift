@@ -12,6 +12,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet weak var fahrenheitRadioButton: NSButton!
     @IBOutlet weak var celsiusRadioButton: NSButton!
+    @IBOutlet weak var allTempUnitsRadioButton: NSButton!
     @IBOutlet weak var useLocationToggleCheckBox: NSButton!
     @IBOutlet weak var weatherSourceButton: NSPopUpButton!
     @IBOutlet weak var weatherSourceTextHint: NSTextField!
@@ -41,6 +42,9 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
 
         celsiusRadioButton.title = "\u{00B0}C"
         celsiusRadioButton.state = configManager.temperatureUnit == TemperatureUnit.celsius.rawValue ? .on : .off
+
+        allTempUnitsRadioButton.title = "All"
+        allTempUnitsRadioButton.state = configManager.temperatureUnit == TemperatureUnit.all.rawValue ? .on : .off
 
         refreshIntervals.removeAllItems()
         refreshIntervals.addItems(withTitles: RefreshInterval.allCases.map(\.title))
@@ -78,20 +82,35 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     }
 
     @IBAction func radioButtonClicked(_ sender: NSButton) {
-        fahrenheitRadioButton.state = sender == fahrenheitRadioButton ? .on : .off
-        celsiusRadioButton.state = sender == celsiusRadioButton ? .on : .off
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            self.fahrenheitRadioButton.state = sender == self.fahrenheitRadioButton ? .on : .off
+            self.celsiusRadioButton.state = sender == self.celsiusRadioButton ? .on : .off
+            self.allTempUnitsRadioButton.state = sender == self.allTempUnitsRadioButton ? .on : .off
+        }
     }
 
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
 
+            switch (
+                self.fahrenheitRadioButton.state,
+                self.celsiusRadioButton.state,
+                self.allTempUnitsRadioButton.state
+            ) {
+            case (.off, .on, .off):
+                self.configManager.temperatureUnit = TemperatureUnit.celsius.rawValue
+            case (.off, .off, .on):
+                self.configManager.temperatureUnit = TemperatureUnit.all.rawValue
+            default:
+                self.configManager.temperatureUnit = TemperatureUnit.fahrenheit.rawValue
+            }
+
             let selectedWeatherSource = WeatherSource.allCases[self.weatherSourceButton.indexOfSelectedItem]
             self.configManager.weatherSource = selectedWeatherSource.rawValue
             self.configManager.weatherSourceText = selectedWeatherSource == .location ? nil : self.weatherSourceTextField.stringValue
             self.configManager.refreshInterval = RefreshInterval.allCases[self.refreshIntervals.indexOfSelectedItem].rawValue
-            self.configManager.temperatureUnit = self.fahrenheitRadioButton.state == .on ?
-                TemperatureUnit.fahrenheit.rawValue : TemperatureUnit.celsius.rawValue
             self.configManager.isShowingHumidity = self.showHumidityToggleCheckBox.state == .on
             self.configManager.isRoundingOffData = self.roundOffData.state == .on
             self.configManager.isWeatherConditionAsTextEnabled = self.weatherConditionAsTextCheckBox.state == .on
