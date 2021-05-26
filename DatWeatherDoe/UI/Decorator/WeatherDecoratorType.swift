@@ -8,6 +8,6 @@
 
 protocol WeatherDecoratorType: AnyObject {
     var response: WeatherAPIResponse { get }
-    var textualRepresentation: String? { get }
+    var textualRepresentation: String { get }
     var weatherCondition: WeatherCondition { get }
 }

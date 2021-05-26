@@ -49,17 +49,19 @@ final class WeatherDecorator: WeatherDecoratorType {
         self.isShowingHumidity = isShowingHumidity
     }
 
-    var textualRepresentation: String? {
-        let temperatureString = temperature ?? ""
-        guard isShowingHumidity else { return temperatureString }
+    var textualRepresentation: String {
+        let weatherConditionAndTempStr = [
+            configManager.isWeatherConditionAsTextEnabled ?
+                weatherCondition.rawValue : nil,
+            temperature
+        ]
+        .compactMap { $0 }
+        .joined(separator: ", ")
 
-        let humidityString: String
-        if let humidity = humidity {
-            humidityString = "/\(humidity)"
-        } else {
-            humidityString = ""
+        guard configManager.isShowingHumidity, let humidity = humidity else {
+            return weatherConditionAndTempStr
         }
-        return "\(temperatureString)\(humidityString)"
+        return "\(weatherConditionAndTempStr)/\(humidity)"
     }
 
     var weatherCondition: WeatherCondition {
