@@ -18,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let popover = NSPopover()
     private let configManager: ConfigManagerType = ConfigManager()
+    private let logger: DatWeatherDoeLoggerType = DatWeatherDoeLogger()
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -26,7 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         return locationManager
     }()
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
-    private lazy var weatherRepository: WeatherRepositoryType = WeatherRepository(configManager: configManager)
+    private lazy var weatherRepository: WeatherRepositoryType =
+        WeatherRepository(configManager: configManager, logger: logger)
     private lazy var locationErrorString = "location_error".localized()
     private lazy var latLongErrorString = "latLong_error".localized()
     private lazy var zipCodeErrorString = "zipCode_error".localized()
@@ -34,12 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
     private var eventMonitor: EventMonitor?
-
-    @available(macOS 11.0, *)
-    private(set) lazy var logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier ?? "DatWeatherDoe",
-        category: "WeatherAppDelegate"
-    )
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let menu = NSMenu()
@@ -190,9 +186,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     // MARK: CLLocationManagerDelegate
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        if #available(macOS 11.0, *) {
-            logger.error("Getting location failed with error")
-        }
+        logger.logError("Getting location failed with error \(error.localizedDescription)")
+
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = self?.locationErrorString
         }
@@ -202,9 +197,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         currentLocationSerialQueue.sync {
             currentLocation = manager.location?.coordinate
             guard let currentLocation = currentLocation else {
-                if #available(macOS 11.0, *) {
-                    logger.error("Getting location failed")
-                }
+                logger.logError("Getting location failed")
+
                 DispatchQueue.main.async { [weak self] in
                     self?.statusItem.title = self?.locationErrorString
                 }

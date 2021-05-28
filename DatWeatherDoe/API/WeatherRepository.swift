@@ -15,14 +15,9 @@ final class WeatherRepository: WeatherRepositoryType {
     private let apiUrl = "https://api.openweathermap.org/data/2.5/weather"
     private let appId: String
     private let configManager: ConfigManagerType
+    private let logger: DatWeatherDoeLoggerType
 
-    @available(macOS 11.0, *)
-    private(set) lazy var logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier ?? "DatWeatherDoe",
-        category: "WeatherRepository"
-    )
-
-    init(configManager: ConfigManagerType) {
+    init(configManager: ConfigManagerType, logger: DatWeatherDoeLoggerType) {
         guard let filePath = Bundle.main.path(forResource: "Keys", ofType:"plist"),
             let plist = NSDictionary(contentsOfFile: filePath),
             let appId = plist["OPENWEATHERMAP_APP_ID"] as? String else {
@@ -30,20 +25,18 @@ final class WeatherRepository: WeatherRepositoryType {
         }
         self.appId = appId
         self.configManager = configManager
+        self.logger = logger
     }
 
     func getWeather(
         zipCode: String,
         completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
     ) {
-        if #available(macOS 11.0, *) {
-            logger.debug("Getting weather via zip code")
-        }
+        logger.logDebug("Getting weather via zip code")
 
         guard !zipCode.isEmpty else {
-            if #available(macOS 11.0, *) {
-                logger.error("Getting weather via zip code failed. Zip code is empty!")
-            }
+            logger.logError("Getting weather via zip code failed. Zip code is empty!")
+
             completion(.failure(.zipCodeEmpty))
             return
         }
@@ -61,9 +54,8 @@ final class WeatherRepository: WeatherRepositoryType {
 
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let `self` = self, let data = data, error == nil else {
-                if #available(macOS 11.0, *) {
-                    self?.logger.error("Getting weather via zip code failed")
-                }
+                self?.logger.logError("Getting weather via zip code failed")
+
                 completion(.failure(.networkError))
                 return
             }
@@ -76,21 +68,19 @@ final class WeatherRepository: WeatherRepositoryType {
         latLong: String,
         completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
     ) {
-        if #available(macOS 11.0, *) {
-            logger.debug("Getting weather via latLong")
-        }
+        logger.logDebug("Getting weather via lat / long")
 
         guard !latLong.isEmpty else {
-            if #available(macOS 11.0, *) {
-                logger.error("Getting weather via latLong failed. LatLong is empty!")
-            }
+            logger.logError("Getting weather via lat / long failed. Lat / long is empty!")
+
             completion(.failure(.latLongEmpty))
             return
         }
 
         let latLongCombo = latLong.split(separator: ",")
         guard latLongCombo.count == 2 else {
-            print("Incorrect format for lat/lon")
+            logger.logError("Incorrect format for lat/lon")
+
             completion(.failure(.latLongIncorrect))
             return
         }
@@ -108,9 +98,7 @@ final class WeatherRepository: WeatherRepositoryType {
         location: CLLocationCoordinate2D,
         completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
     ) {
-        if #available(macOS 11.0, *) {
-            logger.debug("Getting weather via location")
-        }
+        logger.logDebug("Getting weather via location")
 
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "appid", value: appId),
@@ -126,9 +114,8 @@ final class WeatherRepository: WeatherRepositoryType {
 
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let `self` = self, let data = data, error == nil else {
-                if #available(macOS 11.0, *) {
-                    self?.logger.error("Getting weather via location failed")
-                }
+                self?.logger.logError("Getting weather via location failed")
+
                 completion(.failure(.networkError))
                 return
             }
@@ -148,6 +135,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
         let decorator = WeatherDecorator(
             configManager: configManager,
+            logger: logger,
             response: response,
             temperatureUnit: temperatureUnit,
             isShowingHumidity: configManager.isShowingHumidity

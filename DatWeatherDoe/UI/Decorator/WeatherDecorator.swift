@@ -16,12 +16,7 @@ final class WeatherDecorator: WeatherDecoratorType {
     let isShowingHumidity: Bool
     private let degreeString = "\u{00B0}"
     private let configManager: ConfigManagerType
-
-    @available(macOS 11.0, *)
-    private(set) lazy var logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier ?? "DatWeatherDoe",
-        category: "WeatherDecorator"
-    )
+    private let logger: DatWeatherDoeLoggerType
 
     private static let temperatureFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -40,11 +35,13 @@ final class WeatherDecorator: WeatherDecoratorType {
 
     init(
         configManager: ConfigManagerType,
+        logger: DatWeatherDoeLoggerType,
         response: WeatherAPIResponse,
         temperatureUnit: TemperatureUnit,
         isShowingHumidity: Bool
     ) {
         self.configManager = configManager
+        self.logger = logger
         self.response = response
         self.temperatureUnit = temperatureUnit
         self.isShowingHumidity = isShowingHumidity
@@ -102,9 +99,8 @@ final class WeatherDecorator: WeatherDecoratorType {
                   let formattedCelsiusStr = WeatherDecorator.temperatureFormatter.string(
                     from: NSNumber(value: response.temperature.celsiusTemperature)
                   ) else {
-                if #available(macOS 11.0, *) {
-                    logger.error("Unable to construct formatted \(TemperatureUnit.all.rawValue) string")
-                }
+                logger.logError("Unable to construct formatted \(TemperatureUnit.all.rawValue) string")
+
                 return nil
             }
             return [
@@ -120,9 +116,8 @@ final class WeatherDecorator: WeatherDecoratorType {
             response.temperature.fahrenheitTemperature : response.temperature.celsiusTemperature
         guard let formattedString =
                 WeatherDecorator.temperatureFormatter.string(from: NSNumber(value: temperatureInUnits)) else {
-            if #available(macOS 11.0, *) {
-                logger.error("Unable to construct formatted \(self.temperatureUnit.rawValue) temperature string")
-            }
+            logger.logError("Unable to construct formatted \(self.temperatureUnit.rawValue) temperature string")
+
             return nil
         }
 
@@ -132,9 +127,8 @@ final class WeatherDecorator: WeatherDecoratorType {
     private var humidity: String? {
         guard let formattedString =
                 WeatherDecorator.humidityFormatter.string(from: NSNumber(value: response.humidity)) else {
-            if #available(macOS 11.0, *) {
-                logger.error("Unable to construct formatted humidity string")
-            }
+            logger.logError("Unable to construct formatted humidity string")
+
             return nil
         }
         return "\(formattedString)\u{0025}"
