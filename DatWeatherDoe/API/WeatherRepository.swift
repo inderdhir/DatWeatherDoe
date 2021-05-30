@@ -53,14 +53,14 @@ final class WeatherRepository: WeatherRepositoryType {
         }
 
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let `self` = self, let data = data, error == nil else {
+            guard let strongSelf = self, let data = data, error == nil else {
                 self?.logger.logError("Getting weather via zip code failed")
 
                 completion(.failure(.networkError))
                 return
             }
 
-            completion(self.parseResponse(data))
+            completion(strongSelf.parseResponse(data))
         }.resume()
     }
 
@@ -113,14 +113,14 @@ final class WeatherRepository: WeatherRepositoryType {
         }
 
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let `self` = self, let data = data, error == nil else {
+            guard let strongSelf = self, let data = data, error == nil else {
                 self?.logger.logError("Getting weather via location failed")
 
                 completion(.failure(.networkError))
                 return
             }
 
-            completion(self.parseResponse(data))
+            completion(strongSelf.parseResponse(data))
         }.resume()
     }
 
