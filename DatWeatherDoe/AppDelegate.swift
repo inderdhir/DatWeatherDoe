@@ -113,6 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             case .failure:
                 DispatchQueue.main.async { [weak self] in
                     self?.statusItem.title = self?.locationErrorString
+                    self?.statusItem.image = nil
                 }
             }
         })
@@ -126,6 +127,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             case .failure:
                 DispatchQueue.main.async { [weak self] in
                     self?.statusItem.title = self?.latLongErrorString
+                    self?.statusItem.image = nil
                 }
             }
         })
@@ -139,6 +141,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             case .failure:
                 DispatchQueue.main.async { [weak self] in
                     self?.statusItem.title = self?.zipCodeErrorString
+                    self?.statusItem.image = nil
                 }
             }
         })
@@ -190,6 +193,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.title = self?.locationErrorString
+            self?.statusItem.image = nil
         }
     }
 
@@ -201,6 +205,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
                 DispatchQueue.main.async { [weak self] in
                     self?.statusItem.title = self?.locationErrorString
+                    self?.statusItem.image = nil
                 }
                 return
             }
