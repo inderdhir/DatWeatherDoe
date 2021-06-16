@@ -6,6 +6,7 @@
   Copyright © 2021 Inder Dhir. All rights reserved.
 */
 
+network_error = "Network Error";
 location_error = "Location Error";
 latLong_error = "Lat/Long Error";
 zipCode_error = "Zip Code Error";
