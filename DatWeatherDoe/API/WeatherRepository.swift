@@ -30,7 +30,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     func getWeather(
         zipCode: String,
-        completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     ) {
         logger.logDebug("Getting weather via zip code")
 
@@ -66,7 +66,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     func getWeather(
         latLong: String,
-        completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     ) {
         logger.logDebug("Getting weather via lat / long")
 
@@ -96,7 +96,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     func getWeather(
         location: CLLocationCoordinate2D,
-        completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     ) {
         logger.logDebug("Getting weather via location")
 

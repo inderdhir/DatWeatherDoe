@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
     private lazy var weatherRepository: WeatherRepositoryType =
         WeatherRepository(configManager: configManager, logger: logger)
+    private lazy var networkErrorString = "network_error".localized()
     private lazy var locationErrorString = "location_error".localized()
     private lazy var latLongErrorString = "latLong_error".localized()
     private lazy var zipCodeErrorString = "zipCode_error".localized()
@@ -112,7 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
                 self?.updateUI(data)
             case .failure:
                 DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.locationErrorString
+                    self?.statusItem.title = self?.networkErrorString
                     self?.statusItem.image = nil
                 }
             }
@@ -124,9 +125,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             switch result {
             case let .success(data):
                 self?.updateUI(data)
-            case .failure:
+            case let .failure(error):
+                let isLatLongError = error == .latLongEmpty || error == .latLongIncorrect
                 DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.latLongErrorString
+                    self?.statusItem.title = isLatLongError ? self?.latLongErrorString : self?.networkErrorString
                     self?.statusItem.image = nil
                 }
             }
@@ -138,9 +140,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             switch result {
             case let .success(data):
                 self?.updateUI(data)
-            case .failure:
+            case let .failure(error):
                 DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.zipCodeErrorString
+                    self?.statusItem.title = error == .zipCodeEmpty ? self?.zipCodeErrorString : self?.networkErrorString
                     self?.statusItem.image = nil
                 }
             }

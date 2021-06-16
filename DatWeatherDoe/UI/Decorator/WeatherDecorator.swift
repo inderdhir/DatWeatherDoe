@@ -116,7 +116,7 @@ final class WeatherDecorator: WeatherDecoratorType {
             response.temperature.fahrenheitTemperature : response.temperature.celsiusTemperature
         guard let formattedString =
                 WeatherDecorator.temperatureFormatter.string(from: NSNumber(value: temperatureInUnits)) else {
-            logger.logError("Unable to construct formatted \(self.temperatureUnit.rawValue) temperature string")
+            logger.logError("Unable to construct formatted \(temperatureUnit.rawValue) temperature string")
 
             return nil
         }

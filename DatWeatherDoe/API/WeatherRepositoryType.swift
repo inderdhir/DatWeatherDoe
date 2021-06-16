@@ -11,14 +11,14 @@ import CoreLocation
 protocol WeatherRepositoryType: AnyObject {
     func getWeather(
         zipCode: String,
-        completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     )
     func getWeather(
         latLong: String,
-        completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     )
     func getWeather(
         location: CLLocationCoordinate2D,
-        completion: @escaping ((Result<WeatherData, WeatherError>) -> Void)
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     )
 }
