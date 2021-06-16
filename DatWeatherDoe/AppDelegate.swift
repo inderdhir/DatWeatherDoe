@@ -9,6 +9,7 @@
 import Cocoa
 import CoreLocation
 import os
+import Reachability
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
@@ -26,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         locationManager.distanceFilter = 3000 // Only worry about location distance above 3 km
         return locationManager
     }()
+    private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
     private lazy var weatherRepository: WeatherRepositoryType =
         WeatherRepository(configManager: configManager, logger: logger)
@@ -37,6 +39,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
     private var eventMonitor: EventMonitor?
+    private var reachability: Reachability?
+    private var retryWhenReachable = false
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let menu = NSMenu()
@@ -60,19 +64,43 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
         eventMonitor?.start()
 
+        setupReachability()
         resetWeatherTimer()
     }
 
+    private func setupReachability() {
+        do {
+            reachability = try Reachability()
+            try reachability?.startNotifier()
+
+            reachability?.whenReachable = { [weak self] _ in
+                self?.logger.logDebug("Reachability status: Reachable")
+                if self?.retryWhenReachable == true {
+                    self?.retryWhenReachable = false
+                    self?.resetWeatherTimer()
+                }
+            }
+            reachability?.whenUnreachable = { [weak self] _ in
+                self?.logger.logDebug("Reachability status: Unreachable")
+                self?.retryWhenReachable = true
+            }
+        } catch {
+            logger.logError("Reachability error!")
+        }
+    }
+
     private func resetWeatherTimer() {
-        weatherTimer?.invalidate()
-        weatherTimer = Timer.scheduledTimer(
-            timeInterval: configManager.refreshInterval,
-            target: self,
-            selector: #selector(getWeather),
-            userInfo: nil,
-            repeats: true
-        )
-        weatherTimer?.fire()
+        weatherTimerSerialQueue.sync {
+            weatherTimer?.invalidate()
+            weatherTimer = Timer.scheduledTimer(
+                timeInterval: configManager.refreshInterval,
+                target: self,
+                selector: #selector(getWeather),
+                userInfo: nil,
+                repeats: true
+            )
+            weatherTimer?.fire()
+        }
     }
 
     // MARK: Weather fetching
