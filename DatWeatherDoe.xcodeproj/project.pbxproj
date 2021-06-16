@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20012FA6267980EE00553B60 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 20012FA5267980EE00553B60 /* Reachability */; };
 		201C6C4620262E380065E795 /* WeatherAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201C6C4520262E380065E795 /* WeatherAPIResponse.swift */; };
 		2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */; };
 		2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2023EDA81C4ED09C0087FD67 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20012FA6267980EE00553B60 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +237,9 @@
 			dependencies = (
 			);
 			name = DatWeatherDoe;
+			packageProductDependencies = (
+				20012FA5267980EE00553B60 /* Reachability */,
+			);
 			productName = SwiftWeather;
 			productReference = 2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */;
 			productType = "com.apple.product-type.application";
@@ -293,6 +298,9 @@
 				Base,
 			);
 			mainGroup = 2023ED9A1C4ED09C0087FD67;
+			packageReferences = (
+				20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
 			productRefGroup = 2023EDA41C4ED09C0087FD67 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -619,6 +627,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = exactVersion;
+				version = 5.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20012FA5267980EE00553B60 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2023ED9B1C4ED09C0087FD67 /* Project object */;
 }
