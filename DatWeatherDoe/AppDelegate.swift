@@ -31,11 +31,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
     private lazy var weatherRepository: WeatherRepositoryType =
         WeatherRepository(configManager: configManager, logger: logger)
-    private lazy var networkErrorString = "network_error".localized()
-    private lazy var locationErrorString = "location_error".localized()
-    private lazy var latLongErrorString = "latLong_error".localized()
-    private lazy var zipCodeErrorString = "zipCode_error".localized()
-    private lazy var unknownString = "unknown".localized()
+    private lazy var networkErrorString = NSLocalizedString("Network Error", comment: "Network error when fetching weather")
+    private lazy var locationErrorString = NSLocalizedString("Location Error", comment: "Location error when fetching weather")
+    private lazy var latLongErrorString = NSLocalizedString("Lat/Long Error", comment: "Lat/Long error when fetching weather")
+    private lazy var zipCodeErrorString = NSLocalizedString("Zip Code Error", comment: "Zip Code error when fetching weather")
+    private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
     private var eventMonitor: EventMonitor?
