@@ -36,7 +36,6 @@ final class WeatherRepository: WeatherRepositoryType {
 
         guard !zipCode.isEmpty else {
             logger.logError("Getting weather via zip code failed. Zip code is empty!")
-
             completion(.failure(.zipCodeEmpty))
             return
         }

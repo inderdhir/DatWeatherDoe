@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19115.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19115.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,13 +11,19 @@
                 <outlet property="allTempUnitsRadioButton" destination="Av1-Xc-FdQ" id="1hS-L4-uOL"/>
                 <outlet property="celsiusRadioButton" destination="2IG-IS-5ZK" id="Y6Q-e2-nog"/>
                 <outlet property="fahrenheitRadioButton" destination="51H-ay-84p" id="Euy-rU-woh"/>
+                <outlet property="refreshIntervalTextField" destination="K94-U5-bQW" id="GZE-w5-xPW"/>
                 <outlet property="refreshIntervals" destination="S3q-b0-MO0" id="WtB-xn-suT"/>
                 <outlet property="roundOffData" destination="5Sp-WS-OAY" id="qZF-H4-i1I"/>
+                <outlet property="roundOffDataTextField" destination="H5Y-DH-fXt" id="rtn-fO-Z5C"/>
+                <outlet property="showHumidityTextField" destination="Q9Y-bS-pe0" id="7Dw-UZ-MR5"/>
                 <outlet property="showHumidityToggleCheckBox" destination="iif-tF-7jt" id="3qa-Ff-qlY"/>
+                <outlet property="unitTextField" destination="d6N-iZ-pSF" id="3eN-DI-LWc"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
                 <outlet property="weatherConditionAsTextCheckBox" destination="DwG-dP-iKT" id="MGA-a8-JwB"/>
+                <outlet property="weatherConditionTextField" destination="agV-QH-H7B" id="dRl-hP-286"/>
                 <outlet property="weatherSourceButton" destination="tgM-j3-lwB" id="rfQ-e6-z3I"/>
-                <outlet property="weatherSourceTextField" destination="M7V-5G-9IF" id="n8n-Z8-w1d"/>
+                <outlet property="weatherSourceLabelTextField" destination="Q4V-mx-SKP" id="OoH-1Y-MMB"/>
+                <outlet property="weatherSourceTextField" destination="M7V-5G-9IF" id="j9S-Zt-7e9"/>
                 <outlet property="weatherSourceTextHint" destination="Zvb-AL-nFh" id="wl6-uG-23D"/>
             </connections>
         </customObject>
@@ -151,7 +157,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zvb-AL-nFh">
-                    <rect key="frame" x="28" y="185" width="4" height="16"/>
+                    <rect key="frame" x="28" y="184" width="4" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" id="hcJ-f4-RzA">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>

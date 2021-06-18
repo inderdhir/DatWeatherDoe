@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		20012FA6267980EE00553B60 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 20012FA5267980EE00553B60 /* Reachability */; };
 		201C6C4620262E380065E795 /* WeatherAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201C6C4520262E380065E795 /* WeatherAPIResponse.swift */; };
-		2022E931267989BF00D9B880 /* en.xcloc in Resources */ = {isa = PBXBuildFile; fileRef = 2022E930267989BF00D9B880 /* en.xcloc */; };
 		2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */; };
 		2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2023EDA81C4ED09C0087FD67 /* Assets.xcassets */; };
 		2023EDAC1C4ED09C0087FD67 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2023EDAA1C4ED09C0087FD67 /* MainMenu.xib */; };
 		202C319F1C528958003D5E5A /* ConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C319D1C528958003D5E5A /* ConfigureViewController.swift */; };
 		202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 202C319E1C528958003D5E5A /* ConfigureViewController.xib */; };
 		202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C31A11C528FE7003D5E5A /* EventMonitor.swift */; };
+		202D8E78267CE74F001DA8E4 /* en.xcloc in Resources */ = {isa = PBXBuildFile; fileRef = 202D8E77267CE74F001DA8E4 /* en.xcloc */; };
 		2030FE7E26614217002D4D45 /* DatWeatherDoeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030FE7D26614217002D4D45 /* DatWeatherDoeLogger.swift */; };
 		20459C621C5C4E2D004D0DC1 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherCondition.swift */; };
 		20459C641C5C50DA004D0DC1 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* ConfigManager.swift */; };
@@ -46,7 +46,6 @@
 
 /* Begin PBXFileReference section */
 		201C6C4520262E380065E795 /* WeatherAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIResponse.swift; sourceTree = "<group>"; };
-		2022E930267989BF00D9B880 /* en.xcloc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = en.xcloc; sourceTree = "<group>"; };
 		2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatWeatherDoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2023EDA81C4ED09C0087FD67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +54,7 @@
 		202C319D1C528958003D5E5A /* ConfigureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureViewController.swift; sourceTree = "<group>"; };
 		202C319E1C528958003D5E5A /* ConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigureViewController.xib; sourceTree = "<group>"; };
 		202C31A11C528FE7003D5E5A /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		202D8E77267CE74F001DA8E4 /* en.xcloc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = en.xcloc; sourceTree = "<group>"; };
 		2030FE7D26614217002D4D45 /* DatWeatherDoeLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatWeatherDoeLogger.swift; sourceTree = "<group>"; };
 		20459C611C5C4E2D004D0DC1 /* WeatherCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
 		20459C631C5C50DA004D0DC1 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 		20652400265B0F870026C506 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				2022E930267989BF00D9B880 /* en.xcloc */,
+				202D8E77267CE74F001DA8E4 /* en.xcloc */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -316,7 +316,7 @@
 				20FF84E82456301D00FC9DAA /* Keys.plist in Resources */,
 				2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */,
 				2023EDAC1C4ED09C0087FD67 /* MainMenu.xib in Resources */,
-				2022E931267989BF00D9B880 /* en.xcloc in Resources */,
+				202D8E78267CE74F001DA8E4 /* en.xcloc in Resources */,
 				202C31A01C528958003D5E5A /* ConfigureViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

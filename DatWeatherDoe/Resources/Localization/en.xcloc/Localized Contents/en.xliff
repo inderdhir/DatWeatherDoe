@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="DatWeatherDoe/Resources/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.0" build-num="13A5154h"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5" build-num="12E262"/>
     </header>
     <body>
       <trans-unit id="CFBundleName" xml:space="preserve">
@@ -24,39 +24,174 @@
   </file>
   <file original="DatWeatherDoe/Resources/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.0" build-num="13A5154h"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5" build-num="12E262"/>
     </header>
     <body>
+      <trans-unit id="1 min" xml:space="preserve">
+        <source>1 min</source>
+        <target>1 min</target>
+        <note>1 min refresh interval</note>
+      </trans-unit>
+      <trans-unit id="5 min" xml:space="preserve">
+        <source>5 min</source>
+        <target>5 min</target>
+        <note>5 min refresh interval</note>
+      </trans-unit>
+      <trans-unit id="15 min" xml:space="preserve">
+        <source>15 min</source>
+        <target>15 min</target>
+        <note>15 min refresh interval</note>
+      </trans-unit>
+      <trans-unit id="30 min" xml:space="preserve">
+        <source>30 min</source>
+        <target>30 min</target>
+        <note>30 min refresh interval</note>
+      </trans-unit>
+      <trans-unit id="60 min" xml:space="preserve">
+        <source>60 min</source>
+        <target>60 min</target>
+        <note>60 min refresh interval</note>
+      </trans-unit>
+      <trans-unit id="All" xml:space="preserve">
+        <source>All</source>
+        <target>All</target>
+        <note>Show all temperature units</note>
+      </trans-unit>
+      <trans-unit id="Cloudy" xml:space="preserve">
+        <source>Cloudy</source>
+        <target>Cloudy</target>
+        <note>Cloudy weather condition</note>
+      </trans-unit>
+      <trans-unit id="Freezing rain" xml:space="preserve">
+        <source>Freezing rain</source>
+        <target>Freezing rain</target>
+        <note>Freezing rain weather condition</note>
+      </trans-unit>
+      <trans-unit id="Heavy rain" xml:space="preserve">
+        <source>Heavy rain</source>
+        <target>Heavy rain</target>
+        <note>Heavy rain weather condition</note>
+      </trans-unit>
+      <trans-unit id="Lat/Long" xml:space="preserve">
+        <source>Lat/Long</source>
+        <target>Lat/Long</target>
+        <note>Weather based on Lat/Long</note>
+      </trans-unit>
       <trans-unit id="Lat/Long Error" xml:space="preserve">
         <source>Lat/Long Error</source>
         <target>Lat/Long Error</target>
         <note>Lat/Long error when fetching weather</note>
+      </trans-unit>
+      <trans-unit id="Light rain" xml:space="preserve">
+        <source>Light rain</source>
+        <target>Light rain</target>
+        <note>Light rain weather condition</note>
+      </trans-unit>
+      <trans-unit id="Location" xml:space="preserve">
+        <source>Location</source>
+        <target>Location</target>
+        <note>Weather based on location</note>
       </trans-unit>
       <trans-unit id="Location Error" xml:space="preserve">
         <source>Location Error</source>
         <target>Location Error</target>
         <note>Location error when fetching weather</note>
       </trans-unit>
+      <trans-unit id="Mist" xml:space="preserve">
+        <source>Mist</source>
+        <target>Mist</target>
+        <note>Mist weather condition</note>
+      </trans-unit>
       <trans-unit id="Network Error" xml:space="preserve">
         <source>Network Error</source>
         <target>Network Error</target>
         <note>Network error when fetching weather</note>
+      </trans-unit>
+      <trans-unit id="Partly cloudy" xml:space="preserve">
+        <source>Partly cloudy</source>
+        <target>Partly cloudy</target>
+        <note>Partly cloudy weather condition</note>
+      </trans-unit>
+      <trans-unit id="Partly cloudy with rain" xml:space="preserve">
+        <source>Partly cloudy with rain</source>
+        <target>Partly cloudy with rain</target>
+        <note>Partly cloudy with rain weather condition</note>
+      </trans-unit>
+      <trans-unit id="Refresh Interval" xml:space="preserve">
+        <source>Refresh Interval</source>
+        <target>Refresh Interval</target>
+        <note>Weather refresh interval</note>
+      </trans-unit>
+      <trans-unit id="Round-off Data" xml:space="preserve">
+        <source>Round-off Data</source>
+        <target>Round-off Data</target>
+        <note>Round-off Data (temperature)</note>
+      </trans-unit>
+      <trans-unit id="Show Humidity" xml:space="preserve">
+        <source>Show Humidity</source>
+        <target>Show Humidity</target>
+        <note>Show humidity</note>
+      </trans-unit>
+      <trans-unit id="Snow" xml:space="preserve">
+        <source>Snow</source>
+        <target>Snow</target>
+        <note>Snow weather condition</note>
+      </trans-unit>
+      <trans-unit id="Sunny" xml:space="preserve">
+        <source>Sunny</source>
+        <target>Sunny</target>
+        <note>Sunny weather condition</note>
+      </trans-unit>
+      <trans-unit id="Thunderstorm" xml:space="preserve">
+        <source>Thunderstorm</source>
+        <target>Thunderstorm</target>
+        <note>Thunderstorm weather condition</note>
+      </trans-unit>
+      <trans-unit id="Unit" xml:space="preserve">
+        <source>Unit</source>
+        <target>Unit</target>
+        <note>Temperature unit</note>
       </trans-unit>
       <trans-unit id="Unknown" xml:space="preserve">
         <source>Unknown</source>
         <target>Unknown</target>
         <note>Unknown location</note>
       </trans-unit>
+      <trans-unit id="Weather Condition (as text)" xml:space="preserve">
+        <source>Weather Condition (as text)</source>
+        <target>Weather Condition (as text)</target>
+        <note>Weather condition as text</note>
+      </trans-unit>
+      <trans-unit id="Weather Source" xml:space="preserve">
+        <source>Weather Source</source>
+        <target>Weather Source</target>
+        <note>Source for fetching weather</note>
+      </trans-unit>
+      <trans-unit id="Zip Code" xml:space="preserve">
+        <source>Zip Code</source>
+        <target>Zip Code</target>
+        <note>Weather based on Zip Code</note>
+      </trans-unit>
       <trans-unit id="Zip Code Error" xml:space="preserve">
         <source>Zip Code Error</source>
         <target>Zip Code Error</target>
         <note>Zip Code error when fetching weather</note>
       </trans-unit>
+      <trans-unit id="[latitude],[longitude]" xml:space="preserve">
+        <source>[latitude],[longitude]</source>
+        <target>[latitude],[longitude]</target>
+        <note>Placeholder hint for entering Lat/Long</note>
+      </trans-unit>
+      <trans-unit id="[zipcode],[iso 3166 country code]" xml:space="preserve">
+        <source>[zipcode],[iso 3166 country code]</source>
+        <target>[zipcode],[iso 3166 country code]</target>
+        <note>Placeholder hint for entering zip code</note>
+      </trans-unit>
     </body>
   </file>
   <file original="DatWeatherDoe/UI/Base.lproj/MainMenu.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.0" build-num="13A5154h"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5" build-num="12E262"/>
     </header>
     <body>
       <trans-unit id="1UK-8n-QPP.title" xml:space="preserve">
