@@ -10,6 +10,13 @@ import Cocoa
 
 class ConfigureViewController: NSViewController, NSTextFieldDelegate {
 
+    @IBOutlet weak var unitTextField: NSTextField!
+    @IBOutlet weak var weatherSourceLabelTextField: NSTextField!
+    @IBOutlet weak var refreshIntervalTextField: NSTextField!
+    @IBOutlet weak var showHumidityTextField: NSTextField!
+    @IBOutlet weak var roundOffDataTextField: NSTextField!
+    @IBOutlet weak var weatherConditionTextField: NSTextField!
+
     @IBOutlet weak var fahrenheitRadioButton: NSButton!
     @IBOutlet weak var celsiusRadioButton: NSButton!
     @IBOutlet weak var allTempUnitsRadioButton: NSButton!
@@ -21,8 +28,9 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var showHumidityToggleCheckBox: NSButton!
     @IBOutlet weak var roundOffData: NSButton!
     @IBOutlet weak var weatherConditionAsTextCheckBox: NSButton!
-    private let zipCodeHint = "[zipcode],[iso 3166 country code]"
-    private let latLongHint = "[latitude],[longitude]"
+
+    private let zipCodeHint = NSLocalizedString("[zipcode],[iso 3166 country code]", comment: "Placeholder hint for entering zip code")
+    private let latLongHint = NSLocalizedString("[latitude],[longitude]", comment: "Placeholder hint for entering Lat/Long")
     private let configManager: ConfigManagerType
 
     init(configManager: ConfigManagerType) {
@@ -37,13 +45,20 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        unitTextField.stringValue = NSLocalizedString("Unit", comment: "Temperature unit")
+        weatherSourceLabelTextField.stringValue = NSLocalizedString("Weather Source", comment: "Source for fetching weather")
+        refreshIntervalTextField.stringValue = NSLocalizedString("Refresh Interval", comment: "Weather refresh interval")
+        showHumidityTextField.stringValue = NSLocalizedString("Show Humidity", comment: "Show humidity")
+        roundOffDataTextField.stringValue = NSLocalizedString("Round-off Data", comment: "Round-off Data (temperature)")
+        weatherConditionTextField.stringValue = NSLocalizedString("Weather Condition (as text)", comment: "Weather condition as text")
+
         fahrenheitRadioButton.title = "\u{00B0}F"
         fahrenheitRadioButton.state = configManager.temperatureUnit == TemperatureUnit.fahrenheit.rawValue ? .on : .off
 
         celsiusRadioButton.title = "\u{00B0}C"
         celsiusRadioButton.state = configManager.temperatureUnit == TemperatureUnit.celsius.rawValue ? .on : .off
 
-        allTempUnitsRadioButton.title = "All"
+        allTempUnitsRadioButton.title = NSLocalizedString("All", comment: "Show all temperature units")
         allTempUnitsRadioButton.state = configManager.temperatureUnit == TemperatureUnit.all.rawValue ? .on : .off
 
         refreshIntervals.removeAllItems()

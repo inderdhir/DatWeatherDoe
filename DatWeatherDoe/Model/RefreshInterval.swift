@@ -15,5 +15,18 @@ enum RefreshInterval: TimeInterval, CaseIterable {
     case thirtyMinutes = 1800
     case sixtyMinutes = 3600
 
-    var title: String { "\(Int(rawValue / 60)) min" }
+    var title: String {
+        switch self {
+        case .oneMinute:
+            return NSLocalizedString("1 min", comment: "1 min refresh interval")
+        case .fiveMinutes:
+            return NSLocalizedString("5 min", comment: "5 min refresh interval")
+        case .fifteenMinutes:
+            return NSLocalizedString("15 min", comment: "15 min refresh interval")
+        case .thirtyMinutes:
+            return NSLocalizedString("30 min", comment: "30 min refresh interval")
+        case .sixtyMinutes:
+            return NSLocalizedString("60 min", comment: "60 min refresh interval")
+        }
+    }
 }

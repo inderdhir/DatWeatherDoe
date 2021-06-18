@@ -6,17 +6,19 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
+import Foundation
+
 enum WeatherSource: String, CaseIterable {
     case location, latLong, zipCode
 
     var title: String {
         switch self {
         case .location:
-            return "Location"
+            return NSLocalizedString("Location", comment: "Weather based on location")
         case .latLong:
-            return "Lat/Long"
+            return NSLocalizedString("Lat/Long", comment: "Weather based on Lat/Long")
         case .zipCode:
-            return "Zip Code"
+            return NSLocalizedString("Zip Code", comment: "Weather based on Zip Code")
         }
     }
 }

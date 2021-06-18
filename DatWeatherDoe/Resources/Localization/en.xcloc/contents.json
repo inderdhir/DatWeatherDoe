@@ -3,10 +3,10 @@
   "project" : "DatWeatherDoe.xcodeproj",
   "targetLocale" : "en",
   "toolInfo" : {
-    "toolBuildNumber" : "13A5154h",
+    "toolBuildNumber" : "12E262",
     "toolID" : "com.apple.dt.xcode",
     "toolName" : "Xcode",
-    "toolVersion" : "13.0"
+    "toolVersion" : "12.5"
   },
   "version" : "1.0"
 }
