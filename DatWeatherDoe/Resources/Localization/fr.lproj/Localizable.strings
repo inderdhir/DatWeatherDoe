@@ -53,10 +53,10 @@
 "Light rain" = "Faible pluie";
 
 /* Weather based on location */
-"Location" = "Localisation";
+"Location" = "Emplacement";
 
 /* Location error when fetching weather */
-"Location Error" = "Erreur de Localisation";
+"Location Error" = "Erreur d’emplacement";
 
 /* Mist weather condition */
 "Mist" = "Brouillard";
