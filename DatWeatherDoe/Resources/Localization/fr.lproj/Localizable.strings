@@ -1,0 +1,108 @@
+/* Unknown weather location */
+"Unknown Location" = "Emplacement inconnu";
+
+/* Refresh weather */
+"Refresh" = "Rafraîchir";
+
+/* Configure app */
+"Configure" = "Configurer";
+
+/* Quit app */
+"Quit" = "Quitter";
+
+/* Placeholder hint for entering Lat/Long */
+"[latitude],[longitude]" = "[latitude],[longitude]";
+
+/* Placeholder hint for entering zip code */
+"[zipcode],[iso 3166 country code]" = "[code postal],[code pays iso 3166]";
+
+/* 1 min refresh interval */
+"1 min" = "1 min";
+
+/* 5 min refresh interval */
+"5 min" = "5 min";
+
+/* 15 min refresh interval */
+"15 min" = "15 min";
+
+/* 30 min refresh interval */
+"30 min" = "30 min";
+
+/* 60 min refresh interval */
+"60 min" = "60 min";
+
+/* Show all temperature units */
+"All" = "Tous";
+
+/* Cloudy weather condition */
+"Cloudy" = "Nuageux";
+
+/* Freezing rain weather condition */
+"Freezing rain" = "Pluie verglaçante";
+
+/* Heavy rain weather condition */
+"Heavy rain" = "Forte pluie";
+
+/* Weather based on Lat/Long */
+"Lat/Long" = "Lat/Long";
+
+/* Lat/Long error when fetching weather */
+"Lat/Long Error" = "Erreur de Lat/Lon";
+
+/* Light rain weather condition */
+"Light rain" = "Faible pluie";
+
+/* Weather based on location */
+"Location" = "Localisation";
+
+/* Location error when fetching weather */
+"Location Error" = "Erreur de Localisation";
+
+/* Mist weather condition */
+"Mist" = "Brouillard";
+
+/* Network error when fetching weather */
+"Network Error" = "Erreur Réseau";
+
+/* Partly cloudy weather condition */
+"Partly cloudy" = "Partiellement nuageux";
+
+/* Partly cloudy with rain weather condition */
+"Partly cloudy with rain" = "Partiellement nuageux avec pluie";
+
+/* Weather refresh interval */
+"Refresh Interval" = "Intervalle de rafraîchissement";
+
+/* Round-off Data (temperature) */
+"Round-off Data" = "Arrondir les données";
+
+/* Show humidity */
+"Show Humidity" = "Afficher l’humidité";
+
+/* Snow weather condition */
+"Snow" = "Neige";
+
+/* Sunny weather condition */
+"Sunny" = "Ensoleillé";
+
+/* Thunderstorm weather condition */
+"Thunderstorm" = "Orage";
+
+/* Temperature unit */
+"Unit" = "Unité";
+
+/* Unknown location */
+"Unknown" = "Inconnu";
+
+/* Weather condition as text */
+"Weather Condition (as text)" = "Condition météo (texte)";
+
+/* Source for fetching weather */
+"Weather Source" = "Source de la météo";
+
+/* Weather based on Zip Code */
+"Zip Code" = "Code postal";
+
+/* Zip Code error when fetching weather */
+"Zip Code Error" = "Erreur de code postal";
+
