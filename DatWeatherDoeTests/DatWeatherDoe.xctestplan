@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "8E1BA5A7-5E49-4CF1-8D13-2F0DA4BF0476",
+      "name" : "Main Config",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:DatWeatherDoe.xcodeproj",
+      "identifier" : "2023EDA21C4ED09C0087FD67",
+      "name" : "DatWeatherDoe"
+    },
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:DatWeatherDoe.xcodeproj",
+        "identifier" : "61D04A2E1C7B7BCF00CBE6AE",
+        "name" : "DatWeatherDoeTests"
+      }
+    }
+  ],
+  "version" : 1
+}
