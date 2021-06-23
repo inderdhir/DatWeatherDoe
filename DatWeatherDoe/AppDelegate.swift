@@ -10,6 +10,7 @@ import Cocoa
 import CoreLocation
 import os
 import Reachability
+import Foundation
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
@@ -44,12 +45,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let menu = NSMenu()
-        menu.addItem(withTitle: "Unknown Location", action: nil, keyEquivalent: "")
+        menu.addItem(
+            withTitle: NSLocalizedString("Unknown Location", comment: "Unknown weather location"),
+            action: nil,
+            keyEquivalent: ""
+        )
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Refresh", action: #selector(getWeather), keyEquivalent: "R")
+        menu.addItem(
+            withTitle: NSLocalizedString("Refresh", comment: "Refresh weather"),
+            action: #selector(getWeather),
+            keyEquivalent: "R"
+        )
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "C")
-        menu.addItem(withTitle: "Quit", action: #selector(terminate), keyEquivalent: "q")
+        menu.addItem(
+            withTitle: NSLocalizedString("Configure", comment: "Configure app"),
+            action: #selector(togglePopover),
+            keyEquivalent: "C"
+        )
+        menu.addItem(
+            withTitle: NSLocalizedString("Quit", comment: "Quit app"),
+            action: #selector(terminate),
+            keyEquivalent: "q"
+        )
 
         statusItem.menu = menu
         statusItem.button?.action = #selector(togglePopover)

@@ -50,7 +50,7 @@ final class WeatherDecorator: WeatherDecoratorType {
     var textualRepresentation: String {
         let weatherConditionAndTempStr = [
             configManager.isWeatherConditionAsTextEnabled ?
-                weatherCondition.rawValue : nil,
+                weatherCondition.textualRepresentation : nil,
             temperature
         ]
         .compactMap { $0 }
