@@ -37,6 +37,9 @@
 /* Cloudy weather condition */
 "Cloudy" = "Nuageux";
 
+/* Finish configuring app */
+"Done" = "Terminé";
+
 /* Freezing rain weather condition */
 "Freezing rain" = "Pluie verglaçante";
 
