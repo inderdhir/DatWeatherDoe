@@ -28,6 +28,7 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var showHumidityToggleCheckBox: NSButton!
     @IBOutlet weak var roundOffData: NSButton!
     @IBOutlet weak var weatherConditionAsTextCheckBox: NSButton!
+    @IBOutlet weak var doneButton: NSButton!
 
     private let zipCodeHint = NSLocalizedString("[zipcode],[iso 3166 country code]", comment: "Placeholder hint for entering zip code")
     private let latLongHint = NSLocalizedString("[latitude],[longitude]", comment: "Placeholder hint for entering Lat/Long")
@@ -94,6 +95,8 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         showHumidityToggleCheckBox.state = configManager.isShowingHumidity ? .on : .off
         roundOffData.state = configManager.isRoundingOffData ? .on : .off
         weatherConditionAsTextCheckBox.state = configManager.isWeatherConditionAsTextEnabled ? .on : .off
+
+        doneButton.title = NSLocalizedString("Done", comment: "Finish configuring app")
     }
 
     @IBAction func radioButtonClicked(_ sender: NSButton) {
