@@ -21,6 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private let popover = NSPopover()
     private let configManager: ConfigManagerType = ConfigManager()
     private let logger: DatWeatherDoeLoggerType = DatWeatherDoeLogger()
+    private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -28,20 +29,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         locationManager.distanceFilter = 3000 // Only worry about location distance above 3 km
         return locationManager
     }()
-    private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
     private lazy var weatherRepository: WeatherRepositoryType =
-        WeatherRepository(configManager: configManager, logger: logger)
-    private lazy var networkErrorString = NSLocalizedString("Network Error", comment: "Network error when fetching weather")
-    private lazy var locationErrorString = NSLocalizedString("Location Error", comment: "Location error when fetching weather")
-    private lazy var latLongErrorString = NSLocalizedString("Lat/Long Error", comment: "Lat/Long error when fetching weather")
-    private lazy var zipCodeErrorString = NSLocalizedString("Zip Code Error", comment: "Zip Code error when fetching weather")
-    private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
+    WeatherRepository(configManager: configManager, logger: logger)
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
     private var eventMonitor: EventMonitor?
     private var reachability: Reachability?
     private var retryWhenReachable = false
+
+    /* Error Strings */
+
+    private lazy var networkErrorString =
+    NSLocalizedString("Network Error", comment: "Network error when fetching weather")
+    private lazy var locationPrivacyErrorString =
+    NSLocalizedString(
+        "Location Privacy Error",
+        comment: "Location privacy error when app is not given permission to access location services"
+    )
+    private lazy var locationErrorString =
+    NSLocalizedString("Location Error", comment: "Location error when fetching weather")
+    private lazy var latLongErrorString =
+    NSLocalizedString("Lat/Long Error", comment: "Lat/Long error when fetching weather")
+    private lazy var zipCodeErrorString =
+    NSLocalizedString("Zip Code Error", comment: "Zip Code error when fetching weather")
+    private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let menu = NSMenu()
@@ -126,21 +138,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         switch WeatherSource(rawValue: configManager.weatherSource) {
         case .latLong:
             guard let latLong = configManager.weatherSourceText else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.latLongErrorString
-                }
+                updateUI(title: latLongErrorString, image: nil)
                 return
             }
             getWeatherViaCoordinates(latLong)
         case .zipCode:
             guard let zipCode = configManager.weatherSourceText else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.zipCodeErrorString
-                }
+                updateUI(title: zipCodeErrorString, image: nil)
                 return
             }
             getWeatherViaZipCode(zipCode)
         default:
+            guard CLLocationManager.locationServicesEnabled() else {
+                updateUI(title: locationPrivacyErrorString, image: nil)
+                return
+            }
             currentLocationSerialQueue.sync {
                 guard let currentLocation = currentLocation else {
                     locationManager.startUpdatingLocation()
@@ -157,10 +169,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             case let .success(data):
                 self?.updateUI(data)
             case .failure:
-                DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.networkErrorString
-                    self?.statusItem.image = nil
-                }
+                self?.updateUI(title: self?.networkErrorString, image: nil)
             }
         })
     }
@@ -172,10 +181,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
                 self?.updateUI(data)
             case let .failure(error):
                 let isLatLongError = error == .latLongEmpty || error == .latLongIncorrect
-                DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = isLatLongError ? self?.latLongErrorString : self?.networkErrorString
-                    self?.statusItem.image = nil
-                }
+                self?.updateUI(
+                    title: isLatLongError ? self?.latLongErrorString : self?.networkErrorString,
+                    image: nil
+                )
             }
         })
     }
@@ -186,10 +195,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             case let .success(data):
                 self?.updateUI(data)
             case let .failure(error):
-                DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = error == .zipCodeEmpty ? self?.zipCodeErrorString : self?.networkErrorString
-                    self?.statusItem.image = nil
-                }
+                self?.updateUI(
+                    title: error == .zipCodeEmpty ? self?.zipCodeErrorString : self?.networkErrorString,
+                    image: nil
+                )
             }
         })
     }
@@ -233,15 +242,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
     }
 
+    private func updateUI(title: String?, image: NSImage?) {
+        DispatchQueue.main.async { [weak self] in
+            self?.statusItem.title = title
+            self?.statusItem.image = image
+        }
+    }
+
     // MARK: CLLocationManagerDelegate
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         logger.logError("Getting location failed with error \(error.localizedDescription)")
-
-        DispatchQueue.main.async { [weak self] in
-            self?.statusItem.title = self?.locationErrorString
-            self?.statusItem.image = nil
-        }
+        updateUI(title: locationErrorString, image: nil)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -249,11 +261,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             currentLocation = manager.location?.coordinate
             guard let currentLocation = currentLocation else {
                 logger.logError("Getting location failed")
-
-                DispatchQueue.main.async { [weak self] in
-                    self?.statusItem.title = self?.locationErrorString
-                    self?.statusItem.image = nil
-                }
+                updateUI(title: locationErrorString, image: nil)
                 return
             }
             getWeatherViaLocation(currentLocation)
