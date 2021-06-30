@@ -253,7 +253,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         logger.logError("Getting location failed with error \(error.localizedDescription)")
-        updateUI(title: locationErrorString, image: nil)
+
+        guard let currentLocation = currentLocation else {
+            updateUI(title: locationErrorString, image: nil)
+            return
+        }
+        
+        logger.logDebug("Using last fetched location to get weather")
+
+        currentLocationSerialQueue.sync {
+            getWeatherViaLocation(currentLocation)
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
