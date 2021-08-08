@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - master
+    tags-ignore:
+      - "**"
+    paths-ignore:
+      - ".gitignore"
+      - "**.md"
+      - "**.yml"
+      - "**.png"
+
+jobs:
+  run-tests:
+    runs-on: macos-11
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Run unit tests
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_13.0.app
+          xcodebuild clean test -scheme "DatWeatherDoe"
