@@ -20,6 +20,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
+      - name: Download Provisioning Profiles
+        id: provisioning
+        uses: apple-actions/download-provisioning-profiles@v1
+        with:
+          bundle-id: com.inderdhir.DatWeatherDoe
+          profile-type: "MAC_APP_DIRECT"
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+
       - name: Run unit tests
         run: |
           sudo xcode-select -switch /Applications/Xcode_13.0.app
