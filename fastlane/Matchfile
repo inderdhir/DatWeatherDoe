@@ -1,0 +1,2 @@
+git_url(ENV['DATWEATHERDOE_FASTLANE_MATCH_URL'])
+storage_mode('git')

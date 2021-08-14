@@ -15,20 +15,27 @@ on:
 jobs:
   run-tests:
     runs-on: macos-11
+    env:
+      DATWEATHERDOE_BUNDLE_ID: ${{ secrets.DATWEATHERDOE_BUNDLE_ID }}
+      DATWEATHERDOE_FASTLANE_MATCH_URL: ${{ secrets.DATWEATHERDOE_FASTLANE_MATCH_URL }}
+      DATWEATHERDOE_FASTLANE_USER: ${{ secrets.DATWEATHERDOE_FASTLANE_USER }}
+      MATCH_REPO_DEPLOY_KEY: ${{ secrets.MATCH_REPO_DEPLOY_KEY }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
 
-      - name: Download Provisioning Profiles
-        id: provisioning
-        uses: apple-actions/download-provisioning-profiles@v1
-        with:
-          bundle-id: com.inderdhir.DatWeatherDoe
-          profile-type: "MAC_APP_DIRECT"
-          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
-          api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+      - name: Setup access to Fastlane Match repo
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.MATCH_REPO_DEPLOY_KEY }}"
+
+      - name: Setup signing
+        run: |
+          bundle install
+          bundle exec fastlane match development
 
       - name: Run unit tests
         run: |
