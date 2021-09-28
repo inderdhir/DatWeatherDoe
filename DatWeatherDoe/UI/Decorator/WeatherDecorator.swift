@@ -47,10 +47,11 @@ final class WeatherDecorator: WeatherDecoratorType {
         self.isShowingHumidity = isShowingHumidity
     }
 
-    var textualRepresentation: String {
+    func textualRepresentation(sunsetTime: TimeInterval) -> String {
         let weatherConditionAndTempStr = [
             configManager.isWeatherConditionAsTextEnabled ?
-                weatherCondition.textualRepresentation : nil,
+                weatherCondition(sunsetTime: sunsetTime).textualRepresentation :
+                nil,
             temperature
         ]
         .compactMap { $0 }
@@ -62,10 +63,11 @@ final class WeatherDecorator: WeatherDecoratorType {
         return "\(weatherConditionAndTempStr) | \(humidity)"
     }
 
-    var weatherCondition: WeatherCondition {
+    func weatherCondition(sunsetTime: TimeInterval) -> WeatherCondition {
         switch response.weatherId {
         case 801:
-            return .partlyCloudy
+            return Date().isNight(sunsetTime: sunsetTime) ?
+                .partlyCloudyNight : .partlyCloudy
         case 802...900:
             return .cloudy
         case 700..<800:
@@ -73,7 +75,8 @@ final class WeatherDecorator: WeatherDecoratorType {
         case 600..<700:
             return .snow
         case 520..<600:
-            return .partlyCloudyRain
+            return Date().isNight(sunsetTime: sunsetTime) ?
+                .lightRain : .partlyCloudyRain
         case 511:
             return .freezingRain
         case 500...504:
@@ -83,7 +86,8 @@ final class WeatherDecorator: WeatherDecoratorType {
         case 200..<300:
             return .thunderstorm
         default:
-            return .sunny
+            return Date().isNight(sunsetTime: sunsetTime) ?
+                .clearNight : .sunny
         }
     }
 
@@ -138,4 +142,10 @@ final class WeatherDecorator: WeatherDecoratorType {
 private extension Double {
     var fahrenheitTemperature: Double { ((self - 273.15) * 1.8) + 32 }
     var celsiusTemperature: Double { self - 273.15 }
+}
+
+private extension Date {
+    func isNight(sunsetTime: TimeInterval) -> Bool {
+        timeIntervalSince1970 > sunsetTime
+    }
 }
