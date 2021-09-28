@@ -20,11 +20,14 @@ enum WeatherCondition: String {
     case lightRain = "Light rain"
     case thunderstorm = "Thunderstorm"
 
+    case clearNight = "Clear - Night"
+    case partlyCloudyNight = "Partly cloudy - Night"
+
     var textualRepresentation: String {
         switch self {
         case .sunny:
             return NSLocalizedString("Sunny", comment: "Sunny weather condition")
-        case .partlyCloudy:
+        case .partlyCloudy, .partlyCloudyNight:
             return NSLocalizedString("Partly cloudy", comment: "Partly cloudy weather condition")
         case .cloudy:
             return NSLocalizedString("Cloudy", comment: "Cloudy weather condition")
@@ -42,6 +45,8 @@ enum WeatherCondition: String {
             return NSLocalizedString("Light rain", comment: "Light rain weather condition")
         case .thunderstorm:
             return NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
+        case .clearNight:
+            return NSLocalizedString("Clear", comment: "Clear at night weather condition")
         }
     }
 }

@@ -6,8 +6,10 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
+import Foundation
+
 protocol WeatherDecoratorType: AnyObject {
     var response: WeatherAPIResponse { get }
-    var textualRepresentation: String { get }
-    var weatherCondition: WeatherCondition { get }
+    func textualRepresentation(sunsetTime: TimeInterval) -> String
+    func weatherCondition(sunsetTime: TimeInterval) -> WeatherCondition
 }

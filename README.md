@@ -42,4 +42,10 @@ Buy me a coffee to support the development of this project.
 <a href="https://www.buymeacoffee.com/inderdhir"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=inderdhir&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"></a>
 
 ## Contribute
+
 Please see CONTRIBUTING.md
+
+## Icon credits
+
+- [Moon and Stars]("https://icons8.com/icon/11377/moon-and-stars") icon by [Icons8](https://icons8.com")
+- [Night]("https://icons8.com/icon/660/night") icon by [Icons8](https://icons8.com")

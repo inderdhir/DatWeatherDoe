@@ -34,6 +34,9 @@
 /* Show all temperature units */
 "All" = "Tous";
 
+/* Clear at night weather condition */
+"Clear" = "Dégager";
+
 /* Cloudy weather condition */
 "Cloudy" = "Nuageux";
 
