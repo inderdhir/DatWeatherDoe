@@ -10,6 +10,14 @@ import Foundation
 
 protocol WeatherDecoratorType: AnyObject {
     var response: WeatherAPIResponse { get }
-    func textualRepresentation(sunsetTime: TimeInterval) -> String
-    func weatherCondition(sunsetTime: TimeInterval) -> WeatherCondition
+
+    func textualRepresentation(
+        sunrise: TimeInterval,
+        sunset: TimeInterval
+    ) -> String
+
+    func weatherCondition(
+        sunrise: TimeInterval,
+        sunset: TimeInterval
+    ) -> WeatherCondition
 }

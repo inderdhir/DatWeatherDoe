@@ -14,7 +14,8 @@ struct WeatherAPIResponse: Decodable {
     let humidity: Int
     let location: String
     let weatherId: Int
-    let sunsetTime: TimeInterval
+    let sunrise: TimeInterval
+    let sunset: TimeInterval
 
     private enum RootKeys: String, CodingKey {
         case main, weather, name, sys
@@ -22,7 +23,7 @@ struct WeatherAPIResponse: Decodable {
     private enum APIKeys: String, CodingKey {
         case temperature = "temp"
         case humidity
-        case sunset
+        case sunrise, sunset
     }
     private enum WeatherKeys: String, CodingKey {
         case id
@@ -42,6 +43,7 @@ struct WeatherAPIResponse: Decodable {
         weatherId = try weatherChildContainer.decode(Int.self, forKey: .id)
 
         let sysContainer = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .sys)
-        sunsetTime = try sysContainer.decode(TimeInterval.self, forKey: .sunset)
+        sunrise = try sysContainer.decode(TimeInterval.self, forKey: .sunrise)
+        sunset = try sysContainer.decode(TimeInterval.self, forKey: .sunset)
     }
 }
