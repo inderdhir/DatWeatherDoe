@@ -47,10 +47,13 @@ final class WeatherDecorator: WeatherDecoratorType {
         self.isShowingHumidity = isShowingHumidity
     }
 
-    func textualRepresentation(sunsetTime: TimeInterval) -> String {
+    func textualRepresentation(
+        sunrise: TimeInterval,
+        sunset: TimeInterval
+    ) -> String {
         let weatherConditionAndTempStr = [
             configManager.isWeatherConditionAsTextEnabled ?
-                weatherCondition(sunsetTime: sunsetTime).textualRepresentation :
+                weatherCondition(sunrise: sunrise, sunset: sunset).textualRepresentation :
                 nil,
             temperature
         ]
@@ -63,10 +66,13 @@ final class WeatherDecorator: WeatherDecoratorType {
         return "\(weatherConditionAndTempStr) | \(humidity)"
     }
 
-    func weatherCondition(sunsetTime: TimeInterval) -> WeatherCondition {
+    func weatherCondition(
+        sunrise: TimeInterval,
+        sunset: TimeInterval
+    ) -> WeatherCondition {
         switch response.weatherId {
         case 801:
-            return Date().isNight(sunsetTime: sunsetTime) ?
+            return Date().isNight(sunrise: sunrise, sunset: sunset) ?
                 .partlyCloudyNight : .partlyCloudy
         case 802...900:
             return .cloudy
@@ -75,7 +81,7 @@ final class WeatherDecorator: WeatherDecoratorType {
         case 600..<700:
             return .snow
         case 520..<600:
-            return Date().isNight(sunsetTime: sunsetTime) ?
+            return Date().isNight(sunrise: sunrise, sunset: sunset) ?
                 .lightRain : .partlyCloudyRain
         case 511:
             return .freezingRain
@@ -86,7 +92,7 @@ final class WeatherDecorator: WeatherDecoratorType {
         case 200..<300:
             return .thunderstorm
         default:
-            return Date().isNight(sunsetTime: sunsetTime) ?
+            return Date().isNight(sunrise: sunrise, sunset: sunset) ?
                 .clearNight : .sunny
         }
     }
@@ -145,7 +151,7 @@ private extension Double {
 }
 
 private extension Date {
-    func isNight(sunsetTime: TimeInterval) -> Bool {
-        timeIntervalSince1970 > sunsetTime
+    func isNight(sunrise: TimeInterval, sunset: TimeInterval) -> Bool {
+        timeIntervalSince1970 >= sunset || timeIntervalSince1970 <= sunrise
     }
 }

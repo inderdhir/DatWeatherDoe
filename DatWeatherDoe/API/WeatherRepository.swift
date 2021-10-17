@@ -142,11 +142,13 @@ final class WeatherRepository: WeatherRepositoryType {
         return .success(
             .init(
                 textualRepresentation: decorator.textualRepresentation(
-                    sunsetTime: response.sunsetTime
+                    sunrise: response.sunrise,
+                    sunset: response.sunset
                 ),
                 location: response.location,
                 weatherCondition: decorator.weatherCondition(
-                    sunsetTime: response.sunsetTime
+                    sunrise: response.sunrise,
+                    sunset: response.sunset
                 )
             )
         )
