@@ -531,7 +531,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -540,7 +540,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.1.4;
+				MARKETING_VERSION = 2.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe.debug;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
@@ -558,7 +558,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -567,7 +567,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.1.4;
+				MARKETING_VERSION = 2.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
