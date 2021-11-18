@@ -31,8 +31,8 @@
 		206523FD265AF03E0026C506 /* RefreshInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523FC265AF03E0026C506 /* RefreshInterval.swift */; };
 		20B952FC2682DAD20016F20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 20B952FA2682DAD20016F20A /* InfoPlist.strings */; };
 		20B952FF2682DAD20016F20A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 20B952FD2682DAD20016F20A /* Localizable.strings */; };
+		20BF8B342729176700474436 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20BF8B332729176700474436 /* Keys.plist */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
-		20FF84E82456301D00FC9DAA /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20FF84E72456301D00FC9DAA /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +75,8 @@
 		20B953002682DAD20016F20A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		20B953012682DCFF0016F20A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		20B953022682DCFF0016F20A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		20BF8B332729176700474436 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
-		20FF84E72456301D00FC9DAA /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61D04A331C7B7BCF00CBE6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -166,8 +166,8 @@
 				20652400265B0F870026C506 /* Localization */,
 				20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */,
 				2023EDA81C4ED09C0087FD67 /* Assets.xcassets */,
-				20FF84E72456301D00FC9DAA /* Keys.plist */,
 				2023EDAD1C4ED09C0087FD67 /* Info.plist */,
+				20BF8B332729176700474436 /* Keys.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -279,7 +279,6 @@
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = Q8X4D3A8MT;
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -322,7 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20FF84E82456301D00FC9DAA /* Keys.plist in Resources */,
+				20BF8B342729176700474436 /* Keys.plist in Resources */,
 				20B952FC2682DAD20016F20A /* InfoPlist.strings in Resources */,
 				2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */,
 				20B952FF2682DAD20016F20A /* Localizable.strings in Resources */,

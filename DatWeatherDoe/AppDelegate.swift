@@ -22,6 +22,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private let configManager: ConfigManagerType = ConfigManager()
     private let logger: DatWeatherDoeLoggerType = DatWeatherDoeLogger()
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
+    private let fullWeatherUrl = URL(string: "https://openweathermap.org/city")
+    
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -32,8 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
     private lazy var weatherRepository: WeatherRepositoryType =
     WeatherRepository(configManager: configManager, logger: logger)
+    
     private var weatherTimer: Timer?
     private var currentLocation: CLLocationCoordinate2D?
+    private var cityId: Int?
     private var eventMonitor: EventMonitor?
     private var reachability: Reachability?
     private var retryWhenReachable = false
@@ -51,31 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let menu = NSMenu()
-        menu.addItem(
-            withTitle: NSLocalizedString("Unknown Location", comment: "Unknown weather location"),
-            action: nil,
-            keyEquivalent: ""
-        )
-        menu.addItem(.separator())
-        menu.addItem(
-            withTitle: NSLocalizedString("Refresh", comment: "Refresh weather"),
-            action: #selector(getWeather),
-            keyEquivalent: "R"
-        )
-        menu.addItem(.separator())
-        menu.addItem(
-            withTitle: NSLocalizedString("Configure", comment: "Configure app"),
-            action: #selector(togglePopover),
-            keyEquivalent: "C"
-        )
-        menu.addItem(
-            withTitle: NSLocalizedString("Quit", comment: "Quit app"),
-            action: #selector(terminate),
-            keyEquivalent: "q"
-        )
-        
-        statusItem.menu = menu
+        statusItem.menu = createMenu()
         statusItem.button?.action = #selector(togglePopover)
         
         popover.contentViewController = ConfigureViewController(configManager: configManager)
@@ -128,6 +108,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
     }
     
     // MARK: Weather fetching
+    
+    @objc func seeFullWeather(_ sender: AnyObject?) {
+        guard let cityId = cityId,
+              let url = fullWeatherUrl?.appendingPathComponent(String(cityId))
+        else { return }
+        
+        NSWorkspace.shared.open(url)
+    }
     
     @objc func getWeather(_ sender: AnyObject?) {
         switch WeatherSource(rawValue: configManager.weatherSource) {
@@ -231,6 +219,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         }
     }
     
+    // MARK: Menu
+    
+    private func createMenu() -> NSMenu {
+        let menu = NSMenu()
+        menu.addItem(
+            withTitle: NSLocalizedString("Unknown Location", comment: "Unknown weather location"),
+            action: nil,
+            keyEquivalent: ""
+        )
+        menu.addItem(.separator())
+        menu.addItem(
+            withTitle: NSLocalizedString("See Full Weather", comment: "See Full Weather"),
+            action: #selector(seeFullWeather),
+            keyEquivalent: "F"
+        )
+        menu.addItem(.separator())
+        menu.addItem(
+            withTitle: NSLocalizedString("Refresh", comment: "Refresh weather"),
+            action: #selector(getWeather),
+            keyEquivalent: "R"
+        )
+        menu.addItem(
+            withTitle: NSLocalizedString("Configure", comment: "Configure app"),
+            action: #selector(togglePopover),
+            keyEquivalent: "C"
+        )
+        menu.addItem(
+            withTitle: NSLocalizedString("Quit", comment: "Quit app"),
+            action: #selector(terminate),
+            keyEquivalent: "q"
+        )
+        return menu
+    }
+    
     /// Popover stuff for listening for clicks outside the configure window
     private func showPopover(_ sender: AnyObject?) {
         if let button = statusItem.button {
@@ -250,6 +272,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
+            self.cityId = data.cityId
             self.statusItem.title = data.textualRepresentation
             self.statusItem.menu?.item(at: 0)?.title = data.location ?? self.unknownString
             
