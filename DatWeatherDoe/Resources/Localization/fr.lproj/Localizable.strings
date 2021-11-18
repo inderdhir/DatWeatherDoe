@@ -35,7 +35,7 @@
 "All" = "Tous";
 
 /* Clear at night weather condition */
-"Clear" = "Dégagé";
+"Clear" = "Temps clair";
 
 /* Cloudy weather condition */
 "Cloudy" = "Nuageux";
@@ -56,7 +56,7 @@
 "Lat/Long Error" = "Erreur de Lat/Lon";
 
 /* Light rain weather condition */
-"Light rain" = "Faible pluie";
+"Light rain" = "Pluie légère";
 
 /* Weather based on location */
 "Location" = "Emplacement";
@@ -65,16 +65,16 @@
 "Location Error" = "Erreur d’emplacement";
 
 /* Mist weather condition */
-"Mist" = "Brouillard";
+"Mist" = "Brumeux";
 
 /* Network error when fetching weather */
 "Network Error" = "Erreur Réseau";
 
 /* Partly cloudy weather condition */
-"Partly cloudy" = "Partiellement nuageux";
+"Partly cloudy" = "Partiellement couvert";
 
 /* Partly cloudy with rain weather condition */
-"Partly cloudy with rain" = "Partiellement nuageux avec pluie";
+"Partly cloudy with rain" = "Partiellement couvert avec pluie";
 
 /* Weather refresh interval */
 "Refresh Interval" = "Intervalle de rafraîchissement";
