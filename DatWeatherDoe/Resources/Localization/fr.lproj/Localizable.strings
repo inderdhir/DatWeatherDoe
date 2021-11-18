@@ -1,6 +1,9 @@
 /* Unknown weather location */
 "Unknown Location" = "Emplacement inconnu";
 
+/* See Full Weather */
+"See Full Weather" = "Voir la météo complète";
+
 /* Refresh weather */
 "Refresh" = "Rafraîchir";
 

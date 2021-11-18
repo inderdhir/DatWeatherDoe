@@ -10,6 +10,7 @@ import Foundation
 
 struct WeatherAPIResponse: Decodable {
 
+    let cityId: Int
     let temperature: Double
     let humidity: Int
     let location: String
@@ -18,6 +19,7 @@ struct WeatherAPIResponse: Decodable {
     let sunset: TimeInterval
 
     private enum RootKeys: String, CodingKey {
+        case cityId = "id"
         case main, weather, name, sys
     }
     private enum APIKeys: String, CodingKey {
@@ -31,6 +33,8 @@ struct WeatherAPIResponse: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: RootKeys.self)
+        
+        cityId = try container.decode(Int.self, forKey: .cityId)
 
         let mainContainer = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .main)
         temperature = try mainContainer.decode(Double.self, forKey: .temperature)
