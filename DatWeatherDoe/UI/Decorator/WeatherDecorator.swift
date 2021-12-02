@@ -80,7 +80,7 @@ final class WeatherDecorator: WeatherDecoratorType {
             return .mist
         case 600..<700:
             return .snow
-        case 520..<600:
+        case 500..<600:
             return Date().isNight(sunrise: sunrise, sunset: sunset) ?
                 .lightRain : .partlyCloudyRain
         case 511:
