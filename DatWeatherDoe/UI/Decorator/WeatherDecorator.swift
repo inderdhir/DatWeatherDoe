@@ -71,25 +71,44 @@ final class WeatherDecorator: WeatherDecoratorType {
         sunset: TimeInterval
     ) -> WeatherCondition {
         switch response.weatherId {
-        case 801:
+        case 803...804:
+            return .cloudy
+        case 801...802:
             return Date().isNight(sunrise: sunrise, sunset: sunset) ?
                 .partlyCloudyNight : .partlyCloudy
-        case 802...900:
-            return .cloudy
-        case 700..<800:
-            return .mist
-        case 600..<700:
-            return .snow
-        case 500..<600:
+        case 800:
             return Date().isNight(sunrise: sunrise, sunset: sunset) ?
-                .lightRain : .partlyCloudyRain
+                .clearNight : .sunny
+        case 781:
+            return .tornado
+        case 771:
+            return .squall
+        case 762:
+            return .ash
+        case 761:
+            return .dust
+        case 751:
+            return .sand
+        case 741:
+            return .fog
+        case 731:
+            return .sandOrDustWhirls
+        case 721:
+            return .haze
+        case 711:
+            return .smoke
+        case 701:
+            return .mist
+        case 600...622:
+            return .snow
+        case 521...531, 502...504:
+            return .heavyRain
         case 511:
             return .freezingRain
-        case 500...504:
-            return .heavyRain
-        case 300..<500:
-            return .lightRain
-        case 200..<300:
+        case 500...501, 520, 300...321:
+            return Date().isNight(sunrise: sunrise, sunset: sunset) ?
+                .lightRain : .partlyCloudyRain
+        case 200...232:
             return .thunderstorm
         default:
             return Date().isNight(sunrise: sunrise, sunset: sunset) ?

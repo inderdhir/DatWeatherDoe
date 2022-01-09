@@ -276,7 +276,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
             self.statusItem.title = data.textualRepresentation
             self.statusItem.menu?.item(at: 0)?.title = data.location ?? self.unknownString
             
-            let image = NSImage(named: data.weatherCondition.rawValue)
+            let image = data.weatherCondition.image
             image?.isTemplate = true
             self.statusItem.image = image
         }
