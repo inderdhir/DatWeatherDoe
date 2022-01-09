@@ -40,6 +40,33 @@
 /* Clear at night weather condition */
 "Clear" = "Temps clair";
 
+/* Tornado weather condition */
+"Tornado" = "Tornade";
+
+/* Squall weather condition */
+"Squall" = "Bourrasque";
+
+/* Ash weather condition */
+"Ash" = "Cendre";
+
+/* Dust weather condition */
+"Dust" = "Poussière";
+
+/* Sand weather condition */
+"Sand" = "Sable";
+
+/* Fog weather condition */
+"Fog" = "Brouillard";
+
+/* Sand/Dust Whirls weather condition */
+"Sand/Dust Whirls" = "Tourbillons de sable/poussière";
+
+/* Haze weather condition */
+"Haze" = "Brume";
+
+/* Smoke weather condition */
+"Smoke" = "Fumée";
+
 /* Cloudy weather condition */
 "Cloudy" = "Nuageux";
 
