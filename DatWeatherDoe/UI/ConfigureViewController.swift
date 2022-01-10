@@ -30,6 +30,12 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var weatherConditionAsTextCheckBox: NSButton!
     @IBOutlet weak var doneButton: NSButton!
 
+    private let fahrenheitDegreesString = "\u{00B0}F"
+    private let celsiusDegreesString = "\u{00B0}C"
+    private let emptyString = ""
+    private let weatherLatLongPlaceholder = "42,42"
+    private let weatherZipCodePlaceholder = "10021,us"
+
     private let zipCodeHint = NSLocalizedString("[zipcode],[iso 3166 country code]", comment: "Placeholder hint for entering zip code")
     private let latLongHint = NSLocalizedString("[latitude],[longitude]", comment: "Placeholder hint for entering Lat/Long")
     private let configManager: ConfigManagerType
@@ -45,25 +51,57 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupLabels()
+        setupTemperatureUnits()
+        setupRefreshIntervals()
+        setupWeatherSources()
+        setupCheckboxes()
+        setupDoneButton()
+    }
+    
+    private func setupLabels() {
         unitTextField.stringValue = NSLocalizedString("Unit", comment: "Temperature unit")
-        weatherSourceLabelTextField.stringValue = NSLocalizedString("Weather Source", comment: "Source for fetching weather")
-        refreshIntervalTextField.stringValue = NSLocalizedString("Refresh Interval", comment: "Weather refresh interval")
-        showHumidityTextField.stringValue = NSLocalizedString("Show Humidity", comment: "Show humidity")
-        roundOffDataTextField.stringValue = NSLocalizedString("Round-off Data", comment: "Round-off Data (temperature)")
-        weatherConditionTextField.stringValue = NSLocalizedString("Weather Condition (as text)", comment: "Weather condition as text")
+        weatherSourceLabelTextField.stringValue = NSLocalizedString(
+            "Weather Source",
+            comment: "Source for fetching weather"
+        )
+        refreshIntervalTextField.stringValue = NSLocalizedString(
+            "Refresh Interval",
+            comment: "Weather refresh interval"
+        )
+        showHumidityTextField.stringValue = NSLocalizedString(
+            "Show Humidity",
+            comment: "Show humidity"
+        )
+        roundOffDataTextField.stringValue = NSLocalizedString(
+            "Round-off Data",
+            comment: "Round-off Data (temperature)"
+        )
+        weatherConditionTextField.stringValue = NSLocalizedString(
+            "Weather Condition (as text)",
+            comment: "Weather condition as text"
+        )
+    }
 
-        fahrenheitRadioButton.title = "\u{00B0}F"
-        fahrenheitRadioButton.state = configManager.temperatureUnit == TemperatureUnit.fahrenheit.rawValue ? .on : .off
+    private func setupTemperatureUnits() {
+        let isFahrenheitUnitSelected = configManager.temperatureUnit == TemperatureUnit.fahrenheit.rawValue
+        fahrenheitRadioButton.title = fahrenheitDegreesString
+        fahrenheitRadioButton.state = isFahrenheitUnitSelected ? .on : .off
 
-        celsiusRadioButton.title = "\u{00B0}C"
-        celsiusRadioButton.state = configManager.temperatureUnit == TemperatureUnit.celsius.rawValue ? .on : .off
+        let isCelsiusUnitSelected = configManager.temperatureUnit == TemperatureUnit.celsius.rawValue
+        celsiusRadioButton.title = celsiusDegreesString
+        celsiusRadioButton.state = isCelsiusUnitSelected ? .on : .off
 
+        let areAllUnitsSelected = configManager.temperatureUnit == TemperatureUnit.all.rawValue
         allTempUnitsRadioButton.title = NSLocalizedString("All", comment: "Show all temperature units")
-        allTempUnitsRadioButton.state = configManager.temperatureUnit == TemperatureUnit.all.rawValue ? .on : .off
-
+        allTempUnitsRadioButton.state = areAllUnitsSelected ? .on : .off
+    }
+    
+    private func setupRefreshIntervals() {
         refreshIntervals.removeAllItems()
         refreshIntervals.addItems(withTitles: RefreshInterval.allCases.map(\.title))
+        
         switch configManager.refreshInterval {
         case 300: refreshIntervals.selectItem(at: 1)
         case 900: refreshIntervals.selectItem(at: 2)
@@ -71,9 +109,12 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         case 3600: refreshIntervals.selectItem(at: 4)
         default: refreshIntervals.selectItem(at: 0)
         }
-
+    }
+    
+    private func setupWeatherSources() {
         weatherSourceButton.removeAllItems()
         weatherSourceButton.addItems(withTitles: WeatherSource.allCases.map(\.title))
+        
         let selectedIndex: Int
         switch WeatherSource(rawValue: configManager.weatherSource) {
         case .latLong:
@@ -91,77 +132,106 @@ class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         if let weatherSourceText = configManager.weatherSourceText {
             weatherSourceTextField.stringValue = weatherSourceText
         }
-
+    }
+    
+    private func setupCheckboxes() {
         showHumidityToggleCheckBox.state = configManager.isShowingHumidity ? .on : .off
         roundOffData.state = configManager.isRoundingOffData ? .on : .off
         weatherConditionAsTextCheckBox.state = configManager.isWeatherConditionAsTextEnabled ? .on : .off
-
+    }
+    
+    private func setupDoneButton() {
         doneButton.title = NSLocalizedString("Done", comment: "Finish configuring app")
     }
-
+    
     @IBAction func radioButtonClicked(_ sender: NSButton) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.fahrenheitRadioButton.state = sender == strongSelf.fahrenheitRadioButton ? .on : .off
-            strongSelf.celsiusRadioButton.state = sender == strongSelf.celsiusRadioButton ? .on : .off
-            strongSelf.allTempUnitsRadioButton.state = sender == strongSelf.allTempUnitsRadioButton ? .on : .off
+            guard let `self` = self else { return }
+            
+            self.fahrenheitRadioButton.state = sender == self.fahrenheitRadioButton ? .on : .off
+            self.celsiusRadioButton.state = sender == self.celsiusRadioButton ? .on : .off
+            self.allTempUnitsRadioButton.state = sender == self.allTempUnitsRadioButton ? .on : .off
         }
     }
 
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-
-            switch (
-                strongSelf.fahrenheitRadioButton.state,
-                strongSelf.celsiusRadioButton.state,
-                strongSelf.allTempUnitsRadioButton.state
-            ) {
-            case (.off, .on, .off):
-                strongSelf.configManager.temperatureUnit = TemperatureUnit.celsius.rawValue
-            case (.off, .off, .on):
-                strongSelf.configManager.temperatureUnit = TemperatureUnit.all.rawValue
-            default:
-                strongSelf.configManager.temperatureUnit = TemperatureUnit.fahrenheit.rawValue
-            }
-
-            let selectedWeatherSource = WeatherSource.allCases[strongSelf.weatherSourceButton.indexOfSelectedItem]
-            strongSelf.configManager.weatherSource = selectedWeatherSource.rawValue
-            strongSelf.configManager.weatherSourceText = selectedWeatherSource == .location ? nil : strongSelf.weatherSourceTextField.stringValue
-            strongSelf.configManager.refreshInterval = RefreshInterval.allCases[strongSelf.refreshIntervals.indexOfSelectedItem].rawValue
-            strongSelf.configManager.isShowingHumidity = strongSelf.showHumidityToggleCheckBox.state == .on
-            strongSelf.configManager.isRoundingOffData = strongSelf.roundOffData.state == .on
-            strongSelf.configManager.isWeatherConditionAsTextEnabled = strongSelf.weatherConditionAsTextCheckBox.state == .on
-
-            guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
-            delegate.togglePopover(sender)
+            guard let `self` = self else { return }
+            
+            self.setTemperateUnit()
+            self.setWeatherSource()
+            self.setConfigOptions()
+            self.togglePopover(sender)
+        }
+    }
+    
+    private func setTemperateUnit() {
+        switch (
+            self.fahrenheitRadioButton.state,
+            self.celsiusRadioButton.state,
+            self.allTempUnitsRadioButton.state
+        ) {
+        case (.off, .on, .off):
+            self.configManager.temperatureUnit = TemperatureUnit.celsius.rawValue
+        case (.off, .off, .on):
+            self.configManager.temperatureUnit = TemperatureUnit.all.rawValue
+        default:
+            self.configManager.temperatureUnit = TemperatureUnit.fahrenheit.rawValue
         }
     }
 
+    private func setWeatherSource() {
+        let selectedWeatherSource = WeatherSource.allCases[self.weatherSourceButton.indexOfSelectedItem]
+        self.configManager.weatherSource = selectedWeatherSource.rawValue
+        self.configManager.weatherSourceText = selectedWeatherSource == .location ?
+        nil : self.weatherSourceTextField.stringValue
+    }
+    
+    private func setConfigOptions() {
+        self.configManager.refreshInterval = RefreshInterval.allCases[self.refreshIntervals.indexOfSelectedItem].rawValue
+        self.configManager.isShowingHumidity = self.showHumidityToggleCheckBox.state == .on
+        self.configManager.isRoundingOffData = self.roundOffData.state == .on
+        self.configManager.isWeatherConditionAsTextEnabled = self.weatherConditionAsTextCheckBox.state == .on
+    }
+    
+    private func togglePopover(_ sender: AnyObject) {
+        guard let delegate = NSApplication.shared.delegate as? AppDelegate else { return }
+        delegate.togglePopover(sender)
+    }
+    
     @IBAction func didUpdateWeatherSource(_ sender: Any) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-
-            strongSelf.weatherSourceTextField.placeholderString = nil
-            strongSelf.weatherSourceTextField.stringValue = ""
-
-            let selectedWeatherSource = WeatherSource.allCases[strongSelf.weatherSourceButton.indexOfSelectedItem]
-            strongSelf.weatherSourceTextField.isEnabled = selectedWeatherSource != .location
-
-            guard selectedWeatherSource != .location else {
-                strongSelf.weatherSourceTextHint.stringValue = ""
-                return
-            }
-            switch selectedWeatherSource {
-            case .latLong:
-                strongSelf.weatherSourceTextHint.stringValue = strongSelf.latLongHint
-                strongSelf.weatherSourceTextField.placeholderString = "42,42"
-            case .zipCode:
-                strongSelf.weatherSourceTextHint.stringValue = strongSelf.zipCodeHint
-                strongSelf.weatherSourceTextField.placeholderString = "10021,us"
-            default:
-                break
-            }
+            self?.updateUIWithSelections()
+        }
+    }
+    
+    private func updateUIWithSelections() {
+        clearWeatherSourceStrings()
+        updateUIWithWeatherSource()
+    }
+    
+    private func clearWeatherSourceStrings() {
+        self.weatherSourceTextField.placeholderString = nil
+        self.weatherSourceTextField.stringValue = emptyString
+    }
+    
+    private func updateUIWithWeatherSource() {
+        let selectedWeatherSource = WeatherSource.allCases[self.weatherSourceButton.indexOfSelectedItem]
+        self.weatherSourceTextField.isEnabled = selectedWeatherSource != .location
+        
+        guard selectedWeatherSource != .location else {
+            self.weatherSourceTextHint.stringValue = emptyString
+            return
+        }
+        switch selectedWeatherSource {
+        case .latLong:
+            self.weatherSourceTextHint.stringValue = self.latLongHint
+            self.weatherSourceTextField.placeholderString = weatherLatLongPlaceholder
+        case .zipCode:
+            self.weatherSourceTextHint.stringValue = self.zipCodeHint
+            self.weatherSourceTextField.placeholderString = weatherZipCodePlaceholder
+        default:
+            break
         }
     }
 }

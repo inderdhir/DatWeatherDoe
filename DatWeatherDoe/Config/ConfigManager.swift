@@ -20,16 +20,25 @@ final class ConfigManager: ConfigManagerType {
         case isWeatherConditionAsTextEnabled
     }
 
-    @Storage(key: DefaultsKeys.temperatureUnit.rawValue, defaultValue: TemperatureUnit.fahrenheit.rawValue)
+    @Storage(
+        key: DefaultsKeys.temperatureUnit.rawValue,
+        defaultValue: TemperatureUnit.fahrenheit.rawValue
+    )
     public var temperatureUnit: String
 
-    @Storage(key: DefaultsKeys.weatherSource.rawValue, defaultValue: WeatherSource.location.rawValue)
+    @Storage(
+        key: DefaultsKeys.weatherSource.rawValue,
+        defaultValue: WeatherSource.location.rawValue
+    )
     public var weatherSource: String
 
     @Storage(key: DefaultsKeys.weatherSourceText.rawValue, defaultValue: nil)
     public var weatherSourceText: String?
 
-    @Storage(key: DefaultsKeys.refreshInterval.rawValue, defaultValue: RefreshInterval.fifteenMinutes.rawValue)
+    @Storage(
+        key: DefaultsKeys.refreshInterval.rawValue,
+        defaultValue: RefreshInterval.fifteenMinutes.rawValue
+    )
     public var refreshInterval: TimeInterval
 
     @Storage(key: DefaultsKeys.isShowingHumidity.rawValue, defaultValue: false)
@@ -38,6 +47,9 @@ final class ConfigManager: ConfigManagerType {
     @Storage(key: DefaultsKeys.isRoundingOffData.rawValue, defaultValue: false)
     public var isRoundingOffData: Bool
 
-    @Storage(key: DefaultsKeys.isWeatherConditionAsTextEnabled.rawValue, defaultValue: false)
+    @Storage(
+        key: DefaultsKeys.isWeatherConditionAsTextEnabled.rawValue,
+        defaultValue: false
+    )
     public var isWeatherConditionAsTextEnabled: Bool
 }

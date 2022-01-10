@@ -6,8 +6,6 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
-import AppKit
-
 struct WeatherData {
     let cityId: Int?
     let textualRepresentation: String?
