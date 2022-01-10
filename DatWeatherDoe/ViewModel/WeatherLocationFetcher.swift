@@ -72,6 +72,7 @@ final class WeatherLocationFetcher: NSObject {
     }
     
     private func requestUpdatedLocation() {
+        _ = sendCachedLocationIfPresent()
         locationManager.startUpdatingLocation()
     }
     
@@ -79,6 +80,17 @@ final class WeatherLocationFetcher: NSObject {
         logger.logError("Location permission has NOT been granted")
         
         delegate?.didFailLocationUpdate(nil)
+    }
+    
+    private func sendCachedLocationIfPresent() -> Bool {
+        if let currentLocation = currentLocation {
+            logger.logDebug("Sending last fetched location")
+
+            delegate?.didUpdateLocation(currentLocation, isCachedLocation: true)
+            
+            return true
+        }
+        return false
     }
 }
 
@@ -100,12 +112,11 @@ extension WeatherLocationFetcher: CLLocationManagerDelegate {
         logger.logError("Getting updated location failed with error \(error.localizedDescription)")
         
         currentLocationSerialQueue.sync { [weak self] in
-            if let currentLocation = self?.currentLocation {
-                logger.logDebug("Sending last fetched location")
-                
-                delegate?.didUpdateLocation(currentLocation, isCachedLocation: true)
-            } else {
-                delegate?.didFailLocationUpdate(error)
+            guard let `self` = self else { return }
+            
+            let isCachedLocationPresent = self.sendCachedLocationIfPresent()
+            if !isCachedLocationPresent {
+                self.delegate?.didFailLocationUpdate(error)
             }
         }
     }
