@@ -80,7 +80,7 @@ final class WeatherDecorator: WeatherDecoratorType {
             return .mist
         case 600..<700:
             return .snow
-        case 520..<600:
+        case 500..<600:
             return Date().isNight(sunrise: sunrise, sunset: sunset) ?
                 .lightRain : .partlyCloudyRain
         case 511:
@@ -130,8 +130,9 @@ final class WeatherDecorator: WeatherDecoratorType {
 
             return nil
         }
-
-        return [formattedString, isFahrenheit ? "F" : "C"].joined(separator: degreeString)
+        
+        let temperatureString = getTemperatureWithoutRoundingIssues(formattedString)
+        return [temperatureString, isFahrenheit ? "F" : "C"].joined(separator: degreeString)
     }
 
     private var humidity: String? {
@@ -142,6 +143,11 @@ final class WeatherDecorator: WeatherDecoratorType {
             return nil
         }
         return "\(formattedString)\u{0025}"
+    }
+    
+    private func getTemperatureWithoutRoundingIssues(_ temperature: String) -> String {
+        guard temperature == "-0" else { return temperature }
+        return "0"
     }
 }
 

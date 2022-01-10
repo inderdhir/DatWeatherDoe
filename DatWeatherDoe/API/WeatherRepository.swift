@@ -141,6 +141,7 @@ final class WeatherRepository: WeatherRepositoryType {
         )
         return .success(
             .init(
+                cityId: response.cityId,
                 textualRepresentation: decorator.textualRepresentation(
                     sunrise: response.sunrise,
                     sunset: response.sunset
