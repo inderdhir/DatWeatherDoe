@@ -6,6 +6,8 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
+import Foundation
+
 enum WeatherError: Error {
     case unableToConstructUrl
     case zipCodeEmpty
@@ -13,4 +15,5 @@ enum WeatherError: Error {
     case networkError
     case unableToParseWeatherResponse
     case unableToParseTemperatureUnit
+    case other
 }

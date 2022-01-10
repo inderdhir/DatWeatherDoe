@@ -8,150 +8,251 @@
 
 import CoreLocation
 import AppKit
-import os
+
+private enum NetworkRequestType {
+    case zipCode, location
+}
 
 final class WeatherRepository: WeatherRepositoryType {
-
-    private let apiUrl = "https://api.openweathermap.org/data/2.5/weather"
+    
+    private let apiUrlString = "https://api.openweathermap.org/data/2.5/weather"
     private let appId: String
     private let configManager: ConfigManagerType
     private let logger: DatWeatherDoeLoggerType
-
-    init(configManager: ConfigManagerType, logger: DatWeatherDoeLoggerType) {
-        guard let filePath = Bundle.main.path(forResource: "Keys", ofType:"plist"),
-            let plist = NSDictionary(contentsOfFile: filePath),
-            let appId = plist["OPENWEATHERMAP_APP_ID"] as? String else {
-            fatalError("Unable to find OPENWEATHERMAP_APP_ID in Keys.plist")
-        }
+    private let responseDecoder = JSONDecoder()
+    
+    init(
+        appId: String,
+        configManager: ConfigManagerType,
+        logger: DatWeatherDoeLoggerType
+    ) {
         self.appId = appId
         self.configManager = configManager
         self.logger = logger
     }
-
+    
     func getWeather(
         zipCode: String,
         completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     ) {
         logger.logDebug("Getting weather via zip code")
-
-        guard !zipCode.isEmpty else {
-            logger.logError("Getting weather via zip code failed. Zip code is empty!")
+        
+        guard validateZipCode(zipCode) else {
             completion(.failure(.zipCodeEmpty))
             return
         }
-
-        let queryItems: [URLQueryItem] = [
-            URLQueryItem(name: "appid", value: appId),
-            URLQueryItem(name: "zip", value: zipCode)
-        ]
-        var urlComps = URLComponents(string: apiUrl)
-        urlComps?.queryItems = queryItems
-        guard let url = urlComps?.url else {
+        
+        guard let url = constructUrl(zipCode: zipCode) else {
             completion(.failure(.unableToConstructUrl))
             return
         }
-
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let strongSelf = self, let data = data, error == nil else {
-                self?.logger.logError("Getting weather via zip code failed")
-
-                completion(.failure(.networkError))
-                return
-            }
-
-            completion(strongSelf.parseResponse(data))
-        }.resume()
+        
+        performNetworkRequest(type: .zipCode, url: url, completion: completion)
     }
-
+    
     func getWeather(
         latLong: String,
         completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     ) {
-        logger.logDebug("Getting weather via lat / long")
-
-        guard !latLong.isEmpty else {
-            logger.logError("Getting weather via lat / long failed. Lat / long is empty!")
-
+        logger.logDebug("Getting weather via lat/long")
+        
+        guard validateCoordinates(latLong: latLong) else {
             completion(.failure(.latLongEmpty))
             return
         }
-
-        let latLongCombo = latLong.split(separator: ",")
-        guard latLongCombo.count == 2 else {
-            logger.logError("Incorrect format for lat/lon")
-
+        
+        guard let latAndlong = parseLocationCoordinates(latLong) else {
             completion(.failure(.latLongIncorrect))
             return
         }
-
-        guard let lat = CLLocationDegrees(String(latLongCombo[0])),
-              let long = CLLocationDegrees(String(latLongCombo[1])) else {
-            completion(.failure(.latLongIncorrect))
-            return
-        }
-
-        getWeather(location: CLLocationCoordinate2D(latitude: lat, longitude: long), completion: completion)
+        
+        let location = CLLocationCoordinate2D(
+            latitude: latAndlong.0,
+            longitude: latAndlong.1
+        )
+        getWeather(location: location, completion: completion)
     }
-
+    
     func getWeather(
         location: CLLocationCoordinate2D,
         completion: @escaping (Result<WeatherData, WeatherError>) -> Void
     ) {
         logger.logDebug("Getting weather via location")
-
+        
+        guard let url = constructUrl(location: location) else {
+            completion(.failure(.unableToConstructUrl))
+            return
+        }
+        
+        performNetworkRequest(type: .location, url: url, completion: completion)
+    }
+    
+    private func validateZipCode(_ zipCode: String) -> Bool {
+        if zipCode.isEmpty {
+            logger.logError("Getting weather via zip code failed. Zip code is empty!")
+            return false
+        }
+        return true
+    }
+    
+    private func constructUrl(zipCode: String) -> URL? {
+        let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "appid", value: appId),
+            URLQueryItem(name: "zip", value: zipCode)
+        ]
+        
+        var urlComps = URLComponents(string: apiUrlString)
+        urlComps?.queryItems = queryItems
+        return urlComps?.url
+    }
+    
+    private func validateCoordinates(latLong: String) -> Bool {
+        if latLong.isEmpty {
+            logger.logError("Getting weather via lat/long failed. Lat/ long is empty!")
+            return false
+        }
+        return true
+    }
+    
+    private func parseLocationCoordinates(_ latLong: String) -> (CLLocationDegrees, CLLocationDegrees)? {
+        let latLongCombo = latLong.split(separator: ",")
+        guard latLongCombo.count == 2 else {
+            logger.logError("Incorrect format for lat/lon")
+            
+            return nil
+        }
+        
+        guard let lat = CLLocationDegrees(String(latLongCombo[0])),
+              let long = CLLocationDegrees(String(latLongCombo[1])) else {
+                  logger.logError("Unable to get CLLocationDegrees from lat/long")
+                  
+                  return nil
+              }
+        
+        return (lat, long)
+    }
+    
+    private func constructUrl(location: CLLocationCoordinate2D) -> URL? {
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "appid", value: appId),
             URLQueryItem(name: "lat", value: String(describing: location.latitude)),
             URLQueryItem(name: "lon", value: String(describing: location.longitude)),
         ]
-        var urlComps = URLComponents(string: apiUrl)
+        
+        var urlComps = URLComponents(string: apiUrlString)
         urlComps?.queryItems = queryItems
-        guard let url = urlComps?.url else {
-            completion(.failure(.unableToConstructUrl))
-            return
-        }
-
+        return urlComps?.url
+    }
+    
+    private func performNetworkRequest(
+        type: NetworkRequestType,
+        url: URL,
+        completion: @escaping (Result<WeatherData, WeatherError>) -> Void
+    ) {
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let strongSelf = self, let data = data, error == nil else {
-                self?.logger.logError("Getting weather via location failed")
-
+            guard let `self` = self, let data = data, error == nil else {
+                self?.logNetworkError(type: type)
+                
                 completion(.failure(.networkError))
                 return
             }
-
-            completion(strongSelf.parseResponse(data))
+            
+            completion(self.getWeatherDataFromNetworkResponse(data))
         }.resume()
     }
-
-    private func parseResponse(_ data: Data) -> Result<WeatherData, WeatherError> {
-        guard let response = try? JSONDecoder().decode(WeatherAPIResponse.self, from: data) else {
-            return .failure(.unableToParseWeatherResponse)
+    
+    private func logNetworkError(type: NetworkRequestType) {
+        if type == .zipCode {
+            logger.logError("Getting weather via zip code failed")
+        } else if type == .location {
+            logger.logError("Getting weather via location failed")
         }
-
-        guard let temperatureUnit = TemperatureUnit(rawValue: configManager.temperatureUnit) else {
-            return .failure(.unableToParseTemperatureUnit)
+    }
+    
+    private func getWeatherDataFromNetworkResponse(_ data: Data) -> Result<WeatherData, WeatherError> {
+        do {
+            let response = try parseNetworkResponse(data)
+            let temperatureUnit = try getSelectedTemperatureUnit()
+            
+            let weatherData = getWeatherData(
+                response: response,
+                temperatureUnit: temperatureUnit
+            )
+            return .success(weatherData)
+        } catch {
+            let weatherError = (error as? WeatherError) ?? WeatherError.other
+            return .failure(weatherError)
         }
-
-        let decorator = WeatherDecorator(
+    }
+    
+    private func parseNetworkResponse(_ data: Data) throws -> WeatherAPIResponse {
+        if let response = try? responseDecoder.decode(WeatherAPIResponse.self, from: data) {
+            return response
+        }
+        throw WeatherError.unableToParseWeatherResponse
+    }
+    
+    private func getSelectedTemperatureUnit() throws -> TemperatureUnit {
+        if let unit = TemperatureUnit(rawValue: configManager.temperatureUnit) {
+            return unit
+        }
+        throw WeatherError.unableToParseTemperatureUnit
+    }
+    
+    private func getWeatherData(
+        response: WeatherAPIResponse,
+        temperatureUnit: TemperatureUnit
+    ) -> WeatherData {
+        let decoratorOptions = constructDecoratorOptions(
             configManager: configManager,
+            temperatureUnit: temperatureUnit
+        )
+        let decorator = WeatherDecorator(
             logger: logger,
             response: response,
-            temperatureUnit: temperatureUnit,
-            isShowingHumidity: configManager.isShowingHumidity
+            options: decoratorOptions
         )
-        return .success(
-            .init(
-                cityId: response.cityId,
-                textualRepresentation: decorator.textualRepresentation(
-                    sunrise: response.sunrise,
-                    sunset: response.sunset
-                ),
-                location: response.location,
-                weatherCondition: decorator.weatherCondition(
-                    sunrise: response.sunrise,
-                    sunset: response.sunset
-                )
-            )
+        
+        return .init(
+            cityId: response.cityId,
+            textualRepresentation: getTextualRepresentation(
+                decorator: decorator,
+                response: response
+            ),
+            location: response.location,
+            weatherCondition: getWeatherCondition(decorator: decorator, response: response)
+        )
+    }
+    
+    private func constructDecoratorOptions(
+        configManager: ConfigManagerType,
+        temperatureUnit: TemperatureUnit
+    ) -> WeatherDecoratorOptions {
+        .init(
+            temperatureUnit: temperatureUnit,
+            isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
+            isShowingHumidity:  configManager.isShowingHumidity,
+            isRoundingOffData: configManager.isRoundingOffData
+        )
+    }
+    
+    private func getTextualRepresentation(
+        decorator: WeatherDecorator,
+        response: WeatherAPIResponse
+    ) -> String {
+        decorator.textualRepresentation(
+            sunrise: response.sunrise,
+            sunset: response.sunset
+        )
+    }
+    
+    private func getWeatherCondition(
+        decorator: WeatherDecorator,
+        response: WeatherAPIResponse
+    ) -> WeatherCondition {
+        decorator.weatherCondition(
+            sunrise: response.sunrise,
+            sunset: response.sunset
         )
     }
 }

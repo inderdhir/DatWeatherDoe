@@ -9,36 +9,27 @@
 import Foundation
 import AppKit
 
-enum WeatherCondition: String {
-    case cloudy = "Cloudy"
+enum WeatherCondition {
+    case cloudy
 
-    case partlyCloudy = "Partly cloudy"
-    case partlyCloudyNight = "Partly cloudy - Night"
+    case partlyCloudy
+    case partlyCloudyNight
     
-    case sunny = "Sunny"
-    case clearNight = "Clear - Night"
-
-    case tornado = "Tornado"
-    case squall = "Squall"
-    case ash = "Ash"
-    case dust = "Dust"
-    case sand = "Sand"
-    case fog = "Fog"
-    case sandOrDustWhirls = "Sand/Dust Whirls"
-    case haze = "Haze"
-    case smoke = "Smoke"
-    case mist = "Mist"
+    case sunny
+    case clearNight
     
-    case snow = "Snow"
+    case smoky(condition: SmokyWeatherCondition)
+
+    case snow
     
-    case heavyRain = "Heavy rain"
+    case heavyRain
 
-    case freezingRain = "Freezing rain"
+    case freezingRain
 
-    case lightRain = "Light rain"
-    case partlyCloudyRain = "Partly cloudy with rain"
+    case lightRain
+    case partlyCloudyRain
 
-    case thunderstorm = "Thunderstorm"
+    case thunderstorm
     
     var image: NSImage? {
         let imageString: String
@@ -57,14 +48,8 @@ enum WeatherCondition: String {
         case .clearNight:
             imageString = "Clear - Night"
             
-        case .tornado:
-            imageString = "Tornado"
-        case .squall:
-            imageString = "Windy"
-        case .ash, .dust, .sand, .sandOrDustWhirls, .fog, .haze, .smoke:
-            imageString = "Dust or Fog"
-        case .mist:
-            imageString = "Mist"
+        case let .smoky(condition):
+            return condition.image
             
         case .snow:
             imageString = "Snow"
@@ -100,26 +85,8 @@ enum WeatherCondition: String {
         case .clearNight:
             return NSLocalizedString("Clear", comment: "Clear at night weather condition")
             
-        case .tornado:
-            return NSLocalizedString("Tornado", comment: "Tornado weather condition")
-        case .squall:
-            return NSLocalizedString("Squall", comment: "Squall weather condition")
-        case .ash:
-            return NSLocalizedString("Ash", comment: "Ash weather condition")
-        case .dust:
-            return NSLocalizedString("Dust", comment: "Dust weather condition")
-        case .sand:
-            return NSLocalizedString("Sand", comment: "Sand weather condition")
-        case .fog:
-            return NSLocalizedString("Fog", comment: "Fog weather condition")
-        case .sandOrDustWhirls:
-            return NSLocalizedString("Sand/Dust Whirls", comment: "Sand/Dust Whirls weather condition")
-        case .haze:
-            return NSLocalizedString("Haze", comment: "Haze weather condition")
-        case .smoke:
-            return NSLocalizedString("Smoke", comment: "Smoke weather condition")
-        case .mist:
-            return NSLocalizedString("Mist", comment: "Mist weather condition")
+        case let .smoky(condition):
+            return condition.textualRepresentation
             
         case .snow:
             return NSLocalizedString("Snow", comment: "Snow weather condition")
