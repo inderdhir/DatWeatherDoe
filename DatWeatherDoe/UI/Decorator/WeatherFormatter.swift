@@ -9,13 +9,6 @@
 import Foundation
 
 final class WeatherFormatter {
-    static let temperatureFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 1
-        formatter.roundingMode = .halfUp
-        return formatter
-    }()
 
     static let humidityFormatter: NumberFormatter = {
         let formatter = NumberFormatter()

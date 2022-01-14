@@ -8,4 +8,15 @@
 
 enum TemperatureUnit: String {
     case fahrenheit, celsius, all
+    
+    var unitString: String {
+        switch self {
+        case .fahrenheit:
+            return "F"
+        case .celsius:
+            return "C"
+        case .all:
+            return "All"
+        }
+    }
 }

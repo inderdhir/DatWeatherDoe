@@ -6,4 +6,7 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
-import Foundation
+protocol WeatherViewModelType: AnyObject {
+    var delegate: WeatherViewModelDelegate? { get set }
+    func getUpdatedWeather()
+}
