@@ -54,18 +54,18 @@ final class WeatherLocationFetcher: NSObject {
     }
     
     private func updateWithMissingLocationServices() {
-        logger.logError("Location services not enabled")
+        logger.error("Location services not enabled")
         
         delegate?.didFailLocationUpdate(nil)
     }
     
     private func requestLocationPermission() {
-        logger.logDebug("Location permission not determined")
+        logger.debug("Location permission not determined")
         
         if #available(macOS 10.15, *) {
             locationManager.requestWhenInUseAuthorization()
         } else {
-            logger.logError("Location permission not determined on an older MacOS version")
+            logger.error("Location permission not determined on an older MacOS version")
             
             delegate?.didFailLocationUpdate(nil)
         }
@@ -77,14 +77,14 @@ final class WeatherLocationFetcher: NSObject {
     }
     
     private func updateWithDeniedUserLocation() {
-        logger.logError("Location permission has NOT been granted")
+        logger.error("Location permission has NOT been granted")
         
         delegate?.didFailLocationUpdate(nil)
     }
     
     private func sendCachedLocationIfPresent() -> Bool {
         if let currentLocation = currentLocation {
-            logger.logDebug("Sending last fetched location")
+            logger.debug("Sending last fetched location")
 
             delegate?.didUpdateLocation(currentLocation, isCachedLocation: true)
             
@@ -99,7 +99,7 @@ extension WeatherLocationFetcher: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let isLocationAuthorized = CLLocationManager.authorizationStatus() == .authorized
 
-        logger.logDebug("Location permission changed, isAuthorized?: \(isLocationAuthorized)")
+        logger.debug("Location permission changed, isAuthorized?: \(isLocationAuthorized)")
         
         if isLocationAuthorized {
             requestUpdatedLocation()
@@ -109,7 +109,7 @@ extension WeatherLocationFetcher: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        logger.logError("Getting updated location failed with error \(error.localizedDescription)")
+        logger.error("Getting updated location failed with error \(error.localizedDescription)")
         
         currentLocationSerialQueue.sync { [weak self] in
             guard let `self` = self else { return }
@@ -128,7 +128,7 @@ extension WeatherLocationFetcher: CLLocationManagerDelegate {
             if let currentLocation = currentLocation {
                 delegate?.didUpdateLocation(currentLocation, isCachedLocation: false)
             } else {
-                logger.logError("Getting location failed")
+                logger.error("Getting location failed")
                 
                 delegate?.didFailLocationUpdate(nil)
             }

@@ -7,7 +7,7 @@
 //
 
 struct WeatherData {
-    let cityId: Int?
+    let cityId: Int
     let textualRepresentation: String?
     let location: String?
     let weatherCondition: WeatherCondition

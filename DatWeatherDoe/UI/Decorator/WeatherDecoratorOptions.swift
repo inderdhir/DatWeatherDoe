@@ -10,5 +10,14 @@ struct WeatherDecoratorOptions {
     let temperatureUnit: TemperatureUnit
     let isWeatherConditionAsTextEnabled: Bool
     let isShowingHumidity: Bool
-    let isRoundingOffData: Bool
+    let isRoundingOff: Bool
+    
+    func buildTemperatureDecoratorOptions(temperature: Double)
+    -> TemperatureDecoratorOptions {
+        .init(
+            temperature: temperature,
+            unit: temperatureUnit,
+            isRoundingOff: isRoundingOff
+        )
+    }
 }
