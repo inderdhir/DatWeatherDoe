@@ -25,12 +25,7 @@ final class MenuBuilder {
     
     func build() -> NSMenu {
         let menu = NSMenu()
-        buildLocationOptions().forEach {
-            menu.addItem($0)
-        }
-        buildMainOptions().forEach {
-            menu.addItem($0)
-        }
+        (buildLocationOptions() + buildMainOptions()).forEach { menu.addItem($0) }
         return menu
     }
     

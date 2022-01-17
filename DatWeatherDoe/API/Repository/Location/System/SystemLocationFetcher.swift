@@ -9,22 +9,22 @@
 import CoreLocation
 import Foundation
 
-protocol WeatherLocationFetcherDelegate: AnyObject {
+protocol SystemLocationFetcherDelegate: AnyObject {
     func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool)
-    func didFailLocationUpdate(_ error: Error?)
+    func didFailLocationUpdate()
 }
 
-final class WeatherLocationFetcher: NSObject {
+final class SystemLocationFetcher: NSObject {
     
-    weak var delegate: WeatherLocationFetcherDelegate?
+    weak var delegate: SystemLocationFetcherDelegate?
     
     private let logger: DatWeatherDoeLoggerType
     private var currentLocation: CLLocationCoordinate2D?
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        locationManager.distanceFilter = 3000
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.distanceFilter = 1000
         return locationManager
     }()
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
@@ -49,14 +49,10 @@ final class WeatherLocationFetcher: NSObject {
         }
     }
     
-    func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
-    }
-    
     private func updateWithMissingLocationServices() {
         logger.error("Location services not enabled")
         
-        delegate?.didFailLocationUpdate(nil)
+        delegate?.didFailLocationUpdate()
     }
     
     private func requestLocationPermission() {
@@ -67,48 +63,43 @@ final class WeatherLocationFetcher: NSObject {
         } else {
             logger.error("Location permission not determined on an older MacOS version")
             
-            delegate?.didFailLocationUpdate(nil)
+            delegate?.didFailLocationUpdate()
         }
     }
     
     private func requestUpdatedLocation() {
-        _ = sendCachedLocationIfPresent()
+        currentLocationSerialQueue.sync { [weak self] in
+            _ = self?.sendCachedLocationIfPresent()
+        }
         locationManager.startUpdatingLocation()
     }
     
     private func updateWithDeniedUserLocation() {
         logger.error("Location permission has NOT been granted")
         
-        delegate?.didFailLocationUpdate(nil)
+        delegate?.didFailLocationUpdate()
     }
     
     private func sendCachedLocationIfPresent() -> Bool {
-        if let currentLocation = currentLocation {
-            logger.debug("Sending last fetched location")
-
-            delegate?.didUpdateLocation(currentLocation, isCachedLocation: true)
-            
-            return true
-        }
-        return false
-    }
-}
-
-extension WeatherLocationFetcher: CLLocationManagerDelegate {
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        let isLocationAuthorized = CLLocationManager.authorizationStatus() == .authorized
-
-        logger.debug("Location permission changed, isAuthorized?: \(isLocationAuthorized)")
+        guard let currentLocation = currentLocation else { return false }
         
-        if isLocationAuthorized {
+        logger.debug("Sending cached location")
+
+        delegate?.didUpdateLocation(currentLocation, isCachedLocation: true)
+        return true
+    }
+    
+    private func updateLocationAfterAuthChange(isAuthorized: Bool) {
+        logger.debug("Location permission changed, isAuthorized?: \(isAuthorized)")
+        
+        if isAuthorized {
             requestUpdatedLocation()
         } else {
-            delegate?.didFailLocationUpdate(nil)
+            delegate?.didFailLocationUpdate()
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    private func updateLocationAfterError(error: Error) {
         logger.error("Getting updated location failed with error \(error.localizedDescription)")
         
         currentLocationSerialQueue.sync { [weak self] in
@@ -116,22 +107,40 @@ extension WeatherLocationFetcher: CLLocationManagerDelegate {
             
             let isCachedLocationPresent = self.sendCachedLocationIfPresent()
             if !isCachedLocationPresent {
-                self.delegate?.didFailLocationUpdate(error)
+                self.delegate?.didFailLocationUpdate()
             }
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    private func updateLocation(location: CLLocationCoordinate2D?) {
         currentLocationSerialQueue.sync {
-            currentLocation = manager.location?.coordinate
+            currentLocation = location
             
             if let currentLocation = currentLocation {
                 delegate?.didUpdateLocation(currentLocation, isCachedLocation: false)
             } else {
                 logger.error("Getting location failed")
                 
-                delegate?.didFailLocationUpdate(nil)
+                delegate?.didFailLocationUpdate()
             }
         }
+    }
+}
+
+// MARK: CLLocationManagerDelegate
+
+extension SystemLocationFetcher: CLLocationManagerDelegate {
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let isAuthorized = CLLocationManager.authorizationStatus() == .authorized
+        updateLocationAfterAuthChange(isAuthorized: isAuthorized)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        updateLocationAfterError(error: error)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        updateLocation(location: manager.location?.coordinate)
     }
 }

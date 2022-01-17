@@ -40,7 +40,7 @@ final class WeatherTextBuilder {
         guard options.isWeatherConditionAsTextEnabled else { return nil }
         
         let weatherCondition = WeatherConditionBuilder(response: response).build()
-        return WeatherConditionTextMapper().mapConditionToText(weatherCondition)
+        return WeatherConditionTextMapper().map(weatherCondition)
     }
     
     private func appendTemperatureAsText(initial: String?) -> String {

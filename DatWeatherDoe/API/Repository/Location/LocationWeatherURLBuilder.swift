@@ -12,15 +12,12 @@ final class LocationWeatherURLBuilder: WeatherURLBuilder {
     
     private let location: CLLocationCoordinate2D
     
-    init(
-        appId: String,
-        location: CLLocationCoordinate2D
-    ) {
+    init(appId: String, location: CLLocationCoordinate2D) {
         self.location = location
         super.init(appId: appId)
     }
     
-    override func build() -> URL? {
+    override func build() throws -> URL {
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "appid", value: appId),
             URLQueryItem(name: "lat", value: String(describing: location.latitude)),
@@ -29,6 +26,9 @@ final class LocationWeatherURLBuilder: WeatherURLBuilder {
         
         var urlComps = URLComponents(string: apiUrlString)
         urlComps?.queryItems = queryItems
-        return urlComps?.url
+        guard let finalUrl = urlComps?.url else {
+            throw WeatherError.unableToConstructUrl
+        }
+        return finalUrl
     }
 }

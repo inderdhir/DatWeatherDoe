@@ -10,15 +10,32 @@ import CoreLocation
 
 final class LocationParser {
     
-    func parseCoordinates(_ latLong: String) -> (CLLocationDegrees, CLLocationDegrees)? {
+    func parseCoordinates(_ latLong: String) throws -> CLLocationCoordinate2D {
         let latLongCombo = latLong.split(separator: ",")
-        guard latLongCombo.count == 2 else { return nil }
+        guard latLongCombo.count == 2 else {
+            throw WeatherError.latLongIncorrect
+        }
         
-        guard let lat = CLLocationDegrees(String(latLongCombo[0])),
-              let long = CLLocationDegrees(String(latLongCombo[1])) else {
-                  return nil
-              }
-        
-        return (lat, long)
+        return try parseLocationDegrees(
+            possibleLatitude: String(latLongCombo[0]).trim(),
+            possibleLongitude: String(latLongCombo[1]).trim()
+        )
     }
+    
+    private func parseLocationDegrees(
+        possibleLatitude: String,
+        possibleLongitude: String
+    ) throws -> CLLocationCoordinate2D {
+        let lat = CLLocationDegrees(possibleLatitude.trim())
+        let long = CLLocationDegrees(possibleLongitude.trim())
+        guard let lat = lat, let long = long else {
+            throw WeatherError.latLongIncorrect
+        }
+        
+        return .init(latitude: lat, longitude: long)
+    }
+}
+
+private extension String {
+    func trim() -> String { trimmingCharacters(in: .whitespacesAndNewlines) }
 }

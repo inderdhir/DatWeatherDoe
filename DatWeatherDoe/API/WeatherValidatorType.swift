@@ -7,5 +7,5 @@
 //
 
 protocol WeatherValidatorType: AnyObject {
-    func validate() -> Bool
+    func validate() throws
 }

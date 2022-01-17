@@ -14,7 +14,7 @@ final class WeatherForecaster {
     private let fullWeatherUrl = URL(string: "https://openweathermap.org/city")!
     private var cityId = 0
 
-    func updateCity(cityId: Int) {
+    func updateCityWith(cityId: Int) {
         self.cityId = cityId
     }
     

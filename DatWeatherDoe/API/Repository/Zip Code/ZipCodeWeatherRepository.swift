@@ -30,78 +30,29 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
     func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
         logger.debug("Getting weather via zip code")
         
-        guard let url = validateZipCodeAndBuildURL(completion: completion) else {
-            return
-        }
-        
-        performRequest(
-            url: url,
-            completion: { [weak self] result in
+        do {
+            try validateZipCode()
+            let url = try buildURL()
+            performRequest(url: url, completion: { [weak self] result in
                 self?.parseNetworkResult(result: result, completion: completion)
-            }
-        )
-    }
-    
-    @available(macOS 12.0, *)
-    func getWeather() async throws -> WeatherAPIResponse {
-        logger.debug("Getting weather via zip code")
-        
-        let url = try await validateZipCodeAndBuildURL()
-        let data = try await performRequest(url: url)
-        return try parseWeatherData(data)
-    }
-    
-    private func validateZipCodeAndBuildURL(
-        completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void
-    ) -> URL? {
-        guard validateZipCode() else {
-            logger.error("Getting weather via zip code failed. Zip code is empty!")
+            })
+        } catch {
+            logger.error("Getting weather via zip code failed. Zip code is incorrect!")
             
-            completion(.failure(WeatherError.zipCodeEmpty))
-            return nil
+            completion(.failure(error))
         }
-        
-        guard let url = buildURL() else {
-            completion(.failure(WeatherError.unableToConstructUrl))
-            return nil
-        }
-        
-        return url
     }
     
-    @available(macOS 12.0, *)
-    private func validateZipCodeAndBuildURL() async throws -> URL {
-        guard validateZipCode() else {
-            logger.error("Getting weather via zip code failed. Zip code is empty!")
-            
-            throw WeatherError.zipCodeEmpty
-        }
-        
-        guard let url = buildURL() else {
-            throw WeatherError.unableToConstructUrl
-        }
-        
-        return url
+    private func validateZipCode() throws {
+        try ZipCodeValidator(zipCode: zipCode).validate()
     }
     
-    private func validateZipCode() -> Bool {
-        ZipCodeValidator(zipCode: zipCode).validate()
+    private func buildURL() throws -> URL {
+        try ZipCodeWeatherURLBuilder(appId: appId, zipCode: zipCode).build()
     }
     
-    private func buildURL() -> URL? {
-        ZipCodeWeatherURLBuilder(appId: appId, zipCode: zipCode).build()
-    }
-    
-    private func performRequest(
-        url: URL,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) {
+    private func performRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         networkClient.performRequest(url: url, completion: completion)
-    }
-    
-    @available(macOS 12.0, *)
-    private func performRequest(url: URL) async throws -> Data {
-        try await networkClient.performRequest(url: url)
     }
     
     private func parseNetworkResult(

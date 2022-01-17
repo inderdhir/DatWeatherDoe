@@ -22,5 +22,5 @@ class WeatherURLBuilder {
         self.appId = appId
     }
     
-    func build() -> URL? { nil }
+    func build() throws -> URL { URL(string: apiUrlString)! }
 }
