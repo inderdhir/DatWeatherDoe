@@ -25,14 +25,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupWeatherFetching()
         getUpdatedWeather()
     }
-    
-    // MARK: Setup
-    
+        
     private func setupMenuBar() {
         menuBarManager = MenuBarManager(
-            refreshSelector: #selector(getUpdatedWeather),
-            quitSelector: #selector(terminate),
-            refreshCallback: { [weak self] in self?.getUpdatedWeather() },
+            options: .init(
+                seeFullWeatherSelector: #selector(seeFullWeather),
+                refreshSelector: #selector(getUpdatedWeather),
+                refreshCallback: { [weak self] in self?.getUpdatedWeather() },
+                configureSelector: #selector(configure),
+                quitSelector: #selector(terminate)
+            ),
             configManager: configManager
         )
     }
@@ -63,6 +65,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @objc private func seeFullWeather() {
+        viewModel.seeForecastForCurrentCity()
+    }
+    
+    @objc private func configure(_ sender: AnyObject) {
+        menuBarManager.configure(sender)
+    }
+    
     @objc private func terminate() { NSApp.terminate(self) }
 }
 
@@ -70,6 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate: WeatherViewModelDelegate {
     func didUpdateWeatherData(_ data: WeatherData) {
+        viewModel.updateCityWith(cityId: data.cityId)
         menuBarManager.updateMenuBarWithWeather(data: data)
     }
     

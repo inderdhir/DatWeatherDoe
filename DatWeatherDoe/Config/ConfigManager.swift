@@ -8,6 +8,16 @@
 
 import Foundation
 
+protocol ConfigManagerType: AnyObject {
+    var temperatureUnit: String { get set }
+    var weatherSource: String { get set }
+    var weatherSourceText: String? { get set }
+    var refreshInterval: TimeInterval { get set }
+    var isShowingHumidity: Bool { get set }
+    var isRoundingOffData: Bool { get set }
+    var isWeatherConditionAsTextEnabled: Bool { get set }
+}
+
 final class ConfigManager: ConfigManagerType {
 
     private enum DefaultsKeys: String {

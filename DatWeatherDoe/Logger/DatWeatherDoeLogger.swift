@@ -6,6 +6,11 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
+protocol DatWeatherDoeLoggerType: AnyObject {
+    func debug(_ message: String)
+    func error(_ message: String)
+}
+
 final class DatWeatherDoeLogger: DatWeatherDoeLoggerType {
     func debug(_ message: String) {
         #if DEBUG

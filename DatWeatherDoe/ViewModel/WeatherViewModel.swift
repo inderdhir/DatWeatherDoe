@@ -19,9 +19,11 @@ final class WeatherViewModel: WeatherViewModelType {
     weak var delegate: WeatherViewModelDelegate?
     private let configManager: ConfigManagerType
     private let logger: DatWeatherDoeLoggerType
+    private let appId: String
     private let errorStrings: ErrorStrings
-    private let weatherRepository: WeatherRepositoryType
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
+    private let forecaster = WeatherForecaster()
+    private var weatherRepository: WeatherRepository!
     private var weatherTimer: Timer?
     private lazy var locationFetcher: WeatherLocationFetcher = {
         let locationFetcher = WeatherLocationFetcher(logger: logger)
@@ -35,17 +37,14 @@ final class WeatherViewModel: WeatherViewModelType {
         configManager: ConfigManagerType,
         logger: DatWeatherDoeLoggerType
     ) {
+        self.appId = appId
         self.errorStrings = errorStrings
         self.configManager = configManager
         self.logger = logger
-        self.weatherRepository = WeatherRepository(
-            appId: appId,
-            configManager: configManager,
-            logger: logger
-        )
+        self.weatherRepository = WeatherRepository(appId: appId, logger: logger)
     }
     
-    func getUpdatedWeather() {
+    @objc func getUpdatedWeather() {
         weatherTimerSerialQueue.sync {
             weatherTimer?.invalidate()
             weatherTimer = Timer.scheduledTimer(
@@ -56,17 +55,42 @@ final class WeatherViewModel: WeatherViewModelType {
         }
     }
     
-    @objc func getWeather() {
-        switch WeatherSource(rawValue: configManager.weatherSource) {
+    private func getWeather() {
+        guard let weatherSource = WeatherSource(rawValue: configManager.weatherSource) else {
+            logger.error("Unable to get weather source")
+            
+            return
+        }
+
+        switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
         case .latLong:
             getWeatherViaLocationCoordinates()
         case .zipCode:
             getWeatherViaZipCode()
-        default:
-            logger.error("Unable to get weather source")
         }
+    }
+    
+    func updateCityWith(cityId: Int) {
+        forecaster.updateCity(cityId: cityId)
+    }
+    
+    func seeForecastForCurrentCity() {
+        forecaster.seeForecastForCity()
+    }
+    
+    private func buildWeatherDataOptions() -> WeatherDataBuilder.Options {
+        .init(
+            textOptions: .init(
+                isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
+                temperatureOptions: .init(
+                    unit: TemperatureUnit(rawValue: configManager.temperatureUnit) ?? .fahrenheit,
+                    isRoundingOff: configManager.isRoundingOffData
+                ),
+                isShowingHumidity: configManager.isShowingHumidity
+            )
+        )
     }
     
     private func getWeatherAfterUpdatingLocation() {
@@ -103,7 +127,10 @@ final class WeatherViewModel: WeatherViewModelType {
     private func getWeatherWithLatLong(_ latLong: String) {
         Task {
             do {
-                let weatherData = try await weatherRepository.getWeather(latLong: latLong)
+                let weatherData = try await weatherRepository.getWeatherViaLatLong(
+                    latLong,
+                    options: buildWeatherDataOptions()
+                )
                 delegate?.didUpdateWeatherData(weatherData)
             }
             catch {
@@ -121,28 +148,23 @@ final class WeatherViewModel: WeatherViewModelType {
     }
     
     private func getWeatherWithLatLongLegacy(_ latLong: String) {
-        weatherRepository.getWeather(latLong: latLong, completion: { [weak self] result in
-            guard let `self` = self else { return }
-            
-            switch result {
-            case let .success(weatherData):
-                self.delegate?.didUpdateWeatherData(weatherData)
-            case let .failure(error):
-                let isLatLongError = error == .latLongEmpty || error == .latLongIncorrect
-                let errorString = isLatLongError ?
-                self.errorStrings.latLongErrorString :
-                self.errorStrings.networkErrorString
-                
-                self.delegate?.didFailToUpdateWeatherData(errorString)
+        weatherRepository.getWeatherViaLatLong(
+            latLong,
+            options: buildWeatherDataOptions(),
+            completion: { [weak self] result in
+                self?.parseWeatherViaLatLong(result: result)
             }
-        })
+        )
     }
     
     @available(macOS 12.0, *)
     private func getWeatherWithZipCode(_ zipCode: String) {
         Task {
             do {
-                let weatherData = try await weatherRepository.getWeather(zipCode: zipCode)
+                let weatherData = try await weatherRepository.getWeatherViaZipCode(
+                    zipCode,
+                    options: buildWeatherDataOptions()
+                )
                 delegate?.didUpdateWeatherData(weatherData)
             } catch {
                 guard let weatherError = error as? WeatherError else { return }
@@ -157,20 +179,26 @@ final class WeatherViewModel: WeatherViewModelType {
     }
     
     private func getWeatherWithZipCodeLegacy(_ zipCode: String) {
-        weatherRepository.getWeather(zipCode: zipCode, completion: { [weak self] result in
-            guard let `self` = self else { return }
-            
-            switch result {
-            case let .success(weatherData):
-                self.delegate?.didUpdateWeatherData(weatherData)
-            case let .failure(error):
-                let errorString = error == .zipCodeEmpty ?
-                self.errorStrings.zipCodeErrorString :
-                self.errorStrings.networkErrorString
-                
-                self.delegate?.didFailToUpdateWeatherData(errorString)
+        weatherRepository.getWeatherForZipCode(
+            zipCode,
+            options: buildWeatherDataOptions(),
+            completion: { [weak self] result in
+                guard let `self` = self else { return }
+
+                switch result {
+                case let .success(weatherData):
+                    self.delegate?.didUpdateWeatherData(weatherData)
+                case let .failure(error):
+                    guard let weatherError = error as? WeatherError else { return }
+
+                    let errorString = weatherError == WeatherError.zipCodeEmpty ?
+                    self.errorStrings.zipCodeErrorString :
+                    self.errorStrings.networkErrorString
+                    
+                    self.delegate?.didFailToUpdateWeatherData(errorString)
+                }
             }
-        })
+        )
     }
     
     private func getWeatherViaLocation(_ location: CLLocationCoordinate2D) {
@@ -185,7 +213,10 @@ final class WeatherViewModel: WeatherViewModelType {
     private func getWeatherWithLocation(_ location: CLLocationCoordinate2D) {
         Task {
             do {
-                let weatherData = try await weatherRepository.getWeather(location: location)
+                let weatherData = try await weatherRepository.getWeatherViaLocation(
+                    location,
+                    options: buildWeatherDataOptions()
+                )
                 delegate?.didUpdateWeatherData(weatherData)
             } catch {
                 delegate?.didFailToUpdateWeatherData(errorStrings.networkErrorString)
@@ -194,18 +225,38 @@ final class WeatherViewModel: WeatherViewModelType {
     }
     
     private func getWeatherWithLocationLegacy(_ location: CLLocationCoordinate2D) {
-        weatherRepository.getWeather(
-            location: location,
+        weatherRepository.getWeatherViaLocation(
+            location,
+            options: buildWeatherDataOptions(),
             completion: { [weak self] result in
-                guard let `self` = self else { return }
-                
-                switch result {
-                case let .success(weatherData):
-                    self.delegate?.didUpdateWeatherData(weatherData)
-                case .failure:
-                    self.delegate?.didFailToUpdateWeatherData(self.errorStrings.networkErrorString)
-                }
+                self?.parseWeatherViaLocation(result: result)
             })
+    }
+    
+    private func parseWeatherViaLatLong(result: Result<WeatherData, Error>) {
+        switch result {
+        case let .success(weatherData):
+            delegate?.didUpdateWeatherData(weatherData)
+        case let .failure(error):
+            guard let weatherError = error as? WeatherError else { return }
+
+            let isLatLongError = weatherError == WeatherError.latLongEmpty ||
+            weatherError == WeatherError.latLongIncorrect
+            let errorString = isLatLongError ?
+            errorStrings.latLongErrorString :
+            errorStrings.networkErrorString
+            
+            delegate?.didFailToUpdateWeatherData(errorString)
+        }
+    }
+    
+    private func parseWeatherViaLocation(result: Result<WeatherData, Error>) {
+        switch result {
+        case let .success(weatherData):
+            delegate?.didUpdateWeatherData(weatherData)
+        case .failure:
+            delegate?.didFailToUpdateWeatherData(errorStrings.networkErrorString)
+        }
     }
 }
 

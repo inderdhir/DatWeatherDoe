@@ -30,4 +30,8 @@ enum WeatherCondition {
     case partlyCloudyRain
 
     case thunderstorm
+    
+    static func getFallback(isNight: Bool) -> WeatherCondition {
+        isNight ? .clearNight : .sunny
+    }
 }

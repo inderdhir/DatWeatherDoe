@@ -7,8 +7,9 @@
 //
 
 final class LocationValidator: WeatherValidatorType {
-    private let latLong: String
     
+    private let latLong: String
+        
     init(latLong: String) {
         self.latLong = latLong
     }
