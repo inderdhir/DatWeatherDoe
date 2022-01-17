@@ -1,5 +1,5 @@
 //
-//  LocationSystemWeatherRepository.swift
+//  SystemLocationWeatherRepository.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/15/22.
@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-final class LocationSystemWeatherRepository: WeatherRepositoryType {
+final class SystemLocationWeatherRepository: WeatherRepositoryType {
     
     private let appId: String
     private let location: CLLocationCoordinate2D
@@ -30,46 +30,22 @@ final class LocationSystemWeatherRepository: WeatherRepositoryType {
     func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
         logger.debug("Getting weather via location")
         
-        guard let url = buildURL(location) else {
-            completion(.failure(WeatherError.unableToConstructUrl))
-            return
-        }
-        
-        performRequest(
-            url: url,
-            completion: { [weak self] result in
+        do {
+            let url = try buildURL(location)
+            performRequest(url: url, completion: { [weak self] result in
                 self?.parseRepositoryResult(result, completion: completion)
-            }
-        )
-    }
-    
-    @available(macOS 12.0, *)
-    func getWeather() async throws -> WeatherAPIResponse {
-        logger.debug("Getting weather via location")
-
-        guard let url = buildURL(location) else {
-            throw WeatherError.unableToConstructUrl
+            })
+        } catch {
+            completion(.failure(error))
         }
-        
-        let data = try await performRequest(url: url)
-        return try parseWeatherData(data)
     }
     
-    private func buildURL(_ location: CLLocationCoordinate2D) -> URL? {
-        LocationWeatherURLBuilder(appId: appId, location: location)
-            .build()
+    private func buildURL(_ location: CLLocationCoordinate2D) throws -> URL {
+        try LocationWeatherURLBuilder(appId: appId, location: location).build()
     }
     
-    private func performRequest(
-        url: URL,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) {
+    private func performRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         networkClient.performRequest(url: url, completion: completion)
-    }
-    
-    @available(macOS 12.0, *)
-    private func performRequest(url: URL) async throws -> Data {
-        try await networkClient.performRequest(url: url)
     }
     
     private func parseRepositoryResult(
@@ -79,8 +55,8 @@ final class LocationSystemWeatherRepository: WeatherRepositoryType {
         switch result {
         case let .success(data):
             do {
-                let apiResponse = try parseWeatherData(data)
-                completion(.success(apiResponse))
+                let response = try parseWeatherData(data)
+                completion(.success(response))
             } catch {
                 let weatherError = (error as? WeatherError) ?? WeatherError.other
                 completion(.failure(weatherError))

@@ -79,8 +79,8 @@ final class TemperatureTextBuilder {
               }
         
         return combineTemperatureWithBothUnitDegrees(
-            fahrenheit: fahrenheitTemperature,
-            celsius: celsiusTemperature
+            fahrenheitWithDegrees: fahrenheitTemperature,
+            celsiusWithDegrees: celsiusTemperature
         )
     }
     
@@ -95,17 +95,10 @@ final class TemperatureTextBuilder {
         [temperature, unit].joined(separator: degreeString)
     }
     
-    private func combineTemperatureWithBothUnitDegrees(fahrenheit: String, celsius: String) -> String {
-        [
-            combineTemperatureWithUnitDegrees(
-                temperature: fahrenheit,
-                unit: TemperatureUnit.fahrenheit.unitString
-            ),
-            combineTemperatureWithUnitDegrees(
-                temperature: celsius,
-                unit: TemperatureUnit.celsius.unitString
-            ),
-        ]
-            .joined(separator: " / ")
+    private func combineTemperatureWithBothUnitDegrees(
+        fahrenheitWithDegrees: String,
+        celsiusWithDegrees: String
+    ) -> String {
+        [fahrenheitWithDegrees, celsiusWithDegrees].joined(separator: " / ")
     }
 }

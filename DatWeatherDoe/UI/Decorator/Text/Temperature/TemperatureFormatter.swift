@@ -32,8 +32,9 @@ final class TemperatureFormatter {
     }
 
     private func fixRoundingIssues(_ temperature: String?) -> String? {
-        guard temperature == "-0" else { return temperature }
-
-        return "0"
+        if temperature == "-0" {
+            return "0"
+        }
+        return temperature
     }
 }

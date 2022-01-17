@@ -10,7 +10,7 @@ import Cocoa
 
 final class WeatherConditionImageMapper {
     
-    func mapConditionToImage(_ condition: WeatherCondition) -> NSImage? {
+    func map(_ condition: WeatherCondition) -> NSImage? {
         let imageString: String
         
         switch condition {
@@ -28,8 +28,7 @@ final class WeatherConditionImageMapper {
             imageString = "Clear - Night"
             
         case let .smoky(smokyWeatherCondition):
-            return SmokyWeatherConditionImageMapper()
-                .mapConditionToImage(smokyWeatherCondition)
+            return SmokyWeatherConditionImageMapper().map(smokyWeatherCondition)
             
         case .snow:
             imageString = "Snow"
@@ -54,7 +53,7 @@ final class WeatherConditionImageMapper {
 }
 
 private class SmokyWeatherConditionImageMapper {
-    func mapConditionToImage(_ condition: SmokyWeatherCondition) -> NSImage? {
+    func map(_ condition: SmokyWeatherCondition) -> NSImage? {
         let imageString: String
         
         switch condition {

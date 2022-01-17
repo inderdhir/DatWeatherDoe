@@ -10,11 +10,11 @@ import Cocoa
 
 final class PopoverManager {
     
-    private let statusBarButton: NSStatusBarButton?
     private let popover = NSPopover()
-    private var eventMonitor: EventMonitor?
     private let refreshCallback: () -> Void
-
+    private var eventMonitor: EventMonitor?
+    private weak var statusBarButton: NSStatusBarButton?
+    
     init(
         statusBarButton: NSStatusBarButton?,
         configManager: ConfigManagerType,
@@ -44,14 +44,10 @@ final class PopoverManager {
     }
     
     private func setupEventMonitor() {
-        eventMonitor = createEventMonitor()
-        eventMonitor?.start()
-    }
-    
-    private func createEventMonitor() -> EventMonitor {
-        EventMonitor(mask: .leftMouseDown) { [weak self] event in
+        eventMonitor = EventMonitor(mask: .leftMouseDown) { [weak self] event in
             self?.closePopoverwhenClickedOutside(event: event)
         }
+        eventMonitor?.start()
     }
     
     private func closePopover(_ sender: AnyObject?) {
@@ -60,10 +56,9 @@ final class PopoverManager {
     }
     
     private func showPopover(_ sender: AnyObject?) {
-        if let button = statusBarButton {
-            popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        if let statusBarButton = statusBarButton {
+            popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: .minY)
         }
-        
         eventMonitor?.start()
     }
     

@@ -30,109 +30,43 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
     func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
         logger.debug("Getting weather via lat/long")
         
-        guard let location = getLocation(latLong, completion: completion) else { return }
-        getWeather(location: location, completion: completion)
-    }
-    
-    @available(macOS 12.0, *)
-    func getWeather() async throws -> WeatherAPIResponse {
-        logger.debug("Getting weather via lat/long")
-
-        guard validateCoordinates(latLong) else {
-            logger.error("Getting weather via lat/long failed. Lat/ long is empty!")
-            
-            throw WeatherError.latLongEmpty
-        }
-
-        guard let latAndlong = parseLocationCoordinates(latLong) else {
-            logger.error("Getting weather via lat/long failed. Unable to parse location coordinates")
-
-            throw WeatherError.latLongIncorrect
-        }
-
-        let location = CLLocationCoordinate2D(
-            latitude: latAndlong.0,
-            longitude: latAndlong.1
-        )
-        return try await getWeather(location: location)
-    }
-    
-    private func getLocation(
-        _ latLong: String,
-        completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void
-    ) -> CLLocationCoordinate2D? {
-        guard validateCoordinates(latLong) else {
-            logger.error("Getting weather via lat/long failed. Lat/ long is empty!")
-            
-            completion(.failure(WeatherError.latLongEmpty))
-            return nil
-        }
-        
-        guard let latAndlong = parseLocationCoordinates(latLong) else {
-            logger.error("Getting weather via lat/long failed. Unable to parse location coordinates")
-            
-            completion(.failure(WeatherError.latLongIncorrect))
-            return nil
-        }
-        
-        return CLLocationCoordinate2D(latitude: latAndlong.0, longitude: latAndlong.1)
-    }
-    
-    private func validateCoordinates(_ latLong: String) -> Bool {
-        LocationValidator(latLong: latLong).validate()
-    }
-    
-    private func parseLocationCoordinates(_ latLong: String)
-    -> (CLLocationDegrees, CLLocationDegrees)? {
-        LocationParser().parseCoordinates(latLong)
-    }
-    
-    private func getWeather(
-        location: CLLocationCoordinate2D,
-        completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void
-    ) {
-        logger.debug("Getting weather via location")
-        
-        guard let url = buildURL(location) else {
-            completion(.failure(WeatherError.unableToConstructUrl))
-            return
-        }
-        
-        performRequest(
-            url: url,
-            completion: { [weak self] result in
+        do {
+            let location = try getLocationCoordinatesFrom(latLong)
+            let url = try buildURL(location)
+            performRequest(url: url, completion: { [weak self] result in
                 self?.parseNetworkResult(result: result, completion: completion)
-            }
-        )
-    }
-    
-    @available(macOS 12.0, *)
-    private func getWeather(location: CLLocationCoordinate2D) async throws -> WeatherAPIResponse {
-        logger.debug("Getting weather via location")
+            })
+        } catch {
+            logger.error("Getting weather via lat/long failed")
 
-        guard let url = buildURL(location) else {
-            throw WeatherError.unableToConstructUrl
+            completion(.failure(error))
         }
-        
-        let data = try await performRequest(url: url)
-        return try parseWeatherData(data)
     }
     
-    private func buildURL(_ location: CLLocationCoordinate2D) -> URL? {
-        LocationWeatherURLBuilder(appId: appId, location: location)
-            .build()
+    private func getLocationCoordinatesFrom(_ latLong: String) throws -> CLLocationCoordinate2D {
+        do {
+            try validateCoordinates(latLong)
+            let latAndlong = try parseLocationCoordinates(latLong)
+            return latAndlong
+        } catch {            
+            throw error
+        }
     }
     
-    private func performRequest(
-        url: URL,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) {
+    private func validateCoordinates(_ latLong: String) throws {
+        try LocationValidator(latLong: latLong).validate()
+    }
+    
+    private func parseLocationCoordinates(_ latLong: String) throws -> CLLocationCoordinate2D {
+        try LocationParser().parseCoordinates(latLong)
+    }
+    
+    private func buildURL(_ location: CLLocationCoordinate2D) throws -> URL {
+        try LocationWeatherURLBuilder(appId: appId, location: location).build()
+    }
+    
+    private func performRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         networkClient.performRequest(url: url, completion: completion)
-    }
-    
-    @available(macOS 12.0, *)
-    private func performRequest(url: URL) async throws -> Data {
-        try await networkClient.performRequest(url: url)
     }
     
     private func parseNetworkResult(
@@ -145,11 +79,11 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
                 let weatherData = try parseWeatherData(data)
                 completion(.success(weatherData))
             } catch {
-                let weatherError = (error as? WeatherError) ?? WeatherError.other
+                let weatherError = (error as? WeatherError) ?? .other
                 completion(.failure(weatherError))
             }
         case let .failure(error):
-            let weatherError = (error as? WeatherError) ?? WeatherError.other
+            let weatherError = (error as? WeatherError) ?? .other
             completion(.failure(weatherError))
         }
     }

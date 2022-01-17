@@ -10,31 +10,17 @@ import CoreLocation
 
 protocol WeatherRepositoryType: AnyObject {
     func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void)
-    
-    @available(macOS 12.0, *)
-    func getWeather() async throws -> WeatherAPIResponse
 }
 
 final class WeatherRepository {
     
     private let appId: String
     private let logger: DatWeatherDoeLoggerType
+    private var repository: WeatherRepositoryType?
     
     init(appId: String, logger: DatWeatherDoeLoggerType) {
         self.appId = appId
         self.logger = logger
-    }
-
-    @available(macOS 12.0, *)
-    func getWeatherViaLocation(
-        _ location: CLLocationCoordinate2D,
-        options: WeatherDataBuilder.Options
-    ) async throws -> WeatherData {
-        let locationRepository = selectWeatherRepository(
-            input: .location(coordinates: location)
-        )
-        let response = try await locationRepository.getWeather()
-        return buildWeatherDataWith(response: response, options: options)
     }
 
     func getWeatherViaLocation(
@@ -42,26 +28,14 @@ final class WeatherRepository {
         options: WeatherDataBuilder.Options,
         completion: @escaping (Result<WeatherData, Error>) -> Void
     ) {
-        let locationRepository = selectWeatherRepository(
-            input: .location(coordinates: location)
-        )
-        locationRepository.getWeather(completion: { [weak self] result in
+        repository = selectWeatherRepository(input: .location(coordinates: location))
+        repository?.getWeather(completion: { [weak self] result in
             self?.parseRepositoryResult(
                 result,
                 options: options,
                 completion: completion
             )
         })
-    }
-
-    @available(macOS 12.0, *)
-    func getWeatherViaZipCode(
-        _ zipCode: String,
-        options: WeatherDataBuilder.Options
-    ) async throws -> WeatherData {
-        let zipCodeRepository = selectWeatherRepository(input: .zipCode(code: zipCode))
-        let response = try await zipCodeRepository.getWeather()
-        return buildWeatherDataWith(response: response, options: options)
     }
     
     func getWeatherForZipCode(
@@ -69,49 +43,27 @@ final class WeatherRepository {
         options: WeatherDataBuilder.Options,
         completion: @escaping (Result<WeatherData, Error>) -> Void
     ) {
-        let zipCodeRepository = selectWeatherRepository(input: .zipCode(code: zipCode))
-        zipCodeRepository.getWeather(completion: { [weak self] result in
-            self?.parseRepositoryResult(
-                result,
-                options: options,
-                completion: completion
-            )
+        repository = selectWeatherRepository(input: .zipCode(code: zipCode))
+        repository?.getWeather(completion: { [weak self] result in
+            self?.parseRepositoryResult(result, options: options, completion: completion)
         })
     }
-    
-    @available(macOS 12.0, *)
-    func getWeatherViaLatLong(
-        _ latLong: String,
-        options: WeatherDataBuilder.Options
-    ) async throws -> WeatherData {
-        let locationCoordinatesRepository = selectWeatherRepository(
-            input: .latLong(latLong: latLong)
-        )
-        let response = try await locationCoordinatesRepository.getWeather()
-        return buildWeatherDataWith(response: response, options: options)
-    }
-    
+
     func getWeatherViaLatLong(
         _ latLong: String,
         options: WeatherDataBuilder.Options,
         completion: @escaping (Result<WeatherData, Error>) -> Void
     ) {
-        let locationCoordinatesRepository = selectWeatherRepository(
-            input: .latLong(latLong: latLong)
-        )
-        locationCoordinatesRepository.getWeather(completion: { [weak self] result in
-            self?.parseRepositoryResult(
-                result,
-                options: options,
-                completion: completion
-            )
+        repository = selectWeatherRepository(input: .latLong(latLong: latLong))
+        repository?.getWeather(completion: { [weak self] result in
+            self?.parseRepositoryResult(result, options: options, completion: completion)
         })
     }
     
     private func selectWeatherRepository(input: WeatherRepositoryInput) -> WeatherRepositoryType {
         switch input {
         case let .location(coordinates):
-            return LocationSystemWeatherRepository(
+            return SystemLocationWeatherRepository(
                 appId: appId,
                 location: coordinates,
                 networkClient: NetworkClient(),

@@ -19,4 +19,8 @@ enum TemperatureUnit: String {
             return "All"
         }
     }
+    
+    var degreesString: String {
+        "\u{00B0}\(unitString)"
+    }
 }

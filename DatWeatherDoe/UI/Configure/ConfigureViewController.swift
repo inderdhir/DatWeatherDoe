@@ -30,7 +30,6 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var weatherConditionAsTextCheckBox: NSButton!
     @IBOutlet weak var doneButton: NSButton!
     
-    private let placeholders = ConfigurationPlaceholders()
     private let configManager: ConfigManagerType
     private weak var popoverManager: PopoverManager?
     
@@ -82,26 +81,37 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     private func setupTemperatureUnits() {
         let isFahrenheitUnitSelected = configManager.temperatureUnit == TemperatureUnit.fahrenheit.rawValue
-        fahrenheitRadioButton.title = placeholders.fahrenheitDegreesString
+        fahrenheitRadioButton.title = TemperatureUnit.fahrenheit.degreesString
         fahrenheitRadioButton.state = isFahrenheitUnitSelected ? .on : .off
         
         let isCelsiusUnitSelected = configManager.temperatureUnit == TemperatureUnit.celsius.rawValue
-        celsiusRadioButton.title = placeholders.celsiusDegreesString
+        celsiusRadioButton.title = TemperatureUnit.celsius.degreesString
         celsiusRadioButton.state = isCelsiusUnitSelected ? .on : .off
         
-        let areAllUnitsSelected = configManager.temperatureUnit == TemperatureUnit.all.rawValue
+        let isAllUnitsSelected = configManager.temperatureUnit == TemperatureUnit.all.rawValue
         allTempUnitsRadioButton.title = NSLocalizedString("All", comment: "Show all temperature units")
-        allTempUnitsRadioButton.state = areAllUnitsSelected ? .on : .off
+        allTempUnitsRadioButton.state = isAllUnitsSelected ? .on : .off
     }
     
     private func setupRefreshIntervals() {
-        addRefreshIntervalsToUI()
-        preselectConfiguredRefreshInterval()
+        refreshIntervals.removeAllItems()
+        refreshIntervals.addItems(withTitles: RefreshInterval.allCases.map(\.title))
+        
+        switch configManager.refreshInterval {
+        case 300: refreshIntervals.selectItem(at: 1)
+        case 900: refreshIntervals.selectItem(at: 2)
+        case 1800: refreshIntervals.selectItem(at: 3)
+        case 3600: refreshIntervals.selectItem(at: 4)
+        default: refreshIntervals.selectItem(at: 0)
+        }
     }
     
     private func setupWeatherSources() {
-        addWeatherSources()
-        updateWeatherSourceWithSelection()
+        weatherSourceButton.removeAllItems()
+        weatherSourceButton.addItems(withTitles: WeatherSource.allCases.map(\.title))
+        
+        let selectedWeatherSource = WeatherSource(rawValue: configManager.weatherSource)!
+        updateUIWith(weatherSource: selectedWeatherSource)
     }
     
     private func setupCheckboxes() {
@@ -115,74 +125,20 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         doneButton.title = NSLocalizedString("Done", comment: "Finish configuring app")
     }
     
-    private func addRefreshIntervalsToUI() {
-        refreshIntervals.removeAllItems()
-        refreshIntervals.addItems(withTitles: RefreshInterval.allCases.map(\.title))
-    }
-    
-    private func preselectConfiguredRefreshInterval() {
-        switch configManager.refreshInterval {
-        case 300: refreshIntervals.selectItem(at: 1)
-        case 900: refreshIntervals.selectItem(at: 2)
-        case 1800: refreshIntervals.selectItem(at: 3)
-        case 3600: refreshIntervals.selectItem(at: 4)
-        default: refreshIntervals.selectItem(at: 0)
-        }
-    }
-    
-    private func addWeatherSources() {
-        weatherSourceButton.removeAllItems()
-        weatherSourceButton.addItems(withTitles: WeatherSource.allCases.map(\.title))
-    }
-    
-    private func updateWeatherSourceWithSelection() {
-        let selectedWeatherSource =
-        WeatherSource(rawValue: configManager.weatherSource) ?? .location
-        updateWeatherSourceTextHint(selectedWeatherSource)
+    private func updateUIWith(weatherSource: WeatherSource) {
+        weatherSourceTextHint.stringValue = weatherSource.textHint
         
-        let selectedWeatherSourceIndex = getSelectionIndexForWeatherSource(selectedWeatherSource)
-        updateWeatherSourceSelection(selectedWeatherSourceIndex)
+        let selectedWeatherSourceIndex = weatherSource.menuIndex
+        weatherSourceButton.selectItem(at: selectedWeatherSourceIndex)
         
-        let isNotLocationSource = selectedWeatherSourceIndex != 0
-        setWeatherSourceTextFieldEnabled(isNotLocationSource)
+        let isNotLocationSource = weatherSource != .location
+        weatherSourceTextField.isEnabled = isNotLocationSource
         
         if let weatherSourceText = configManager.weatherSourceText {
-            updateWeatherSourceTextField(weatherSourceText)
+            weatherSourceTextField.stringValue = weatherSourceText
+        } else {
+            weatherSourceTextField.placeholderString = weatherSource.placeholder
         }
-    }
-    
-    private func updateWeatherSourceTextHint(_ source: WeatherSource) {
-        switch source {
-        case .location:
-            weatherSourceTextHint.stringValue = placeholders.emptyString
-        case .latLong:
-            weatherSourceTextHint.stringValue = placeholders.latLongHint
-        case .zipCode:
-            weatherSourceTextHint.stringValue = placeholders.zipCodeHint
-        }
-    }
-    
-    private func getSelectionIndexForWeatherSource(_ source: WeatherSource) -> Int {
-        switch source {
-        case .location:
-            return 0
-        case .latLong:
-            return 1
-        case .zipCode:
-            return 2
-        }
-    }
-    
-    private func updateWeatherSourceSelection(_ index: Int) {
-        weatherSourceButton.selectItem(at: index)
-    }
-
-    private func setWeatherSourceTextFieldEnabled(_ enabled: Bool) {
-        weatherSourceTextField.isEnabled = enabled
-    }
-    
-    private func updateWeatherSourceTextField(_ text: String) {
-        weatherSourceTextField.stringValue = text
     }
     
     @IBAction private func radioButtonClicked(_ sender: NSButton) {
@@ -193,10 +149,15 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction private func doneButtonPressed(_ sender: AnyObject) {
         DispatchQueue.main.async { [weak self] in
-            self?.setTemperateUnitForConfig()
-            self?.setWeatherSourceForConfig()
-            self?.setOtherOptionsForConfig()
-            self?.togglePopover(sender)
+            guard let `self` = self else { return }
+            
+            self.setTemperateUnitForConfig()
+            
+            let selectedWeatherSource = WeatherSource.allCases[self.weatherSourceButton.indexOfSelectedItem]
+            let selectedRefreshInterval = RefreshInterval.allCases[self.refreshIntervals.indexOfSelectedItem]
+            self.setConfigWith(weatherSource: selectedWeatherSource, refreshInterval: selectedRefreshInterval)
+            
+            self.popoverManager?.togglePopover(sender)
         }
     }
     
@@ -221,58 +182,23 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    private func setWeatherSourceForConfig() {
-        let selectedWeatherSource = WeatherSource.allCases[weatherSourceButton.indexOfSelectedItem]
-        configManager.weatherSource = selectedWeatherSource.rawValue
-        configManager.weatherSourceText = selectedWeatherSource == .location ?
-        nil : weatherSourceTextField.stringValue
-    }
-    
-    private func setOtherOptionsForConfig() {
-        configManager.refreshInterval = RefreshInterval.allCases[refreshIntervals.indexOfSelectedItem].rawValue
-        configManager.isShowingHumidity = showHumidityToggleCheckBox.state == .on
-        configManager.isRoundingOffData = roundOffData.state == .on
-        configManager.isWeatherConditionAsTextEnabled = weatherConditionAsTextCheckBox.state == .on
-    }
-    
-    private func togglePopover(_ sender: AnyObject) {
-        popoverManager?.togglePopover(sender)
+    private func setConfigWith(weatherSource: WeatherSource, refreshInterval: RefreshInterval) {
+        let configCommitter = ConfigurationCommitter(configManager: configManager)
+        configCommitter.setWeatherSource(weatherSource, sourceText: weatherSourceTextField.stringValue)
+        configCommitter.setOtherOptionsForConfig(
+            refreshInterval: refreshInterval,
+            isShowingHumidity: showHumidityToggleCheckBox.state == .on,
+            isRoundingOffData: roundOffData.state == .on,
+            isWeatherConditionAsTextEnabled: weatherConditionAsTextCheckBox.state == .on
+        )
     }
     
     @IBAction private func didUpdateWeatherSource(_ sender: Any) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateUIWithSelections()
-        }
-    }
-    
-    private func updateUIWithSelections() {
-        clearWeatherSourceStrings()
-        updateUIWithWeatherSource()
-    }
-    
-    private func clearWeatherSourceStrings() {
-        weatherSourceTextField.placeholderString = nil
-        weatherSourceTextField.stringValue = placeholders.emptyString
-    }
-    
-    private func updateUIWithWeatherSource() {
-        let selectedWeatherSource = WeatherSource.allCases[weatherSourceButton.indexOfSelectedItem]
-        
-        let weatherSourceTextFieldEnabled = selectedWeatherSource != .location
-        setWeatherSourceTextFieldEnabled(weatherSourceTextFieldEnabled)
-        
-        updateWeatherSourceTextHint(selectedWeatherSource)
-        updateWeatherSourceTextPlaceholder(selectedWeatherSource)
-    }
-    
-    private func updateWeatherSourceTextPlaceholder(_ source: WeatherSource) {
-        switch source {
-        case .location:
-            break
-        case .latLong:
-            weatherSourceTextField.placeholderString = placeholders.weatherLatLongPlaceholder
-        case .zipCode:
-            weatherSourceTextField.placeholderString = placeholders.weatherZipCodePlaceholder
+            guard let `self` = self else { return }
+            
+            let selectedWeatherSource = WeatherSource.allCases[self.weatherSourceButton.indexOfSelectedItem]
+            self.updateUIWith(weatherSource: selectedWeatherSource)
         }
     }
 }

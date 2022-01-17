@@ -9,7 +9,7 @@
 import Foundation
 
 final class WeatherConditionTextMapper {
-    func mapConditionToText(_ condition: WeatherCondition) -> String {
+    func map(_ condition: WeatherCondition) -> String {
         switch condition {
         case .cloudy:
             return NSLocalizedString("Cloudy", comment: "Cloudy weather condition")
@@ -23,8 +23,7 @@ final class WeatherConditionTextMapper {
             return NSLocalizedString("Clear", comment: "Clear at night weather condition")
             
         case let .smoky(smokyWeatherCondition):
-            return SmokyWeatherConditionTextMapper()
-                .mapConditionToText(smokyWeatherCondition)
+            return SmokyWeatherConditionTextMapper().map(smokyWeatherCondition)
             
         case .snow:
             return NSLocalizedString("Snow", comment: "Snow weather condition")
@@ -47,7 +46,7 @@ final class WeatherConditionTextMapper {
 }
 
 private class SmokyWeatherConditionTextMapper {
-    func mapConditionToText(_ smokyWeatherCondition: SmokyWeatherCondition) -> String {
+    func map(_ smokyWeatherCondition: SmokyWeatherCondition) -> String {
         switch smokyWeatherCondition {
         case .tornado:
             return NSLocalizedString("Tornado", comment: "Tornado weather condition")

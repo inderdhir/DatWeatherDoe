@@ -14,11 +14,15 @@ final class NetworkReachability {
     private var reachability: Reachability?
     private var retryWhenReachable = false
     
-    init(logger: DatWeatherDoeLoggerType) {
+    init(
+        logger: DatWeatherDoeLoggerType,
+        onBecomingReachable: @escaping () -> Void
+    ) {
         self.logger = logger
+        setupWith(callback: onBecomingReachable)
     }
 
-    func setupWithCallback(callback: @escaping () ->Void) {
+    private func setupWith(callback: @escaping () ->Void) {
         do {
             try createReachability()
             try startReachability()

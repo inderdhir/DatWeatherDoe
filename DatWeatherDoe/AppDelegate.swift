@@ -28,13 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     private func setupMenuBar() {
         menuBarManager = MenuBarManager(
-            options: .init(
-                seeFullWeatherSelector: #selector(seeFullWeather),
-                refreshSelector: #selector(getUpdatedWeather),
-                refreshCallback: { [weak self] in self?.getUpdatedWeather() },
-                configureSelector: #selector(configure),
-                quitSelector: #selector(terminate)
-            ),
+            options: buildMenuBarOptions(),
             configManager: configManager
         )
     }
@@ -47,11 +41,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func getUpdatedWeather() {
         viewModel.getUpdatedWeather()
     }
+    
+    private func buildMenuBarOptions() -> MenuBarManager.Options {
+        .init(
+            seeFullWeatherSelector: #selector(seeFullWeather),
+            refreshSelector: #selector(getUpdatedWeather),
+            refreshCallback: { [weak self] in self?.getUpdatedWeather() },
+            configureSelector: #selector(configure),
+            quitSelector: #selector(terminate)
+        )
+    }
         
     private func setupViewModel() {
         viewModel = WeatherViewModel(
             appId: WeatherAppIDParser().parse(),
-            errorStrings: ErrorStrings(),
             configManager: configManager,
             logger: logger
         )
@@ -59,10 +62,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func setupReachability() {
-        reachability = NetworkReachability(logger: logger)
-        reachability.setupWithCallback { [weak self] in
-            self?.getUpdatedWeather()
-        }
+        reachability = NetworkReachability(
+            logger: logger,
+            onBecomingReachable: { [weak self] in
+                self?.getUpdatedWeather()
+            }
+        )
     }
     
     @objc private func seeFullWeather() {
@@ -81,10 +86,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: WeatherViewModelDelegate {
     func didUpdateWeatherData(_ data: WeatherData) {
         viewModel.updateCityWith(cityId: data.cityId)
-        menuBarManager.updateMenuBarWithWeather(data: data)
+        menuBarManager.updateMenuBarWith(weatherData: data)
     }
     
     func didFailToUpdateWeatherData(_ error: String) {
-        menuBarManager.updateMenuBarWithError(error)
+        menuBarManager.updateMenuBarWith(error: error)
     }
 }

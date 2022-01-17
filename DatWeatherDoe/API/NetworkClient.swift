@@ -20,10 +20,4 @@ final class NetworkClient {
             completion(.success(data))
         }.resume()
     }
-    
-    @available(macOS 12.0, *)
-    func performRequest(url: URL) async throws -> Data {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return data
-    }
 }

@@ -1,5 +1,5 @@
 //
-//  ErrorStrings.swift
+//  ErrorLabels.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/9/22.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ErrorStrings {
+final class ErrorLabels {
     lazy var networkErrorString =
     NSLocalizedString("Network Error", comment: "Network error when fetching weather")
     lazy var locationErrorString =
