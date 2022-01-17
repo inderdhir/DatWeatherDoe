@@ -23,7 +23,7 @@
 
 ## Using Location Services
 
-If using location, please make sure that the app has permission to access location services on MacOS.
+If using location, please make sure that the app has permission to access location services on macOS.
 
 `System Preferences > Security & Privacy > Privacy > Location Services`
 

@@ -10,9 +10,16 @@ import Cocoa
 
 final class MenuBuilder {
     
-    private let options: MenuBuilderOptions
+    struct Options {
+        let seeFullWeatherSelector: Selector
+        let refreshSelector: Selector
+        let configureSelector: Selector
+        let quitSelector: Selector
+    }
     
-    init(options: MenuBuilderOptions) {
+    private let options: MenuBuilder.Options
+    
+    init(options: MenuBuilder.Options) {
         self.options = options
     }
     
@@ -48,7 +55,7 @@ final class MenuBuilder {
         .init(
             title: NSLocalizedString("Unknown Location", comment: "Unknown weather location"),
             action: nil,
-            keyEquivalent: ""
+            keyEquivalent: "L"
         )
     }
     
@@ -78,9 +85,9 @@ final class MenuBuilder {
     
     private func buildQuitMenuItem() -> NSMenuItem {
         .init(
-            title: NSLocalizedString("Refresh", comment: "Refresh weather"),
+            title: NSLocalizedString("Quit", comment: "Quit app"),
             action: options.quitSelector,
-            keyEquivalent: "q"
+            keyEquivalent: "Q"
         )
     }
 }

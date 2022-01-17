@@ -95,16 +95,8 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     }
     
     private func setupRefreshIntervals() {
-        refreshIntervals.removeAllItems()
-        refreshIntervals.addItems(withTitles: RefreshInterval.allCases.map(\.title))
-        
-        switch configManager.refreshInterval {
-        case 300: refreshIntervals.selectItem(at: 1)
-        case 900: refreshIntervals.selectItem(at: 2)
-        case 1800: refreshIntervals.selectItem(at: 3)
-        case 3600: refreshIntervals.selectItem(at: 4)
-        default: refreshIntervals.selectItem(at: 0)
-        }
+        addRefreshIntervalsToUI()
+        preselectConfiguredRefreshInterval()
     }
     
     private func setupWeatherSources() {
@@ -121,6 +113,21 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
     
     private func setupDoneButton() {
         doneButton.title = NSLocalizedString("Done", comment: "Finish configuring app")
+    }
+    
+    private func addRefreshIntervalsToUI() {
+        refreshIntervals.removeAllItems()
+        refreshIntervals.addItems(withTitles: RefreshInterval.allCases.map(\.title))
+    }
+    
+    private func preselectConfiguredRefreshInterval() {
+        switch configManager.refreshInterval {
+        case 300: refreshIntervals.selectItem(at: 1)
+        case 900: refreshIntervals.selectItem(at: 2)
+        case 1800: refreshIntervals.selectItem(at: 3)
+        case 3600: refreshIntervals.selectItem(at: 4)
+        default: refreshIntervals.selectItem(at: 0)
+        }
     }
     
     private func addWeatherSources() {
@@ -144,6 +151,17 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    private func updateWeatherSourceTextHint(_ source: WeatherSource) {
+        switch source {
+        case .location:
+            weatherSourceTextHint.stringValue = placeholders.emptyString
+        case .latLong:
+            weatherSourceTextHint.stringValue = placeholders.latLongHint
+        case .zipCode:
+            weatherSourceTextHint.stringValue = placeholders.zipCodeHint
+        }
+    }
+    
     private func getSelectionIndexForWeatherSource(_ source: WeatherSource) -> Int {
         switch source {
         case .location:
@@ -154,14 +172,26 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
             return 2
         }
     }
+    
+    private func updateWeatherSourceSelection(_ index: Int) {
+        weatherSourceButton.selectItem(at: index)
+    }
 
-    @IBAction func radioButtonClicked(_ sender: NSButton) {
+    private func setWeatherSourceTextFieldEnabled(_ enabled: Bool) {
+        weatherSourceTextField.isEnabled = enabled
+    }
+    
+    private func updateWeatherSourceTextField(_ text: String) {
+        weatherSourceTextField.stringValue = text
+    }
+    
+    @IBAction private func radioButtonClicked(_ sender: NSButton) {
         DispatchQueue.main.async { [weak self] in
             self?.updateTemperatureRadioButtonsAfterSelection(sender)
         }
     }
     
-    @IBAction func doneButtonPressed(_ sender: AnyObject) {
+    @IBAction private func doneButtonPressed(_ sender: AnyObject) {
         DispatchQueue.main.async { [weak self] in
             self?.setTemperateUnitForConfig()
             self?.setWeatherSourceForConfig()
@@ -209,7 +239,7 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         popoverManager?.togglePopover(sender)
     }
     
-    @IBAction func didUpdateWeatherSource(_ sender: Any) {
+    @IBAction private func didUpdateWeatherSource(_ sender: Any) {
         DispatchQueue.main.async { [weak self] in
             self?.updateUIWithSelections()
         }
@@ -233,29 +263,6 @@ final class ConfigureViewController: NSViewController, NSTextFieldDelegate {
         
         updateWeatherSourceTextHint(selectedWeatherSource)
         updateWeatherSourceTextPlaceholder(selectedWeatherSource)
-    }
-    
-    private func updateWeatherSourceTextHint(_ source: WeatherSource) {
-        switch source {
-        case .location:
-            weatherSourceTextHint.stringValue = placeholders.emptyString
-        case .latLong:
-            weatherSourceTextHint.stringValue = placeholders.latLongHint
-        case .zipCode:
-            weatherSourceTextHint.stringValue = placeholders.zipCodeHint
-        }
-    }
-    
-    private func updateWeatherSourceSelection(_ index: Int) {
-        weatherSourceButton.selectItem(at: index)
-    }
-    
-    private func setWeatherSourceTextFieldEnabled(_ enabled: Bool) {
-        weatherSourceTextField.isEnabled = enabled
-    }
-    
-    private func updateWeatherSourceTextField(_ text: String) {
-        weatherSourceTextField.stringValue = text
     }
     
     private func updateWeatherSourceTextPlaceholder(_ source: WeatherSource) {

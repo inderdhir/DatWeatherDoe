@@ -8,5 +8,8 @@
 
 protocol WeatherViewModelType: AnyObject {
     var delegate: WeatherViewModelDelegate? { get set }
+    
     func getUpdatedWeather()
+    func updateCityWith(cityId: Int)
+    func seeForecastForCurrentCity()
 }

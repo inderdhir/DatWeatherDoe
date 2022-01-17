@@ -11,35 +11,47 @@ import Foundation
 
 final class MenuBarManager {
     
-    private let statusItem = NSStatusBar.system.statusItem(
-        withLength: NSStatusItem.variableLength
-    )
+    /* Some of these selectors don't work from within this class and
+     need to live in AppDelegate
+     */
+    struct Options {
+        let seeFullWeatherSelector: Selector
+        let refreshSelector: Selector
+        let refreshCallback: () -> Void
+        let configureSelector: Selector
+        let quitSelector: Selector
+    }
+    
+    private let statusBarManager: StatusBarManager
+    private var menuBuilder: MenuBuilder!
     private let popOverManager: PopoverManager
-    private let conditionToImageMapper = WeatherConditionImageMapper()
-    private lazy var forecaster = WeatherForecaster()
-    private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
     
     init(
-        refreshSelector: Selector,
-        quitSelector: Selector,
-        refreshCallback: @escaping () -> Void,
+        options: MenuBarManager.Options,
         configManager: ConfigManagerType
     ) {
-        popOverManager = PopoverManager(
-            statusBarButton: statusItem.button,
-            configManager: configManager,
-            refreshCallback: { refreshCallback() }
+        menuBuilder = MenuBuilder(
+            options: .init(
+                seeFullWeatherSelector: options.seeFullWeatherSelector,
+                refreshSelector: options.refreshSelector,
+                configureSelector: options.configureSelector,
+                quitSelector: options.quitSelector
+            )
         )
-
-        setupStatusItem(
-            refreshSelector: refreshSelector,
-            quitSelector: quitSelector
+        
+        statusBarManager = StatusBarManager(
+            menu: menuBuilder.build(),
+            configureSelector: options.configureSelector
+        )
+        popOverManager = PopoverManager(
+            statusBarButton: statusBarManager.button,
+            configManager: configManager,
+            refreshCallback: { options.refreshCallback() }
         )
     }
-
+    
     func updateMenuBarWithWeather(data: WeatherData) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateCity(cityId: data.cityId)
             self?.updateStatusItemWithData(data)
         }
     }
@@ -50,61 +62,31 @@ final class MenuBarManager {
         }
     }
     
-    private func setupStatusItem(
-        refreshSelector: Selector,
-        quitSelector: Selector
-    ) {
-        statusItem.menu = createMenu(
-            refreshSelector: refreshSelector,
-            quitSelector: quitSelector
-        )
-        statusItem.button?.action = #selector(togglePopover)
-    }
-    
-    private func updateCity(cityId: Int) {
-        forecaster.updateCity(cityId: cityId)
-    }
-    
-    private func updateStatusItemWithData(_ data: WeatherData) {
-        statusItem.title = data.textualRepresentation
-        statusItem.menu?.item(at: 0)?.title = getWeatherLocationFromData(data)
-        statusItem.image = getWeatherImageFromData(data)
-    }
-    
-    private func updateStatusItemWithError(_ error: String) {
-        statusItem.title = error
-        statusItem.image = nil
-    }
-    
-    private func createMenu(
-        refreshSelector: Selector,
-        quitSelector: Selector
-    ) -> NSMenu {
-        MenuBuilder(
-            options: .init(
-                seeFullWeatherSelector: #selector(seeFullWeather),
-                refreshSelector: refreshSelector,
-                configureSelector: #selector(togglePopover),
-                quitSelector: quitSelector
-            )
-        ).build()
-    }
-    
-    @objc private func togglePopover(_ sender: AnyObject) {
+    func configure(_ sender: AnyObject) {
         popOverManager.togglePopover(sender)
     }
     
-    @objc private func seeFullWeather() {
-        forecaster.seeForecastForCity()
+    private func createMenu(
+        seeFullWeatherSelector: Selector,
+        refreshSelector: Selector,
+        configureSelector: Selector,
+        quitSelector: Selector
+    ) -> MenuBuilder {
+        MenuBuilder(
+            options: .init(
+                seeFullWeatherSelector: seeFullWeatherSelector,
+                refreshSelector: refreshSelector,
+                configureSelector: configureSelector,
+                quitSelector: quitSelector
+            )
+        )
     }
     
-    private func getWeatherLocationFromData(_ data: WeatherData) -> String {
-        data.location ?? unknownString
+    private func updateStatusItemWithData(_ data: WeatherData) {
+        statusBarManager.updateStatusItemWithData(data)
     }
     
-    private func getWeatherImageFromData(_ data: WeatherData) -> NSImage? {
-        let image = conditionToImageMapper.mapConditionToImage(data.weatherCondition)
-        image?.isTemplate = true
-        return image
+    private func updateStatusItemWithError(_ error: String) {
+        statusBarManager.updateStatusItemWithError(error)
     }
 }

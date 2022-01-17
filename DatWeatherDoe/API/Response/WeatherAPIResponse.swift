@@ -22,11 +22,13 @@ struct WeatherAPIResponse: Decodable {
         case cityId = "id"
         case main, weather, name, sys
     }
+    
     private enum APIKeys: String, CodingKey {
         case temperature = "temp"
         case humidity
         case sunrise, sunset
     }
+    
     private enum WeatherKeys: String, CodingKey {
         case id
     }

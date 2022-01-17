@@ -23,22 +23,29 @@ final class PopoverManager {
         self.statusBarButton = statusBarButton
         self.refreshCallback = refreshCallback
         
-        popover.contentViewController = ConfigureViewController(
-            configManager: configManager,
-            popoverManager: self
-        )
-        
-        eventMonitor = createEventMonitor()
-        eventMonitor?.start()
+        setupConfigurationView(configManager)
+        setupEventMonitor()
     }
     
-    func togglePopover(_ sender: AnyObject) {
+    func togglePopover(_ sender: AnyObject?) {
         if popover.isShown {
             closePopover(sender)
             refreshCallback()
         } else {
             showPopover(sender)
         }
+    }
+    
+    private func setupConfigurationView(_ configManager: ConfigManagerType) {
+        popover.contentViewController = ConfigureViewController(
+            configManager: configManager,
+            popoverManager: self
+        )
+    }
+    
+    private func setupEventMonitor() {
+        eventMonitor = createEventMonitor()
+        eventMonitor?.start()
     }
     
     private func createEventMonitor() -> EventMonitor {
@@ -48,12 +55,15 @@ final class PopoverManager {
     }
     
     private func closePopover(_ sender: AnyObject?) {
-        closePopoverWindow(sender)
+        popover.performClose(sender)
         eventMonitor?.stop()
     }
     
     private func showPopover(_ sender: AnyObject?) {
-        showPopoverWindow()
+        if let button = statusBarButton {
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        }
+        
         eventMonitor?.start()
     }
     
@@ -62,16 +72,6 @@ final class PopoverManager {
             if self?.popover.isShown == true {
                 self?.closePopover(event)
             }
-        }
-    }
-    
-    private func closePopoverWindow(_ sender: AnyObject?) {
-        popover.performClose(sender)
-    }
-    
-    private func showPopoverWindow() {
-        if let button = statusBarButton {
-            popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
     }
 }
