@@ -64,9 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupReachability() {
         reachability = NetworkReachability(
             logger: logger,
-            onBecomingReachable: { [weak self] in
-                self?.getUpdatedWeather()
-            }
+            onBecomingReachable: { [weak self] in self?.getUpdatedWeather() }
         )
     }
     

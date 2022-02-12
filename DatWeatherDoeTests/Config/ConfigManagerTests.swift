@@ -9,7 +9,7 @@
 import XCTest
 @testable import DatWeatherDoe
 
-class ConfigManagerTests: XCTestCase {
+final class ConfigManagerTests: XCTestCase {
 
     var configManager: ConfigManagerType!
 
@@ -17,12 +17,7 @@ class ConfigManagerTests: XCTestCase {
         super.setUp()
         clearUserDefaults()
     }
-
-    override func tearDown() {
-        clearUserDefaults()
-        super.tearDown()
-    }
-
+    
     func testDefaultTemperatureUnit() {
         XCTAssertEqual(configManager.temperatureUnit, TemperatureUnit.fahrenheit.rawValue)
     }

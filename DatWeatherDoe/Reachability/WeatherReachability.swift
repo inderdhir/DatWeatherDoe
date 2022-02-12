@@ -19,6 +19,7 @@ final class NetworkReachability {
         onBecomingReachable: @escaping () -> Void
     ) {
         self.logger = logger
+        
         setupWith(callback: onBecomingReachable)
     }
 
