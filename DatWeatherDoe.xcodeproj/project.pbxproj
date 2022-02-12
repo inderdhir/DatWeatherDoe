@@ -79,7 +79,6 @@
 		20BBCDAA278B8A18007DEEB0 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDA9278B8A18007DEEB0 /* WeatherViewModel.swift */; };
 		20BBCDAD278B8B28007DEEB0 /* WeatherViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDAC278B8B28007DEEB0 /* WeatherViewModelType.swift */; };
 		20BBCDAF278B92A7007DEEB0 /* SystemLocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDAE278B92A7007DEEB0 /* SystemLocationFetcher.swift */; };
-		20BF8B342729176700474436 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20BF8B332729176700474436 /* Keys.plist */; };
 		20CA6E11278F49AC00FFC53A /* TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
 /* End PBXBuildFile section */
@@ -172,8 +171,8 @@
 		20BBCDA9278B8A18007DEEB0 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		20BBCDAC278B8B28007DEEB0 /* WeatherViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelType.swift; sourceTree = "<group>"; };
 		20BBCDAE278B92A7007DEEB0 /* SystemLocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLocationFetcher.swift; sourceTree = "<group>"; };
-		20BF8B332729176700474436 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureFormatter.swift; sourceTree = "<group>"; };
+		20CB480B27B83EF90043C60F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +213,7 @@
 		2023ED9A1C4ED09C0087FD67 = {
 			isa = PBXGroup;
 			children = (
+				20CB480B27B83EF90043C60F /* Config.xcconfig */,
 				2023EDA51C4ED09C0087FD67 /* DatWeatherDoe */,
 				61D04A301C7B7BCF00CBE6AE /* DatWeatherDoeTests */,
 				2023EDA41C4ED09C0087FD67 /* Products */,
@@ -305,7 +305,6 @@
 				20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */,
 				2023EDA81C4ED09C0087FD67 /* Assets.xcassets */,
 				2023EDAD1C4ED09C0087FD67 /* Info.plist */,
-				20BF8B332729176700474436 /* Keys.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -710,7 +709,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20BF8B342729176700474436 /* Keys.plist in Resources */,
 				20B952FC2682DAD20016F20A /* InfoPlist.strings in Resources */,
 				2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */,
 				20B952FF2682DAD20016F20A /* Localizable.strings in Resources */,
@@ -854,6 +852,7 @@
 /* Begin XCBuildConfiguration section */
 		2023EDAE1C4ED09C0087FD67 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20CB480B27B83EF90043C60F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -911,6 +910,7 @@
 		};
 		2023EDAF1C4ED09C0087FD67 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20CB480B27B83EF90043C60F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
