@@ -50,3 +50,6 @@ Podfile.lock
 
 # Keys
 DatWeatherDoe/Resources/Keys.plist
+
+# Secrets
+Config.xcconfig
