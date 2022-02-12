@@ -72,7 +72,8 @@ final class WeatherViewModel: WeatherViewModelType {
             delegate?.didFailToUpdateWeatherData(errorLabels.zipCodeErrorString)
             return
         }
-        weatherRepository.getWeatherForZipCode(
+        
+        weatherRepository.getWeatherViaZipCode(
             zipCode,
             options: buildWeatherDataOptions(),
             completion: { [weak self] result in
@@ -92,6 +93,7 @@ final class WeatherViewModel: WeatherViewModelType {
             delegate?.didFailToUpdateWeatherData(errorLabels.latLongErrorString)
             return
         }
+        
         weatherRepository.getWeatherViaLatLong(
             latLong,
             options: buildWeatherDataOptions(),

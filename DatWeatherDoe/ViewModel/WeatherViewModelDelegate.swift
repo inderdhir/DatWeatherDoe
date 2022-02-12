@@ -1,5 +1,5 @@
 //
-//  WeatherViewModelDeelgate.swift
+//  WeatherViewModelDelegate.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/16/22.

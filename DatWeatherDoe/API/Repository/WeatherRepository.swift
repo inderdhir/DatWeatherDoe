@@ -18,7 +18,10 @@ final class WeatherRepository {
     private let logger: DatWeatherDoeLoggerType
     private var repository: WeatherRepositoryType?
     
-    init(appId: String, logger: DatWeatherDoeLoggerType) {
+    init(
+        appId: String,
+        logger: DatWeatherDoeLoggerType
+    ) {
         self.appId = appId
         self.logger = logger
     }
@@ -38,7 +41,7 @@ final class WeatherRepository {
         })
     }
     
-    func getWeatherForZipCode(
+    func getWeatherViaZipCode(
         _ zipCode: String,
         options: WeatherDataBuilder.Options,
         completion: @escaping (Result<WeatherData, Error>) -> Void
