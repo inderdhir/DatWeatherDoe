@@ -81,6 +81,13 @@ struct ConfigureView: View {
                     Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
                         .toggleStyle(CheckboxToggleStyle())
                 }
+                
+                HStack {
+                    Text(LocalizedStringKey("Launch at Login"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.launchAtLogin.isEnabled) {}
+                        .toggleStyle(CheckboxToggleStyle())
+                }
             }
             
             Button(LocalizedStringKey("Done")) {
@@ -88,7 +95,7 @@ struct ConfigureView: View {
             }
         }
         .padding()
-        .frame(width: 380, height: 300)
+        .frame(width: 380, height: 340)
     }
 }
 
