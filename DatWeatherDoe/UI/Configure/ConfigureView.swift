@@ -15,73 +15,71 @@ struct ConfigureView: View {
     var body: some View {
         VStack(spacing: 20) {
             VStack(spacing: 16) {
-                Group {
-                    HStack {
-                        Text(LocalizedStringKey("Unit"))
-                        Spacer()
-                        Picker("", selection: $viewModel.temperateUnit) {
-                            Text(LocalizedStringKey("Fahrenheit")).tag(TemperatureUnit.fahrenheit)
-                            Text(LocalizedStringKey("Celsius")).tag(TemperatureUnit.celsius)
-                            Text(LocalizedStringKey("All")).tag(TemperatureUnit.all)
-                        }
-                        .frame(width: 120)
+                HStack {
+                    Text(LocalizedStringKey("Unit"))
+                    Spacer()
+                    Picker("", selection: $viewModel.temperateUnit) {
+                        Text(LocalizedStringKey("Fahrenheit")).tag(TemperatureUnit.fahrenheit)
+                        Text(LocalizedStringKey("Celsius")).tag(TemperatureUnit.celsius)
+                        Text(LocalizedStringKey("All")).tag(TemperatureUnit.all)
                     }
-                    
-                    HStack {
-                        Text(LocalizedStringKey("Weather Source"))
-                        Spacer()
-                        Picker("", selection: $viewModel.weatherSource) {
-                            Text(LocalizedStringKey("Location")).tag(WeatherSource.location)
-                            Text(LocalizedStringKey("Lat/Long")).tag(WeatherSource.latLong)
-                            Text(LocalizedStringKey("Zip Code")).tag(WeatherSource.zipCode)
-                        }
-                        .frame(width: 120)
+                    .frame(width: 120)
+                }
+                
+                HStack {
+                    Text(LocalizedStringKey("Weather Source"))
+                    Spacer()
+                    Picker("", selection: $viewModel.weatherSource) {
+                        Text(LocalizedStringKey("Location")).tag(WeatherSource.location)
+                        Text(LocalizedStringKey("Lat/Long")).tag(WeatherSource.latLong)
+                        Text(LocalizedStringKey("Zip Code")).tag(WeatherSource.zipCode)
                     }
-                    HStack {
-                        Text(viewModel.weatherSourceTextHint)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        TextField(viewModel.weatherSourcePlaceholder, text: $viewModel.weatherSourceText)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .disabled(viewModel.weatherSourceTextFieldDisabled)
-                            .frame(width: 114)
+                    .frame(width: 120)
+                }
+                HStack {
+                    Text(viewModel.weatherSourceTextHint)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    TextField(viewModel.weatherSourcePlaceholder, text: $viewModel.weatherSourceText)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .disabled(viewModel.weatherSourceTextFieldDisabled)
+                        .frame(width: 114)
+                }
+                
+                HStack {
+                    Text(LocalizedStringKey("Refresh Interval"))
+                    Spacer()
+                    Picker("", selection: $viewModel.refreshInterval) {
+                        Text(LocalizedStringKey("1 min")).tag(RefreshInterval.oneMinute)
+                        Text(LocalizedStringKey("5 min")).tag(RefreshInterval.fiveMinutes)
+                        Text(LocalizedStringKey("15 min")).tag(RefreshInterval.fifteenMinutes)
+                        Text(LocalizedStringKey("30 min")).tag(RefreshInterval.thirtyMinutes)
+                        Text(LocalizedStringKey("60 min")).tag(RefreshInterval.sixtyMinutes)
                     }
-                    
-                    HStack {
-                        Text(LocalizedStringKey("Refresh Interval"))
-                        Spacer()
-                        Picker("", selection: $viewModel.refreshInterval) {
-                            Text(LocalizedStringKey("1 min")).tag(RefreshInterval.oneMinute)
-                            Text(LocalizedStringKey("5 min")).tag(RefreshInterval.fiveMinutes)
-                            Text(LocalizedStringKey("15 min")).tag(RefreshInterval.fifteenMinutes)
-                            Text(LocalizedStringKey("30 min")).tag(RefreshInterval.thirtyMinutes)
-                            Text(LocalizedStringKey("60 min")).tag(RefreshInterval.sixtyMinutes)
-                        }
-                        .frame(width: 120)
-                    }
-                    
-                    HStack {
-                        Text(LocalizedStringKey("Show Humidity"))
-                        Spacer()
-                        Toggle(isOn: $viewModel.isShowingHumidity) {}
-                            .toggleStyle(CheckboxToggleStyle())
-                    }
-                    
-                    HStack {
-                        Text(LocalizedStringKey("Round-off Data"))
-                        Spacer()
-                        Toggle(isOn: $viewModel.isRoundingOffData) {}
-                            .toggleStyle(CheckboxToggleStyle())
-                    }
-                    
-                    HStack {
-                        Text(LocalizedStringKey("Weather Condition (as text)"))
-                        Spacer()
-                        Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
-                            .toggleStyle(CheckboxToggleStyle())
-                    }
+                    .frame(width: 120)
+                }
+                
+                HStack {
+                    Text(LocalizedStringKey("Show Humidity"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.isShowingHumidity) {}
+                        .toggleStyle(CheckboxToggleStyle())
+                }
+                
+                HStack {
+                    Text(LocalizedStringKey("Round-off Data"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.isRoundingOffData) {}
+                        .toggleStyle(CheckboxToggleStyle())
+                }
+                
+                HStack {
+                    Text(LocalizedStringKey("Weather Condition (as text)"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
+                        .toggleStyle(CheckboxToggleStyle())
                 }
             }
             

@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 
 final class WeatherViewModel: WeatherViewModelType {
-    
+
     weak var delegate: WeatherViewModelDelegate?
     private let configManager: ConfigManagerType
     private let errorLabels = ErrorLabels()
@@ -25,13 +25,13 @@ final class WeatherViewModel: WeatherViewModelType {
         locationFetcher.delegate = self
         return locationFetcher
     }()
-    
+
     init(appId: String, configManager: ConfigManagerType, logger: DatWeatherDoeLoggerType) {
         self.configManager = configManager
         self.logger = logger
-        self.weatherRepository = WeatherRepository(appId: appId, logger: logger)
+        weatherRepository = WeatherRepository(appId: appId, logger: logger)
     }
-    
+
     func getUpdatedWeather() {
         weatherTimerSerialQueue.sync {
             weatherTimer?.invalidate()
@@ -42,15 +42,15 @@ final class WeatherViewModel: WeatherViewModelType {
             weatherTimer?.fire()
         }
     }
-    
+
     func updateCityWith(cityId: Int) {
         forecaster.updateCityWith(cityId: cityId)
     }
-    
+
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-    
+
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource)!
         switch weatherSource {
@@ -62,23 +62,23 @@ final class WeatherViewModel: WeatherViewModelType {
             getWeatherViaLocationCoordinates()
         }
     }
-    
+
     private func getWeatherAfterUpdatingLocation() {
         locationFetcher.startUpdatingLocation()
     }
-    
+
     private func getWeatherViaZipCode() {
         guard let zipCode = configManager.weatherSourceText else {
             delegate?.didFailToUpdateWeatherData(errorLabels.zipCodeErrorString)
             return
         }
-        
+
         weatherRepository.getWeatherViaZipCode(
             zipCode,
             options: buildWeatherDataOptions(),
             completion: { [weak self] result in
                 guard let `self` = self else { return }
-                
+
                 ZipCodeWeatherResultParser(
                     weatherDataResult: result,
                     delegate: self.delegate,
@@ -87,19 +87,19 @@ final class WeatherViewModel: WeatherViewModelType {
             }
         )
     }
-    
+
     private func getWeatherViaLocationCoordinates() {
         guard let latLong = configManager.weatherSourceText else {
             delegate?.didFailToUpdateWeatherData(errorLabels.latLongErrorString)
             return
         }
-        
+
         weatherRepository.getWeatherViaLatLong(
             latLong,
             options: buildWeatherDataOptions(),
             completion: { [weak self] result in
                 guard let `self` = self else { return }
-                
+
                 self.weatherResultParser = LocationCoordinatesWeatherResultParser(
                     weatherDataResult: result,
                     delegate: self.delegate,
@@ -109,11 +109,11 @@ final class WeatherViewModel: WeatherViewModelType {
             }
         )
     }
-    
+
     private func buildWeatherDataOptions() -> WeatherDataBuilder.Options {
         .init(textOptions: buildWeatherTextOptions())
     }
-    
+
     private func buildWeatherTextOptions() -> WeatherTextBuilder.Options {
         .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
@@ -124,7 +124,7 @@ final class WeatherViewModel: WeatherViewModelType {
             isShowingHumidity: configManager.isShowingHumidity
         )
     }
-    
+
     private func getWeatherViaLocation(_ location: CLLocationCoordinate2D) {
         weatherRepository.getWeatherViaLocation(
             location,
@@ -148,7 +148,7 @@ extension WeatherViewModel: SystemLocationFetcherDelegate {
     func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool) {
         getWeatherViaLocation(location)
     }
-    
+
     func didFailLocationUpdate() {
         delegate?.didFailToUpdateWeatherData(errorLabels.locationErrorString)
     }

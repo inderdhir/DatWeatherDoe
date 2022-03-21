@@ -21,7 +21,7 @@ enum WeatherSource: String, CaseIterable {
             return NSLocalizedString("Zip Code", comment: "Weather based on Zip Code")
         }
     }
-    
+
     var placeholder: String {
         switch self {
         case .location:
