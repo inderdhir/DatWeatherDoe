@@ -73,7 +73,7 @@ final class ConfigureViewModel: ObservableObject {
     }
     
     func saveAndCloseConfig() {
-        saveConfig(weatherSource: weatherSource, refreshInterval: refreshInterval)
+        saveConfig()
         popoverManager?.togglePopover(nil)
     }
     
@@ -86,7 +86,7 @@ final class ConfigureViewModel: ObservableObject {
         weatherSourcePlaceholder = weatherSource.placeholder
     }
     
-    private func saveConfig(weatherSource: WeatherSource, refreshInterval: RefreshInterval) {
+    private func saveConfig() {
         let configCommitter = ConfigurationCommitter(configManager: configManager)
         configCommitter.setWeatherSource(weatherSource, sourceText: weatherSourceText)
         configCommitter.setOtherOptionsForConfig(
