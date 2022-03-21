@@ -13,7 +13,6 @@ final class PopoverManager {
     
     private let popover = NSPopover()
     private let refreshCallback: () -> Void
-    private var eventMonitor: EventMonitor?
     private weak var statusBarButton: NSStatusBarButton?
     
     init(
@@ -23,9 +22,7 @@ final class PopoverManager {
     ) {
         self.statusBarButton = statusBarButton
         self.refreshCallback = refreshCallback
-        
         setupConfigurationView(configManager)
-        setupEventMonitor()
     }
     
     func togglePopover(_ sender: AnyObject?) {
@@ -46,30 +43,13 @@ final class PopoverManager {
         )
     }
     
-    private func setupEventMonitor() {
-        eventMonitor = EventMonitor(mask: .leftMouseDown) { [weak self] event in
-            self?.closePopoverwhenClickedOutside(event: event)
-        }
-        eventMonitor?.start()
-    }
-    
     private func closePopover(_ sender: AnyObject?) {
         popover.performClose(sender)
-        eventMonitor?.stop()
     }
     
     private func showPopover(_ sender: AnyObject?) {
         if let statusBarButton = statusBarButton {
             popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: .minY)
-        }
-        eventMonitor?.start()
-    }
-    
-    private func closePopoverwhenClickedOutside(event: NSEvent?) {
-        DispatchQueue.main.async { [weak self] in
-            if self?.popover.isShown == true {
-                self?.closePopover(event)
-            }
         }
     }
 }
