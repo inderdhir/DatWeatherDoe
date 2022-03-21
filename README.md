@@ -33,7 +33,6 @@ If using location, please make sure that the app has permission to access locati
 ## Developer Setup
 
 - Get your personal API key for openweathermap [here](http://openweathermap.org/appid)
-- Create a "Config.xcconfig" (Configuration Settings File) in project root. [More info here](https://nshipster.com/xcconfig/)
 - Add the following in "Config.xcconfig":
 ```
 OPENWEATHERMAP_APP_ID = YOUR_KEY
