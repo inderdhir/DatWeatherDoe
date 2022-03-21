@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import LaunchAtLogin
 
 final class ConfigureViewModel: ObservableObject {
     
@@ -43,6 +44,8 @@ final class ConfigureViewModel: ObservableObject {
     @Published var isWeatherConditionAsTextEnabled: Bool {
         didSet { configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled }
     }
+    
+    @Published var launchAtLogin = LaunchAtLogin.observable
     
     private let configManager: ConfigManagerType
     private weak var popoverManager: PopoverManager?

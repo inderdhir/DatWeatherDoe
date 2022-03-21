@@ -85,6 +85,9 @@
 /* Lat/Long error when fetching weather */
 "Lat/Long Error" = "Erreur de Lat/Lon";
 
+/* Launch app at login */
+"Launch at Login" = "Lancer à la connexion";
+
 /* Light rain weather condition */
 "Light rain" = "Pluie légère";
 

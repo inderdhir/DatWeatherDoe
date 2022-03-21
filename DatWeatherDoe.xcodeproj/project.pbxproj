@@ -80,6 +80,7 @@
 		20BBCDAD278B8B28007DEEB0 /* WeatherViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDAC278B8B28007DEEB0 /* WeatherViewModelType.swift */; };
 		20BBCDAF278B92A7007DEEB0 /* SystemLocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDAE278B92A7007DEEB0 /* SystemLocationFetcher.swift */; };
 		20CA6E11278F49AC00FFC53A /* TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */; };
+		20D4756127E83C6200EA1884 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20D4756027E83C6200EA1884 /* LaunchAtLogin */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
@@ -184,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20D4756127E83C6200EA1884 /* LaunchAtLogin in Frameworks */,
 				20012FA6267980EE00553B60 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,6 +621,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2023EDB01C4ED09C0087FD67 /* Build configuration list for PBXNativeTarget "DatWeatherDoe" */;
 			buildPhases = (
+				20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */,
 				2023ED9F1C4ED09C0087FD67 /* Sources */,
 				2023EDA01C4ED09C0087FD67 /* Frameworks */,
 				2023EDA11C4ED09C0087FD67 /* Resources */,
@@ -630,6 +633,7 @@
 			name = DatWeatherDoe;
 			packageProductDependencies = (
 				20012FA5267980EE00553B60 /* Reachability */,
+				20D4756027E83C6200EA1884 /* LaunchAtLogin */,
 			);
 			productName = SwiftWeather;
 			productReference = 2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */;
@@ -693,6 +697,7 @@
 			mainGroup = 2023ED9A1C4ED09C0087FD67;
 			packageReferences = (
 				20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */,
+				20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 2023EDA41C4ED09C0087FD67 /* Products */;
 			projectDirPath = "";
@@ -724,6 +729,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy “Launch at Login Helper”";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2023ED9F1C4ED09C0087FD67 /* Sources */ = {
@@ -1083,6 +1109,14 @@
 				version = 5.1.0;
 			};
 		};
+		20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = exactVersion;
+				version = 4.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1090,6 +1124,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
+		};
+		20D4756027E83C6200EA1884 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
