@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftUI
 
 final class PopoverManager {
     
@@ -37,9 +38,11 @@ final class PopoverManager {
     }
     
     private func setupConfigurationView(_ configManager: ConfigManagerType) {
-        popover.contentViewController = ConfigureViewController(
-            configManager: configManager,
-            popoverManager: self
+        popover.contentSize = NSSize(width: 360, height: 360)
+        popover.contentViewController = NSHostingController(
+            rootView: ConfigureView(
+                viewModel: .init(configManager: configManager, popoverManager: self)
+            )
         )
     }
     

@@ -8,12 +8,14 @@
 
 import Foundation
 
-enum RefreshInterval: TimeInterval, CaseIterable {
+enum RefreshInterval: TimeInterval, CaseIterable, Identifiable {
     case oneMinute = 60
     case fiveMinutes = 300
     case fifteenMinutes = 900
     case thirtyMinutes = 1800
     case sixtyMinutes = 3600
+    
+    var id: Self { self }
 
     var title: String {
         switch self {

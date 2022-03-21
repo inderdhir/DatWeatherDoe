@@ -26,9 +26,12 @@ final class StatusItemManager {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             
-            self.statusItem.title = weatherData.textualRepresentation
+            if let textualRepresentation = weatherData.textualRepresentation {
+                self.statusItem.button?.title = textualRepresentation
+            }
             self.statusItem.menu?.item(at: 0)?.title = self.getLocationFrom(weatherData: weatherData)
-            self.statusItem.image = self.getImageFrom(weatherData: weatherData)
+            self.statusItem.button?.image = self.getImageFrom(weatherData: weatherData)
+            self.statusItem.button?.imagePosition = .imageLeading
         }
     }
     
@@ -36,9 +39,9 @@ final class StatusItemManager {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
 
-            self.statusItem.title = error
+            self.statusItem.button?.title = error
             self.statusItem.menu?.item(at: 0)?.title = self.unknownString
-            self.statusItem.image = nil
+            self.statusItem.button?.image = nil
         }
     }
     
