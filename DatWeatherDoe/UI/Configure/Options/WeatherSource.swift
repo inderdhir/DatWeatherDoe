@@ -22,17 +22,6 @@ enum WeatherSource: String, CaseIterable {
         }
     }
     
-    var menuIndex: Int {
-        switch self {
-        case .location:
-            return 0
-        case .latLong:
-            return 1
-        case .zipCode:
-            return 2
-        }
-    }
-    
     var placeholder: String {
         switch self {
         case .location:
@@ -43,7 +32,7 @@ enum WeatherSource: String, CaseIterable {
             return "10021,us"
         }
     }
-    
+
     var textHint: String {
         switch self {
         case .location:
@@ -51,7 +40,7 @@ enum WeatherSource: String, CaseIterable {
         case .latLong:
             return NSLocalizedString(
                 "[latitude],[longitude]",
-                comment: "Placeholder hint for entering Lat/Lonet smartindent"
+                comment: "Placeholder hint for entering Lat/Long"
             )
         case .zipCode:
             return NSLocalizedString(
