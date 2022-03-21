@@ -39,7 +39,7 @@ final class SystemLocationFetcher: NSObject {
             return
         }
         
-        switch CLLocationManager.authorizationStatus() {
+        switch CLLocationManager().authorizationStatus {
         case .notDetermined:
             requestLocationPermission()
         case .authorized:
@@ -132,7 +132,7 @@ final class SystemLocationFetcher: NSObject {
 extension SystemLocationFetcher: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        let isAuthorized = CLLocationManager.authorizationStatus() == .authorized
+        let isAuthorized = CLLocationManager().authorizationStatus == .authorized
         updateLocationAfterAuthChange(isAuthorized: isAuthorized)
     }
     
