@@ -28,6 +28,8 @@
 		20459C621C5C4E2D004D0DC1 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherCondition.swift */; };
 		20459C641C5C50DA004D0DC1 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* ConfigManager.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherRepository.swift */; };
+		20538F7427E84E35007C4201 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 20538F7327E84E35007C4201 /* Reachability */; };
+		20538F7627E84E35007C4201 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20538F7527E84E35007C4201 /* LaunchAtLogin */; };
 		206523C826597B120026C506 /* WeatherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523C726597B120026C506 /* WeatherError.swift */; };
 		206523CB26597EE40026C506 /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523CA26597EE40026C506 /* TemperatureUnit.swift */; };
 		206523D62659A92B0026C506 /* WeatherDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523D52659A92B0026C506 /* WeatherDataBuilder.swift */; };
@@ -194,6 +196,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20538F7627E84E35007C4201 /* LaunchAtLogin in Frameworks */,
+				20538F7427E84E35007C4201 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,10 +602,10 @@
 		61D04A301C7B7BCF00CBE6AE /* DatWeatherDoeTests */ = {
 			isa = PBXGroup;
 			children = (
+				207E989B26838D0D00DC2162 /* DatWeatherDoe.xctestplan */,
 				2074949627A09263002AA589 /* API */,
 				20B9CDC827B8316000C42508 /* Config */,
 				20B9CDC927B8323900C42508 /* UI */,
-				207E989B26838D0D00DC2162 /* DatWeatherDoe.xctestplan */,
 				61D04A331C7B7BCF00CBE6AE /* Info.plist */,
 			);
 			path = DatWeatherDoeTests;
@@ -654,6 +658,8 @@
 			);
 			name = DatWeatherDoeTests;
 			packageProductDependencies = (
+				20538F7327E84E35007C4201 /* Reachability */,
+				20538F7527E84E35007C4201 /* LaunchAtLogin */,
 			);
 			productName = DefaultsTests;
 			productReference = 61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */;
@@ -987,7 +993,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -995,7 +1001,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe.debug;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
@@ -1012,7 +1018,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -1020,7 +1026,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
@@ -1035,6 +1041,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DatWeatherDoeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1055,6 +1062,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DatWeatherDoeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1124,6 +1132,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
+		};
+		20538F7327E84E35007C4201 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+		20538F7527E84E35007C4201 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 		20D4756027E83C6200EA1884 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
