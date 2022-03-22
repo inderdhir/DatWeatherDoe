@@ -16,6 +16,7 @@ protocol WeatherDataBuilderType: AnyObject {
 final class WeatherDataBuilder: WeatherDataBuilderType {
     
     struct Options {
+        let showWeatherIcon: Bool
         let textOptions: WeatherTextBuilder.Options
     }
     
@@ -35,6 +36,7 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
     
     func build() -> WeatherData {
         .init(
+            showWeatherIcon: options.showWeatherIcon,
             cityId: response.cityId,
             textualRepresentation: buildTextualRepresentation(),
             location: response.location,

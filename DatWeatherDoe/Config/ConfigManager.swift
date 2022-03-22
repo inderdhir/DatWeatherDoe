@@ -13,6 +13,7 @@ protocol ConfigManagerType: AnyObject {
     var weatherSource: String { get set }
     var weatherSourceText: String? { get set }
     var refreshInterval: TimeInterval { get set }
+    var isShowingWeatherIcon: Bool { get set }
     var isShowingHumidity: Bool { get set }
     var isRoundingOffData: Bool { get set }
     var isWeatherConditionAsTextEnabled: Bool { get set }
@@ -25,6 +26,7 @@ final class ConfigManager: ConfigManagerType {
         case weatherSource
         case weatherSourceText
         case refreshInterval
+        case isShowingWeatherIcon
         case isShowingHumidity
         case isRoundingOffData
         case isWeatherConditionAsTextEnabled
@@ -50,6 +52,9 @@ final class ConfigManager: ConfigManagerType {
         defaultValue: RefreshInterval.fifteenMinutes.rawValue
     )
     public var refreshInterval: TimeInterval
+    
+    @Storage(key: DefaultsKeys.isShowingWeatherIcon.rawValue, defaultValue: true)
+    public var isShowingWeatherIcon: Bool
 
     @Storage(key: DefaultsKeys.isShowingHumidity.rawValue, defaultValue: false)
     public var isShowingHumidity: Bool

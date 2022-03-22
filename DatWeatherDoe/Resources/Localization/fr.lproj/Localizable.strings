@@ -115,6 +115,9 @@
 /* Round-off Data (temperature) */
 "Round-off Data" = "Arrondir les données";
 
+/* "Show Weather Icon" */
+"Show Weather Icon" = "Afficher l'icône météo";
+
 /* Show humidity */
 "Show Humidity" = "Afficher l’humidité";
 

@@ -7,6 +7,7 @@
 //
 
 struct WeatherData {
+    let showWeatherIcon: Bool
     let cityId: Int
     let textualRepresentation: String?
     let location: String?

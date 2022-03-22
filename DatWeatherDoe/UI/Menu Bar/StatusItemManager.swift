@@ -30,8 +30,13 @@ final class StatusItemManager {
                 self.statusItem.button?.title = textualRepresentation
             }
             self.statusItem.menu?.item(at: 0)?.title = self.getLocationFrom(weatherData: weatherData)
-            self.statusItem.button?.image = self.getImageFrom(weatherData: weatherData)
-            self.statusItem.button?.imagePosition = .imageLeading
+            
+            if weatherData.showWeatherIcon {
+                self.statusItem.button?.image = self.getImageFrom(weatherData: weatherData)
+                self.statusItem.button?.imagePosition = .imageLeading
+            } else {
+                self.statusItem.button?.image = nil
+            }
         }
     }
     

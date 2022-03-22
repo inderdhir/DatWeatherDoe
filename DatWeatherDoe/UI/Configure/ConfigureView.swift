@@ -62,6 +62,13 @@ struct ConfigureView: View {
                 }
                 
                 HStack {
+                    Text(LocalizedStringKey("Show Weather Icon"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.isShowingWeatherIcon) {}
+                        .toggleStyle(CheckboxToggleStyle())
+                }
+                
+                HStack {
                     Text(LocalizedStringKey("Show Humidity"))
                     Spacer()
                     Toggle(isOn: $viewModel.isShowingHumidity) {}
