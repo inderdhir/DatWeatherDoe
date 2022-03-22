@@ -179,7 +179,6 @@
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		61D04A331C7B7BCF00CBE6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,7 +605,6 @@
 				2074949627A09263002AA589 /* API */,
 				20B9CDC827B8316000C42508 /* Config */,
 				20B9CDC927B8323900C42508 /* UI */,
-				61D04A331C7B7BCF00CBE6AE /* Info.plist */,
 			);
 			path = DatWeatherDoeTests;
 			sourceTree = "<group>";
@@ -671,7 +669,7 @@
 		2023ED9B1C4ED09C0087FD67 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
@@ -1042,12 +1040,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DatWeatherDoeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DefaultsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1063,12 +1055,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DatWeatherDoeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DefaultsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
