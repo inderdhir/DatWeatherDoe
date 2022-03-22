@@ -111,7 +111,10 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func buildWeatherDataOptions() -> WeatherDataBuilder.Options {
-        .init(textOptions: buildWeatherTextOptions())
+        .init(
+            showWeatherIcon: configManager.isShowingWeatherIcon,
+            textOptions: buildWeatherTextOptions()
+        )
     }
 
     private func buildWeatherTextOptions() -> WeatherTextBuilder.Options {

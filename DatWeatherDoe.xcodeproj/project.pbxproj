@@ -28,8 +28,6 @@
 		20459C621C5C4E2D004D0DC1 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherCondition.swift */; };
 		20459C641C5C50DA004D0DC1 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* ConfigManager.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherRepository.swift */; };
-		20538F7427E84E35007C4201 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 20538F7327E84E35007C4201 /* Reachability */; };
-		20538F7627E84E35007C4201 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20538F7527E84E35007C4201 /* LaunchAtLogin */; };
 		206523C826597B120026C506 /* WeatherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523C726597B120026C506 /* WeatherError.swift */; };
 		206523CB26597EE40026C506 /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523CA26597EE40026C506 /* TemperatureUnit.swift */; };
 		206523D62659A92B0026C506 /* WeatherDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523D52659A92B0026C506 /* WeatherDataBuilder.swift */; };
@@ -195,8 +193,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20538F7627E84E35007C4201 /* LaunchAtLogin in Frameworks */,
-				20538F7427E84E35007C4201 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,8 +652,6 @@
 			);
 			name = DatWeatherDoeTests;
 			packageProductDependencies = (
-				20538F7327E84E35007C4201 /* Reachability */,
-				20538F7527E84E35007C4201 /* LaunchAtLogin */,
 			);
 			productName = DefaultsTests;
 			productReference = 61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */;
@@ -1038,8 +1032,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DefaultsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1053,8 +1050,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DefaultsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1118,16 +1118,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
-		};
-		20538F7327E84E35007C4201 /* Reachability */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
-			productName = Reachability;
-		};
-		20538F7527E84E35007C4201 /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
 		};
 		20D4756027E83C6200EA1884 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;

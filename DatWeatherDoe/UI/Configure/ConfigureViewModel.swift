@@ -33,6 +33,10 @@ final class ConfigureViewModel: ObservableObject {
         didSet { configManager.refreshInterval = refreshInterval.rawValue }
     }
     
+    @Published var isShowingWeatherIcon: Bool {
+        didSet { configManager.isShowingWeatherIcon = isShowingWeatherIcon }
+    }
+    
     @Published var isShowingHumidity: Bool {
         didSet { configManager.isShowingHumidity = isShowingHumidity }
     }
@@ -65,6 +69,7 @@ final class ConfigureViewModel: ObservableObject {
         default: refreshInterval = .oneMinute
         }
         
+        isShowingWeatherIcon = configManager.isShowingWeatherIcon
         isShowingHumidity = configManager.isShowingHumidity
         isRoundingOffData = configManager.isRoundingOffData
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
