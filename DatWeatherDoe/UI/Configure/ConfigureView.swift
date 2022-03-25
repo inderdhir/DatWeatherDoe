@@ -102,7 +102,7 @@ struct ConfigureView: View {
             }
         }
         .padding()
-        .frame(width: 380, height: 340)
+        .frame(width: 380)
     }
 }
 
