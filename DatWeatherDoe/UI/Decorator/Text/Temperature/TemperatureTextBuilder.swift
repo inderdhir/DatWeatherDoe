@@ -46,7 +46,7 @@ final class TemperatureTextBuilder {
     }
     
     private func getFahrenheitTemperatureWithDegrees() -> String? {
-        let temperature = TemperatureConverter().convertKelvinToFahrenheit(response.temperature)
+        let temperature = TemperatureConverter().convertKelvinToFahrenheit(response.temperatureData.temperature)
         guard let temperatureString = getFormattedString(temperature: temperature) else {
             return nil
         }
@@ -58,7 +58,7 @@ final class TemperatureTextBuilder {
     }
     
     private func getCelsiusTemperatureWithDegrees() -> String? {
-        let temperature = TemperatureConverter().convertKelvinToCelsius(response.temperature)
+        let temperature = TemperatureConverter().convertKelvinToCelsius(response.temperatureData.temperature)
         guard let temperatureString = getFormattedString(temperature: temperature) else {
             return nil
         }

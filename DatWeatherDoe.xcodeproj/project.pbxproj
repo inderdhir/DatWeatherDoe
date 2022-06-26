@@ -25,6 +25,8 @@
 		202B1030278D632800ED6D42 /* WeatherAppIDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202B102F278D632800ED6D42 /* WeatherAppIDParser.swift */; };
 		202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202C31A11C528FE7003D5E5A /* EventMonitor.swift */; };
 		2030FE7E26614217002D4D45 /* DatWeatherDoeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030FE7D26614217002D4D45 /* DatWeatherDoeLogger.swift */; };
+		2044E91E2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044E91D2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift */; };
+		2044E9202867F61500AED55B /* TemperatureHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044E91F2867F61500AED55B /* TemperatureHelpers.swift */; };
 		20459C621C5C4E2D004D0DC1 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C611C5C4E2D004D0DC1 /* WeatherCondition.swift */; };
 		20459C641C5C50DA004D0DC1 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C631C5C50DA004D0DC1 /* ConfigManager.swift */; };
 		20459C661C5D24FF004D0DC1 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20459C651C5D24FF004D0DC1 /* WeatherRepository.swift */; };
@@ -114,6 +116,8 @@
 		202B102F278D632800ED6D42 /* WeatherAppIDParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppIDParser.swift; sourceTree = "<group>"; };
 		202C31A11C528FE7003D5E5A /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		2030FE7D26614217002D4D45 /* DatWeatherDoeLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatWeatherDoeLogger.swift; sourceTree = "<group>"; };
+		2044E91D2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureForecastTextBuilder.swift; sourceTree = "<group>"; };
+		2044E91F2867F61500AED55B /* TemperatureHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureHelpers.swift; sourceTree = "<group>"; };
 		20459C611C5C4E2D004D0DC1 /* WeatherCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
 		20459C631C5C50DA004D0DC1 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		20459C651C5D24FF004D0DC1 /* WeatherRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
@@ -496,6 +500,8 @@
 				20B4681A2793A7E300FC6050 /* TemperatureTextBuilder.swift */,
 				209F8A2F2790DE5B00EB5C45 /* TemperatureConverter.swift */,
 				20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */,
+				2044E91D2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift */,
+				2044E91F2867F61500AED55B /* TemperatureHelpers.swift */,
 			);
 			path = Temperature;
 			sourceTree = "<group>";
@@ -762,6 +768,7 @@
 				2077BC4F278DF88500E0453C /* WeatherConditionImageMapper.swift in Sources */,
 				2005C05D278CE0350067BBD1 /* WeatherAPIResponseParser.swift in Sources */,
 				206523DB2659CD4E0026C506 /* Storage.swift in Sources */,
+				2044E9202867F61500AED55B /* TemperatureHelpers.swift in Sources */,
 				20AF0DA827954E9D00AA7D18 /* ConfigurationCommitter.swift in Sources */,
 				20459C641C5C50DA004D0DC1 /* ConfigManager.swift in Sources */,
 				2077BC4D278DEBA300E0453C /* MenuBarManager.swift in Sources */,
@@ -793,6 +800,7 @@
 				202B1029278D5A7100ED6D42 /* WeatherForecaster.swift in Sources */,
 				206523C826597B120026C506 /* WeatherError.swift in Sources */,
 				209F8A38279136D300EB5C45 /* LocationValidator.swift in Sources */,
+				2044E91E2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift in Sources */,
 				201C6C4620262E380065E795 /* WeatherAPIResponse.swift in Sources */,
 				202B102B278D5DDC00ED6D42 /* PopoverManager.swift in Sources */,
 				2005C059278CB5FC0067BBD1 /* WeatherURLBuilder.swift in Sources */,

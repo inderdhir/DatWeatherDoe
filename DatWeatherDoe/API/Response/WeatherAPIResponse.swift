@@ -9,18 +9,42 @@
 import Foundation
 
 struct WeatherAPIResponse: Decodable {
-
     let cityId: Int
-    let temperature: Double
+    let temperatureData: TemperatureData
     let humidity: Int
     let location: String
     let weatherId: Int
     let sunrise: TimeInterval
     let sunset: TimeInterval
-
+    let windData: WindData
+    
+    struct TemperatureData: Decodable {
+        let temperature: Double
+        let feelsLikeTemperature: Double
+        let minTemperature: Double
+        let maxTemperature: Double
+        
+        private enum CodingKeys: String, CodingKey {
+            case temperature = "temp"
+            case feelsLikeTemperature = "feels_like"
+            case minTemperature = "temp_min"
+            case maxTemperature = "temp_max"
+        }
+    }
+    
+    struct WindData: Decodable {
+        let speed: Double
+        let degrees: Int
+        
+        private enum CodingKeys: String, CodingKey {
+            case speed
+            case degrees = "deg"
+        }
+    }
+    
     private enum RootKeys: String, CodingKey {
         case cityId = "id"
-        case main, weather, name, sys
+        case main, weather, humidity, name, sys, wind
     }
     
     private enum APIKeys: String, CodingKey {
@@ -37,9 +61,10 @@ struct WeatherAPIResponse: Decodable {
         let container = try decoder.container(keyedBy: RootKeys.self)
         
         cityId = try container.decode(Int.self, forKey: .cityId)
+        temperatureData = try container.decode(TemperatureData.self, forKey: .main)
 
         let mainContainer = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .main)
-        temperature = try mainContainer.decode(Double.self, forKey: .temperature)
+        
         humidity = try mainContainer.decode(Int.self, forKey: .humidity)
 
         location = try container.decode(String.self, forKey: .name)
@@ -51,5 +76,7 @@ struct WeatherAPIResponse: Decodable {
         let sysContainer = try container.nestedContainer(keyedBy: APIKeys.self, forKey: .sys)
         sunrise = try sysContainer.decode(TimeInterval.self, forKey: .sunrise)
         sunset = try sysContainer.decode(TimeInterval.self, forKey: .sunset)
+        
+        windData = try container.decode(WindData.self, forKey: .wind)
     }
 }

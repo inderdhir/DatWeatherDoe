@@ -13,7 +13,7 @@ import Foundation
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
-        
+    
     private let configManager: ConfigManagerType = ConfigManager()
     private let logger: DatWeatherDoeLoggerType = DatWeatherDoeLogger()
     private var viewModel: WeatherViewModelType!
@@ -25,12 +25,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupWeatherFetching()
         getUpdatedWeather()
     }
-        
+    
     private func setupMenuBar() {
-        menuBarManager = MenuBarManager(
-            options: buildMenuBarOptions(),
-            configManager: configManager
-        )
+        menuBarManager = MenuBarManager(options: buildMenuBarOptions(), configManager: configManager)
     }
     
     private func setupWeatherFetching() {
@@ -51,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             quitSelector: #selector(terminate)
         )
     }
-        
+    
     private func setupViewModel() {
         viewModel = WeatherViewModel(
             appId: WeatherAppIDParser().parse(),
@@ -84,7 +81,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: WeatherViewModelDelegate {
     func didUpdateWeatherData(_ data: WeatherData) {
         viewModel.updateCityWith(cityId: data.cityId)
-        menuBarManager.updateMenuBarWith(weatherData: data)
+        menuBarManager.updateMenuBarWith(
+            weatherData: data,
+            temperatureOptions: .init(
+                unit: TemperatureUnit(rawValue: configManager.temperatureUnit) ?? .fahrenheit,
+                isRoundingOff: configManager.isRoundingOffData
+            )
+        )
     }
     
     func didFailToUpdateWeatherData(_ error: String) {
