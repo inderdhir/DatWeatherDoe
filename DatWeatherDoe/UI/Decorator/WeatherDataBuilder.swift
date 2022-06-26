@@ -40,7 +40,10 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
             cityId: response.cityId,
             textualRepresentation: buildTextualRepresentation(),
             location: response.location,
-            weatherCondition: buildWeatherCondition()
+            temperatureData: response.temperatureData,
+            weatherCondition: buildWeatherCondition(),
+            windData: response.windData,
+            humidity: response.humidity
         )
     }
     

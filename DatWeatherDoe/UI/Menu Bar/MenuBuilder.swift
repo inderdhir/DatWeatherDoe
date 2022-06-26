@@ -25,13 +25,15 @@ final class MenuBuilder {
     
     func build() -> NSMenu {
         let menu = NSMenu()
-        (buildLocationOptions() + buildMainOptions()).forEach { menu.addItem($0) }
+        (buildNonInteractiveOptions() + buildMainOptions()).forEach { menu.addItem($0) }
         return menu
     }
     
-    private func buildLocationOptions() -> [NSMenuItem] {
+    private func buildNonInteractiveOptions() -> [NSMenuItem] {
         [
             buildUnknownLocationMenuItem(),
+            buildWeatherText(),
+            buildTemperatureHumidityAndWindText(),
             .separator(),
             buildSeeFullWeatherMenuItem(),
             .separator()
@@ -46,13 +48,11 @@ final class MenuBuilder {
         ]
     }
     
-    private func buildUnknownLocationMenuItem() -> NSMenuItem {
-        .init(
-            title: NSLocalizedString("Unknown Location", comment: "Unknown weather location"),
-            action: nil,
-            keyEquivalent: "L"
-        )
-    }
+    private func buildUnknownLocationMenuItem() -> NSMenuItem { emptyMenuItem() }
+    
+    private func buildWeatherText() -> NSMenuItem { emptyMenuItem() }
+    
+    private func buildTemperatureHumidityAndWindText() -> NSMenuItem { emptyMenuItem() }
     
     private func buildSeeFullWeatherMenuItem() -> NSMenuItem {
         .init(
@@ -84,5 +84,9 @@ final class MenuBuilder {
             action: options.quitSelector,
             keyEquivalent: "Q"
         )
+    }
+    
+    private func emptyMenuItem() -> NSMenuItem {
+        .init(title: "", action: nil, keyEquivalent: "")
     }
 }

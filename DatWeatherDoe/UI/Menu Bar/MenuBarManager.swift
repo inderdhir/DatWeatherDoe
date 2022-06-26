@@ -25,7 +25,10 @@ final class MenuBarManager {
     private var statusItemManager: StatusItemManager!
     private var popOverManager: PopoverManager!
     
-    init(options: MenuBarManager.Options, configManager: ConfigManagerType) {
+    init(
+        options: MenuBarManager.Options,
+        configManager: ConfigManagerType
+    ) {
         statusItemManager = StatusItemManager(
             menu: buildMenuWith(options: options),
             configureSelector: options.configureSelector
@@ -37,8 +40,14 @@ final class MenuBarManager {
         )
     }
     
-    func updateMenuBarWith(weatherData: WeatherData) {
-        statusItemManager.updateStatusItemWith(weatherData: weatherData)
+    func updateMenuBarWith(
+        weatherData: WeatherData,
+        temperatureOptions: TemperatureTextBuilder.Options
+    ) {
+        statusItemManager.updateStatusItemWith(
+            weatherData: weatherData,
+            temperatureOptions: temperatureOptions
+        )
     }
     
     func updateMenuBarWith(error: String) {
