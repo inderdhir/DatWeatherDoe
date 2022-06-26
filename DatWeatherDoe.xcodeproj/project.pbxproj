@@ -670,7 +670,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
@@ -737,7 +737,8 @@
 /* Begin PBXShellScriptBuildPhase section */
 		20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -749,7 +750,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
 		};
@@ -912,6 +913,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -965,6 +967,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -994,6 +997,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 27;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -1019,6 +1023,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 27;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -1041,6 +1046,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
@@ -1059,6 +1065,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
