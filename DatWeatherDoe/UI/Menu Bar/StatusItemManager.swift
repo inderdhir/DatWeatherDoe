@@ -15,8 +15,6 @@ final class StatusItemManager {
     private let statusItem = NSStatusBar.system.statusItem(
         withLength: NSStatusItem.variableLength
     )
-    private let locationString = "📍"
-    private let windString = "💨"
     private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
 
     init(menu: NSMenu, configureSelector: Selector) {
@@ -66,7 +64,7 @@ final class StatusItemManager {
     }
     
     private func getLocationFrom(weatherData: WeatherData) -> String {
-        [locationString, (weatherData.location ?? unknownString)].joined()
+        weatherData.location ?? unknownString
     }
     
     private func getWeatherTextFrom(
@@ -81,20 +79,16 @@ final class StatusItemManager {
     
     private func getConditionHumidityAndWindSpeedItemFrom(weatherData: WeatherData) -> String {
         let windSpeedStr = [String(weatherData.windData.speed), "m/s"].joined()
-        let windIconAndSpeedStr = [windString, windSpeedStr].joined(separator: " ")
         let windDegreesStr = [String(weatherData.windData.degrees), TemperatureHelpers.degreeString].joined()
-        let windAndDegreesStr = [windIconAndSpeedStr, windDegreesStr].joined(separator: " | ")
+        let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " | ")
         let conditionStr = WeatherConditionTextMapper().map(weatherData.weatherCondition)
         return [windAndDegreesStr, conditionStr].joined(separator: " - ")
     }
     
     private func clearNonInteractiveMenuOptions() {
         locationMenuItem?.title = unknownString
-        temperatureForecastMenuItem?.title = [
-            TemperatureForecastTextBuilder.temperatureIconStr,
-            unknownString
-        ].joined()
-        conditionMenuItem?.title = [windString, unknownString].joined()
+        temperatureForecastMenuItem?.title = unknownString
+        conditionMenuItem?.title = unknownString
     }
     
     private var locationMenuItem: NSMenuItem? { statusItem.menu?.item(at: 0) }

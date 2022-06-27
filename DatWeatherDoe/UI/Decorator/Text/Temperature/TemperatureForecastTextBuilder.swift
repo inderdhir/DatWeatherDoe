@@ -9,8 +9,6 @@
 import Foundation
 
 final class TemperatureForecastTextBuilder {
-        
-    static let temperatureIconStr = "🌡"
     
     private let temperatureData: WeatherAPIResponse.TemperatureData
     private let options: TemperatureTextBuilder.Options
@@ -25,14 +23,7 @@ final class TemperatureForecastTextBuilder {
         self.options = options
     }
     
-    func build() -> String {
-        let feelsLikeTempStr = [
-            TemperatureForecastTextBuilder.temperatureIconStr,
-            buildTemperature(temperatureData.feelsLikeTemperature)
-        ]
-            .compactMap { $0 }
-            .joined(separator: " ")
-        
+    func build() -> String {        
         let maxTempStr = [upArrowStr, buildTemperature(temperatureData.maxTemperature)]
             .compactMap { $0 }
             .joined()
@@ -43,7 +34,7 @@ final class TemperatureForecastTextBuilder {
             .compactMap { $0 }
             .joined(separator: " ")
         
-        return [feelsLikeTempStr, maxAndMinTempStr]
+        return [buildTemperature(temperatureData.feelsLikeTemperature), maxAndMinTempStr]
             .compactMap { $0 }
             .joined(separator: " - ")
     }
