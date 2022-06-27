@@ -13,7 +13,6 @@
 
 ![alt tag](screenshot_1.png)
 ![alt tag](screenshot_2.png)
-![alt tag](screenshot_3.png)
 
 ## Installation
 
