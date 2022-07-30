@@ -1,6 +1,9 @@
 # Xcode
 .DS_Store
 
+# Backup files
+*~
+
 # JetBrains
 .idea/
 
