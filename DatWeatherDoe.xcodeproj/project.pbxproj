@@ -181,6 +181,9 @@
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3EFBCE8281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		E3EFBCE9281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E3EFBCEA281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -697,6 +700,7 @@
 				en,
 				Base,
 				fr,
+				de,
 			);
 			mainGroup = 2023ED9A1C4ED09C0087FD67;
 			packageReferences = (
@@ -858,6 +862,7 @@
 			children = (
 				2023EDAB1C4ED09C0087FD67 /* Base */,
 				20B953002682DAD20016F20A /* fr */,
+				E3EFBCE8281B26AA0011DD54 /* de */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -867,6 +872,7 @@
 			children = (
 				20B952FB2682DAD20016F20A /* fr */,
 				20B953022682DCFF0016F20A /* en */,
+				E3EFBCEA281B26AA0011DD54 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 			children = (
 				20B952FE2682DAD20016F20A /* fr */,
 				20B953012682DCFF0016F20A /* en */,
+				E3EFBCE9281B26AA0011DD54 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
