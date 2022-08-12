@@ -20,6 +20,16 @@ final class StatusItemManager {
     init(menu: NSMenu, configureSelector: Selector) {
         statusItem.menu = menu
         statusItem.button?.action = configureSelector
+
+        // Category icons in dropdown menu
+        locationMenuItem?.image = WeatherConditionImageMapper().map(.location)
+        temperatureForecastMenuItem?.image = WeatherConditionImageMapper().map(.thermometer)
+        windMenuItem?.image = WeatherConditionImageMapper().map(.windy)
+        // By making the images "templates", macOS knows to adjust the image color based on
+        // the desktop settings (light, dark), so they remain visible either way.
+        locationMenuItem?.image?.isTemplate = true
+        temperatureForecastMenuItem?.image?.isTemplate = true
+        windMenuItem?.image?.isTemplate = true
     }
     
     func updateStatusItemWith(

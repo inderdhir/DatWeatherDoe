@@ -30,7 +30,12 @@ enum WeatherCondition {
     case partlyCloudyRain
 
     case thunderstorm
-    
+
+    // Used as decoration in the dropdown and not for weather conditions
+    case location
+    case thermometer
+    case windy
+
     static func getFallback(isNight: Bool) -> WeatherCondition {
         isNight ? .clearNight : .sunny
     }

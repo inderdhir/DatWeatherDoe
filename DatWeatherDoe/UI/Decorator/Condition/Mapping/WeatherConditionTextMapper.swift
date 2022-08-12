@@ -41,6 +41,13 @@ final class WeatherConditionTextMapper {
        
         case .thunderstorm:
             return NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
+
+        case .location:
+            return NSLocalizedString("Location", comment: "Location")
+        case .thermometer:
+            return NSLocalizedString("Thermometer", comment: "Thermometer")
+        case .windy:
+            return NSLocalizedString("Windy", comment: "Windy")
         }
     }
 }
