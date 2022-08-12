@@ -39,12 +39,15 @@ final class StatusItemManager {
                 self.statusItem.button?.image = nil
             }
             
-            self.locationMenuItem?.title = self.getLocationFrom(weatherData: weatherData)
+            self.locationMenuItem?.title = [self.getLocationFrom(weatherData: weatherData),
+                                            self.getConditionItemFrom(
+                                                weatherData: weatherData)].joined(separator: " - ")
             self.temperatureForecastMenuItem?.title = self.getWeatherTextFrom(
                 weatherData: weatherData,
                 temperatureOptions: temperatureOptions
             )
-            self.conditionMenuItem?.title = self.getConditionHumidityAndWindSpeedItemFrom(weatherData: weatherData)
+            self.windMenuItem?.title = self.getWindSpeedItemFrom(
+                weatherData: weatherData)
         }
     }
     
@@ -76,22 +79,25 @@ final class StatusItemManager {
             options: temperatureOptions
         ).build()
     }
-    
-    private func getConditionHumidityAndWindSpeedItemFrom(weatherData: WeatherData) -> String {
+
+    private func getConditionItemFrom(weatherData: WeatherData) -> String {
+        return WeatherConditionTextMapper().map(weatherData.weatherCondition)
+    }
+
+    private func getWindSpeedItemFrom(weatherData: WeatherData) -> String {
         let windSpeedStr = [String(weatherData.windData.speed), "m/s"].joined()
         let windDegreesStr = [String(weatherData.windData.degrees), TemperatureHelpers.degreeString].joined()
-        let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " | ")
-        let conditionStr = WeatherConditionTextMapper().map(weatherData.weatherCondition)
-        return [windAndDegreesStr, conditionStr].joined(separator: " - ")
+        let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " - ")
+        return windAndDegreesStr
     }
-    
+
     private func clearNonInteractiveMenuOptions() {
         locationMenuItem?.title = unknownString
         temperatureForecastMenuItem?.title = unknownString
-        conditionMenuItem?.title = unknownString
+        windMenuItem?.title = unknownString
     }
     
     private var locationMenuItem: NSMenuItem? { statusItem.menu?.item(at: 0) }
     private var temperatureForecastMenuItem: NSMenuItem? { statusItem.menu?.item(at: 1) }
-    private var conditionMenuItem: NSMenuItem? { statusItem.menu?.item(at: 2) }
+    private var windMenuItem: NSMenuItem? { statusItem.menu?.item(at: 2) }
 }
