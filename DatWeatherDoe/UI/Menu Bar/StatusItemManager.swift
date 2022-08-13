@@ -24,11 +24,13 @@ final class StatusItemManager {
         // Category icons in dropdown menu
         locationMenuItem?.image = WeatherConditionImageMapper().map(.location)
         temperatureForecastMenuItem?.image = WeatherConditionImageMapper().map(.thermometer)
+        sunRiseSetMenuItem?.image = WeatherConditionImageMapper().map(.sunny)
         windMenuItem?.image = WeatherConditionImageMapper().map(.windy)
         // By making the images "templates", macOS knows to adjust the image color based on
         // the desktop settings (light, dark), so they remain visible either way.
         locationMenuItem?.image?.isTemplate = true
         temperatureForecastMenuItem?.image?.isTemplate = true
+        sunRiseSetMenuItem?.image?.isTemplate = true
         windMenuItem?.image?.isTemplate = true
     }
     
@@ -56,6 +58,8 @@ final class StatusItemManager {
                 weatherData: weatherData,
                 temperatureOptions: temperatureOptions
             )
+            self.sunRiseSetMenuItem?.title = self.getSunRiseSetFrom(
+                weatherData: weatherData)
             self.windMenuItem?.title = self.getWindSpeedItemFrom(
                 weatherData: weatherData)
         }
@@ -90,6 +94,13 @@ final class StatusItemManager {
         ).build()
     }
 
+    private func getSunRiseSetFrom(weatherData: WeatherData) -> String {
+        RiseSetTextBuilder(
+            sunset: weatherData.sunset,
+            sunrise: weatherData.sunrise
+        ).build()
+    }
+
     private func getConditionItemFrom(weatherData: WeatherData) -> String {
         return WeatherConditionTextMapper().map(weatherData.weatherCondition)
     }
@@ -106,10 +117,12 @@ final class StatusItemManager {
     private func clearNonInteractiveMenuOptions() {
         locationMenuItem?.title = unknownString
         temperatureForecastMenuItem?.title = unknownString
+        sunRiseSetMenuItem?.title = unknownString
         windMenuItem?.title = unknownString
     }
     
     private var locationMenuItem: NSMenuItem? { statusItem.menu?.item(at: 0) }
     private var temperatureForecastMenuItem: NSMenuItem? { statusItem.menu?.item(at: 1) }
-    private var windMenuItem: NSMenuItem? { statusItem.menu?.item(at: 2) }
+    private var sunRiseSetMenuItem: NSMenuItem? { statusItem.menu?.item(at: 2) }
+    private var windMenuItem: NSMenuItem? { statusItem.menu?.item(at: 3) }
 }

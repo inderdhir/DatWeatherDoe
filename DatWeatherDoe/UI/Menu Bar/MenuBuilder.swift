@@ -33,6 +33,7 @@ final class MenuBuilder {
         [
             buildUnknownLocationMenuItem(),
             buildWeatherText(),
+            buildSunRiseSetText(),
             buildTemperatureHumidityAndWindText(),
             .separator(),
             buildSeeFullWeatherMenuItem(),
@@ -52,6 +53,8 @@ final class MenuBuilder {
     
     private func buildWeatherText() -> NSMenuItem { emptyMenuItem() }
     
+    private func buildSunRiseSetText() -> NSMenuItem { emptyMenuItem() }
+
     private func buildTemperatureHumidityAndWindText() -> NSMenuItem { emptyMenuItem() }
     
     private func buildSeeFullWeatherMenuItem() -> NSMenuItem {
