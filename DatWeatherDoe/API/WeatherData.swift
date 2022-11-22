@@ -6,6 +6,8 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
+import Foundation
+
 struct WeatherData {
     let showWeatherIcon: Bool
     let cityId: Int
@@ -15,4 +17,6 @@ struct WeatherData {
     let weatherCondition: WeatherCondition
     let windData: WeatherAPIResponse.WindData
     let humidity: Int
+    let sunrise: TimeInterval
+    let sunset: TimeInterval
 }
