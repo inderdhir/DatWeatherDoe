@@ -84,6 +84,7 @@
 		20CA6E11278F49AC00FFC53A /* TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */; };
 		20D4756127E83C6200EA1884 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20D4756027E83C6200EA1884 /* LaunchAtLogin */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
+		E35BF5F2292C202900F4A412 /* WindDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BF5F1292C202900F4A412 /* WindDirection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,7 @@
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E35BF5F1292C202900F4A412 /* WindDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirection.swift; sourceTree = "<group>"; };
 		E3EFBCE8281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		E3EFBCE9281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E3EFBCEA281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				2005C054278CB4E40067BBD1 /* WeatherValidatorType.swift */,
 				20F17D3926597A02003A164E /* WeatherData.swift */,
 				206523C726597B120026C506 /* WeatherError.swift */,
+				E35BF5F1292C202900F4A412 /* WindDirection.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -819,6 +822,7 @@
 				20F17D3A26597A02003A164E /* WeatherData.swift in Sources */,
 				202B1015278D46AB00ED6D42 /* WeatherConditionBuilder.swift in Sources */,
 				206523CB26597EE40026C506 /* TemperatureUnit.swift in Sources */,
+				E35BF5F2292C202900F4A412 /* WindDirection.swift in Sources */,
 				20B4680E27938B0600FC6050 /* StatusItemManager.swift in Sources */,
 				20AF0DA1279532B700AA7D18 /* ZipCodeWeatherResultParser.swift in Sources */,
 				2030FE7E26614217002D4D45 /* DatWeatherDoeLogger.swift in Sources */,
