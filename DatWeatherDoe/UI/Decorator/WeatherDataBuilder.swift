@@ -43,7 +43,9 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
             temperatureData: response.temperatureData,
             weatherCondition: buildWeatherCondition(),
             windData: response.windData,
-            humidity: response.humidity
+            humidity: response.humidity,
+            sunrise: response.sunrise,
+            sunset: response.sunset
         )
     }
     
