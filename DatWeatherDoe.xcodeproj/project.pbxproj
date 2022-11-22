@@ -84,7 +84,10 @@
 		20CA6E11278F49AC00FFC53A /* TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */; };
 		20D4756127E83C6200EA1884 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20D4756027E83C6200EA1884 /* LaunchAtLogin */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
+		E3105BA62818805A00FB4C55 /* RiseSetTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3105BA52818805A00FB4C55 /* RiseSetTextBuilder.swift */; };
 		E35BF5F2292C202900F4A412 /* WindDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BF5F1292C202900F4A412 /* WindDirection.swift */; };
+		E3BE2C91292C505A00C4F468 /* DropdownIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BE2C90292C505A00C4F468 /* DropdownIcons.swift */; };
+		E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,7 +185,10 @@
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3105BA52818805A00FB4C55 /* RiseSetTextBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiseSetTextBuilder.swift; sourceTree = "<group>"; };
 		E35BF5F1292C202900F4A412 /* WindDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirection.swift; sourceTree = "<group>"; };
+		E3BE2C90292C505A00C4F468 /* DropdownIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIcons.swift; sourceTree = "<group>"; };
+		E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIconMapper.swift; sourceTree = "<group>"; };
 		E3EFBCE8281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		E3EFBCE9281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E3EFBCEA281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -291,6 +297,8 @@
 				2077BC4C278DEBA300E0453C /* MenuBarManager.swift */,
 				202B1023278D514E00ED6D42 /* MenuBuilder.swift */,
 				20B4680D27938B0600FC6050 /* StatusItemManager.swift */,
+				E3BE2C90292C505A00C4F468 /* DropdownIcons.swift */,
+				E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */,
 			);
 			path = "Menu Bar";
 			sourceTree = "<group>";
@@ -785,6 +793,7 @@
 				20B468122793940300FC6050 /* Date+Night.swift in Sources */,
 				2078C2E42794BDF200946880 /* LocationWeatherURLBuilder.swift in Sources */,
 				2078C2E22794B0F700946880 /* WeatherRepositoryInput.swift in Sources */,
+				E3BE2C91292C505A00C4F468 /* DropdownIcons.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
 				202B1030278D632800ED6D42 /* WeatherAppIDParser.swift in Sources */,
 				209F8A4127915DBC00EB5C45 /* LocationCoordinatesWeatherRepository.swift in Sources */,
@@ -812,6 +821,7 @@
 				201C6C4620262E380065E795 /* WeatherAPIResponse.swift in Sources */,
 				202B102B278D5DDC00ED6D42 /* PopoverManager.swift in Sources */,
 				2005C059278CB5FC0067BBD1 /* WeatherURLBuilder.swift in Sources */,
+				E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */,
 				209F8A3B279145D200EB5C45 /* ZipCodeWeatherRepository.swift in Sources */,
 				20B46817279396BE00FC6050 /* ForwardPipe.swift in Sources */,
 				20B46810279392B200FC6050 /* WeatherSmokyConditionBuilder.swift in Sources */,
