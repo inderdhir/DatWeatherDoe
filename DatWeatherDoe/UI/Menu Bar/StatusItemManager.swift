@@ -87,8 +87,10 @@ final class StatusItemManager {
     private func getWindSpeedItemFrom(weatherData: WeatherData) -> String {
         let windSpeedStr = [String(weatherData.windData.speed), "m/s"].joined()
         let windDegreesStr = [String(weatherData.windData.degrees), TemperatureHelpers.degreeString].joined()
+        let windDirectionStr = ["(", WindDirection.getDirectionStr(weatherData), ")"].joined()
         let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " - ")
-        return windAndDegreesStr
+        let windFullStr = [windAndDegreesStr, windDirectionStr].joined(separator: " ")
+        return windFullStr
     }
 
     private func clearNonInteractiveMenuOptions() {
