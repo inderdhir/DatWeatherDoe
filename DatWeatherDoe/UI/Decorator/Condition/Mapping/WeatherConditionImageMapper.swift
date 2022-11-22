@@ -46,6 +46,7 @@ final class WeatherConditionImageMapper {
 
         case .thunderstorm:
             imageString = "Thunderstorm"
+
         }
         
         return NSImage(named: imageString)

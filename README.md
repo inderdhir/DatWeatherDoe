@@ -54,3 +54,6 @@ Please see CONTRIBUTING.md
 - [Tornado]("https://icons8.com/icon/5427/tornado") icon by [Icons8](https://icons8.com")
 - [Windy]("https://icons8.com/icon/OPZd6P2bN55f/windy") icon by [Icons8](https://icons8.com")
 - [Dust]("https://icons8.com/icon/NBYWjJpiGsTz/dust") icon by [Icons8](https://icons8.com")
+- [Location]("https://www.iconpacks.net/free-icon/location-2950.html") icon by [IconPacks]("https://www.iconpacks.net")
+- [Thermometer]("https://www.iconpacks.net/free-icon/thermometer-1829.html") icon by [IconPacks]("https://www.iconpacks.net")
+- [Wind]("https://www.iconpacks.net/free-icon/cooling-symbol-3340.html") icon by [IconPacks]("https://www.iconpacks.net")

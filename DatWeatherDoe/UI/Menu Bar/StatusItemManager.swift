@@ -18,8 +18,23 @@ final class StatusItemManager {
     private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
 
     init(menu: NSMenu, configureSelector: Selector) {
+        let iconMapper = DropdownIconMapper()
+
         statusItem.menu = menu
         statusItem.button?.action = configureSelector
+
+        // Set up the icons in dropdown menu. By making the images "templates",
+        // macOS knows to adjust the image colour based on the desktop settings
+        // (light, dark), so they remain visible either way.
+
+        locationMenuItem?.image = iconMapper.map(.location)
+        locationMenuItem?.image?.isTemplate = true
+
+        temperatureForecastMenuItem?.image = iconMapper.map(.thermometer)
+        temperatureForecastMenuItem?.image?.isTemplate = true
+
+        windMenuItem?.image = iconMapper.map(.wind)
+        windMenuItem?.image?.isTemplate = true
     }
     
     func updateStatusItemWith(
