@@ -87,43 +87,43 @@ class WindDirection {
     }
 
     class func getDirectionStr(_ weather: WeatherData) -> String {
-        var ret: String
+        let windDirection: String
 
         switch getDirection(weather) {
         case .north:
-            ret = "N"
+            windDirection = "N"
         case .northNorthEast:
-            ret = "NNE"
+            windDirection = "NNE"
         case .northEast:
-            ret = "NE"
+            windDirection = "NE"
         case .eastNorthEast:
-            ret = "ENE"
+            windDirection = "ENE"
         case .east:
-            ret = "E"
+            windDirection = "E"
         case .eastSouthEast:
-            ret = "ESE"
+            windDirection = "ESE"
         case .southEast:
-            ret = "SE"
+            windDirection = "SE"
         case .southSouthEast:
-            ret = "SSE"
+            windDirection = "SSE"
         case .south:
-            ret = "S"
+            windDirection = "S"
         case .southSouthWest:
-            ret = "SSW"
+            windDirection = "SSW"
         case .southWest:
-            ret = "SW"
+            windDirection = "SW"
         case .westSouthWest:
-            ret = "WSW"
+            windDirection = "WSW"
         case .west:
-            ret = "W"
+            windDirection = "W"
         case .westNorthWest:
-            ret = "WNW"
+            windDirection = "WNW"
         case .northWest:
-            ret = "NW"
+            windDirection = "NW"
         case .northNorthWest:
-            ret = "NNW"
+            windDirection = "NNW"
         }
 
-        return NSLocalizedString(ret, comment: "Wind Direction")
+        return NSLocalizedString(windDirection, comment: "Wind Direction")
     }
 }

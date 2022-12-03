@@ -9,38 +9,41 @@
 import Cocoa
 
 final class MenuBuilder {
-    
+
     struct Options {
         let seeFullWeatherSelector: Selector
         let refreshSelector: Selector
         let configureSelector: Selector
         let quitSelector: Selector
     }
-    
+
     private let options: MenuBuilder.Options
-    
+
     init(options: MenuBuilder.Options) {
         self.options = options
     }
-    
+
     func build() -> NSMenu {
         let menu = NSMenu()
         (buildNonInteractiveOptions() + buildMainOptions()).forEach { menu.addItem($0) }
         return menu
     }
-    
+
     private func buildNonInteractiveOptions() -> [NSMenuItem] {
         [
             buildUnknownLocationMenuItem(),
             buildWeatherText(),
             buildSunRiseSunSetText(),
             buildTemperatureHumidityAndWindText(),
+
             .separator(),
+
             buildSeeFullWeatherMenuItem(),
+
             .separator()
         ]
     }
-    
+
     private func buildMainOptions() -> [NSMenuItem] {
         [
             buildRefreshMenuItem(),
@@ -48,15 +51,15 @@ final class MenuBuilder {
             buildQuitMenuItem()
         ]
     }
-    
+
     private func buildUnknownLocationMenuItem() -> NSMenuItem { emptyMenuItem() }
-    
+
     private func buildWeatherText() -> NSMenuItem { emptyMenuItem() }
-    
+
     private func buildSunRiseSunSetText() -> NSMenuItem { emptyMenuItem() }
 
     private func buildTemperatureHumidityAndWindText() -> NSMenuItem { emptyMenuItem() }
-    
+
     private func buildSeeFullWeatherMenuItem() -> NSMenuItem {
         .init(
             title: NSLocalizedString("See Full Weather", comment: "See Full Weather"),
@@ -64,7 +67,7 @@ final class MenuBuilder {
             keyEquivalent: "F"
         )
     }
-    
+
     private func buildRefreshMenuItem() -> NSMenuItem {
         .init(
             title: NSLocalizedString("Refresh", comment: "Refresh weather"),
@@ -72,7 +75,7 @@ final class MenuBuilder {
             keyEquivalent: "R"
         )
     }
-    
+
     private func buildConfigureMenuItem() -> NSMenuItem {
         .init(
             title: NSLocalizedString("Configure", comment: "Configure app"),
@@ -80,7 +83,7 @@ final class MenuBuilder {
             keyEquivalent: "C"
         )
     }
-    
+
     private func buildQuitMenuItem() -> NSMenuItem {
         .init(
             title: NSLocalizedString("Quit", comment: "Quit app"),
@@ -88,7 +91,7 @@ final class MenuBuilder {
             keyEquivalent: "Q"
         )
     }
-    
+
     private func emptyMenuItem() -> NSMenuItem {
         .init(title: "", action: nil, keyEquivalent: "")
     }

@@ -9,44 +9,28 @@
 import AppKit
 
 final class StatusItemManager {
-    
+
     var button: NSStatusBarButton? { statusItem.button }
-    
+
     private let statusItem = NSStatusBar.system.statusItem(
         withLength: NSStatusItem.variableLength
     )
     private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
 
     init(menu: NSMenu, configureSelector: Selector) {
-        let iconMapper = DropdownIconMapper()
-
         statusItem.menu = menu
         statusItem.button?.action = configureSelector
 
-        // Set up the icons in dropdown menu. By making the images "templates",
-        // macOS knows to adjust the image colour based on the desktop settings
-        // (light, dark), so they remain visible either way.
-
-        locationMenuItem?.image = iconMapper.map(.location)
-        locationMenuItem?.image?.isTemplate = true
-
-        temperatureForecastMenuItem?.image = iconMapper.map(.thermometer)
-        temperatureForecastMenuItem?.image?.isTemplate = true
-
-        sunRiseSetMenuItem?.image = iconMapper.map(.sun)
-        sunRiseSetMenuItem?.image?.isTemplate = true
-
-        windMenuItem?.image = iconMapper.map(.wind)
-        windMenuItem?.image?.isTemplate = true
+        setupDropdownMenu()
     }
-    
+
     func updateStatusItemWith(
         weatherData: WeatherData,
         temperatureOptions: TemperatureTextBuilder.Options
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
-            
+
             if let textualRepresentation = weatherData.textualRepresentation {
                 self.statusItem.button?.title = textualRepresentation
             }
@@ -56,7 +40,7 @@ final class StatusItemManager {
             } else {
                 self.statusItem.button?.image = nil
             }
-            
+
             self.locationMenuItem?.title = [self.getLocationFrom(weatherData: weatherData),
                                             self.getConditionItemFrom(
                                                 weatherData: weatherData)].joined(separator: " - ")
@@ -70,7 +54,7 @@ final class StatusItemManager {
                 weatherData: weatherData)
         }
     }
-    
+
     func updateStatusItemWith(error: String) {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.button?.title = error
@@ -79,17 +63,37 @@ final class StatusItemManager {
             self?.clearNonInteractiveMenuOptions()
         }
     }
-    
+
+    private func setupDropdownMenu() {
+        // By making the images "templates",
+        // macOS knows to adjust the image colour based on the desktop settings
+        // (light, dark), so they remain visible either way.
+
+        let iconMapper = DropdownIconMapper()
+
+        locationMenuItem?.image = iconMapper.map(.location)
+        locationMenuItem?.image?.isTemplate = true
+
+        temperatureForecastMenuItem?.image = iconMapper.map(.thermometer)
+        temperatureForecastMenuItem?.image?.isTemplate = true
+
+        sunRiseSetMenuItem?.image = iconMapper.map(.sun)
+        sunRiseSetMenuItem?.image?.isTemplate = true
+
+        windMenuItem?.image = iconMapper.map(.wind)
+        windMenuItem?.image?.isTemplate = true
+    }
+
     private func getImageFrom(weatherData: WeatherData) -> NSImage? {
         let image = WeatherConditionImageMapper().map(weatherData.weatherCondition)
         image?.isTemplate = true
         return image
     }
-    
+
     private func getLocationFrom(weatherData: WeatherData) -> String {
         weatherData.location ?? unknownString
     }
-    
+
     private func getWeatherTextFrom(
         weatherData: WeatherData,
         temperatureOptions: TemperatureTextBuilder.Options
@@ -101,7 +105,7 @@ final class StatusItemManager {
     }
 
     private func getSunRiseSetFrom(weatherData: WeatherData) -> String {
-        RiseSetTextBuilder(
+        SunriseAndSunsetTextBuilder(
             sunset: weatherData.sunset,
             sunrise: weatherData.sunrise
         ).build()
@@ -126,7 +130,7 @@ final class StatusItemManager {
         sunRiseSetMenuItem?.title = unknownString
         windMenuItem?.title = unknownString
     }
-    
+
     private var locationMenuItem: NSMenuItem? { statusItem.menu?.item(at: 0) }
     private var temperatureForecastMenuItem: NSMenuItem? { statusItem.menu?.item(at: 1) }
     private var sunRiseSetMenuItem: NSMenuItem? { statusItem.menu?.item(at: 2) }

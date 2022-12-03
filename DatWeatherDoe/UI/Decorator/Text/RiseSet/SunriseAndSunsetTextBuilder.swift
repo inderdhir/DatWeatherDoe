@@ -1,5 +1,5 @@
 //
-//  RiseSetTextBuilder.swift
+//  SunriseAndSunsetTextBuilder.swift
 //  DatWeatherDoe
 //
 //  Created by Markus Markus on 2022-07-26.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class RiseSetTextBuilder {
+final class SunriseAndSunsetTextBuilder {
 
     private let sunset: TimeInterval
     private let sunrise: TimeInterval
@@ -31,8 +31,8 @@ final class RiseSetTextBuilder {
     private func buildRiseSet() -> String {
         let sunRiseText = buildFormattedString(ts: sunrise)
         let sunSetText = buildFormattedString(ts: sunset)
-        let ret = "\(upArrowStr)\(sunRiseText) \(downArrowStr)\(sunSetText)"
-        return ret
+        let sunriseAndSunsetString = "\(upArrowStr)\(sunRiseText) \(downArrowStr)\(sunSetText)"
+        return sunriseAndSunsetString
     }
 
     private func buildFormattedString(ts: TimeInterval) -> String {
