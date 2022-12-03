@@ -12,20 +12,15 @@ import AppKit
 enum WeatherCondition {
     case cloudy
 
-    case partlyCloudy
-    case partlyCloudyNight
-    
-    case sunny
-    case clearNight
-    
+    case partlyCloudy, partlyCloudyNight
+    case sunny, clearNight
+
     case smoky(condition: SmokyWeatherCondition)
 
     case snow
-    
+
     case heavyRain
-
     case freezingRain
-
     case lightRain
     case partlyCloudyRain
 
