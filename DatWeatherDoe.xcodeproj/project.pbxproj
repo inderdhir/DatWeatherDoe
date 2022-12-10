@@ -185,6 +185,9 @@
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D14D8DEE29450090006BC780 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		D14D8DEF29450090006BC780 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D14D8DF029450090006BC780 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SunriseAndSunsetTextBuilder.swift; sourceTree = "<group>"; };
 		E35BF5F1292C202900F4A412 /* WindDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirection.swift; sourceTree = "<group>"; };
 		E3BE2C90292C505A00C4F468 /* DropdownIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIcons.swift; sourceTree = "<group>"; };
@@ -721,6 +724,7 @@
 				Base,
 				fr,
 				de,
+				it,
 			);
 			mainGroup = 2023ED9A1C4ED09C0087FD67;
 			packageReferences = (
@@ -887,6 +891,7 @@
 				2023EDAB1C4ED09C0087FD67 /* Base */,
 				20B953002682DAD20016F20A /* fr */,
 				E3EFBCE8281B26AA0011DD54 /* de */,
+				D14D8DEE29450090006BC780 /* it */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -897,6 +902,7 @@
 				20B952FB2682DAD20016F20A /* fr */,
 				20B953022682DCFF0016F20A /* en */,
 				E3EFBCEA281B26AA0011DD54 /* de */,
+				D14D8DF029450090006BC780 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -907,6 +913,7 @@
 				20B952FE2682DAD20016F20A /* fr */,
 				20B953012682DCFF0016F20A /* en */,
 				E3EFBCE9281B26AA0011DD54 /* de */,
+				D14D8DEF29450090006BC780 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
