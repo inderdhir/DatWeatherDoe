@@ -36,5 +36,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>OPENWEATHERMAP_APP_ID</key>
+	<string>${OPENWEATHERMAP_APP_ID}</string>
 </dict>
 </plist>

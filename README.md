@@ -9,11 +9,10 @@
 
 ✅ Dark mode support
 
-✅ Supports macOS 10.12+
+✅ Supports macOS 11+
 
 ![alt tag](screenshot_1.png)
 ![alt tag](screenshot_2.png)
-![alt tag](screenshot_3.png)
 
 ## Installation
 
@@ -23,7 +22,7 @@
 
 ## Using Location Services
 
-If using location, please make sure that the app has permission to access location services on MacOS.
+If using location, please make sure that the app has permission to access location services on macOS.
 
 `System Preferences > Security & Privacy > Privacy > Location Services`
 
@@ -32,14 +31,17 @@ If using location, please make sure that the app has permission to access locati
 
 ## Developer Setup
 
-- Get your personal API key for openweathermap here: http://openweathermap.org/appid 
-- Set the value of "OPENWEATHERMAP_APP_ID" to your key in `DatWeatherDoe/Resources/Keys.plist`. 
+- Get your personal API key for openweathermap [here](http://openweathermap.org/appid)
+- Add the following in "Config.xcconfig":
+```
+OPENWEATHERMAP_APP_ID = YOUR_KEY
+```
 
 ## Donate
 
 Buy me a coffee to support the development of this project.
 
-<a href="https://www.buymeacoffee.com/inderdhir"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=inderdhir&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"></a>
+<a href="https://www.buymeacoffee.com/inderdhir"><img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=inderdhir&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"></a>
 
 ## Contribute
 
@@ -49,3 +51,9 @@ Please see CONTRIBUTING.md
 
 - [Moon and Stars]("https://icons8.com/icon/11377/moon-and-stars") icon by [Icons8](https://icons8.com")
 - [Night]("https://icons8.com/icon/660/night") icon by [Icons8](https://icons8.com")
+- [Tornado]("https://icons8.com/icon/5427/tornado") icon by [Icons8](https://icons8.com")
+- [Windy]("https://icons8.com/icon/OPZd6P2bN55f/windy") icon by [Icons8](https://icons8.com")
+- [Dust]("https://icons8.com/icon/NBYWjJpiGsTz/dust") icon by [Icons8](https://icons8.com")
+- [Location]("https://www.iconpacks.net/free-icon/location-2950.html") icon by [IconPacks]("https://www.iconpacks.net")
+- [Thermometer]("https://www.iconpacks.net/free-icon/thermometer-1829.html") icon by [IconPacks]("https://www.iconpacks.net")
+- [Wind]("https://www.iconpacks.net/free-icon/cooling-symbol-3340.html") icon by [IconPacks]("https://www.iconpacks.net")

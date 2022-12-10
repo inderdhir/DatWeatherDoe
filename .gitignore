@@ -1,6 +1,12 @@
 # Xcode
 .DS_Store
 
+# Backup files
+*~
+
+# JetBrains
+.idea/
+
 ## Build generated
 build/
 DerivedData
@@ -50,3 +56,6 @@ Podfile.lock
 
 # Keys
 DatWeatherDoe/Resources/Keys.plist
+
+# Secrets
+Config.xcconfig

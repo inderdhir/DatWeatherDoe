@@ -1,0 +1,167 @@
+/* Unknown weather location */
+"Unknown Location" = "Unbekannte Position";
+
+/* See Full Weather */
+"See Full Weather" = "Komplettes Wetter anzeigen";
+
+/* Refresh weather */
+"Refresh" = "Aktualisieren";
+
+/* Configure app */
+"Configure" = "Konfigurieren";
+
+/* Quit app */
+"Quit" = "Beenden";
+
+/* 1 min refresh interval */
+"1 min" = "1 Min";
+
+/* 15 min refresh interval */
+"15 min" = "15 Min";
+
+/* 30 min refresh interval */
+"30 min" = "30 Min";
+
+/* 5 min refresh interval */
+"5 min" = "5 Min";
+
+/* 60 min refresh interval */
+"60 min" = "60 Min";
+
+/* Placeholder hint for entering Lat/Long */
+"[latitude],[longitude]" = "[Breite],[Länge]";
+
+/* Placeholder hint for entering zip code */
+"[zipcode],[iso 3166 country code]" = "[PLZ],[ISO 3166 Länderkennung]";
+
+/* Show all temperature units */
+"All" = "Alle";
+
+/* Cloudy weather condition */
+"Cloudy" = "Bedeckt";
+
+/* Partly cloudy weather condition */
+"Partly cloudy" = "Wolkig";
+
+/* Sunny weather condition */
+"Sunny" = "Sonnig";
+
+/* Clear at night weather condition */
+"Clear" = "Klar";
+
+/* Tornado weather condition */
+"Tornado" = "Tornado";
+
+/* Squall weather condition */
+"Squall" = "Böen";
+
+/* Ash weather condition */
+"Ash" = "Asche";
+
+/* Dust weather condition */
+"Dust" = "Staub";
+
+/* Sand weather condition */
+"Sand" = "Sand";
+
+/* Fog weather condition */
+"Fog" = "Nebel";
+
+/* Sand/Dust Whirls weather condition */
+"Sand/Dust Whirls" = "Sand-/Staubwirbel";
+
+/* Haze weather condition */
+"Haze" = "Dunst";
+
+/* Smoke weather condition */
+"Smoke" = "Rauch";
+
+/* Mist weather condition */
+"Mist" = "Feuchter Nebel";
+
+/* Snow weather condition */
+"Snow" = "Schnee";
+
+/* Heavy rain weather condition */
+"Heavy rain" = "Starkregen";
+
+/* Freezing rain weather condition */
+"Freezing rain" = "Gefrierender Regen";
+
+/* Light rain weather condition */
+"Light rain" = "Leichter Regen";
+
+/* Partly cloudy with rain weather condition */
+"Partly cloudy with rain" = "Bewölkt mit Regen";
+
+/* Thunderstorm weather condition */
+"Thunderstorm" = "Gewitter";
+
+/* Finish configuring app */
+"Done" = "Fertig";
+
+/* Weather based on Lat/Long */
+"Lat/Long" = "Breite/Länge";
+
+/* Lat/Long error when fetching weather */
+"Lat/Long Error" = "Fehler mit Breite/Länge";
+
+/* Launch app at login */
+"Launch at Login" = "Beim Einloggen starten";
+
+/* Weather based on location */
+"Location" = "Position";
+
+/* Location error when fetching weather */
+"Location Error" = "Positionsfehler";
+
+/* Network error when fetching weather */
+"Network Error" = "Netzworkfehler";
+
+/* Weather refresh interval */
+"Refresh Interval" = "Aktualisierungsintervall";
+
+/* Round-off Data (temperature) */
+"Round-off Data" = "Daten runden";
+
+/* "Show Weather Icon" */
+"Show Weather Icon" = "Weather Icon anzeigen";
+
+/* Show humidity */
+"Show Humidity" = "Luftfeuchtigkeit anzeigen";
+
+/* Temperature unit */
+"Unit" = "Einheit";
+
+/* Unknown location */
+"Unknown" = "Unbekannt";
+
+/* Weather condition as text */
+"Weather Condition (as text)" = "Aktuelles Wetter (als Text)";
+
+/* Source for fetching weather */
+"Weather Source" = "Wetterquelle";
+
+/* Weather based on Zip Code */
+"Zip Code" = "Postleitzahl";
+
+/* Zip Code error when fetching weather */
+"Zip Code Error" = "Fehler bei Postleitzahl";
+
+/* Compass */
+"N" = "N";
+"NNE" = "NNO";
+"NE" = "NO";
+"ENE" = "ONO";
+"E" = "O";
+"ESE" = "OSO";
+"SE" = "SO";
+"SSE" = "SSO";
+"S" = "S";
+"SSW" = "SSW";
+"SW" = "SW";
+"WSW" = "WSW";
+"W" = "W";
+"WNW" = "WNW";
+"NW" = "NW";
+"NNW" = "NNW";

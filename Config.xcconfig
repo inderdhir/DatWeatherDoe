@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  DatWeatherDoe
+//
+//  Created by Inder Dhir on 2/12/22.
+//  Copyright © 2022 Inder Dhir. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+OPENWEATHERMAP_APP_ID =
