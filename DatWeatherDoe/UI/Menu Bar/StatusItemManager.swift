@@ -112,6 +112,7 @@ final class StatusItemManager {
 
     private func getImageFrom(weatherData: WeatherData) -> NSImage? {
         let image = WeatherConditionImageMapper().map(weatherData.weatherCondition)
+        image?.accessibilityDescription = WeatherConditionTextMapper().map(weatherData.weatherCondition)
         image?.isTemplate = true
         return image
     }

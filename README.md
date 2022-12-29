@@ -46,14 +46,3 @@ Buy me a coffee to support the development of this project.
 ## Contribute
 
 Please see CONTRIBUTING.md
-
-## Icon credits
-
-- [Moon and Stars]("https://icons8.com/icon/11377/moon-and-stars") icon by [Icons8](https://icons8.com")
-- [Night]("https://icons8.com/icon/660/night") icon by [Icons8](https://icons8.com")
-- [Tornado]("https://icons8.com/icon/5427/tornado") icon by [Icons8](https://icons8.com")
-- [Windy]("https://icons8.com/icon/OPZd6P2bN55f/windy") icon by [Icons8](https://icons8.com")
-- [Dust]("https://icons8.com/icon/NBYWjJpiGsTz/dust") icon by [Icons8](https://icons8.com")
-- [Location]("https://www.iconpacks.net/free-icon/location-2950.html") icon by [IconPacks]("https://www.iconpacks.net")
-- [Thermometer]("https://www.iconpacks.net/free-icon/thermometer-1829.html") icon by [IconPacks]("https://www.iconpacks.net")
-- [Wind]("https://www.iconpacks.net/free-icon/cooling-symbol-3340.html") icon by [IconPacks]("https://www.iconpacks.net")
