@@ -1,0 +1,167 @@
+/* Unknown weather location */
+"Unknown Location" = "所在地不明";
+
+/* See Full Weather */
+"See Full Weather" = "全ての天気情報を見る";
+
+/* Refresh weather */
+"Refresh" = "再読み込みする";
+
+/* Configure app */
+"Configure" = "設定する";
+
+/* Quit app */
+"Quit" = "終了する";
+
+/* 1 min refresh interval */
+"1 min" = "1分";
+
+/* 15 min refresh interval */
+"15 min" = "15分";
+
+/* 30 min refresh interval */
+"30 min" = "30分";
+
+/* 5 min refresh interval */
+"5 min" = "5分";
+
+/* 60 min refresh interval */
+"60 min" = "60分";
+
+/* Placeholder hint for entering Lat/Long */
+"[latitude],[longitude]" = "[緯度],[経度]";
+
+/* Placeholder hint for entering zip code */
+"[zipcode],[iso 3166 country code]" = "[郵便番号],[ISO 3166国名コード]";
+
+/* Show all temperature units */
+"All" = "全て";
+
+/* Cloudy weather condition */
+"Cloudy" = "曇り";
+
+/* Partly cloudy weather condition */
+"Partly cloudy" = "晴れ時々曇り";
+
+/* Sunny weather condition */
+"Sunny" = "晴れ";
+
+/* Clear at night weather condition */
+"Clear" = "クリア";
+
+/* Tornado weather condition */
+"Tornado" = "竜巻";
+
+/* Squall weather condition */
+"Squall" = "スコール";
+
+/* Ash weather condition */
+"Ash" = "灰";
+
+/* Dust weather condition */
+"Dust" = "埃";
+
+/* Sand weather condition */
+"Sand" = "砂";
+
+/* Fog weather condition */
+"Fog" = "霧";
+
+/* Sand/Dust Whirls weather condition */
+"Sand/Dust Whirls" = "砂または埃の渦";
+
+/* Haze weather condition */
+"Haze" = "霞";
+
+/* Smoke weather condition */
+"Smoke" = "煙";
+
+/* Mist weather condition */
+"Mist" = "靄";
+
+/* Snow weather condition */
+"Snow" = "雪";
+
+/* Heavy rain weather condition */
+"Heavy rain" = "豪雨";
+
+/* Freezing rain weather condition */
+"Freezing rain" = "雨氷";
+
+/* Light rain weather condition */
+"Light rain" = "小雨";
+
+/* Partly cloudy with rain weather condition */
+"Partly cloudy with rain" = "部分的に曇り雨";
+
+/* Thunderstorm weather condition */
+"Thunderstorm" = "雷雨";
+
+/* Finish configuring app */
+"Done" = "完了";
+
+/* Weather based on Lat/Long */
+"Lat/Long" = "緯度/経度";
+
+/* Lat/Long error when fetching weather */
+"Lat/Long Error" = "緯度/経度のエラー";
+
+/* Launch app at login */
+"Launch at Login" = "ログイン時に起動";
+
+/* Weather based on location */
+"Location" = "所在地";
+
+/* Location error when fetching weather */
+"Location Error" = "所在地のエラー";
+
+/* Network error when fetching weather */
+"Network Error" = "ネットワークのエラー";
+
+/* Weather refresh interval */
+"Refresh Interval" = "再読み込み間隔";
+
+/* Round-off Data (temperature) */
+"Round-off Data" = "データを四捨五入する";
+
+/* "Show Weather Icon" */
+"Show Weather Icon" = "天気アイコンを表示する";
+
+/* Show humidity */
+"Show Humidity" = "湿度を表示する";
+
+/* Temperature unit */
+"Unit" = "単位";
+
+/* Unknown location */
+"Unknown" = "不明";
+
+/* Weather condition as text */
+"Weather Condition (as text)" = "天気状況(テキスト)";
+
+/* Source for fetching weather */
+"Weather Source" = "気象情報源";
+
+/* Weather based on Zip Code */
+"Zip Code" = "郵便番号";
+
+/* Zip Code error when fetching weather */
+"Zip Code Error" = "郵便番号のエラー";
+
+/* Compass */
+"N" = "北";
+"NNE" = "北北東";
+"NE" = "北東";
+"ENE" = "東北東";
+"E" = "東";
+"ESE" = "東南東";
+"SE" = "南東";
+"SSE" = "南南東";
+"S" = "南";
+"SSW" = "南南西";
+"SW" = "南西";
+"WSW" = "西南西";
+"W" = "西";
+"WNW" = "西北西";
+"NW" = "北西";
+"NNW" = "北北西";

@@ -1,0 +1,6 @@
+/* Bundle name */
+"CFBundleName" = "DatWeatherDoe";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2016 Inder Dhir. All rights reserved.";
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "DatWeatherDoeは任意で現在地を使用して天気情報を取得します";
