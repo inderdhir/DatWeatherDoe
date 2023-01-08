@@ -65,35 +65,30 @@ struct ConfigureView: View {
                     Text(LocalizedStringKey("Show Weather Icon"))
                     Spacer()
                     Toggle(isOn: $viewModel.isShowingWeatherIcon) {}
-                        .toggleStyle(CheckboxToggleStyle())
                 }
                 
                 HStack {
                     Text(LocalizedStringKey("Show Humidity"))
                     Spacer()
                     Toggle(isOn: $viewModel.isShowingHumidity) {}
-                        .toggleStyle(CheckboxToggleStyle())
                 }
                 
                 HStack {
                     Text(LocalizedStringKey("Round-off Data"))
                     Spacer()
                     Toggle(isOn: $viewModel.isRoundingOffData) {}
-                        .toggleStyle(CheckboxToggleStyle())
                 }
                 
                 HStack {
                     Text(LocalizedStringKey("Weather Condition (as text)"))
                     Spacer()
                     Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
-                        .toggleStyle(CheckboxToggleStyle())
                 }
                 
                 HStack {
                     Text(LocalizedStringKey("Launch at Login"))
                     Spacer()
                     Toggle(isOn: $viewModel.launchAtLogin.isEnabled) {}
-                        .toggleStyle(CheckboxToggleStyle())
                 }
             }
             
