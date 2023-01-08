@@ -19,12 +19,14 @@ final class DropdownIconMapper {
         case .sun:
             symbolName = "sun.max"
         case .thermometer:
-            symbolName = "thermometer.medium"
+            symbolName = "thermometer"
         case .wind:
             symbolName = "wind"
         }
 
         let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
-        return NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)?.withSymbolConfiguration(config)
+        return NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)?.withSymbolConfiguration(
+            config
+        )
     }
 }
