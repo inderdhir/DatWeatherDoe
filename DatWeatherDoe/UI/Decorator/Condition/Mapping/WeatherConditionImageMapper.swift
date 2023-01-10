@@ -11,63 +11,56 @@ import Cocoa
 final class WeatherConditionImageMapper {
     
     func map(_ condition: WeatherCondition) -> NSImage? {
-        let imageString: String
+        let symbolName: String
         
         switch condition {
         case .cloudy:
-            imageString = "Cloudy"
+            symbolName = "cloud"
             
         case .partlyCloudy:
-            imageString = "Partly Cloudy"
+            symbolName = "cloud.sun"
         case .partlyCloudyNight:
-            imageString = "Partly Cloudy - Night"
+            symbolName = "cloud.moon"
             
         case .sunny:
-            imageString = "Sunny"
+            symbolName = "sun.max"
         case .clearNight:
-            imageString = "Clear - Night"
+            symbolName = "moon"
             
         case let .smoky(smokyWeatherCondition):
             return SmokyWeatherConditionImageMapper().map(smokyWeatherCondition)
             
         case .snow:
-            imageString = "Snow"
+            symbolName = "cloud.snow"
             
-        case .heavyRain:
-            imageString = "Heavy Rain"
-            
-        case .freezingRain:
-            imageString = "Freezing Rain"
-            
-        case .lightRain:
-            imageString = "Light Rain"
+        case .lightRain, .heavyRain, .freezingRain:
+            symbolName = "cloud.rain"
+        
         case .partlyCloudyRain:
-            imageString = "Partly Cloudy with Rain"
+            symbolName = "cloud.sun.rain"
 
         case .thunderstorm:
-            imageString = "Thunderstorm"
-
+            symbolName = "cloud.bolt.rain"
         }
         
-        return NSImage(named: imageString)
+        let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
+        return NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)?.withSymbolConfiguration(config)
     }
 }
 
 private class SmokyWeatherConditionImageMapper {
     func map(_ condition: SmokyWeatherCondition) -> NSImage? {
-        let imageString: String
+        let symbolName: String
         
         switch condition {
         case .tornado:
-            imageString = "Tornado"
+            symbolName = "tornado"
         case .squall:
-            imageString = "Windy"
-        case .ash, .dust, .sand, .sandOrDustWhirls, .fog, .haze, .smoke:
-            imageString = "Dust or Fog"
-        case .mist:
-            imageString = "Mist"
+            symbolName = "wind"
+        default:
+            symbolName = "cloud.fog"
         }
         
-        return NSImage(named: imageString)
+        return NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
     }
 }

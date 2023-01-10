@@ -11,20 +11,22 @@ import Cocoa
 final class DropdownIconMapper {
 
     func map(_ icon: DropdownIcons) -> NSImage? {
-        let imageString: String
+        let symbolName: String
 
         switch icon {
         case .location:
-            imageString = "Location"
+            symbolName = "mappin"
         case .sun:
-            // Re-uses the forecast icon "sunny"
-            imageString = "Sunny"
+            symbolName = "sun.max"
         case .thermometer:
-            imageString = "Thermometer"
+            symbolName = "thermometer"
         case .wind:
-            imageString = "Wind"
+            symbolName = "wind"
         }
 
-        return NSImage(named: imageString)
+        let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
+        return NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)?.withSymbolConfiguration(
+            config
+        )
     }
 }

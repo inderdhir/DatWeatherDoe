@@ -41,17 +41,7 @@ final class StatusItemManager {
                 self.statusItem.button?.image = nil
             }
 
-            self.locationMenuItem?.title = [self.getLocationFrom(weatherData: weatherData),
-                                            self.getConditionItemFrom(
-                                                weatherData: weatherData)].joined(separator: " - ")
-            self.temperatureForecastMenuItem?.title = self.getWeatherTextFrom(
-                weatherData: weatherData,
-                temperatureOptions: temperatureOptions
-            )
-            self.sunRiseSetMenuItem?.title = self.getSunRiseSetFrom(
-                weatherData: weatherData)
-            self.windMenuItem?.title = self.getWindSpeedItemFrom(
-                weatherData: weatherData)
+            self.updateReadOnlyData(weatherData: weatherData, temperatureOptions: temperatureOptions)
         }
     }
 
@@ -68,7 +58,6 @@ final class StatusItemManager {
         // By making the images "templates",
         // macOS knows to adjust the image colour based on the desktop settings
         // (light, dark), so they remain visible either way.
-
         let iconMapper = DropdownIconMapper()
 
         locationMenuItem?.image = iconMapper.map(.location)
@@ -84,8 +73,46 @@ final class StatusItemManager {
         windMenuItem?.image?.isTemplate = true
     }
 
+    private func updateReadOnlyData(
+        weatherData: WeatherData,
+        temperatureOptions: TemperatureTextBuilder.Options
+    ) {
+        let locationTitle = [
+            getLocationFrom(weatherData: weatherData),
+            getConditionItemFrom(weatherData: weatherData)
+        ].joined(separator: " - ")
+        locationMenuItem?.attributedTitle = NSAttributedString(
+            string: locationTitle,
+            attributes: constructMenuItemAttributes()
+        )
+
+        let temperatureForecastTitle = getWeatherTextFrom(
+            weatherData: weatherData,
+            temperatureOptions: temperatureOptions
+        )
+        temperatureForecastMenuItem?.attributedTitle = NSAttributedString(
+            string: temperatureForecastTitle,
+            attributes: constructMenuItemAttributes()
+        )
+
+        let sunriseSetTitle = getSunRiseSetFrom(
+            weatherData: weatherData)
+        sunRiseSetMenuItem?.attributedTitle = NSAttributedString(
+            string: sunriseSetTitle,
+            attributes: constructMenuItemAttributes()
+        )
+
+        let windSpeedTitle = getWindSpeedItemFrom(
+            weatherData: weatherData)
+        windMenuItem?.attributedTitle = NSAttributedString(
+            string: windSpeedTitle,
+            attributes: constructMenuItemAttributes()
+        )
+    }
+
     private func getImageFrom(weatherData: WeatherData) -> NSImage? {
         let image = WeatherConditionImageMapper().map(weatherData.weatherCondition)
+        image?.accessibilityDescription = WeatherConditionTextMapper().map(weatherData.weatherCondition)
         image?.isTemplate = true
         return image
     }
@@ -135,4 +162,11 @@ final class StatusItemManager {
     private var temperatureForecastMenuItem: NSMenuItem? { statusItem.menu?.item(at: 1) }
     private var sunRiseSetMenuItem: NSMenuItem? { statusItem.menu?.item(at: 2) }
     private var windMenuItem: NSMenuItem? { statusItem.menu?.item(at: 3) }
+
+    private func constructMenuItemAttributes() -> [NSAttributedString.Key: Any] {
+        [
+            .foregroundColor: NSColor.black,
+            .font: NSFont.boldSystemFont(ofSize: 14),
+        ]
+    }
 }
