@@ -116,7 +116,7 @@
 "Location Error" = "Positionsfehler";
 
 /* Network error when fetching weather */
-"Network Error" = "Netzworkfehler";
+"Network Error" = "Netzwerkfehler";
 
 /* Weather refresh interval */
 "Refresh Interval" = "Aktualisierungsintervall";
