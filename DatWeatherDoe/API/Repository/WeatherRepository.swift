@@ -9,14 +9,13 @@
 import CoreLocation
 
 protocol WeatherRepositoryType: AnyObject {
-    func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void)
+    func getWeather() async throws -> WeatherAPIResponse
 }
 
 final class WeatherRepository {
     
     private let appId: String
     private let logger: DatWeatherDoeLoggerType
-    private var repository: WeatherRepositoryType?
     
     init(
         appId: String,
@@ -28,28 +27,22 @@ final class WeatherRepository {
 
     func getWeatherViaLocation(
         _ location: CLLocationCoordinate2D,
-        options: WeatherDataBuilder.Options,
-        completion: @escaping (Result<WeatherData, Error>) -> Void
-    ) {
-        repository = selectWeatherRepository(input: .location(coordinates: location))
-        repository?.getWeather(completion: { [weak self] result in
-            self?.parseRepositoryResult(
-                result,
-                options: options,
-                completion: completion
-            )
-        })
+        options: WeatherDataBuilder.Options
+    ) async throws -> WeatherData {
+        let repository = selectWeatherRepository(input: .location(coordinates: location))
+        let response = try await repository.getWeather()
+        
+        return buildWeatherDataWith(response: response, options: options)
     }
 
     func getWeatherViaLatLong(
         _ latLong: String,
-        options: WeatherDataBuilder.Options,
-        completion: @escaping (Result<WeatherData, Error>) -> Void
-    ) {
-        repository = selectWeatherRepository(input: .latLong(latLong: latLong))
-        repository?.getWeather(completion: { [weak self] result in
-            self?.parseRepositoryResult(result, options: options, completion: completion)
-        })
+        options: WeatherDataBuilder.Options
+    ) async throws -> WeatherData {
+        let repository = selectWeatherRepository(input: .latLong(latLong: latLong))
+        let response = try await repository.getWeather()
+
+        return buildWeatherDataWith(response: response, options: options)
     }
     
     private func selectWeatherRepository(input: WeatherRepositoryInput) -> WeatherRepositoryType {
@@ -75,20 +68,6 @@ final class WeatherRepository {
                 networkClient: NetworkClient(),
                 logger: logger
             )
-        }
-    }
-    
-    private func parseRepositoryResult(
-        _ result: Result<WeatherAPIResponse, Error>,
-        options: WeatherDataBuilder.Options,
-        completion: (Result<WeatherData, Error>) -> Void
-    ) {
-        switch result {
-        case let .success(response):
-            let weatherData = buildWeatherDataWith(response: response, options: options)
-            completion(.success(weatherData))
-        case let .failure(error):
-            completion(.failure(error))
         }
     }
     
