@@ -16,9 +16,6 @@
 /* Placeholder hint for entering Lat/Long */
 "[latitude],[longitude]" = "[latitude],[longitude]";
 
-/* Placeholder hint for entering zip code */
-"[zipcode],[iso 3166 country code]" = "[code postal],[code pays iso 3166]";
-
 /* 1 min refresh interval */
 "1 min" = "1 min";
 
@@ -141,12 +138,6 @@
 
 /* Source for fetching weather */
 "Weather Source" = "Source de la météo";
-
-/* Weather based on Zip Code */
-"Zip Code" = "Code postal";
-
-/* Zip Code error when fetching weather */
-"Zip Code Error" = "Erreur de code postal";
 
 /* Compass */
 "N" = "N";
