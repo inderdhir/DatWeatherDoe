@@ -32,7 +32,6 @@ struct ConfigureView: View {
                     Picker("", selection: $viewModel.weatherSource) {
                         Text(LocalizedStringKey("Location")).tag(WeatherSource.location)
                         Text(LocalizedStringKey("Lat/Long")).tag(WeatherSource.latLong)
-                        Text(LocalizedStringKey("Zip Code")).tag(WeatherSource.zipCode)
                     }
                     .frame(width: 120)
                 }

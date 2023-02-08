@@ -52,12 +52,10 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func getWeatherWithSelectedSource() {
-        let weatherSource = WeatherSource(rawValue: configManager.weatherSource)!
+        let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
-        case .zipCode:
-            getWeatherViaZipCode()
         case .latLong:
             getWeatherViaLocationCoordinates()
         }
@@ -65,27 +63,6 @@ final class WeatherViewModel: WeatherViewModelType {
 
     private func getWeatherAfterUpdatingLocation() {
         locationFetcher.startUpdatingLocation()
-    }
-
-    private func getWeatherViaZipCode() {
-        guard let zipCode = configManager.weatherSourceText else {
-            delegate?.didFailToUpdateWeatherData(errorLabels.zipCodeErrorString)
-            return
-        }
-
-        weatherRepository.getWeatherViaZipCode(
-            zipCode,
-            options: buildWeatherDataOptions(),
-            completion: { [weak self] result in
-                guard let `self` = self else { return }
-
-                ZipCodeWeatherResultParser(
-                    weatherDataResult: result,
-                    delegate: self.delegate,
-                    errorLabels: self.errorLabels
-                ).parse()
-            }
-        )
     }
 
     private func getWeatherViaLocationCoordinates() {

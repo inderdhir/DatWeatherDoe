@@ -15,6 +15,4 @@ final class ErrorLabels {
     NSLocalizedString("Location Error", comment: "Location error when fetching weather")
     lazy var latLongErrorString =
     NSLocalizedString("Lat/Long Error", comment: "Lat/Long error when fetching weather")
-    lazy var zipCodeErrorString =
-    NSLocalizedString("Zip Code Error", comment: "Zip Code error when fetching weather")
 }

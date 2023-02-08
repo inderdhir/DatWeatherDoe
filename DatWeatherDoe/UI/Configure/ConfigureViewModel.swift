@@ -72,8 +72,8 @@ final class ConfigureViewModel: ObservableObject {
         self.configManager = configManager
         self.popoverManager = popoverManager
 
-        temperateUnit = TemperatureUnit(rawValue: configManager.temperatureUnit)!
-        weatherSource = WeatherSource(rawValue: configManager.weatherSource)!
+        temperateUnit = TemperatureUnit(rawValue: configManager.temperatureUnit) ?? .fahrenheit
+        weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
 
         switch configManager.refreshInterval {
         case 300: refreshInterval = .fiveMinutes
