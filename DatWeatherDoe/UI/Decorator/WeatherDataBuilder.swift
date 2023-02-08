@@ -16,6 +16,7 @@ protocol WeatherDataBuilderType: AnyObject {
 final class WeatherDataBuilder: WeatherDataBuilderType {
     
     struct Options {
+        let unit: MeasurementUnit
         let showWeatherIcon: Bool
         let textOptions: WeatherTextBuilder.Options
     }

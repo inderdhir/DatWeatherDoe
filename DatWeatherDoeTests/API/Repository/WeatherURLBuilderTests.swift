@@ -13,7 +13,7 @@ final class WeatherURLBuilderTests: XCTestCase {
 
     func testBuild() {
         XCTAssertEqual(
-            try? WeatherURLBuilder(appId: "123456").build().absoluteString,
+            try? WeatherURLBuilder(appId: "123456").build(unit: .imperial).absoluteString,
             "https://api.openweathermap.org/data/2.5/weather"
         )
     }

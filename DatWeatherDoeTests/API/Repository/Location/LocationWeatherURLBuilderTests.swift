@@ -21,8 +21,10 @@ class LocationWeatherURLBuilderTests: XCTestCase {
     
     func testBuild() {
         XCTAssertEqual(
-            try? LocationWeatherURLBuilder(appId: "123456", location: .init(latitude: 42, longitude: 42))
-                .build().absoluteString,
+            try? LocationWeatherURLBuilder(
+                appId: "123456",
+                location: .init(latitude: 42, longitude: 42)
+            ).build(unit: .imperial).absoluteString,
             "https://api.openweathermap.org/data/2.5/weather?appid=123456&lat=42.0&lon=42.0"
         )
     }

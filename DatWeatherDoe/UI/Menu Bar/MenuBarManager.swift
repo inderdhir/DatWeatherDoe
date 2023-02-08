@@ -40,13 +40,10 @@ final class MenuBarManager {
         )
     }
     
-    func updateMenuBarWith(
-        weatherData: WeatherData,
-        temperatureOptions: TemperatureTextBuilder.Options
-    ) {
+    func updateMenuBarWith(weatherData: WeatherData, options: StatusItemManager.Options) {
         statusItemManager.updateStatusItemWith(
             weatherData: weatherData,
-            temperatureOptions: temperatureOptions
+            options: options
         )
     }
     

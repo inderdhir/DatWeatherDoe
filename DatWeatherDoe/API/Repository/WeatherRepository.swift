@@ -9,7 +9,7 @@
 import CoreLocation
 
 protocol WeatherRepositoryType: AnyObject {
-    func getWeather() async throws -> WeatherAPIResponse
+    func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse
 }
 
 final class WeatherRepository {
@@ -30,7 +30,7 @@ final class WeatherRepository {
         options: WeatherDataBuilder.Options
     ) async throws -> WeatherData {
         let repository = selectWeatherRepository(input: .location(coordinates: location))
-        let response = try await repository.getWeather()
+        let response = try await repository.getWeather(unit: options.unit)
         
         return buildWeatherDataWith(response: response, options: options)
     }
@@ -40,7 +40,7 @@ final class WeatherRepository {
         options: WeatherDataBuilder.Options
     ) async throws -> WeatherData {
         let repository = selectWeatherRepository(input: .latLong(latLong: latLong))
-        let response = try await repository.getWeather()
+        let response = try await repository.getWeather(unit: options.unit)
 
         return buildWeatherDataWith(response: response, options: options)
     }
