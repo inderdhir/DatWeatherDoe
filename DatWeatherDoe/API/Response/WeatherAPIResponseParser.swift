@@ -11,9 +11,6 @@ import Foundation
 final class WeatherAPIResponseParser {
 
     func parse(_ data: Data) throws -> WeatherAPIResponse {
-        if let response = try? JSONDecoder().decode(WeatherAPIResponse.self, from: data) {
-            return response
-        }
-        throw WeatherError.unableToParseWeatherResponse
+        try JSONDecoder().decode(WeatherAPIResponse.self, from: data)
     }
 }

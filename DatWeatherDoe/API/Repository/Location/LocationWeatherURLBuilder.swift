@@ -26,6 +26,7 @@ final class LocationWeatherURLBuilder: WeatherURLBuilder {
         
         var urlComps = URLComponents(string: apiUrlString)
         urlComps?.queryItems = queryItems
+        
         guard let finalUrl = urlComps?.url else {
             throw WeatherError.unableToConstructUrl
         }
