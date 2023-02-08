@@ -40,28 +40,6 @@ final class WeatherRepository {
             )
         })
     }
-    
-    func getWeatherViaZipCode(
-        _ zipCode: String,
-        options: WeatherDataBuilder.Options,
-        completion: @escaping (Result<WeatherData, Error>) -> Void
-    ) {
-        repository = selectWeatherRepository(input: .zipCode(code: zipCode))
-        repository?.getWeather(completion: { [weak self] result in
-            self?.parseRepositoryResult(result, options: options, completion: completion)
-        })
-    }
-    
-    func getWeatherViaCity(
-        _ city: String,
-        options: WeatherDataBuilder.Options,
-        completion: @escaping (Result<WeatherData, Error>) -> Void
-    ){
-        repository = selectWeatherRepository(input: .city(city : city))
-        repository?.getWeather(completion: { [weak self] result in
-            self?.parseRepositoryResult(result, options: options, completion: completion)
-        })
-    }
 
     func getWeatherViaLatLong(
         _ latLong: String,
@@ -80,13 +58,6 @@ final class WeatherRepository {
             return SystemLocationWeatherRepository(
                 appId: appId,
                 location: coordinates,
-                networkClient: NetworkClient(),
-                logger: logger
-            )
-        case let .zipCode(zipCode):
-            return ZipCodeWeatherRepository(
-                appId: appId,
-                zipCode: zipCode,
                 networkClient: NetworkClient(),
                 logger: logger
             )

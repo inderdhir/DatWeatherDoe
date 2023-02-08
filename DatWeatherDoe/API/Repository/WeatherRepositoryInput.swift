@@ -10,7 +10,6 @@ import CoreLocation
 
 enum WeatherRepositoryInput {
     case location(coordinates: CLLocationCoordinate2D)
-    case zipCode(code: String)
     case latLong(latLong: String)
     case city(city: String)
 }
