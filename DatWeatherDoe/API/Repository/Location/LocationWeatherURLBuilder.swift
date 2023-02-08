@@ -17,11 +17,12 @@ final class LocationWeatherURLBuilder: WeatherURLBuilder {
         super.init(appId: appId)
     }
     
-    override func build() throws -> URL {
+    override func build(unit: MeasurementUnit) throws -> URL {
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "appid", value: appId),
             URLQueryItem(name: "lat", value: String(describing: location.latitude)),
             URLQueryItem(name: "lon", value: String(describing: location.longitude)),
+            URLQueryItem(name: "units", value: unit.rawValue)
         ]
         
         var urlComps = URLComponents(string: apiUrlString)

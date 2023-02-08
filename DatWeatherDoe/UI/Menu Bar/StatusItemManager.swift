@@ -9,6 +9,11 @@
 import AppKit
 
 final class StatusItemManager {
+    
+    struct Options {
+        let unit: MeasurementUnit
+        let isRoundingOff: Bool
+    }
 
     var button: NSStatusBarButton? { statusItem.button }
 
@@ -24,10 +29,7 @@ final class StatusItemManager {
         setupDropdownMenu()
     }
 
-    func updateStatusItemWith(
-        weatherData: WeatherData,
-        temperatureOptions: TemperatureTextBuilder.Options
-    ) {
+    func updateStatusItemWith(weatherData: WeatherData, options: Options) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
 
@@ -41,7 +43,7 @@ final class StatusItemManager {
                 self.statusItem.button?.image = nil
             }
 
-            self.updateReadOnlyData(weatherData: weatherData, temperatureOptions: temperatureOptions)
+            self.updateReadOnlyData(weatherData: weatherData, options: options)
         }
     }
 
@@ -73,10 +75,7 @@ final class StatusItemManager {
         windMenuItem?.image?.isTemplate = true
     }
 
-    private func updateReadOnlyData(
-        weatherData: WeatherData,
-        temperatureOptions: TemperatureTextBuilder.Options
-    ) {
+    private func updateReadOnlyData(weatherData: WeatherData, options: Options) {
         let locationTitle = [
             getLocationFrom(weatherData: weatherData),
             getConditionItemFrom(weatherData: weatherData)
@@ -88,7 +87,7 @@ final class StatusItemManager {
 
         let temperatureForecastTitle = getWeatherTextFrom(
             weatherData: weatherData,
-            temperatureOptions: temperatureOptions
+            options: options
         )
         temperatureForecastMenuItem?.attributedTitle = NSAttributedString(
             string: temperatureForecastTitle,
@@ -103,7 +102,9 @@ final class StatusItemManager {
         )
 
         let windSpeedTitle = getWindSpeedItemFrom(
-            weatherData: weatherData)
+            weatherData: weatherData,
+            options: options
+        )
         windMenuItem?.attributedTitle = NSAttributedString(
             string: windSpeedTitle,
             attributes: constructMenuItemAttributes()
@@ -121,13 +122,10 @@ final class StatusItemManager {
         weatherData.location ?? unknownString
     }
 
-    private func getWeatherTextFrom(
-        weatherData: WeatherData,
-        temperatureOptions: TemperatureTextBuilder.Options
-    ) -> String {
+    private func getWeatherTextFrom(weatherData: WeatherData, options: Options) -> String {
         TemperatureForecastTextBuilder(
             temperatureData: weatherData.temperatureData,
-            options: temperatureOptions
+            options: .init(unit: options.unit.temperatureUnit, isRoundingOff: options.isRoundingOff)
         ).build()
     }
 
@@ -142,8 +140,10 @@ final class StatusItemManager {
         WeatherConditionTextMapper().map(weatherData.weatherCondition)
     }
 
-    private func getWindSpeedItemFrom(weatherData: WeatherData) -> String {
-        let windSpeedStr = [String(weatherData.windData.speed), "m/s"].joined()
+    private func getWindSpeedItemFrom(weatherData: WeatherData, options: Options) -> String {
+        let windSpeedSuffix = options.unit == .imperial ? "mi/hr" : "m/s"
+        let windSpeedStr = [String(weatherData.windData.speed), windSpeedSuffix].joined()
+        
         let windDegreesStr = [String(weatherData.windData.degrees), TemperatureHelpers.degreeString].joined()
         let windDirectionStr = ["(", WindDirection.getDirectionStr(weatherData), ")"].joined()
         let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " - ")

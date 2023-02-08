@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ConfigManagerType: AnyObject {
-    var temperatureUnit: String { get set }
+    var measurementUnit: String { get set }
     var weatherSource: String { get set }
     var weatherSourceText: String? { get set }
     var refreshInterval: TimeInterval { get set }
@@ -22,7 +22,7 @@ protocol ConfigManagerType: AnyObject {
 final class ConfigManager: ConfigManagerType {
 
     private enum DefaultsKeys: String {
-        case temperatureUnit
+        case measurementUnit
         case weatherSource
         case weatherSourceText
         case refreshInterval
@@ -33,10 +33,10 @@ final class ConfigManager: ConfigManagerType {
     }
 
     @Storage(
-        key: DefaultsKeys.temperatureUnit.rawValue,
-        defaultValue: TemperatureUnit.fahrenheit.rawValue
+        key: DefaultsKeys.measurementUnit.rawValue,
+        defaultValue: MeasurementUnit.imperial.rawValue
     )
-    public var temperatureUnit: String
+    public var measurementUnit: String
 
     @Storage(
         key: DefaultsKeys.weatherSource.rawValue,

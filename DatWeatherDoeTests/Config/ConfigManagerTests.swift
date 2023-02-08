@@ -18,14 +18,14 @@ final class ConfigManagerTests: XCTestCase {
         clearUserDefaults()
     }
     
-    func testDefaultTemperatureUnit() {
-        XCTAssertEqual(configManager.temperatureUnit, TemperatureUnit.fahrenheit.rawValue)
+    func testDefaultMeasurementUnit() {
+        XCTAssertEqual(configManager.measurementUnit, MeasurementUnit.imperial.rawValue)
     }
 
-    func testTemperatureUnitSaved() {
-        XCTAssertEqual(configManager.temperatureUnit, TemperatureUnit.fahrenheit.rawValue)
-        configManager.temperatureUnit = TemperatureUnit.celsius.rawValue
-        XCTAssertEqual(configManager.temperatureUnit, TemperatureUnit.celsius.rawValue)
+    func testMeasurementUnitSaved() {
+        XCTAssertEqual(configManager.measurementUnit, MeasurementUnit.imperial.rawValue)
+        configManager.measurementUnit = MeasurementUnit.metric.rawValue
+        XCTAssertEqual(configManager.measurementUnit, MeasurementUnit.metric.rawValue)
     }
 
     func testDefaultWeatherSource() {

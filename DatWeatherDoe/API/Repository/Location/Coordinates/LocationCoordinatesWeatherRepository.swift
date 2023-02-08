@@ -27,12 +27,13 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
         self.logger = logger
     }
     
-    func getWeather() async throws -> WeatherAPIResponse {
+    func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via lat/long")
         
         do {
             let location = try getLocationCoordinatesFrom(latLong)
-            let url = try LocationWeatherURLBuilder(appId: appId, location: location).build()
+            let url = try LocationWeatherURLBuilder(appId: appId, location: location)
+                .build(unit: unit)
             let data = try await networkClient.performRequest(url: url)
             return try WeatherAPIResponseParser().parse(data)
         } catch {

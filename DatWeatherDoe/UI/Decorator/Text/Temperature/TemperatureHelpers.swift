@@ -9,11 +9,11 @@
 final class TemperatureHelpers {
     static let degreeString = "\u{00B0}"
     
-    class func getFahrenheitTemperatureWithDegrees(
+    class func getTemperatureWithDegrees(
         _ temperature: Double,
+        unit: TemperatureUnit,
         isRoundingOff: Bool
     ) -> String? {
-        let temperature = TemperatureConverter().convertKelvinToFahrenheit(temperature)
         guard let temperatureString = getFormattedString(
             temperature: temperature,
             isRoundingOff: isRoundingOff
@@ -23,64 +23,8 @@ final class TemperatureHelpers {
         
         return combineTemperatureWithUnitDegrees(
             temperature: temperatureString,
-            unit: TemperatureUnit.fahrenheit.unitString
+            unit: unit.unitString
         )
-    }
-    
-    class func getCelsiusTemperatureWithDegrees(
-        _ temperature: Double,
-        isRoundingOff: Bool
-    ) -> String? {
-        let temperature = TemperatureConverter().convertKelvinToCelsius(temperature)
-        guard let temperatureString = getFormattedString(
-            temperature: temperature,
-            isRoundingOff: isRoundingOff
-        ) else {
-            return nil
-        }
-        
-        return combineTemperatureWithUnitDegrees(
-            temperature: temperatureString,
-            unit: TemperatureUnit.celsius.unitString
-        )
-    }
-    
-    class func getTemperatureInAllUnits(
-        _ temperature: Double,
-        isRoundingOff: Bool
-    ) -> String? {
-        let fahrenheitTemperature = getFahrenheitTemperatureWithDegrees(
-            temperature,
-            isRoundingOff: isRoundingOff
-        )
-        let celsiusTemperature = getCelsiusTemperatureWithDegrees(
-            temperature,
-            isRoundingOff: isRoundingOff
-        )
-        
-        guard let fahrenheitTemperature = fahrenheitTemperature,
-              let celsiusTemperature = celsiusTemperature else {
-                  return nil
-              }
-        
-        return combineTemperatureWithBothUnitDegrees(
-            fahrenheitWithDegrees: fahrenheitTemperature,
-            celsiusWithDegrees: celsiusTemperature
-        )
-    }
-    
-    private class func combineTemperatureWithUnitDegrees(
-        temperature: String,
-        unit: String
-    ) -> String {
-        [temperature, unit].joined(separator: degreeString)
-    }
-    
-    private class func combineTemperatureWithBothUnitDegrees(
-        fahrenheitWithDegrees: String,
-        celsiusWithDegrees: String
-    ) -> String {
-        [fahrenheitWithDegrees, celsiusWithDegrees].joined(separator: " / ")
     }
     
     private class func getFormattedString(
@@ -91,5 +35,12 @@ final class TemperatureHelpers {
             temperature,
             isRoundingOff: isRoundingOff
         )
+    }
+    
+    private class func combineTemperatureWithUnitDegrees(
+        temperature: String,
+        unit: String
+    ) -> String {
+        [temperature, unit].joined(separator: degreeString)
     }
 }

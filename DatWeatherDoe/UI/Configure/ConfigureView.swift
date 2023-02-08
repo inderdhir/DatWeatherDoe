@@ -18,10 +18,9 @@ struct ConfigureView: View {
                 HStack {
                     Text(LocalizedStringKey("Unit"))
                     Spacer()
-                    Picker("", selection: $viewModel.temperateUnit) {
-                        Text(LocalizedStringKey("Fahrenheit")).tag(TemperatureUnit.fahrenheit)
-                        Text(LocalizedStringKey("Celsius")).tag(TemperatureUnit.celsius)
-                        Text(LocalizedStringKey("All")).tag(TemperatureUnit.all)
+                    Picker("", selection: $viewModel.measurementUnit) {
+                        Text(LocalizedStringKey("Metric")).tag(MeasurementUnit.metric)
+                        Text(LocalizedStringKey("Imperial")).tag(MeasurementUnit.imperial)
                     }
                     .frame(width: 120)
                 }
