@@ -11,10 +11,10 @@ import Foundation
 import LaunchAtLogin
 
 final class ConfigureViewModel: ObservableObject {
-
-    @Published var temperateUnit: TemperatureUnit {
+    
+    @Published var measurementUnit: MeasurementUnit {
         didSet {
-            configManager.temperatureUnit = temperateUnit.rawValue
+            configManager.measurementUnit = measurementUnit.rawValue
         }
     }
 
@@ -72,7 +72,7 @@ final class ConfigureViewModel: ObservableObject {
         self.configManager = configManager
         self.popoverManager = popoverManager
 
-        temperateUnit = TemperatureUnit(rawValue: configManager.temperatureUnit) ?? .fahrenheit
+        measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
         weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
 
         switch configManager.refreshInterval {

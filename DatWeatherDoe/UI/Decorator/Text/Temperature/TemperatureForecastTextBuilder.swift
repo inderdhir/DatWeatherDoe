@@ -41,22 +41,10 @@ final class TemperatureForecastTextBuilder {
     
     
     private func buildTemperature(_ temperature: Double) -> String? {
-        switch options.unit {
-        case .fahrenheit:
-            return TemperatureHelpers.getFahrenheitTemperatureWithDegrees(
-                temperature,
-                isRoundingOff: options.isRoundingOff
-            )
-        case .celsius:
-            return TemperatureHelpers.getCelsiusTemperatureWithDegrees(
-                temperature,
-                isRoundingOff: options.isRoundingOff
-            )
-        case .all:
-            return TemperatureHelpers.getTemperatureInAllUnits(
-                temperature,
-                isRoundingOff: options.isRoundingOff
-            )
-        }
+        TemperatureHelpers.getTemperatureWithDegrees(
+            temperature,
+            unit: options.unit,
+            isRoundingOff: options.isRoundingOff
+        )
     }
 }

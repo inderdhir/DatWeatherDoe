@@ -57,9 +57,9 @@ final class WeatherViewModel: WeatherViewModelType {
         case .location:
             getWeatherAfterUpdatingLocation()
         case .latLong:
-            getWeatherViaLocationCoordinates()
-        case .city:
-            getWeatherViaCity()
+            getWeatherViaLocationCoordinates(
+                unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
+            )
         }
     }
 
@@ -67,7 +67,7 @@ final class WeatherViewModel: WeatherViewModelType {
         locationFetcher.startUpdatingLocation()
     }
 
-    private func getWeatherViaLocationCoordinates() {
+    private func getWeatherViaLocationCoordinates(unit: MeasurementUnit) {
         guard let latLong = configManager.weatherSourceText else {
             delegate?.didFailToUpdateWeatherData(errorLabels.latLongErrorString)
             return
@@ -77,7 +77,7 @@ final class WeatherViewModel: WeatherViewModelType {
             do {
                 let weatherData = try await weatherRepository.getWeatherViaLatLong(
                     latLong,
-                    options: buildWeatherDataOptions()
+                    options: buildWeatherDataOptions(for: unit)
                 )
                 delegate?.didUpdateWeatherData(weatherData)
             } catch {
@@ -86,7 +86,7 @@ final class WeatherViewModel: WeatherViewModelType {
                 let isLatLongError = weatherError == WeatherError.latLongIncorrect
                 let errorString = isLatLongError ?
                 errorLabels.latLongErrorString : errorLabels.networkErrorString
-                
+
                 delegate?.didFailToUpdateWeatherData(errorString)
             }
         }
@@ -113,30 +113,31 @@ final class WeatherViewModel: WeatherViewModelType {
         )
     }
 
-    private func buildWeatherDataOptions() -> WeatherDataBuilder.Options {
+    private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
         .init(
+            unit: unit,
             showWeatherIcon: configManager.isShowingWeatherIcon,
-            textOptions: buildWeatherTextOptions()
+            textOptions: buildWeatherTextOptions(for: unit)
         )
     }
 
-    private func buildWeatherTextOptions() -> WeatherTextBuilder.Options {
+    private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
         .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
             temperatureOptions: .init(
-                unit: TemperatureUnit(rawValue: configManager.temperatureUnit) ?? .fahrenheit,
+                unit: unit.temperatureUnit,
                 isRoundingOff: configManager.isRoundingOffData
             ),
             isShowingHumidity: configManager.isShowingHumidity
         )
     }
 
-    private func getWeatherViaLocation(_ location: CLLocationCoordinate2D) {
+    private func getWeatherViaLocation(_ location: CLLocationCoordinate2D, unit: MeasurementUnit) {
         Task {
             do {
                 let weatherData = try await weatherRepository.getWeatherViaLocation(
                     location,
-                    options: buildWeatherDataOptions()
+                    options: buildWeatherDataOptions(for: unit)
                 )
                 delegate?.didUpdateWeatherData(weatherData)
             } catch {
@@ -150,7 +151,7 @@ final class WeatherViewModel: WeatherViewModelType {
 
 extension WeatherViewModel: SystemLocationFetcherDelegate {
     func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool) {
-        getWeatherViaLocation(location)
+        getWeatherViaLocation(location, unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial)
     }
 
     func didFailLocationUpdate() {

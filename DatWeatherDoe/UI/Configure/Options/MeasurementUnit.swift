@@ -1,9 +1,9 @@
 //
-//  TemperatureUnit.swift
+//  MeasurementUnit.swift
 //  DatWeatherDoe
 //
-//  Created by Inder Dhir on 5/22/21.
-//  Copyright © 2021 Inder Dhir. All rights reserved.
+//  Created by Inder Dhir on 2/7/23.
+//  Copyright © 2023 Inder Dhir. All rights reserved.
 //
 
 enum TemperatureUnit: String, CaseIterable, Identifiable {
@@ -26,3 +26,19 @@ enum TemperatureUnit: String, CaseIterable, Identifiable {
         "\u{00B0}\(unitString)"
     }
 }
+
+enum MeasurementUnit: String, CaseIterable, Identifiable {
+    case metric, imperial
+    
+    var id: Self { self }
+    
+    var temperatureUnit: TemperatureUnit {
+        switch self {
+        case .metric:
+            return .celsius
+        case .imperial:
+            return .fahrenheit
+        }
+    }
+}
+
