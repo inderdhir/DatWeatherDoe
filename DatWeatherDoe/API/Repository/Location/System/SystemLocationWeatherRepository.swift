@@ -27,47 +27,17 @@ final class SystemLocationWeatherRepository: WeatherRepositoryType {
         self.logger = logger
     }
     
-    func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
+    func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via location")
         
         do {
-            let url = try buildURL(location)
-            performRequest(url: url, completion: { [weak self] result in
-                self?.parseRepositoryResult(result, completion: completion)
-            })
+            let url = try LocationWeatherURLBuilder(appId: appId, location: location).build()
+            let data = try await networkClient.performRequest(url: url)
+            return try WeatherAPIResponseParser().parse(data)
         } catch {
-            completion(.failure(error))
+            logger.error("Getting weather via location failed")
+            
+            throw error
         }
-    }
-    
-    private func buildURL(_ location: CLLocationCoordinate2D) throws -> URL {
-        try LocationWeatherURLBuilder(appId: appId, location: location).build()
-    }
-    
-    private func performRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        networkClient.performRequest(url: url, completion: completion)
-    }
-    
-    private func parseRepositoryResult(
-        _ result: Result<Data, Error>,
-        completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void
-    ) {
-        switch result {
-        case let .success(data):
-            do {
-                let response = try parseWeatherData(data)
-                completion(.success(response))
-            } catch {
-                let weatherError = (error as? WeatherError) ?? WeatherError.other
-                completion(.failure(weatherError))
-            }
-        case let .failure(error):
-            let weatherError = (error as? WeatherError) ?? WeatherError.other
-            completion(.failure(weatherError))
-        }
-    }
-    
-    private func parseWeatherData(_ data: Data) throws -> WeatherAPIResponse {
-        try WeatherAPIResponseParser().parse(data)
     }
 }

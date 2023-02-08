@@ -50,9 +50,6 @@
 		209F8A3D27914A5900EB5C45 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F8A3C27914A5900EB5C45 /* NetworkClient.swift */; };
 		209F8A4127915DBC00EB5C45 /* LocationCoordinatesWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F8A4027915DBC00EB5C45 /* LocationCoordinatesWeatherRepository.swift */; };
 		20AF0D9827952D1000AA7D18 /* WeatherViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AF0D9727952D1000AA7D18 /* WeatherViewModelDelegate.swift */; };
-		20AF0DA2279532B700AA7D18 /* WeatherResultParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AF0DA0279532B600AA7D18 /* WeatherResultParser.swift */; };
-		20AF0DA42795330900AA7D18 /* LocationCoordinatesWeatherResultParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AF0DA32795330900AA7D18 /* LocationCoordinatesWeatherResultParser.swift */; };
-		20AF0DA62795334B00AA7D18 /* SystemLocationWeatherResultParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AF0DA52795334B00AA7D18 /* SystemLocationWeatherResultParser.swift */; };
 		20AF0DA827954E9D00AA7D18 /* ConfigurationCommitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AF0DA727954E9D00AA7D18 /* ConfigurationCommitter.swift */; };
 		20B3845F27A1CFE800F85482 /* LocationValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B3845E27A1CFE800F85482 /* LocationValidatorTests.swift */; };
 		20B3846127A1CFF300F85482 /* LocationParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B3846027A1CFF300F85482 /* LocationParserTests.swift */; };
@@ -140,9 +137,6 @@
 		209F8A3C27914A5900EB5C45 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		209F8A4027915DBC00EB5C45 /* LocationCoordinatesWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinatesWeatherRepository.swift; sourceTree = "<group>"; };
 		20AF0D9727952D1000AA7D18 /* WeatherViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelDelegate.swift; sourceTree = "<group>"; };
-		20AF0DA0279532B600AA7D18 /* WeatherResultParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResultParser.swift; sourceTree = "<group>"; };
-		20AF0DA32795330900AA7D18 /* LocationCoordinatesWeatherResultParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinatesWeatherResultParser.swift; sourceTree = "<group>"; };
-		20AF0DA52795334B00AA7D18 /* SystemLocationWeatherResultParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLocationWeatherResultParser.swift; sourceTree = "<group>"; };
 		20AF0DA727954E9D00AA7D18 /* ConfigurationCommitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationCommitter.swift; sourceTree = "<group>"; };
 		20B3845E27A1CFE800F85482 /* LocationValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationValidatorTests.swift; sourceTree = "<group>"; };
 		20B3846027A1CFF300F85482 /* LocationParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationParserTests.swift; sourceTree = "<group>"; };
@@ -461,16 +455,6 @@
 			path = Options;
 			sourceTree = "<group>";
 		};
-		20AF0D9E279532B600AA7D18 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				20AF0DA52795334B00AA7D18 /* SystemLocationWeatherResultParser.swift */,
-				20AF0DA32795330900AA7D18 /* LocationCoordinatesWeatherResultParser.swift */,
-				20AF0DA0279532B600AA7D18 /* WeatherResultParser.swift */,
-			);
-			path = Parser;
-			sourceTree = "<group>";
-		};
 		20B3845D27A1CFC200F85482 /* Coordinates */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,7 +552,6 @@
 		20BBCDAB278B8B1C007DEEB0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				20AF0D9E279532B600AA7D18 /* Parser */,
 				20BBCDAC278B8B28007DEEB0 /* WeatherViewModelType.swift */,
 				20AF0D9727952D1000AA7D18 /* WeatherViewModelDelegate.swift */,
 				20BBCDA9278B8A18007DEEB0 /* WeatherViewModel.swift */,
@@ -782,7 +765,6 @@
 				209F8A4127915DBC00EB5C45 /* LocationCoordinatesWeatherRepository.swift in Sources */,
 				E3105BA62818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift in Sources */,
 				20BBCDA8278B88C1007DEEB0 /* ErrorLabels.swift in Sources */,
-				20AF0DA2279532B700AA7D18 /* WeatherResultParser.swift in Sources */,
 				20459C661C5D24FF004D0DC1 /* WeatherRepository.swift in Sources */,
 				202B1024278D514E00ED6D42 /* MenuBuilder.swift in Sources */,
 				20AF0D9827952D1000AA7D18 /* WeatherViewModelDelegate.swift in Sources */,
@@ -794,8 +776,6 @@
 				20BBCDAD278B8B28007DEEB0 /* WeatherViewModelType.swift in Sources */,
 				209F8A302790DE5B00EB5C45 /* TemperatureConverter.swift in Sources */,
 				2085263527E80B9E0017D7F4 /* ConfigureViewModel.swift in Sources */,
-				20AF0DA42795330900AA7D18 /* LocationCoordinatesWeatherResultParser.swift in Sources */,
-				20AF0DA62795334B00AA7D18 /* SystemLocationWeatherResultParser.swift in Sources */,
 				202B1029278D5A7100ED6D42 /* WeatherForecaster.swift in Sources */,
 				206523C826597B120026C506 /* WeatherError.swift in Sources */,
 				209F8A38279136D300EB5C45 /* LocationValidator.swift in Sources */,

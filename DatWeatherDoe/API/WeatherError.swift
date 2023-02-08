@@ -13,7 +13,4 @@ enum WeatherError: Error {
     case latLongIncorrect
     case locationError
     case networkError
-    case unableToParseWeatherResponse
-    case unableToParseTemperatureUnit
-    case other
 }
