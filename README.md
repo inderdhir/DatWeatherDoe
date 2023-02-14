@@ -4,6 +4,7 @@
 - Location services
 - Zip Code
 - Latitude / Longitude
+- City
 
 ✅ Configurable polling interval
 
