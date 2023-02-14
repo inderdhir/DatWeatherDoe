@@ -34,4 +34,12 @@ final class ConfigurationCommitterTests: XCTestCase {
         XCTAssertEqual(zipCodeSource.placeholder, "10021,us")
         XCTAssertEqual(zipCodeSource.textHint, "[zipcode],[iso 3166 country code]")
     }
+    
+    func testCitySource() {
+        let citySource = WeatherSource.city
+        
+        XCTAssertEqual(citySource.title, "City")
+        XCTAssertEqual(citySource.placeholder, "Kyiv,ua")
+        XCTAssertEqual(citySource.textHint, "[city],[iso 3166 country code]")
+    }
 }
