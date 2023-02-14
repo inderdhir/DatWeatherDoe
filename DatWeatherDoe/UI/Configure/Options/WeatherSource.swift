@@ -9,7 +9,7 @@
 import Foundation
 
 enum WeatherSource: String, CaseIterable {
-    case location, latLong, zipCode
+    case location, latLong, zipCode, city
 
     var title: String {
         switch self {
@@ -19,6 +19,8 @@ enum WeatherSource: String, CaseIterable {
             return NSLocalizedString("Lat/Long", comment: "Weather based on Lat/Long")
         case .zipCode:
             return NSLocalizedString("Zip Code", comment: "Weather based on Zip Code")
+        case .city:
+            return NSLocalizedString("City", comment: "Weather based on City")
         }
     }
 
@@ -30,6 +32,8 @@ enum WeatherSource: String, CaseIterable {
             return "42,42"
         case .zipCode:
             return "10021,us"
+        case .city:
+            return "Kyiv,ua"
         }
     }
 
@@ -46,6 +50,11 @@ enum WeatherSource: String, CaseIterable {
             return NSLocalizedString(
                 "[zipcode],[iso 3166 country code]",
                 comment: "Placeholder hint for entering zip code"
+            )
+        case .city:
+            return NSLocalizedString(
+                "[city],[iso 3166 country code]",
+                comment: "Placeholder hint for entering city"
             )
         }
     }
