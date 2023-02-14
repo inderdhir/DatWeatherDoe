@@ -60,6 +60,8 @@ final class WeatherViewModel: WeatherViewModelType {
             getWeatherViaZipCode()
         case .latLong:
             getWeatherViaLocationCoordinates()
+        case .city:
+            getWeatherViaCity()
         }
     }
 
@@ -106,6 +108,27 @@ final class WeatherViewModel: WeatherViewModelType {
                     errorLabels: self.errorLabels
                 )
                 self.weatherResultParser?.parse()
+            }
+        )
+    }
+    
+    private func getWeatherViaCity() {
+        guard let city = configManager.weatherSourceText else {
+            delegate?.didFailToUpdateWeatherData(errorLabels.cityErrorString)
+            return
+        }
+        
+        weatherRepository.getWeatherViaCity(
+            city,
+            options: buildWeatherDataOptions(),
+            completion: { [weak self] result in
+                guard let `self` = self else { return }
+
+                CityWeatherResultParser(
+                    weatherDataResult: result,
+                    delegate: self.delegate,
+                    errorLabels: self.errorLabels
+                ).parse()
             }
         )
     }
