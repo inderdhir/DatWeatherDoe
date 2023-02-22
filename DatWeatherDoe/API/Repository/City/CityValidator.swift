@@ -19,8 +19,8 @@ final class CityValidator: WeatherValidatorType {
         let isCityPresent = !city.isEmpty
         let isCityPresentWithCountryCode = city.split(separator: ",").count == 2
         let isValid = isCityPresent && isCityPresentWithCountryCode
-        if(!isValid) {
-            throw WeatherError.zipCodeIncorrect
+        if !isValid {
+            throw WeatherError.cityIncorrect
         }
     }
 }
