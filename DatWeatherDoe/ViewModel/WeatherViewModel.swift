@@ -53,13 +53,14 @@ final class WeatherViewModel: WeatherViewModelType {
 
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
+        
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
         case .latLong:
-            getWeatherViaLocationCoordinates(
-                unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
-            )
+            getWeatherViaLocationCoordinates(unit: measurementUnit)
+        case .city:
+            getWeatherViaCity(unit: measurementUnit)
         }
     }
 
@@ -92,25 +93,29 @@ final class WeatherViewModel: WeatherViewModelType {
         }
     }
     
-    private func getWeatherViaCity() {
+    private func getWeatherViaCity(unit: MeasurementUnit) {
         guard let city = configManager.weatherSourceText else {
             delegate?.didFailToUpdateWeatherData(errorLabels.cityErrorString)
             return
         }
         
-        weatherRepository.getWeatherViaCity(
-            city,
-            options: buildWeatherDataOptions(),
-            completion: { [weak self] result in
-                guard let `self` = self else { return }
+        Task {
+            do {
+                let weatherData = try await weatherRepository.getWeatherViaCity(
+                    city,
+                    options: buildWeatherDataOptions(for: unit)
+                )
+                delegate?.didUpdateWeatherData(weatherData)
+            } catch {
+                guard let weatherError = error as? WeatherError else { return }
 
-                CityWeatherResultParser(
-                    weatherDataResult: result,
-                    delegate: self.delegate,
-                    errorLabels: self.errorLabels
-                ).parse()
+                let isCityError = weatherError == WeatherError.cityIncorrect
+                let errorString = isCityError ?
+                errorLabels.cityErrorString : errorLabels.networkErrorString
+
+                delegate?.didFailToUpdateWeatherData(errorString)
             }
-        )
+        }
     }
 
     private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
@@ -145,13 +150,17 @@ final class WeatherViewModel: WeatherViewModelType {
             }
         }
     }
+    
+    private var measurementUnit: MeasurementUnit {
+        MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
+    }
 }
 
 // MARK: SystemLocationFetcherDelegate
 
 extension WeatherViewModel: SystemLocationFetcherDelegate {
     func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool) {
-        getWeatherViaLocation(location, unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial)
+        getWeatherViaLocation(location, unit: measurementUnit)
     }
 
     func didFailLocationUpdate() {
