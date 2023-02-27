@@ -34,6 +34,17 @@ final class WeatherRepository {
         
         return buildWeatherDataWith(response: response, options: options)
     }
+    
+    func getWeatherViaCity(
+        _ city: String,
+        options: WeatherDataBuilder.Options,
+        completion: @escaping (Result<WeatherData, Error>) -> Void
+    ){
+        repository = selectWeatherRepository(input: .city(city : city))
+        repository?.getWeather(completion: { [weak self] result in
+            self?.parseRepositoryResult(result, options: options, completion: completion)
+        })
+    }
 
     func getWeatherViaLatLong(
         _ latLong: String,
@@ -58,6 +69,13 @@ final class WeatherRepository {
             return LocationCoordinatesWeatherRepository(
                 appId: appId,
                 latLong: latLong,
+                networkClient: NetworkClient(),
+                logger: logger
+            )
+        case let .city(city):
+            return CityWeatherRepository(
+                appId: appId,
+                city: city,
                 networkClient: NetworkClient(),
                 logger: logger
             )

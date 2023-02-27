@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DA0031C299BD1D100D749C9 /* CityWeatherURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0031A299BD1D100D749C9 /* CityWeatherURLBuilder.swift */; };
+		1DA0031D299BD1D100D749C9 /* CityWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0031B299BD1D100D749C9 /* CityWeatherRepository.swift */; };
+		1DA0031F299BD30E00D749C9 /* CityValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA0031E299BD30E00D749C9 /* CityValidator.swift */; };
+		1DA00321299BD43600D749C9 /* CityWeatherResultParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA00320299BD43600D749C9 /* CityWeatherResultParser.swift */; };
+		1DBBAE7A299BDB72005429E5 /* CityWeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBBAE79299BDB72005429E5 /* CityWeatherURLBuilderTests.swift */; };
+		1DBBAE7C299BDBFC005429E5 /* CityValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBBAE7B299BDBFC005429E5 /* CityValidatorTests.swift */; };
 		20012FA6267980EE00553B60 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 20012FA5267980EE00553B60 /* Reachability */; };
 		2005C055278CB4E40067BBD1 /* WeatherValidatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2005C054278CB4E40067BBD1 /* WeatherValidatorType.swift */; };
 		2005C057278CB5640067BBD1 /* LocationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2005C056278CB5640067BBD1 /* LocationParser.swift */; };
@@ -92,6 +98,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1DA0031A299BD1D100D749C9 /* CityWeatherURLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityWeatherURLBuilder.swift; sourceTree = "<group>"; };
+		1DA0031B299BD1D100D749C9 /* CityWeatherRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityWeatherRepository.swift; sourceTree = "<group>"; };
+		1DA0031E299BD30E00D749C9 /* CityValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityValidator.swift; sourceTree = "<group>"; };
+		1DA00320299BD43600D749C9 /* CityWeatherResultParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherResultParser.swift; sourceTree = "<group>"; };
+		1DBBAE79299BDB72005429E5 /* CityWeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherURLBuilderTests.swift; sourceTree = "<group>"; };
+		1DBBAE7B299BDBFC005429E5 /* CityValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityValidatorTests.swift; sourceTree = "<group>"; };
 		2005C054278CB4E40067BBD1 /* WeatherValidatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherValidatorType.swift; sourceTree = "<group>"; };
 		2005C056278CB5640067BBD1 /* LocationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationParser.swift; sourceTree = "<group>"; };
 		2005C058278CB5FC0067BBD1 /* WeatherURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherURLBuilder.swift; sourceTree = "<group>"; };
@@ -202,6 +214,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DA00319299BD1D100D749C9 /* City */ = {
+			isa = PBXGroup;
+			children = (
+				1DA0031A299BD1D100D749C9 /* CityWeatherURLBuilder.swift */,
+				1DA0031B299BD1D100D749C9 /* CityWeatherRepository.swift */,
+				1DA0031E299BD30E00D749C9 /* CityValidator.swift */,
+			);
+			path = City;
+			sourceTree = "<group>";
+		};
+		1DBBAE78299BDB49005429E5 /* City */ = {
+			isa = PBXGroup;
+			children = (
+				1DBBAE79299BDB72005429E5 /* CityWeatherURLBuilderTests.swift */,
+				1DBBAE7B299BDBFC005429E5 /* CityValidatorTests.swift */,
+			);
+			path = City;
+			sourceTree = "<group>";
+		};
 		2005C050278CB4040067BBD1 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +240,7 @@
 				2078C2E12794B0F700946880 /* WeatherRepositoryInput.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherRepository.swift */,
 				2005C058278CB5FC0067BBD1 /* WeatherURLBuilder.swift */,
+				1DA00319299BD1D100D749C9 /* City */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -376,6 +408,7 @@
 		2074949727A0926E002AA589 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				1DBBAE78299BDB49005429E5 /* City */,
 				2074949A27A09337002AA589 /* Location */,
 				2074949827A09278002AA589 /* WeatherURLBuilderTests.swift */,
 			);
@@ -748,6 +781,7 @@
 				20BBCDAF278B92A7007DEEB0 /* SystemLocationFetcher.swift in Sources */,
 				209482C629934BFF00AF39D4 /* MeasurementUnit.swift in Sources */,
 				2005C057278CB5640067BBD1 /* LocationParser.swift in Sources */,
+				1DA00321299BD43600D749C9 /* CityWeatherResultParser.swift in Sources */,
 				2077BC4F278DF88500E0453C /* WeatherConditionImageMapper.swift in Sources */,
 				2005C05D278CE0350067BBD1 /* WeatherAPIResponseParser.swift in Sources */,
 				206523DB2659CD4E0026C506 /* Storage.swift in Sources */,
@@ -760,6 +794,7 @@
 				20B468122793940300FC6050 /* Date+Night.swift in Sources */,
 				2078C2E42794BDF200946880 /* LocationWeatherURLBuilder.swift in Sources */,
 				2078C2E22794B0F700946880 /* WeatherRepositoryInput.swift in Sources */,
+				1DA0031D299BD1D100D749C9 /* CityWeatherRepository.swift in Sources */,
 				E3BE2C91292C505A00C4F468 /* DropdownIcons.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
 				202B1030278D632800ED6D42 /* WeatherAppIDParser.swift in Sources */,
@@ -770,6 +805,7 @@
 				202B1024278D514E00ED6D42 /* MenuBuilder.swift in Sources */,
 				20AF0D9827952D1000AA7D18 /* WeatherViewModelDelegate.swift in Sources */,
 				202B101E278D4F1900ED6D42 /* WeatherReachability.swift in Sources */,
+				1DA0031C299BD1D100D749C9 /* CityWeatherURLBuilder.swift in Sources */,
 				20B46814279394FB00FC6050 /* WeatherTextBuilder.swift in Sources */,
 				20CA6E11278F49AC00FFC53A /* TemperatureFormatter.swift in Sources */,
 				2023EDA71C4ED09C0087FD67 /* AppDelegate.swift in Sources */,
@@ -782,6 +818,7 @@
 				209F8A38279136D300EB5C45 /* LocationValidator.swift in Sources */,
 				2044E91E2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift in Sources */,
 				201C6C4620262E380065E795 /* WeatherAPIResponse.swift in Sources */,
+				1DA0031F299BD30E00D749C9 /* CityValidator.swift in Sources */,
 				202B102B278D5DDC00ED6D42 /* PopoverManager.swift in Sources */,
 				2005C059278CB5FC0067BBD1 /* WeatherURLBuilder.swift in Sources */,
 				E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */,
@@ -810,11 +847,14 @@
 				2074949D27A09358002AA589 /* LocationWeatherURLBuilderTests.swift in Sources */,
 				2074949927A09278002AA589 /* WeatherURLBuilderTests.swift in Sources */,
 				20B9CDCF27B8335A00C42508 /* TemperatureUnitTests.swift in Sources */,
+				20B3845C27A1CE3900F85482 /* ZipCodeValidatorTests.swift in Sources */,
+				1DBBAE7A299BDB72005429E5 /* CityWeatherURLBuilderTests.swift in Sources */,
 				206523DD265ABDF30026C506 /* ConfigManagerTests.swift in Sources */,
 				20B3845F27A1CFE800F85482 /* LocationValidatorTests.swift in Sources */,
 				20B9CDD327B8352800C42508 /* ConfigurationCommitterTests.swift in Sources */,
 				20B9CDD127B833EE00C42508 /* RefreshIntervalTests.swift in Sources */,
 				20B9CDCD27B8325900C42508 /* WeatherSourceTests.swift in Sources */,
+				1DBBAE7C299BDBFC005429E5 /* CityValidatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,7 +1021,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -990,7 +1030,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe.debug;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
@@ -1007,7 +1047,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1016,7 +1056,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 3.2.3;
+				MARKETING_VERSION = 3.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";

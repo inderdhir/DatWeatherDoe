@@ -60,6 +60,8 @@ final class WeatherViewModel: WeatherViewModelType {
             getWeatherViaLocationCoordinates(
                 unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
             )
+        case .city:
+            getWeatherViaCity()
         }
     }
 
@@ -90,6 +92,27 @@ final class WeatherViewModel: WeatherViewModelType {
                 delegate?.didFailToUpdateWeatherData(errorString)
             }
         }
+    }
+    
+    private func getWeatherViaCity() {
+        guard let city = configManager.weatherSourceText else {
+            delegate?.didFailToUpdateWeatherData(errorLabels.cityErrorString)
+            return
+        }
+        
+        weatherRepository.getWeatherViaCity(
+            city,
+            options: buildWeatherDataOptions(),
+            completion: { [weak self] result in
+                guard let `self` = self else { return }
+
+                CityWeatherResultParser(
+                    weatherDataResult: result,
+                    delegate: self.delegate,
+                    errorLabels: self.errorLabels
+                ).parse()
+            }
+        )
     }
 
     private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
