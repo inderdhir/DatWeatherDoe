@@ -10,6 +10,7 @@ import Foundation
 
 enum WeatherError: Error {
     case unableToConstructUrl
+    case cityIncorrect
     case latLongIncorrect
     case locationError
     case networkError

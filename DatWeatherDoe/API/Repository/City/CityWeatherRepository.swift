@@ -27,54 +27,18 @@ final class CityWeatherRepository: WeatherRepositoryType {
         self.logger = logger
     }
     
-    func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
+    func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via city")
-        
+
         do {
-            try validateCity()
-            let url = try buildURL()
-            performRequest(url: url, completion: { [weak self] result in
-                self?.parseNetworkResult(result: result, completion: completion)
-            })
+            try CityValidator(city: city).validate()
+            let url = try CityWeatherURLBuilder(appId: appId, city: city).build(unit: unit)
+            let data = try await networkClient.performRequest(url: url)
+            return try WeatherAPIResponseParser().parse(data)
         } catch {
             logger.error("Getting weather via city failed.")
             
-            completion(.failure(error))
+            throw error
         }
-    }
-    
-    private func validateCity() throws {
-        try CityValidator(city: city).validate()
-    }
-    
-    private func buildURL() throws -> URL {
-        try CityWeatherURLBuilder(appId: appId, city: city).build()
-    }
-    
-    private func performRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        networkClient.performRequest(url: url, completion: completion)
-    }
-    
-    private func parseNetworkResult(
-        result: Result<Data, Error>,
-        completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void
-    ) {
-        switch result {
-        case let .success(data):
-            do {
-                let weatherData = try parseWeatherData(data)
-                completion(.success(weatherData))
-            } catch {
-                let weatherError = (error as? WeatherError) ?? WeatherError.other
-                completion(.failure(weatherError))
-            }
-        case let .failure(error):
-            let weatherError = (error as? WeatherError) ?? WeatherError.other
-            completion(.failure(weatherError))
-        }
-    }
-    
-    private func parseWeatherData(_ data: Data) throws -> WeatherAPIResponse {
-        try WeatherAPIResponseParser().parse(data)
     }
 }

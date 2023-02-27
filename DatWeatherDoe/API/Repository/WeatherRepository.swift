@@ -34,6 +34,16 @@ final class WeatherRepository {
         
         return buildWeatherDataWith(response: response, options: options)
     }
+    
+    func getWeatherViaCity(
+        _ city: String,
+        options: WeatherDataBuilder.Options
+    ) async throws -> WeatherData {
+        let repository = selectWeatherRepository(input: .city(city : city))
+        let response = try await repository.getWeather(unit: options.unit)
+        
+        return buildWeatherDataWith(response: response, options: options)
+    }
 
     func getWeatherViaLatLong(
         _ latLong: String,
