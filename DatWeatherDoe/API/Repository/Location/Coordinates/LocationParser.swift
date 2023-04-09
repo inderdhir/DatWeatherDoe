@@ -28,7 +28,7 @@ final class LocationParser {
     ) throws -> CLLocationCoordinate2D {
         let lat = CLLocationDegrees(possibleLatitude.trim())
         let long = CLLocationDegrees(possibleLongitude.trim())
-        guard let lat = lat, let long = long else {
+        guard let lat, let long else {
             throw WeatherError.latLongIncorrect
         }
         

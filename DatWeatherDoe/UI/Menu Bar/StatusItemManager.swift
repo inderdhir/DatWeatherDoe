@@ -31,7 +31,7 @@ final class StatusItemManager {
 
     func updateStatusItemWith(weatherData: WeatherData, options: Options) {
         DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
+            guard let self else { return }
 
             if let textualRepresentation = weatherData.textualRepresentation {
                 self.statusItem.button?.title = textualRepresentation
