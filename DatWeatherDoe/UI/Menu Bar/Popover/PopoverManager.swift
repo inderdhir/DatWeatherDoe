@@ -48,7 +48,7 @@ final class PopoverManager {
     }
     
     private func showPopover(_ sender: AnyObject?) {
-        if let statusBarButton = statusBarButton {
+        if let statusBarButton {
             popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: .minY)
         }
     }

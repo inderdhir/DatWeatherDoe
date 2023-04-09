@@ -58,13 +58,7 @@ final class SystemLocationFetcher: NSObject {
     private func requestLocationPermission() {
         logger.debug("Location permission not determined")
         
-        if #available(macOS 10.15, *) {
-            locationManager.requestWhenInUseAuthorization()
-        } else {
-            logger.error("Location permission not determined on an older MacOS version")
-            
-            delegate?.didFailLocationUpdate()
-        }
+        locationManager.requestWhenInUseAuthorization()
     }
     
     private func requestUpdatedLocation() {
@@ -81,7 +75,7 @@ final class SystemLocationFetcher: NSObject {
     }
     
     private func sendCachedLocationIfPresent() -> Bool {
-        guard let currentLocation = currentLocation else { return false }
+        guard let currentLocation else { return false }
         
         logger.debug("Sending cached location")
 
@@ -103,7 +97,7 @@ final class SystemLocationFetcher: NSObject {
         logger.error("Getting updated location failed with error \(error.localizedDescription)")
         
         currentLocationSerialQueue.sync { [weak self] in
-            guard let `self` = self else { return }
+            guard let self else { return }
             
             let isCachedLocationPresent = self.sendCachedLocationIfPresent()
             if !isCachedLocationPresent {
@@ -116,7 +110,7 @@ final class SystemLocationFetcher: NSObject {
         currentLocationSerialQueue.sync {
             currentLocation = location
             
-            if let currentLocation = currentLocation {
+            if let currentLocation {
                 delegate?.didUpdateLocation(currentLocation, isCachedLocation: false)
             } else {
                 logger.error("Getting location failed")

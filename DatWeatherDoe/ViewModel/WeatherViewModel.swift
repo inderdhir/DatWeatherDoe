@@ -25,6 +25,7 @@ final class WeatherViewModel: WeatherViewModelType {
         locationFetcher.delegate = self
         return locationFetcher
     }()
+    private var weatherTask: Task<Void, Never>?
 
     init(appId: String, configManager: ConfigManagerType, logger: DatWeatherDoeLoggerType) {
         self.configManager = configManager
@@ -74,7 +75,8 @@ final class WeatherViewModel: WeatherViewModelType {
             return
         }
         
-        Task {
+        weatherTask?.cancel()
+        weatherTask = Task {
             do {
                 let weatherData = try await weatherRepository.getWeatherViaLatLong(
                     latLong,
@@ -99,7 +101,8 @@ final class WeatherViewModel: WeatherViewModelType {
             return
         }
         
-        Task {
+        weatherTask?.cancel()
+        weatherTask = Task {
             do {
                 let weatherData = try await weatherRepository.getWeatherViaCity(
                     city,
@@ -138,7 +141,8 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func getWeatherViaLocation(_ location: CLLocationCoordinate2D, unit: MeasurementUnit) {
-        Task {
+        weatherTask?.cancel()
+        weatherTask = Task {
             do {
                 let weatherData = try await weatherRepository.getWeatherViaLocation(
                     location,
