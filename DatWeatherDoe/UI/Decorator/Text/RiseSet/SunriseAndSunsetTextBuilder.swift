@@ -36,12 +36,8 @@ final class SunriseAndSunsetTextBuilder {
     }
 
     private func buildFormattedString(ts: TimeInterval) -> String {
-        getDateFormatter().string(from: Date(timeIntervalSince1970: ts))
-    }
-
-    private func getDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        return formatter
+        return formatter.string(from: Date(timeIntervalSince1970: ts))
     }
 }

@@ -32,7 +32,6 @@ struct Storage<T> {
             } else {
                 storage.set(newValue, forKey: key)
             }
-
         }
     }
 }
