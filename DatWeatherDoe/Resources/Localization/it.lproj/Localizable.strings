@@ -92,7 +92,7 @@
 "Partly cloudy with rain" = "Parzialmente nuvoloso con pioggia";
 
 /* Thunderstorm weather condition */
-"Thunderstorm" = "Tempesta";
+"Thunderstorm" = "Temporale";
 
 /* Finish configuring app */
 "Done" = "Fine";
