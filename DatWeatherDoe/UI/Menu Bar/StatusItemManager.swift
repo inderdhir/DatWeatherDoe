@@ -166,7 +166,7 @@ final class StatusItemManager {
     private func constructMenuItemAttributes() -> [NSAttributedString.Key: Any] {
         [
             .foregroundColor: NSColor.black,
-            .font: NSFont.boldSystemFont(ofSize: 14),
+            .font: NSFont.boldSystemFont(ofSize: 14)
         ]
     }
 }

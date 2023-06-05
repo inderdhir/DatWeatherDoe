@@ -39,7 +39,6 @@ final class TemperatureForecastTextBuilder {
             .joined(separator: " - ")
     }
     
-    
     private func buildTemperature(_ temperature: Double) -> String? {
         TemperatureHelpers.getTemperatureWithDegrees(
             temperature,

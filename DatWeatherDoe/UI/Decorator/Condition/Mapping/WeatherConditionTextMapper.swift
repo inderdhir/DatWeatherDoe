@@ -9,6 +9,7 @@
 import Foundation
 
 final class WeatherConditionTextMapper {
+    // swiftlint:disable:next cyclomatic_complexity
     func map(_ condition: WeatherCondition) -> String {
         switch condition {
         case .cloudy:
@@ -37,7 +38,10 @@ final class WeatherConditionTextMapper {
         case .lightRain:
             return NSLocalizedString("Light rain", comment: "Light rain weather condition")
         case .partlyCloudyRain:
-            return NSLocalizedString("Partly cloudy with rain", comment: "Partly cloudy with rain weather condition")
+            return NSLocalizedString(
+                "Partly cloudy with rain",
+                comment: "Partly cloudy with rain weather condition"
+            )
        
         case .thunderstorm:
             return NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
