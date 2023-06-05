@@ -23,7 +23,7 @@ final class NetworkReachability {
         setupWith(callback: onBecomingReachable)
     }
 
-    private func setupWith(callback: @escaping () ->Void) {
+    private func setupWith(callback: @escaping () -> Void) {
         do {
             try createReachability()
             try startReachability()
@@ -42,7 +42,7 @@ final class NetworkReachability {
         try reachability?.startNotifier()
     }
     
-    private func updateReachabilityWhenReachable(callback: @escaping () ->Void) {
+    private func updateReachabilityWhenReachable(callback: @escaping () -> Void) {
         reachability?.whenReachable = { [weak self] _ in
             self?.logger.debug("Reachability status: Reachable")
             

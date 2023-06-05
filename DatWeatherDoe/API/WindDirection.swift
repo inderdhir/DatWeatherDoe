@@ -48,6 +48,7 @@ class WindDirection {
      *    NW    303.75 - 326.25    305 -  <= 326
      *    NNW   326.25 - 348.75    327 -  <= 349
      */
+    // swiftlint:disable:next cyclomatic_complexity
     class func getDirection(_ weather: WeatherData) -> Direction {
         switch weather.windData.degrees {
             // "north" (0...11, 350...359) is handled by the default case
@@ -86,6 +87,7 @@ class WindDirection {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     class func getDirectionStr(_ weather: WeatherData) -> String {
         let windDirection: String
 
