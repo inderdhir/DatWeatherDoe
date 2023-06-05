@@ -44,7 +44,10 @@ final class WeatherConditionImageMapper {
         }
         
         let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
-        return NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)?.withSymbolConfiguration(config)
+        return NSImage(
+            systemSymbolName: symbolName,
+            accessibilityDescription: nil
+        )?.withSymbolConfiguration(config)
     }
 }
 

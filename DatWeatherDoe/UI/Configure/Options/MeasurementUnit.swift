@@ -41,4 +41,3 @@ enum MeasurementUnit: String, CaseIterable, Identifiable {
         }
     }
 }
-

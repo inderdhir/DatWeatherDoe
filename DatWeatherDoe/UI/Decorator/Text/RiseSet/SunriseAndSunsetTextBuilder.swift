@@ -29,15 +29,15 @@ final class SunriseAndSunsetTextBuilder {
     }
 
     private func buildRiseSet() -> String {
-        let sunRiseText = buildFormattedString(ts: sunrise)
-        let sunSetText = buildFormattedString(ts: sunset)
+        let sunRiseText = buildFormattedString(timestamp: sunrise)
+        let sunSetText = buildFormattedString(timestamp: sunset)
         let sunriseAndSunsetString = "\(upArrowStr)\(sunRiseText) \(downArrowStr)\(sunSetText)"
         return sunriseAndSunsetString
     }
 
-    private func buildFormattedString(ts: TimeInterval) -> String {
+    private func buildFormattedString(timestamp: TimeInterval) -> String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        return formatter.string(from: Date(timeIntervalSince1970: ts))
+        return formatter.string(from: Date(timeIntervalSince1970: timestamp))
     }
 }

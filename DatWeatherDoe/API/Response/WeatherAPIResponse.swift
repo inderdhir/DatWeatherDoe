@@ -24,6 +24,7 @@ struct WeatherAPIResponse: Decodable {
         let minTemperature: Double
         let maxTemperature: Double
         
+        // swiftlint:disable:next nesting
         private enum CodingKeys: String, CodingKey {
             case temperature = "temp"
             case feelsLikeTemperature = "feels_like"
@@ -36,6 +37,7 @@ struct WeatherAPIResponse: Decodable {
         let speed: Double
         let degrees: Int
         
+        // swiftlint:disable:next nesting
         private enum CodingKeys: String, CodingKey {
             case speed
             case degrees = "deg"
