@@ -29,7 +29,12 @@ final class WeatherRepository {
         _ location: CLLocationCoordinate2D,
         options: WeatherDataBuilder.Options
     ) async throws -> WeatherData {
-        let repository = selectWeatherRepository(input: .location(coordinates: location))
+        let repository = SystemLocationWeatherRepository(
+            appId: appId,
+            location: location,
+            networkClient: NetworkClient(),
+            logger: logger
+        )
         let response = try await repository.getWeather(unit: options.unit)
         
         return buildWeatherDataWith(response: response, options: options)
@@ -39,7 +44,12 @@ final class WeatherRepository {
         _ city: String,
         options: WeatherDataBuilder.Options
     ) async throws -> WeatherData {
-        let repository = selectWeatherRepository(input: .city(city : city))
+        let repository = CityWeatherRepository(
+            appId: appId,
+            city: city,
+            networkClient: NetworkClient(),
+            logger: logger
+        )
         let response = try await repository.getWeather(unit: options.unit)
         
         return buildWeatherDataWith(response: response, options: options)
@@ -49,36 +59,15 @@ final class WeatherRepository {
         _ latLong: String,
         options: WeatherDataBuilder.Options
     ) async throws -> WeatherData {
-        let repository = selectWeatherRepository(input: .latLong(latLong: latLong))
+        let repository = LocationCoordinatesWeatherRepository(
+            appId: appId,
+            latLong: latLong,
+            networkClient: NetworkClient(),
+            logger: logger
+        )
         let response = try await repository.getWeather(unit: options.unit)
 
         return buildWeatherDataWith(response: response, options: options)
-    }
-    
-    private func selectWeatherRepository(input: WeatherRepositoryInput) -> WeatherRepositoryType {
-        switch input {
-        case let .location(coordinates):
-            return SystemLocationWeatherRepository(
-                appId: appId,
-                location: coordinates,
-                networkClient: NetworkClient(),
-                logger: logger
-            )
-        case let .latLong(latLong):
-            return LocationCoordinatesWeatherRepository(
-                appId: appId,
-                latLong: latLong,
-                networkClient: NetworkClient(),
-                logger: logger
-            )
-        case let .city(city):
-            return CityWeatherRepository(
-                appId: appId,
-                city: city,
-                networkClient: NetworkClient(),
-                logger: logger
-            )
-        }
     }
     
     private func buildWeatherDataWith(

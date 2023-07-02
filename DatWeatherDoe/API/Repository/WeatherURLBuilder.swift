@@ -10,10 +10,10 @@ import CoreLocation
 import Foundation
 
 protocol WeatherURLBuilderType {
-    func build() -> URL?
+    func build(unit: MeasurementUnit) throws -> URL
 }
 
-class WeatherURLBuilder {
+class WeatherURLBuilder: WeatherURLBuilderType {
     
     let apiUrlString = "https://api.openweathermap.org/data/2.5/weather"
     let appId: String
