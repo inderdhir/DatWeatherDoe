@@ -9,7 +9,7 @@
 // Icons used by the dropdown menu
 enum DropdownIcons {
     case location
-    case sun
     case thermometer
+    case sun
     case wind
 }

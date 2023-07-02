@@ -45,7 +45,6 @@
 		2074949D27A09358002AA589 /* LocationWeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */; };
 		2077BC4D278DEBA300E0453C /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2077BC4C278DEBA300E0453C /* MenuBarManager.swift */; };
 		2077BC52278DF98800E0453C /* WeatherConditionTextMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2077BC51278DF98800E0453C /* WeatherConditionTextMapper.swift */; };
-		2078C2E22794B0F700946880 /* WeatherRepositoryInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2078C2E12794B0F700946880 /* WeatherRepositoryInput.swift */; };
 		2078C2E42794BDF200946880 /* LocationWeatherURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2078C2E32794BDF200946880 /* LocationWeatherURLBuilder.swift */; };
 		2085263527E80B9E0017D7F4 /* ConfigureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085263427E80B9E0017D7F4 /* ConfigureViewModel.swift */; };
 		209482C629934BFF00AF39D4 /* MeasurementUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209482C529934BFF00AF39D4 /* MeasurementUnit.swift */; };
@@ -136,7 +135,6 @@
 		2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeatherURLBuilderTests.swift; sourceTree = "<group>"; };
 		2077BC4C278DEBA300E0453C /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
 		2077BC51278DF98800E0453C /* WeatherConditionTextMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherConditionTextMapper.swift; sourceTree = "<group>"; };
-		2078C2E12794B0F700946880 /* WeatherRepositoryInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryInput.swift; sourceTree = "<group>"; };
 		2078C2E32794BDF200946880 /* LocationWeatherURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeatherURLBuilder.swift; sourceTree = "<group>"; };
 		207E989B26838D0D00DC2162 /* DatWeatherDoe.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DatWeatherDoe.xctestplan; sourceTree = "<group>"; };
 		2085263427E80B9E0017D7F4 /* ConfigureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureViewModel.swift; sourceTree = "<group>"; };
@@ -235,7 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				209F8A4227915EAA00EB5C45 /* Location */,
-				2078C2E12794B0F700946880 /* WeatherRepositoryInput.swift */,
 				20459C651C5D24FF004D0DC1 /* WeatherRepository.swift */,
 				2005C058278CB5FC0067BBD1 /* WeatherURLBuilder.swift */,
 				1DA00319299BD1D100D749C9 /* City */,
@@ -681,7 +678,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
@@ -792,7 +789,6 @@
 				20BBCDAA278B8A18007DEEB0 /* WeatherViewModel.swift in Sources */,
 				20B468122793940300FC6050 /* Date+Night.swift in Sources */,
 				2078C2E42794BDF200946880 /* LocationWeatherURLBuilder.swift in Sources */,
-				2078C2E22794B0F700946880 /* WeatherRepositoryInput.swift in Sources */,
 				1DA0031D299BD1D100D749C9 /* CityWeatherRepository.swift in Sources */,
 				E3BE2C91292C505A00C4F468 /* DropdownIcons.swift in Sources */,
 				202C31A21C528FE7003D5E5A /* EventMonitor.swift in Sources */,
@@ -916,6 +912,7 @@
 			baseConfigurationReference = 20CB480B27B83EF90043C60F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -944,6 +941,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -970,6 +968,7 @@
 			baseConfigurationReference = 20CB480B27B83EF90043C60F /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -999,6 +998,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
