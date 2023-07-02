@@ -16,6 +16,8 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 # configurable rules can be customized from this configuration file
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
+cyclomatic_complexity:
+  ignores_case_statements: true
 force_cast: warning # implicitly
 force_try:
   severity: warning # explicitly

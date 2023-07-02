@@ -9,7 +9,6 @@
 import Foundation
 
 final class WeatherConditionTextMapper {
-    // swiftlint:disable:next cyclomatic_complexity
     func map(_ condition: WeatherCondition) -> String {
         switch condition {
         case .cloudy:
