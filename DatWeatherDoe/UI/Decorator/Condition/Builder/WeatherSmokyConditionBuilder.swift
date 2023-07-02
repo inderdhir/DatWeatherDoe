@@ -16,7 +16,6 @@ final class WeatherSmokyConditionBuilder {
         self.response = response
     }
     
-    // swiftlint:disable:next cyclomatic_complexity
     func build() -> WeatherCondition {
         switch response.weatherId {
         case 781:
