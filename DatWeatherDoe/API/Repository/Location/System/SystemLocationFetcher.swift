@@ -8,6 +8,7 @@
 
 import CoreLocation
 import Foundation
+import OSLog
 
 protocol SystemLocationFetcherDelegate: AnyObject {
     func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool)
@@ -18,7 +19,7 @@ final class SystemLocationFetcher: NSObject {
     
     weak var delegate: SystemLocationFetcherDelegate?
     
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
     private var currentLocation: CLLocationCoordinate2D?
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -29,7 +30,7 @@ final class SystemLocationFetcher: NSObject {
     }()
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
 
-    init(logger: DatWeatherDoeLoggerType) {
+    init(logger: Logger) {
         self.logger = logger
     }
     

@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import OSLog
 
 final class HumidityTextBuilder {
     
     private let initial: String
     private let humidity: Int
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
     private let percentString = "\u{0025}"
 
     private let humidityFormatter: NumberFormatter = {
@@ -25,7 +26,7 @@ final class HumidityTextBuilder {
     init(
         initial: String,
         humidity: Int,
-        logger: DatWeatherDoeLoggerType
+        logger: Logger
     ) {
         self.initial = initial
         self.humidity = humidity

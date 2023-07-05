@@ -8,6 +8,7 @@
 
 import CoreLocation
 import Foundation
+import OSLog
 
 final class WeatherViewModel: WeatherViewModelType {
 
@@ -17,7 +18,7 @@ final class WeatherViewModel: WeatherViewModelType {
     private let errorLabels = ErrorLabels()
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private let forecaster = WeatherForecaster()
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
     private var weatherRepository: WeatherRepository!
     private var weatherTimer: Timer?
     private lazy var locationFetcher: SystemLocationFetcher = {
@@ -27,7 +28,7 @@ final class WeatherViewModel: WeatherViewModelType {
     }()
     private var weatherTask: Task<Void, Never>?
 
-    init(appId: String, configManager: ConfigManagerType, logger: DatWeatherDoeLoggerType) {
+    init(appId: String, configManager: ConfigManagerType, logger: Logger) {
         self.configManager = configManager
         self.logger = logger
         weatherRepository = WeatherRepository(appId: appId, logger: logger)

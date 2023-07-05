@@ -7,19 +7,19 @@
 //
 
 import CoreLocation
+import OSLog
 
 protocol WeatherRepositoryType: AnyObject {
     func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse
 }
 
 final class WeatherRepository {
-    
     private let appId: String
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
     
     init(
         appId: String,
-        logger: DatWeatherDoeLoggerType
+        logger: Logger
     ) {
         self.appId = appId
         self.logger = logger

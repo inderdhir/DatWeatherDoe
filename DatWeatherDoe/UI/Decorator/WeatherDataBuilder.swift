@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import os
+import OSLog
 
 protocol WeatherDataBuilderType: AnyObject {
     func build() -> WeatherData
@@ -23,12 +23,12 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
     
     private let response: WeatherAPIResponse
     private let options: WeatherDataBuilder.Options
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
 
     init(
         response: WeatherAPIResponse,
         options: WeatherDataBuilder.Options,
-        logger: DatWeatherDoeLoggerType
+        logger: Logger
     ) {
         self.response = response
         self.options = options
