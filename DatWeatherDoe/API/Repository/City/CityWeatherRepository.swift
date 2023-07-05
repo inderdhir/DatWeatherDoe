@@ -7,19 +7,20 @@
 //
 
 import Foundation
+import OSLog
 
 final class CityWeatherRepository: WeatherRepositoryType {
     
     private let appId: String
     private let city: String
     private let networkClient: NetworkClient
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
 
     init(
         appId: String,
         city: String,
         networkClient: NetworkClient,
-        logger: DatWeatherDoeLoggerType
+        logger: Logger
     ) {
         self.appId = appId
         self.city = city
