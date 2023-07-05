@@ -6,6 +6,8 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
+import OSLog
+
 final class WeatherTextBuilder {
     
     struct Options {
@@ -16,12 +18,12 @@ final class WeatherTextBuilder {
     
     private let response: WeatherAPIResponse
     private let options: Options
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
     
     init(
         response: WeatherAPIResponse,
         options: Options,
-        logger: DatWeatherDoeLoggerType
+        logger: Logger
     ) {
         self.response = response
         self.options = options

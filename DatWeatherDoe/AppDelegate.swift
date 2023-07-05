@@ -8,6 +8,7 @@
 
 import Cocoa
 import Foundation
+import OSLog
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -15,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     
     private let configManager: ConfigManagerType = ConfigManager()
-    private let logger: DatWeatherDoeLoggerType = DatWeatherDoeLogger()
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "bundleID", category: "main")
     private var viewModel: WeatherViewModelType!
     private var reachability: NetworkReachability!
     private var menuBarManager: MenuBarManager!

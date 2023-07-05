@@ -6,16 +6,17 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
+import OSLog
 import Reachability
 
 final class NetworkReachability {
     
-    private let logger: DatWeatherDoeLoggerType
+    private let logger: Logger
     private var reachability: Reachability?
     private var retryWhenReachable = false
     
     init(
-        logger: DatWeatherDoeLoggerType,
+        logger: Logger,
         onBecomingReachable: @escaping () -> Void
     ) {
         self.logger = logger

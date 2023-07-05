@@ -7,19 +7,20 @@
 //
 
 import CoreLocation
+import OSLog
 
 final class SystemLocationWeatherRepository: WeatherRepositoryType {
     
     private let appId: String
     private let location: CLLocationCoordinate2D
     private let networkClient: NetworkClient
-    private let logger: DatWeatherDoeLoggerType
-    
+    private let logger: Logger
+
     init(
         appId: String,
         location: CLLocationCoordinate2D,
         networkClient: NetworkClient,
-        logger: DatWeatherDoeLoggerType
+        logger: Logger
     ) {
         self.appId = appId
         self.location = location
