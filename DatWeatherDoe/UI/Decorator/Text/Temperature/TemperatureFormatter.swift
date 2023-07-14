@@ -17,7 +17,10 @@ final class TemperatureFormatter {
         return formatter
     }()
     
-    func getFormattedTemperatureString(_ temperature: Double, isRoundingOff: Bool) -> String? {
+    func getFormattedTemperatureString(_ temperature: Double,
+                                       isRoundingOff: Bool,
+                                       isUnitLetterOff: Bool,
+                                       isUnitSymbolOff: Bool) -> String? {
         setupTemperatureRounding(isRoundingOff: isRoundingOff)
         return formatTemperatureString(temperature)
     }

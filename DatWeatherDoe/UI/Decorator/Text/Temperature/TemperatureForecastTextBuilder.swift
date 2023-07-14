@@ -43,7 +43,9 @@ final class TemperatureForecastTextBuilder {
         TemperatureHelpers.getTemperatureWithDegrees(
             temperature,
             unit: options.unit,
-            isRoundingOff: options.isRoundingOff
+            isRoundingOff: options.isRoundingOff,
+            isUnitLetterOff: options.isUnitLetterOff,
+            isUnitSymbolOff: options.isUnitSymbolOff
         )
     }
 }

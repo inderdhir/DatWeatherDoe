@@ -12,35 +12,59 @@ final class TemperatureHelpers {
     class func getTemperatureWithDegrees(
         _ temperature: Double,
         unit: TemperatureUnit,
-        isRoundingOff: Bool
+        isRoundingOff: Bool,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool
     ) -> String? {
         guard let temperatureString = getFormattedString(
             temperature: temperature,
-            isRoundingOff: isRoundingOff
+            isRoundingOff: isRoundingOff,
+            isUnitLetterOff: isUnitLetterOff,
+            isUnitSymbolOff: isUnitSymbolOff
         ) else {
             return nil
         }
         
         return combineTemperatureWithUnitDegrees(
             temperature: temperatureString,
-            unit: unit.unitString
+            unit: unit.unitString,
+            isUnitLetterOff: isUnitLetterOff,
+            isUnitSymbolOff: isUnitSymbolOff
         )
     }
     
     private class func getFormattedString(
         temperature: Double,
-        isRoundingOff: Bool
+        isRoundingOff: Bool,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool
     ) -> String? {
         TemperatureFormatter().getFormattedTemperatureString(
             temperature,
-            isRoundingOff: isRoundingOff
+            isRoundingOff: isRoundingOff,
+            isUnitLetterOff: isUnitLetterOff,
+            isUnitSymbolOff: isUnitSymbolOff
         )
     }
-    
+
     private class func combineTemperatureWithUnitDegrees(
         temperature: String,
-        unit: String
+        unit: String,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool
     ) -> String {
-        [temperature, unit].joined(separator: degreeString)
+        if isUnitLetterOff {
+            if isUnitSymbolOff {
+                return [temperature,   ""].joined(separator: ""          )
+            } else {
+                return [temperature,   ""].joined(separator: degreeString)
+            }
+        } else {
+            if isUnitSymbolOff {
+                return [temperature, unit].joined(separator: ""          )
+            } else {
+                return [temperature, unit].joined(separator: degreeString)
+            }
+        }
     }
 }

@@ -79,6 +79,18 @@ struct ConfigureView: View {
                 }
                 
                 HStack {
+                    Text(LocalizedStringKey("Hide unit letter"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.isUnitLetterOff) {}
+                }
+
+                HStack {
+                    Text(LocalizedStringKey("Hide unit ° symbol"))
+                    Spacer()
+                    Toggle(isOn: $viewModel.isUnitSymbolOff) {}
+                }
+
+                HStack {
                     Text(LocalizedStringKey("Weather Condition (as text)"))
                     Spacer()
                     Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}

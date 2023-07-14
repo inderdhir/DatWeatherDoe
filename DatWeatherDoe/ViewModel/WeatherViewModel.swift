@@ -13,7 +13,7 @@ import OSLog
 final class WeatherViewModel: WeatherViewModelType {
 
     weak var delegate: WeatherViewModelDelegate?
-    
+
     private let configManager: ConfigManagerType
     private let errorLabels = ErrorLabels()
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
@@ -55,7 +55,7 @@ final class WeatherViewModel: WeatherViewModelType {
 
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-        
+
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
@@ -75,7 +75,7 @@ final class WeatherViewModel: WeatherViewModelType {
             delegate?.didFailToUpdateWeatherData(errorLabels.latLongErrorString)
             return
         }
-        
+
         weatherTask?.cancel()
         weatherTask = Task {
             do {
@@ -135,7 +135,9 @@ final class WeatherViewModel: WeatherViewModelType {
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
             temperatureOptions: .init(
                 unit: unit.temperatureUnit,
-                isRoundingOff: configManager.isRoundingOffData
+                isRoundingOff: configManager.isRoundingOffData,
+                isUnitLetterOff: configManager.isUnitLetterOff,
+                isUnitSymbolOff: configManager.isUnitSymbolOff
             ),
             isShowingHumidity: configManager.isShowingHumidity
         )
@@ -155,7 +157,7 @@ final class WeatherViewModel: WeatherViewModelType {
             }
         }
     }
-    
+
     private var measurementUnit: MeasurementUnit {
         MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
     }

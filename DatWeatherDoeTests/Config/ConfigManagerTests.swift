@@ -72,11 +72,32 @@ final class ConfigManagerTests: XCTestCase {
         XCTAssertEqual(configManager.isRoundingOffData, false)
     }
 
+    func testDefaultUnitLetterOffOffData() {
+        XCTAssertEqual(configManager.isUnitLetterOff, false)
+    }
+
+    func testDefaultisUnitSymbolOff() {
+        XCTAssertEqual(configManager.isUnitSymbolOff, false)
+    }
+
     func testRoundingOffDataSaved() {
         XCTAssertEqual(configManager.isRoundingOffData, false)
         configManager.isRoundingOffData = true
         XCTAssertEqual(configManager.isRoundingOffData, true)
     }
+
+    func testUnitLetterOffSaved() {
+        XCTAssertEqual(configManager.isUnitLetterOff, false)
+        configManager.isUnitLetterOff = true
+        XCTAssertEqual(configManager.isUnitLetterOff, true)
+    }
+
+    func testUnitSymbolOffSaved() {
+        XCTAssertEqual(configManager.isUnitSymbolOff, false)
+        configManager.isUnitSymbolOff = true
+        XCTAssertEqual(configManager.isUnitSymbolOff, true)
+    }
+
 
     func testWeatherConditionAsTextDefault() {
         XCTAssertEqual(configManager.isWeatherConditionAsTextEnabled, false)
