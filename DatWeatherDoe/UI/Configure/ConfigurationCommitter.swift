@@ -25,6 +25,7 @@ final class ConfigurationCommitter {
         isRoundingOffData: Bool,
         isUnitLetterOff: Bool,
         isUnitSymbolOff: Bool,
+        valueSeparator: String,
         isWeatherConditionAsTextEnabled: Bool
     ) {
         configManager.refreshInterval = refreshInterval.rawValue
@@ -32,6 +33,7 @@ final class ConfigurationCommitter {
         configManager.isRoundingOffData = isRoundingOffData
         configManager.isUnitLetterOff = isUnitLetterOff
         configManager.isUnitSymbolOff = isUnitSymbolOff
+        configManager.valueSeparator = valueSeparator
         configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled
     }
 }
