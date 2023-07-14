@@ -13,6 +13,8 @@ final class StatusItemManager {
     struct Options {
         let unit: MeasurementUnit
         let isRoundingOff: Bool
+        let isUnitLetterOff: Bool
+        let isUnitSymbolOff: Bool
     }
 
     var button: NSStatusBarButton? { statusItem.button }
@@ -125,7 +127,11 @@ final class StatusItemManager {
     private func getWeatherTextFrom(weatherData: WeatherData, options: Options) -> String {
         TemperatureForecastTextBuilder(
             temperatureData: weatherData.temperatureData,
-            options: .init(unit: options.unit.temperatureUnit, isRoundingOff: options.isRoundingOff)
+            options: .init(unit: options.unit.temperatureUnit,
+              isRoundingOff: options.isRoundingOff,
+              isUnitLetterOff: options.isUnitLetterOff,
+              isUnitSymbolOff: options.isUnitSymbolOff
+              )
         ).build()
     }
 

@@ -16,6 +16,8 @@ protocol ConfigManagerType: AnyObject {
     var isShowingWeatherIcon: Bool { get set }
     var isShowingHumidity: Bool { get set }
     var isRoundingOffData: Bool { get set }
+    var isUnitLetterOff: Bool { get set }
+    var isUnitSymbolOff: Bool { get set }
     var isWeatherConditionAsTextEnabled: Bool { get set }
 }
 
@@ -29,6 +31,8 @@ final class ConfigManager: ConfigManagerType {
         case isShowingWeatherIcon
         case isShowingHumidity
         case isRoundingOffData
+        case isUnitLetterOff
+        case isUnitSymbolOff
         case isWeatherConditionAsTextEnabled
     }
 
@@ -61,6 +65,12 @@ final class ConfigManager: ConfigManagerType {
 
     @Storage(key: DefaultsKeys.isRoundingOffData.rawValue, defaultValue: false)
     public var isRoundingOffData: Bool
+
+    @Storage(key: DefaultsKeys.isUnitLetterOff.rawValue, defaultValue: false)
+    public var isUnitLetterOff: Bool
+
+    @Storage(key: DefaultsKeys.isUnitSymbolOff.rawValue, defaultValue: false)
+    public var isUnitSymbolOff: Bool
 
     @Storage(
         key: DefaultsKeys.isWeatherConditionAsTextEnabled.rawValue,

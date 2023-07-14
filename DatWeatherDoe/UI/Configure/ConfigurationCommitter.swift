@@ -23,11 +23,15 @@ final class ConfigurationCommitter {
         refreshInterval: RefreshInterval,
         isShowingHumidity: Bool,
         isRoundingOffData: Bool,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool,
         isWeatherConditionAsTextEnabled: Bool
     ) {
         configManager.refreshInterval = refreshInterval.rawValue
         configManager.isShowingHumidity = isShowingHumidity
         configManager.isRoundingOffData = isRoundingOffData
+        configManager.isUnitLetterOff = isUnitLetterOff
+        configManager.isUnitSymbolOff = isUnitSymbolOff
         configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled
     }
 }
