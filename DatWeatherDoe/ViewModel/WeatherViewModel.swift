@@ -133,6 +133,7 @@ final class WeatherViewModel: WeatherViewModelType {
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
         .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
+            valueSeparator: configManager.valueSeparator,
             temperatureOptions: .init(
                 unit: unit.temperatureUnit,
                 isRoundingOff: configManager.isRoundingOffData,

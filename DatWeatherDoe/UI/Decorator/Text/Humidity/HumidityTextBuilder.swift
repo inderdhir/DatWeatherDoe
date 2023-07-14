@@ -12,6 +12,7 @@ import OSLog
 final class HumidityTextBuilder {
     
     private let initial: String
+    private let valueSeparator: String
     private let humidity: Int
     private let logger: Logger
     private let percentString = "\u{0025}"
@@ -25,10 +26,12 @@ final class HumidityTextBuilder {
     
     init(
         initial: String,
+        valueSeparator: String,
         humidity: Int,
         logger: Logger
     ) {
         self.initial = initial
+        self.valueSeparator = valueSeparator
         self.humidity = humidity
         self.logger = logger
     }
@@ -40,7 +43,7 @@ final class HumidityTextBuilder {
             return initial
         }
         
-        return "\(initial) | \(humidityString)"
+        return "\(initial) \(valueSeparator) \(humidityString)"
     }
     
     private func buildHumidity() -> String? {

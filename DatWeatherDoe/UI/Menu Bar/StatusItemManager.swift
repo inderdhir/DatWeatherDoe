@@ -15,6 +15,7 @@ final class StatusItemManager {
         let isRoundingOff: Bool
         let isUnitLetterOff: Bool
         let isUnitSymbolOff: Bool
+        let valueSeparator: String
     }
 
     var button: NSStatusBarButton? { statusItem.button }
