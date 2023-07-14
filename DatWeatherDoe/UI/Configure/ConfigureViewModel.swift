@@ -69,6 +69,14 @@ final class ConfigureViewModel: ObservableObject {
         }
     }
 
+    @Published private(set) var valueSeparatorHint = ""
+    @Published private(set) var valueSeparatorPlaceholder = "\u{007C}"
+    @Published var valueSeparator = "" {
+        didSet {
+            configManager.valueSeparator = valueSeparator
+        }
+    }
+
     @Published var isWeatherConditionAsTextEnabled: Bool {
         didSet {
             configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled
@@ -132,6 +140,7 @@ final class ConfigureViewModel: ObservableObject {
             isRoundingOffData: isRoundingOffData,
             isUnitLetterOff: isUnitLetterOff,
             isUnitSymbolOff: isUnitSymbolOff,
+            valueSeparator: valueSeparator,
             isWeatherConditionAsTextEnabled: isWeatherConditionAsTextEnabled
         )
     }

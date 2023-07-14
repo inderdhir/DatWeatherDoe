@@ -91,6 +91,15 @@ struct ConfigureView: View {
                 }
 
                 HStack {
+                    Text(LocalizedStringKey("Separate values with"))
+                    Spacer()
+                    TextField(viewModel.valueSeparatorPlaceholder, text: $viewModel.valueSeparator)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .frame(width: 114)
+                }
+
+                HStack {
                     Text(LocalizedStringKey("Weather Condition (as text)"))
                     Spacer()
                     Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}

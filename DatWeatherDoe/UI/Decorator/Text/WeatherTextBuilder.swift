@@ -12,6 +12,7 @@ final class WeatherTextBuilder {
     
     struct Options {
         let isWeatherConditionAsTextEnabled: Bool
+        let valueSeparator: String
         let temperatureOptions: TemperatureTextBuilder.Options
         let isShowingHumidity: Bool
     }
@@ -58,6 +59,7 @@ final class WeatherTextBuilder {
         
         return HumidityTextBuilder(
             initial: initial,
+            valueSeparator: options.valueSeparator,
             humidity: response.humidity,
             logger: logger
         ).build()

@@ -90,7 +90,8 @@ extension AppDelegate: WeatherViewModelDelegate {
                 unit: measurementUnit,
                 isRoundingOff: configManager.isRoundingOffData,
                 isUnitLetterOff: configManager.isUnitLetterOff,
-                isUnitSymbolOff: configManager.isUnitSymbolOff
+                isUnitSymbolOff: configManager.isUnitSymbolOff,
+                valueSeparator: configManager.valueSeparator
             )
         )
     }
