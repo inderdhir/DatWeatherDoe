@@ -11,6 +11,8 @@ final class TemperatureTextBuilder {
     struct Options {
         let unit: TemperatureUnit
         let isRoundingOff: Bool
+        let isUnitLetterOff: Bool
+        let isUnitSymbolOff: Bool
     }
     
     private let initial: String?
@@ -32,7 +34,9 @@ final class TemperatureTextBuilder {
         let temperature = TemperatureHelpers.getTemperatureWithDegrees(
             response.temperatureData.temperature,
             unit: options.unit,
-            isRoundingOff: options.isRoundingOff
+            isRoundingOff: options.isRoundingOff,
+            isUnitLetterOff: options.isUnitLetterOff,
+            isUnitSymbolOff: options.isUnitSymbolOff
         )
         return [initial, temperature]
             .compactMap { $0 }

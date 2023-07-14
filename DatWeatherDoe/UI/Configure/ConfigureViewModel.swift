@@ -57,6 +57,18 @@ final class ConfigureViewModel: ObservableObject {
         }
     }
 
+    @Published var isUnitLetterOff: Bool {
+        didSet {
+            configManager.isUnitLetterOff = isUnitLetterOff
+        }
+    }
+
+    @Published var isUnitSymbolOff: Bool {
+        didSet {
+            configManager.isUnitSymbolOff = isUnitSymbolOff
+        }
+    }
+
     @Published var isWeatherConditionAsTextEnabled: Bool {
         didSet {
             configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled
@@ -86,6 +98,8 @@ final class ConfigureViewModel: ObservableObject {
         isShowingWeatherIcon = configManager.isShowingWeatherIcon
         isShowingHumidity = configManager.isShowingHumidity
         isRoundingOffData = configManager.isRoundingOffData
+        isUnitLetterOff = configManager.isUnitLetterOff
+        isUnitSymbolOff = configManager.isUnitSymbolOff
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
 
         updateWeatherSource()
@@ -116,6 +130,8 @@ final class ConfigureViewModel: ObservableObject {
             refreshInterval: refreshInterval,
             isShowingHumidity: isShowingHumidity,
             isRoundingOffData: isRoundingOffData,
+            isUnitLetterOff: isUnitLetterOff,
+            isUnitSymbolOff: isUnitSymbolOff,
             isWeatherConditionAsTextEnabled: isWeatherConditionAsTextEnabled
         )
     }

@@ -82,13 +82,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: WeatherViewModelDelegate {
     func didUpdateWeatherData(_ data: WeatherData) {
         viewModel.updateCityWith(cityId: data.cityId)
-        
+
         let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
         menuBarManager.updateMenuBarWith(
             weatherData: data,
             options: .init(
                 unit: measurementUnit,
-                isRoundingOff: configManager.isRoundingOffData
+                isRoundingOff: configManager.isRoundingOffData,
+                isUnitLetterOff: configManager.isUnitLetterOff,
+                isUnitSymbolOff: configManager.isUnitSymbolOff
             )
         )
     }
