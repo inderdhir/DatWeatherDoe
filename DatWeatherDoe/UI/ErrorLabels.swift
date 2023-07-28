@@ -9,12 +9,11 @@
 import Foundation
 
 final class ErrorLabels {
-    lazy var networkErrorString =
-    NSLocalizedString("Network Error", comment: "Network error when fetching weather")
+    lazy var networkErrorString = "🖧" // "Network error when fetching weather"
     lazy var locationErrorString =
-    NSLocalizedString("Location Error", comment: "Location error when fetching weather")
+    NSLocalizedString("❗️Location ", comment: "Location error when fetching weather")
     lazy var latLongErrorString =
-    NSLocalizedString("Lat/Long Error", comment: "Lat/Long error when fetching weather")
+    NSLocalizedString("❗️Lat/Long ", comment: "Lat/Long error when fetching weather")
     lazy var cityErrorString =
-    NSLocalizedString("City Error", comment: "City error when fetching weather")
+    NSLocalizedString("❗️City ", comment: "City error when fetching weather")
 }
