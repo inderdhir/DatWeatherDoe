@@ -41,9 +41,7 @@ final class TemperatureHelpers {
     ) -> String? {
         TemperatureFormatter().getFormattedTemperatureString(
             temperature,
-            isRoundingOff: isRoundingOff,
-            isUnitLetterOff: isUnitLetterOff,
-            isUnitSymbolOff: isUnitSymbolOff
+            isRoundingOff: isRoundingOff
         )
     }
 
