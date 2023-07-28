@@ -74,7 +74,7 @@ final class ConfigManager: ConfigManagerType {
     @Storage(key: DefaultsKeys.isUnitSymbolOff.rawValue, defaultValue: false)
     public var isUnitSymbolOff: Bool
 
-    @Storage(key: DefaultsKeys.valueSeparator.rawValue, defaultValue: " \u{007C} ")
+    @Storage(key: DefaultsKeys.valueSeparator.rawValue, defaultValue: "\u{007C}")
     public var valueSeparator: String
 
     @Storage(
