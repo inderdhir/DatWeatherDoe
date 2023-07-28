@@ -101,7 +101,7 @@
 "Lat/Long" = "緯度/経度";
 
 /* Lat/Long error when fetching weather */
-"Lat/Long Error" = "緯度/経度のエラー";
+"❗️Lat/Long " = "緯度/経度のエラー";
 
 /* Launch app at login */
 "Launch at Login" = "ログイン時に起動";
@@ -110,10 +110,7 @@
 "Location" = "所在地";
 
 /* Location error when fetching weather */
-"Location Error" = "所在地のエラー";
-
-/* Network error when fetching weather */
-"Network Error" = "ネットワークのエラー";
+"❗️Location " = "所在地のエラー";
 
 /* Weather refresh interval */
 "Refresh Interval" = "再読み込み間隔";
