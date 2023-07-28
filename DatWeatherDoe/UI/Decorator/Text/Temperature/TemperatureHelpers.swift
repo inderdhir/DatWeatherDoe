@@ -51,18 +51,8 @@ final class TemperatureHelpers {
         isUnitLetterOff: Bool,
         isUnitSymbolOff: Bool
     ) -> String {
-        if isUnitLetterOff {
-            if isUnitSymbolOff {
-                return [temperature,   ""].joined(separator: ""          )
-            } else {
-                return [temperature,   ""].joined(separator: degreeString)
-            }
-        } else {
-            if isUnitSymbolOff {
-                return [temperature, unit].joined(separator: ""          )
-            } else {
-                return [temperature, unit].joined(separator: degreeString)
-            }
-        }
+        let unitLetter = isUnitLetterOff ? "" : unit
+        let unitSymbol = isUnitSymbolOff ? "" : degreeString
+        return [temperature, unitLetter].joined(separator: unitSymbol)
     }
 }
