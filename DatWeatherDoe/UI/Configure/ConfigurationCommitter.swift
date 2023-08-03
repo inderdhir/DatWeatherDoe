@@ -19,21 +19,7 @@ final class ConfigurationCommitter {
         configManager.weatherSourceText = source == .location ? nil : sourceText
     }
     
-    func setOtherOptionsForConfig(
-        refreshInterval: RefreshInterval,
-        isShowingHumidity: Bool,
-        isRoundingOffData: Bool,
-        isUnitLetterOff: Bool,
-        isUnitSymbolOff: Bool,
-        valueSeparator: String,
-        isWeatherConditionAsTextEnabled: Bool
-    ) {
-        configManager.refreshInterval = refreshInterval.rawValue
-        configManager.isShowingHumidity = isShowingHumidity
-        configManager.isRoundingOffData = isRoundingOffData
-        configManager.isUnitLetterOff = isUnitLetterOff
-        configManager.isUnitSymbolOff = isUnitSymbolOff
-        configManager.valueSeparator = valueSeparator
-        configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled
+    func setConfigOptions(_ options: ConfigOptions) {
+        configManager.setConfigOptions(options)
     }
 }

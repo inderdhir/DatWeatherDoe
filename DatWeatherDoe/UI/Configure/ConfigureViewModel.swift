@@ -134,14 +134,16 @@ final class ConfigureViewModel: ObservableObject {
     private func saveConfig() {
         let configCommitter = ConfigurationCommitter(configManager: configManager)
         configCommitter.setWeatherSource(weatherSource, sourceText: weatherSourceText)
-        configCommitter.setOtherOptionsForConfig(
-            refreshInterval: refreshInterval,
-            isShowingHumidity: isShowingHumidity,
-            isRoundingOffData: isRoundingOffData,
-            isUnitLetterOff: isUnitLetterOff,
-            isUnitSymbolOff: isUnitSymbolOff,
-            valueSeparator: valueSeparator,
-            isWeatherConditionAsTextEnabled: isWeatherConditionAsTextEnabled
+        configCommitter.setConfigOptions(
+            .init(
+                refreshInterval: refreshInterval,
+                isShowingHumidity: isShowingHumidity,
+                isRoundingOffData: isRoundingOffData,
+                isUnitLetterOff: isUnitLetterOff,
+                isUnitSymbolOff: isUnitSymbolOff,
+                valueSeparator: valueSeparator,
+                isWeatherConditionAsTextEnabled: isWeatherConditionAsTextEnabled
+            )
         )
     }
 }
