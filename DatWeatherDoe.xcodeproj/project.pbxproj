@@ -40,6 +40,9 @@
 		206523DD265ABDF30026C506 /* ConfigManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523DC265ABDF30026C506 /* ConfigManagerTests.swift */; };
 		206523FB265AD5730026C506 /* WeatherSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523FA265AD5730026C506 /* WeatherSource.swift */; };
 		206523FD265AF03E0026C506 /* RefreshInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523FC265AF03E0026C506 /* RefreshInterval.swift */; };
+		206E15252A7C4C5C0096D33C /* ConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206E15242A7C4C5C0096D33C /* ConfigOptions.swift */; };
+		206E152B2A7C51EF0096D33C /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 206E152A2A7C51EF0096D33C /* LaunchAtLogin */; };
+		206E152F2A7C544D0096D33C /* ConfigureOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206E152E2A7C544D0096D33C /* ConfigureOptionsView.swift */; };
 		2074949927A09278002AA589 /* WeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949827A09278002AA589 /* WeatherURLBuilderTests.swift */; };
 		2074949D27A09358002AA589 /* LocationWeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */; };
 		2077BC4D278DEBA300E0453C /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2077BC4C278DEBA300E0453C /* MenuBarManager.swift */; };
@@ -75,7 +78,6 @@
 		20BBCDAD278B8B28007DEEB0 /* WeatherViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDAC278B8B28007DEEB0 /* WeatherViewModelType.swift */; };
 		20BBCDAF278B92A7007DEEB0 /* SystemLocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBCDAE278B92A7007DEEB0 /* SystemLocationFetcher.swift */; };
 		20CA6E11278F49AC00FFC53A /* TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CA6E10278F49AC00FFC53A /* TemperatureFormatter.swift */; };
-		20D4756127E83C6200EA1884 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 20D4756027E83C6200EA1884 /* LaunchAtLogin */; };
 		20E4E18529AC719E00860C18 /* WeatherConditionImageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4E18429AC719E00860C18 /* WeatherConditionImageMapper.swift */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
 		E3105BA62818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */; };
@@ -129,6 +131,8 @@
 		206523DC265ABDF30026C506 /* ConfigManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManagerTests.swift; sourceTree = "<group>"; };
 		206523FA265AD5730026C506 /* WeatherSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSource.swift; sourceTree = "<group>"; };
 		206523FC265AF03E0026C506 /* RefreshInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshInterval.swift; sourceTree = "<group>"; };
+		206E15242A7C4C5C0096D33C /* ConfigOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigOptions.swift; sourceTree = "<group>"; };
+		206E152E2A7C544D0096D33C /* ConfigureOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureOptionsView.swift; sourceTree = "<group>"; };
 		2074949827A09278002AA589 /* WeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherURLBuilderTests.swift; sourceTree = "<group>"; };
 		2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeatherURLBuilderTests.swift; sourceTree = "<group>"; };
 		2077BC4C278DEBA300E0453C /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
@@ -193,7 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20D4756127E83C6200EA1884 /* LaunchAtLogin in Frameworks */,
+				206E152B2A7C51EF0096D33C /* LaunchAtLogin in Frameworks */,
 				20012FA6267980EE00553B60 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +351,7 @@
 		206523CF265983A90026C506 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				206E15242A7C4C5C0096D33C /* ConfigOptions.swift */,
 				20459C631C5C50DA004D0DC1 /* ConfigManager.swift */,
 				206523DA2659CD4E0026C506 /* Storage.swift */,
 				202B102F278D632800ED6D42 /* WeatherAppIDParser.swift */,
@@ -583,6 +588,7 @@
 				20AF0DA727954E9D00AA7D18 /* ConfigurationCommitter.swift */,
 				2085263427E80B9E0017D7F4 /* ConfigureViewModel.swift */,
 				20206F0627BFF3D7004B418F /* ConfigureView.swift */,
+				206E152E2A7C544D0096D33C /* ConfigureOptionsView.swift */,
 			);
 			path = Configure;
 			sourceTree = "<group>";
@@ -633,7 +639,7 @@
 			name = DatWeatherDoe;
 			packageProductDependencies = (
 				20012FA5267980EE00553B60 /* Reachability */,
-				20D4756027E83C6200EA1884 /* LaunchAtLogin */,
+				206E152A2A7C51EF0096D33C /* LaunchAtLogin */,
 			);
 			productName = SwiftWeather;
 			productReference = 2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */;
@@ -701,8 +707,8 @@
 			mainGroup = 2023ED9A1C4ED09C0087FD67;
 			packageReferences = (
 				20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */,
-				20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				206E15292A7C51EF0096D33C /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 2023EDA41C4ED09C0087FD67 /* Products */;
 			projectDirPath = "";
@@ -803,6 +809,7 @@
 				2044E91E2867D3CF00AED55B /* TemperatureForecastTextBuilder.swift in Sources */,
 				201C6C4620262E380065E795 /* WeatherAPIResponse.swift in Sources */,
 				1DA0031F299BD30E00D749C9 /* CityValidator.swift in Sources */,
+				206E15252A7C4C5C0096D33C /* ConfigOptions.swift in Sources */,
 				202B102B278D5DDC00ED6D42 /* PopoverManager.swift in Sources */,
 				2005C059278CB5FC0067BBD1 /* WeatherURLBuilder.swift in Sources */,
 				E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */,
@@ -815,6 +822,7 @@
 				20F17D3A26597A02003A164E /* WeatherData.swift in Sources */,
 				202B1015278D46AB00ED6D42 /* WeatherConditionBuilder.swift in Sources */,
 				20E4E18529AC719E00860C18 /* WeatherConditionImageMapper.swift in Sources */,
+				206E152F2A7C544D0096D33C /* ConfigureOptionsView.swift in Sources */,
 				E35BF5F2292C202900F4A412 /* WindDirection.swift in Sources */,
 				20B4680E27938B0600FC6050 /* StatusItemManager.swift in Sources */,
 				209F8A3D27914A5900EB5C45 /* NetworkClient.swift in Sources */,
@@ -1132,20 +1140,20 @@
 				version = 5.1.0;
 			};
 		};
+		206E15292A7C51EF0096D33C /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.0;
+			};
+		};
 		20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
 				kind = exactVersion;
-				version = 0.52.2;
-			};
-		};
-		20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
-			requirement = {
-				kind = exactVersion;
-				version = 4.2.0;
+				version = 0.52.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1156,15 +1164,15 @@
 			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
 		};
+		206E152A2A7C51EF0096D33C /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 206E15292A7C51EF0096D33C /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
 		20CB68BD2A2D9033001C73B9 /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintPlugin";
-		};
-		20D4756027E83C6200EA1884 /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 20D4755F27E83C6200EA1884 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

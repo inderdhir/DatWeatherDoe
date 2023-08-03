@@ -20,10 +20,12 @@ protocol ConfigManagerType: AnyObject {
     var isUnitSymbolOff: Bool { get set }
     var valueSeparator: String { get set }
     var isWeatherConditionAsTextEnabled: Bool { get set }
+    
+    func setConfigOptions(_ options: ConfigOptions)
 }
 
 final class ConfigManager: ConfigManagerType {
-
+    
     private enum DefaultsKeys: String {
         case measurementUnit
         case weatherSource
@@ -37,22 +39,22 @@ final class ConfigManager: ConfigManagerType {
         case valueSeparator
         case isWeatherConditionAsTextEnabled
     }
-
+    
     @Storage(
         key: DefaultsKeys.measurementUnit.rawValue,
         defaultValue: MeasurementUnit.imperial.rawValue
     )
     public var measurementUnit: String
-
+    
     @Storage(
         key: DefaultsKeys.weatherSource.rawValue,
         defaultValue: WeatherSource.location.rawValue
     )
     public var weatherSource: String
-
+    
     @Storage(key: DefaultsKeys.weatherSourceText.rawValue, defaultValue: nil)
     public var weatherSourceText: String?
-
+    
     @Storage(
         key: DefaultsKeys.refreshInterval.rawValue,
         defaultValue: RefreshInterval.fifteenMinutes.rawValue
@@ -61,25 +63,35 @@ final class ConfigManager: ConfigManagerType {
     
     @Storage(key: DefaultsKeys.isShowingWeatherIcon.rawValue, defaultValue: true)
     public var isShowingWeatherIcon: Bool
-
+    
     @Storage(key: DefaultsKeys.isShowingHumidity.rawValue, defaultValue: false)
     public var isShowingHumidity: Bool
-
+    
     @Storage(key: DefaultsKeys.isRoundingOffData.rawValue, defaultValue: false)
     public var isRoundingOffData: Bool
-
+    
     @Storage(key: DefaultsKeys.isUnitLetterOff.rawValue, defaultValue: false)
     public var isUnitLetterOff: Bool
-
+    
     @Storage(key: DefaultsKeys.isUnitSymbolOff.rawValue, defaultValue: false)
     public var isUnitSymbolOff: Bool
-
+    
     @Storage(key: DefaultsKeys.valueSeparator.rawValue, defaultValue: "\u{007C}")
     public var valueSeparator: String
-
+    
     @Storage(
         key: DefaultsKeys.isWeatherConditionAsTextEnabled.rawValue,
         defaultValue: false
     )
     public var isWeatherConditionAsTextEnabled: Bool
+    
+    func setConfigOptions(_ options: ConfigOptions) {
+        refreshInterval = options.refreshInterval.rawValue
+        isShowingHumidity = options.isShowingHumidity
+        isRoundingOffData = options.isRoundingOffData
+        isUnitLetterOff = options.isUnitLetterOff
+        isUnitSymbolOff = options.isUnitSymbolOff
+        valueSeparator = options.valueSeparator
+        isWeatherConditionAsTextEnabled = options.isWeatherConditionAsTextEnabled
+    }
 }

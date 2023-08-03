@@ -33,6 +33,11 @@ final class WeatherViewModel: WeatherViewModelType {
         self.logger = logger
         weatherRepository = WeatherRepository(appId: appId, logger: logger)
     }
+    
+    deinit {
+        weatherTimer?.invalidate()
+        weatherTask?.cancel()
+    }
 
     func getUpdatedWeather() {
         weatherTimerSerialQueue.sync {
