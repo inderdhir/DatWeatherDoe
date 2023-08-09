@@ -1,5 +1,5 @@
 //
-//  DropdownIcons.swift
+//  DropdownIcon.swift
 //  DatWeatherDoe
 //
 //  Created by Markus Mayer on 2022-11-21.
@@ -7,7 +7,7 @@
 //
 
 // Icons used by the dropdown menu
-enum DropdownIcons {
+enum DropdownIcon {
     case location
     case thermometer
     case sun
