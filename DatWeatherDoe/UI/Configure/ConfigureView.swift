@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ConfigureView: View {
-    
     @ObservedObject var viewModel: ConfigureViewModel
     
     var body: some View {
