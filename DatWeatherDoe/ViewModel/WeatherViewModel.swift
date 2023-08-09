@@ -6,40 +6,49 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
+import Combine
 import CoreLocation
 import Foundation
 import OSLog
 
 final class WeatherViewModel: WeatherViewModelType {
-
-    weak var delegate: WeatherViewModelDelegate?
-
-    private let configManager: ConfigManagerType
-    private let errorLabels = ErrorLabels()
+    
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private let forecaster = WeatherForecaster()
     private let logger: Logger
-    private var weatherRepository: WeatherRepository!
     private var weatherTimer: Timer?
-    private lazy var locationFetcher: SystemLocationFetcher = {
-        let locationFetcher = SystemLocationFetcher(logger: logger)
-        locationFetcher.delegate = self
-        return locationFetcher
-    }()
+    private let appId: String
+    private let locationFetcher: SystemLocationFetcherType
+    private let configManager: ConfigManagerType
+    private var weatherFactory: WeatherRepositoryFactoryType.Type
     private var weatherTask: Task<Void, Never>?
-
-    init(appId: String, configManager: ConfigManagerType, logger: Logger) {
+    
+    private let weatherSubject = PassthroughSubject<Result<WeatherData, Error>, Never>()
+    private var cancellables: Set<AnyCancellable> = []
+    let weatherResult: AnyPublisher<Result<WeatherData, Error>, Never>
+    
+    init(
+        appId: String,
+        locationFetcher: SystemLocationFetcher,
+        weatherFactory: WeatherRepositoryFactoryType.Type,
+        configManager: ConfigManagerType,
+        logger: Logger
+    ) {
+        self.appId = appId
+        self.locationFetcher = locationFetcher
         self.configManager = configManager
+        self.weatherFactory = weatherFactory
         self.logger = logger
-        weatherRepository = WeatherRepository(appId: appId, logger: logger)
+        
+        weatherResult = weatherSubject.eraseToAnyPublisher()
     }
     
     deinit {
         weatherTimer?.invalidate()
         weatherTask?.cancel()
     }
-
-    func getUpdatedWeather() {
+    
+    func startRefreshingWeather() {
         weatherTimerSerialQueue.sync {
             weatherTimer?.invalidate()
             weatherTimer = Timer.scheduledTimer(
@@ -49,18 +58,18 @@ final class WeatherViewModel: WeatherViewModelType {
             weatherTimer?.fire()
         }
     }
-
-    func updateCityWith(cityId: Int) {
+    
+    func updateCity(with cityId: Int) {
         forecaster.updateCityWith(cityId: cityId)
     }
-
+    
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-
+    
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-
+        
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
@@ -70,63 +79,59 @@ final class WeatherViewModel: WeatherViewModelType {
             getWeatherViaCity(unit: measurementUnit)
         }
     }
-
+    
     private func getWeatherAfterUpdatingLocation() {
+        locationFetcher.locationResult
+            .sink(receiveValue: { [weak self] result in
+                guard let self else { return }
+                
+                switch result {
+                case let .success(location):
+                    self.getWeather(
+                        repository: weatherFactory.create(
+                            options: .init(appId: appId, networkClient: NetworkClient(), logger: logger),
+                            location: location
+                        ),
+                        unit: measurementUnit
+                    )
+                case let .failure(error):
+                    self.weatherSubject.send(.failure(error))
+                }
+            })
+            .store(in: &cancellables)
         locationFetcher.startUpdatingLocation()
     }
-
+    
     private func getWeatherViaLocationCoordinates(unit: MeasurementUnit) {
         guard let latLong = configManager.weatherSourceText else {
-            delegate?.didFailToUpdateWeatherData(errorLabels.latLongErrorString)
+            weatherSubject.send(.failure(WeatherError.latLongIncorrect))
             return
         }
-
-        weatherTask?.cancel()
-        weatherTask = Task {
-            do {
-                let weatherData = try await weatherRepository.getWeatherViaLatLong(
-                    latLong,
-                    options: buildWeatherDataOptions(for: unit)
-                )
-                delegate?.didUpdateWeatherData(weatherData)
-            } catch {
-                guard let weatherError = error as? WeatherError else { return }
-
-                let isLatLongError = weatherError == WeatherError.latLongIncorrect
-                let errorString = isLatLongError ?
-                errorLabels.latLongErrorString : errorLabels.networkErrorString
-
-                delegate?.didFailToUpdateWeatherData(errorString)
-            }
-        }
+        
+        getWeather(
+            repository: weatherFactory.create(
+                options: .init(appId: appId, networkClient: NetworkClient(), logger: logger),
+                latLong: latLong
+            ),
+            unit: measurementUnit
+        )
     }
     
     private func getWeatherViaCity(unit: MeasurementUnit) {
         guard let city = configManager.weatherSourceText else {
-            delegate?.didFailToUpdateWeatherData(errorLabels.cityErrorString)
+            weatherSubject.send(.failure(WeatherError.cityIncorrect))
             return
         }
         
-        weatherTask?.cancel()
-        weatherTask = Task {
-            do {
-                let weatherData = try await weatherRepository.getWeatherViaCity(
-                    city,
-                    options: buildWeatherDataOptions(for: unit)
-                )
-                delegate?.didUpdateWeatherData(weatherData)
-            } catch {
-                guard let weatherError = error as? WeatherError else { return }
-
-                let isCityError = weatherError == WeatherError.cityIncorrect
-                let errorString = isCityError ?
-                errorLabels.cityErrorString : errorLabels.networkErrorString
-
-                delegate?.didFailToUpdateWeatherData(errorString)
-            }
-        }
+        getWeather(
+            repository: weatherFactory.create(
+                options: .init(appId: appId, networkClient: NetworkClient(), logger: logger),
+                city: city
+            ),
+            unit: measurementUnit
+        )
     }
-
+    
     private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
         .init(
             unit: unit,
@@ -134,7 +139,7 @@ final class WeatherViewModel: WeatherViewModelType {
             textOptions: buildWeatherTextOptions(for: unit)
         )
     }
-
+    
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
         .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
@@ -148,35 +153,35 @@ final class WeatherViewModel: WeatherViewModelType {
             isShowingHumidity: configManager.isShowingHumidity
         )
     }
-
-    private func getWeatherViaLocation(_ location: CLLocationCoordinate2D, unit: MeasurementUnit) {
+    
+    private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) {
         weatherTask?.cancel()
         weatherTask = Task {
             do {
-                let weatherData = try await weatherRepository.getWeatherViaLocation(
-                    location,
+                let response = try await repository.getWeather(unit: unit)
+                let weatherData = buildWeatherDataWith(
+                    response: response,
                     options: buildWeatherDataOptions(for: unit)
                 )
-                delegate?.didUpdateWeatherData(weatherData)
+                weatherSubject.send(.success(weatherData))
             } catch {
-                delegate?.didFailToUpdateWeatherData(errorLabels.networkErrorString)
+                weatherSubject.send(.failure(error))
             }
         }
     }
-
+    
     private var measurementUnit: MeasurementUnit {
         MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
     }
-}
-
-// MARK: SystemLocationFetcherDelegate
-
-extension WeatherViewModel: SystemLocationFetcherDelegate {
-    func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool) {
-        getWeatherViaLocation(location, unit: measurementUnit)
-    }
-
-    func didFailLocationUpdate() {
-        delegate?.didFailToUpdateWeatherData(errorLabels.locationErrorString)
-    }
+    
+    private func buildWeatherDataWith(
+          response: WeatherAPIResponse,
+          options: WeatherDataBuilder.Options
+      ) -> WeatherData {
+          WeatherDataBuilder(
+              response: response,
+              options: options,
+              logger: logger
+          ).build()
+      }
 }

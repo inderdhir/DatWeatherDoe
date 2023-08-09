@@ -8,7 +8,11 @@
 
 import CoreLocation
 
-final class LocationParser {
+protocol LocationParserType {
+    func parseCoordinates(_ latLong: String) throws -> CLLocationCoordinate2D
+}
+
+final class LocationParser: LocationParserType {
     
     func parseCoordinates(_ latLong: String) throws -> CLLocationCoordinate2D {
         let latLongCombo = latLong.split(separator: ",")
