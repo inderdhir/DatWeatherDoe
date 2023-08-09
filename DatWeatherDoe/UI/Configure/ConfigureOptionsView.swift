@@ -6,10 +6,12 @@
 //  Copyright © 2023 Inder Dhir. All rights reserved.
 //
 
+import LaunchAtLogin
 import SwiftUI
 
 struct ConfigureOptionsView: View {
     @ObservedObject var viewModel: ConfigureViewModel
+    @State var launchAtLogin = LaunchAtLogin.observable
     
     var body: some View {
         Grid {
@@ -23,27 +25,7 @@ struct ConfigureOptionsView: View {
                 .frame(width: 120)
             }
             
-            HStack {
-                Text(LocalizedStringKey("Weather Source"))
-                Spacer()
-                Picker("", selection: $viewModel.weatherSource) {
-                    Text(LocalizedStringKey("Location")).tag(WeatherSource.location)
-                    Text(LocalizedStringKey("Lat/Long")).tag(WeatherSource.latLong)
-                    Text(LocalizedStringKey("City")).tag(WeatherSource.city)
-                }
-                .frame(width: 120)
-            }
-            HStack {
-                Text(viewModel.weatherSourceTextHint)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-                TextField(viewModel.weatherSourcePlaceholder, text: $viewModel.weatherSourceText)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .disabled(viewModel.weatherSourceTextFieldDisabled)
-                    .frame(width: 114)
-            }
+            ConfigureWeatherOptionsView(viewModel: viewModel)
             
             HStack {
                 Text(LocalizedStringKey("Refresh Interval"))
@@ -76,26 +58,9 @@ struct ConfigureOptionsView: View {
                 Toggle(isOn: $viewModel.isRoundingOffData) {}
             }
             
-            HStack {
-                Text(LocalizedStringKey("Hide unit letter"))
-                Spacer()
-                Toggle(isOn: $viewModel.isUnitLetterOff) {}
-            }
-
-            HStack {
-                Text(LocalizedStringKey("Hide unit ° symbol"))
-                Spacer()
-                Toggle(isOn: $viewModel.isUnitSymbolOff) {}
-            }
-
-            HStack {
-                Text(LocalizedStringKey("Separate values with"))
-                Spacer()
-                TextField(viewModel.valueSeparatorPlaceholder, text: $viewModel.valueSeparator)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                    .frame(width: 114)
-            }
+            ConfigureUnitOptionsView(viewModel: viewModel)
+            
+            ConfigureValueSeparatorOptionsView(viewModel: viewModel)
 
             HStack {
                 Text(LocalizedStringKey("Weather Condition (as text)"))
@@ -106,7 +71,7 @@ struct ConfigureOptionsView: View {
             HStack {
                 Text(LocalizedStringKey("Launch at Login"))
                 Spacer()
-                Toggle(isOn: $viewModel.launchAtLogin.isEnabled) {}
+                Toggle(isOn: $launchAtLogin.isEnabled) {}
             }
         }
         .padding()
