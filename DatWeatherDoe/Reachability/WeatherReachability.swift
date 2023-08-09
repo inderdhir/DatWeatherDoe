@@ -26,21 +26,13 @@ final class NetworkReachability {
 
     private func setupWith(callback: @escaping () -> Void) {
         do {
-            try createReachability()
-            try startReachability()
+            reachability = try Reachability()
+            try reachability?.startNotifier()
             updateReachabilityWhenReachable(callback: callback)
             updateReachabilityWhenUnreachable()
         } catch {
             logger.error("Reachability error!")
         }
-    }
-    
-    private func createReachability() throws {
-        reachability = try Reachability()
-    }
-    
-    private func startReachability() throws {
-        try reachability?.startNotifier()
     }
     
     private func updateReachabilityWhenReachable(callback: @escaping () -> Void) {
