@@ -10,13 +10,7 @@ import Foundation
 
 struct WeatherData {
     let showWeatherIcon: Bool
-    let cityId: Int
     let textualRepresentation: String?
-    let location: String?
-    let temperatureData: WeatherAPIResponse.TemperatureData
     let weatherCondition: WeatherCondition
-    let windData: WeatherAPIResponse.WindData
-    let humidity: Int
-    let sunrise: TimeInterval
-    let sunset: TimeInterval
+    let response: WeatherAPIResponse
 }
