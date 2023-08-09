@@ -6,26 +6,7 @@
 //  Copyright © 2023 Inder Dhir. All rights reserved.
 //
 
-enum TemperatureUnit: String, CaseIterable, Identifiable {
-    case fahrenheit, celsius, all
-    
-    var id: Self { self }
-    
-    var unitString: String {
-        switch self {
-        case .fahrenheit:
-            return "F"
-        case .celsius:
-            return "C"
-        case .all:
-            return "All"
-        }
-    }
-    
-    var degreesString: String {
-        "\u{00B0}\(unitString)"
-    }
-}
+import Foundation
 
 enum MeasurementUnit: String, CaseIterable, Identifiable {
     case metric, imperial

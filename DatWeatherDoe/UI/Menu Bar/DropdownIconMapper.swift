@@ -10,7 +10,7 @@ import Cocoa
 
 final class DropdownIconMapper {
     
-    func map(_ icon: DropdownIcons) -> NSImage? {
+    func map(_ icon: DropdownIcon) -> NSImage? {
         let symbolName: String
         let accessibilityDescription: String
         
@@ -32,6 +32,7 @@ final class DropdownIconMapper {
         let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
         return NSImage(
             systemSymbolName: symbolName,
-            accessibilityDescription: accessibilityDescription)?.withSymbolConfiguration(config)
+            accessibilityDescription: accessibilityDescription
+        )?.withSymbolConfiguration(config)
     }
 }
