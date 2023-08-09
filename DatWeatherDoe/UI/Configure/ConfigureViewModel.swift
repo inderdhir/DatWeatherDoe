@@ -86,9 +86,8 @@ final class ConfigureViewModel: ObservableObject {
     }
 
     private func saveConfig() {
-        let configCommitter = ConfigurationCommitter(configManager: configManager)
-        configCommitter.setWeatherSource(weatherSource, sourceText: weatherSourceText)
-        configCommitter.setConfigOptions(
+        configManager.updateWeatherSource(weatherSource, sourceText: weatherSourceText)
+        configManager.setConfigOptions(
             .init(
                 refreshInterval: refreshInterval,
                 isShowingHumidity: isShowingHumidity,

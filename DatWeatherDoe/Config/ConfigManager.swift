@@ -21,6 +21,7 @@ protocol ConfigManagerType: AnyObject {
     var valueSeparator: String { get set }
     var isWeatherConditionAsTextEnabled: Bool { get set }
     
+    func updateWeatherSource(_ source: WeatherSource, sourceText: String)
     func setConfigOptions(_ options: ConfigOptions)
 }
 
@@ -57,6 +58,11 @@ final class ConfigManager: ConfigManagerType {
     
     @Storage(key: "isWeatherConditionAsTextEnabled", defaultValue: false)
     public var isWeatherConditionAsTextEnabled: Bool
+    
+    func updateWeatherSource(_ source: WeatherSource, sourceText: String) {
+        weatherSource = source.rawValue
+        weatherSourceText = source == .location ? nil : sourceText
+    }
     
     func setConfigOptions(_ options: ConfigOptions) {
         refreshInterval = options.refreshInterval.rawValue
