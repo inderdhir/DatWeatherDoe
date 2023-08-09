@@ -1,33 +1,16 @@
 //
-//  WindDirection.swift
+//  WindDirectionMapper.swift
 //  DatWeatherDoe
 //
 //  Created by Markus Mayer on 2022-11-21.
-//  Copyright © 2022 Markus Mayer.
-//
 
 import Foundation
 
-class WindDirection {
+protocol WindDirectionMapperType {
+    func getDirection(degrees: Int) -> WindDirection
+}
 
-    enum Direction {
-        case north
-        case northNorthEast
-        case northEast
-        case eastNorthEast
-        case east
-        case eastSouthEast
-        case southEast
-        case southSouthEast
-        case south
-        case southSouthWest
-        case southWest
-        case westSouthWest
-        case west
-        case westNorthWest
-        case northWest
-        case northNorthWest
-    }
+final class WindDirectionMapper {
 
     /*
      * Compass directions:
@@ -48,8 +31,8 @@ class WindDirection {
      *    NW    303.75 - 326.25    305 -  <= 326
      *    NNW   326.25 - 348.75    327 -  <= 349
      */
-    class func getDirection(_ weather: WeatherData) -> Direction {
-        switch weather.windData.degrees {
+    func getDirection(degrees: Int) -> WindDirection {
+        switch degrees {
             // "north" (0...11, 350...359) is handled by the default case
         case 12...34:
             return .northNorthEast
@@ -84,46 +67,5 @@ class WindDirection {
         default:
             return .north
         }
-    }
-
-    class func getDirectionStr(_ weather: WeatherData) -> String {
-        let windDirection: String
-
-        switch getDirection(weather) {
-        case .north:
-            windDirection = "N"
-        case .northNorthEast:
-            windDirection = "NNE"
-        case .northEast:
-            windDirection = "NE"
-        case .eastNorthEast:
-            windDirection = "ENE"
-        case .east:
-            windDirection = "E"
-        case .eastSouthEast:
-            windDirection = "ESE"
-        case .southEast:
-            windDirection = "SE"
-        case .southSouthEast:
-            windDirection = "SSE"
-        case .south:
-            windDirection = "S"
-        case .southSouthWest:
-            windDirection = "SSW"
-        case .southWest:
-            windDirection = "SW"
-        case .westSouthWest:
-            windDirection = "WSW"
-        case .west:
-            windDirection = "W"
-        case .westNorthWest:
-            windDirection = "WNW"
-        case .northWest:
-            windDirection = "NW"
-        case .northNorthWest:
-            windDirection = "NNW"
-        }
-
-        return NSLocalizedString(windDirection, comment: "Wind Direction")
     }
 }
