@@ -105,7 +105,7 @@ final class StatusItemManager {
         )
         
         let windSpeedTitle = getWindSpeedItemFrom(
-            weatherData: weatherData,
+            data: weatherData.response.windData,
             options: options
         )
         windMenuItem?.attributedTitle = NSAttributedString(
@@ -122,24 +122,25 @@ final class StatusItemManager {
     }
     
     private func getLocationFrom(weatherData: WeatherData) -> String {
-        weatherData.location ?? unknownString
+        weatherData.response.location
     }
     
     private func getWeatherTextFrom(weatherData: WeatherData, options: Options) -> String {
         TemperatureForecastTextBuilder(
-            temperatureData: weatherData.temperatureData,
-            options: .init(unit: options.unit.temperatureUnit,
-                           isRoundingOff: options.isRoundingOff,
-                           isUnitLetterOff: options.isUnitLetterOff,
-                           isUnitSymbolOff: options.isUnitSymbolOff
-                          )
+            temperatureData: weatherData.response.temperatureData,
+            options: .init(
+                unit: options.unit.temperatureUnit,
+                isRoundingOff: options.isRoundingOff,
+                isUnitLetterOff: options.isUnitLetterOff,
+                isUnitSymbolOff: options.isUnitSymbolOff
+            )
         ).build()
     }
     
     private func getSunRiseSetFrom(weatherData: WeatherData) -> String {
         SunriseAndSunsetTextBuilder(
-            sunset: weatherData.sunset,
-            sunrise: weatherData.sunrise
+            sunset: weatherData.response.sunset,
+            sunrise: weatherData.response.sunrise
         ).build()
     }
     
@@ -147,14 +148,14 @@ final class StatusItemManager {
         WeatherConditionTextMapper().map(weatherData.weatherCondition)
     }
     
-    private func getWindSpeedItemFrom(weatherData: WeatherData, options: Options) -> String {
+    private func getWindSpeedItemFrom(data: WeatherAPIResponse.WindData, options: Options) -> String {
         let windSpeedSuffix = options.unit == .imperial ? "mi/hr" : "m/s"
-        let windSpeedStr = [String(weatherData.windData.speed), windSpeedSuffix].joined()
+        let windSpeedStr = [String(data.speed), windSpeedSuffix].joined()
         
-        let windDegreesStr = [String(weatherData.windData.degrees), TemperatureHelpers.degreeString].joined()
+        let windDegreesStr = [String(data.degrees), TemperatureHelpers.degreeString].joined()
         let windDirectionStr = [
             "(",
-            WindDirectionMapper().getDirection(degrees: weatherData.windData.degrees).direction,
+            WindDirectionMapper().getDirection(degrees: data.degrees).direction,
             ")"
         ].joined()
         let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " - ")

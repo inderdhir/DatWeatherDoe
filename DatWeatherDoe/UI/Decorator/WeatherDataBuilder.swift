@@ -38,15 +38,9 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
     func build() -> WeatherData {
         .init(
             showWeatherIcon: options.showWeatherIcon,
-            cityId: response.cityId,
             textualRepresentation: buildTextualRepresentation(),
-            location: response.location,
-            temperatureData: response.temperatureData,
             weatherCondition: buildWeatherCondition(),
-            windData: response.windData,
-            humidity: response.humidity,
-            sunrise: response.sunrise,
-            sunset: response.sunset
+            response: response
         )
     }
     
