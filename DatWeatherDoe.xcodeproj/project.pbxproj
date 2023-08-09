@@ -59,7 +59,6 @@
 		20B46810279392B200FC6050 /* WeatherSmokyConditionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4680F279392B200FC6050 /* WeatherSmokyConditionBuilder.swift */; };
 		20B468122793940300FC6050 /* Date+Night.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B468112793940300FC6050 /* Date+Night.swift */; };
 		20B46814279394FB00FC6050 /* WeatherTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B46813279394FB00FC6050 /* WeatherTextBuilder.swift */; };
-		20B46817279396BE00FC6050 /* ForwardPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B46816279396BE00FC6050 /* ForwardPipe.swift */; };
 		20B468192793989B00FC6050 /* HumidityTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B468182793989B00FC6050 /* HumidityTextBuilder.swift */; };
 		20B4681B2793A7E300FC6050 /* TemperatureTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4681A2793A7E300FC6050 /* TemperatureTextBuilder.swift */; };
 		20B468222793B85900FC6050 /* SystemLocationWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B468212793B85900FC6050 /* SystemLocationWeatherRepository.swift */; };
@@ -152,7 +151,6 @@
 		20B4680F279392B200FC6050 /* WeatherSmokyConditionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSmokyConditionBuilder.swift; sourceTree = "<group>"; };
 		20B468112793940300FC6050 /* Date+Night.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Night.swift"; sourceTree = "<group>"; };
 		20B46813279394FB00FC6050 /* WeatherTextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTextBuilder.swift; sourceTree = "<group>"; };
-		20B46816279396BE00FC6050 /* ForwardPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardPipe.swift; sourceTree = "<group>"; };
 		20B468182793989B00FC6050 /* HumidityTextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityTextBuilder.swift; sourceTree = "<group>"; };
 		20B4681A2793A7E300FC6050 /* TemperatureTextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureTextBuilder.swift; sourceTree = "<group>"; };
 		20B468212793B85900FC6050 /* SystemLocationWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLocationWeatherRepository.swift; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 				206523CC2659835D0026C506 /* UI */,
 				20BBCDAB278B8B1C007DEEB0 /* ViewModel */,
 				206523CD265983750026C506 /* Resources */,
-				2074949527A08BC7002AA589 /* Utils */,
 				2023EDA61C4ED09C0087FD67 /* AppDelegate.swift */,
 			);
 			path = DatWeatherDoe;
@@ -379,14 +376,6 @@
 				20B952FA2682DAD20016F20A /* InfoPlist.strings */,
 			);
 			path = Localization;
-			sourceTree = "<group>";
-		};
-		2074949527A08BC7002AA589 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				20B46816279396BE00FC6050 /* ForwardPipe.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		2074949627A09263002AA589 /* API */ = {
@@ -829,7 +818,6 @@
 				202B102B278D5DDC00ED6D42 /* PopoverManager.swift in Sources */,
 				2005C059278CB5FC0067BBD1 /* WeatherURLBuilder.swift in Sources */,
 				E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */,
-				20B46817279396BE00FC6050 /* ForwardPipe.swift in Sources */,
 				20D857122A831802005727BB /* ConfigureWeatherOptionsView.swift in Sources */,
 				20D8571D2A831F40005727BB /* WeatherRepositoryFactory.swift in Sources */,
 				20B46810279392B200FC6050 /* WeatherSmokyConditionBuilder.swift in Sources */,
