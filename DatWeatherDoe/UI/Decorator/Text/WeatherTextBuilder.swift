@@ -65,3 +65,13 @@ final class WeatherTextBuilder {
         ).build()
     }
 }
+
+precedencegroup ForwardPipe {
+    associativity: left
+}
+
+infix operator |>: ForwardPipe
+
+private func |> <T, U>(value: T, function: (T) -> U) -> U {
+    function(value)
+}
