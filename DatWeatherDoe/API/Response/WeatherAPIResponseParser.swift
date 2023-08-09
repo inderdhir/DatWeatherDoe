@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class WeatherAPIResponseParser {
+protocol WeatherAPIResponseParserType {
+    func parse(_ data: Data) throws -> WeatherAPIResponse
+}
+
+final class WeatherAPIResponseParser: WeatherAPIResponseParserType {
 
     func parse(_ data: Data) throws -> WeatherAPIResponse {
         try JSONDecoder().decode(WeatherAPIResponse.self, from: data)

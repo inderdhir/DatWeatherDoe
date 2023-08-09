@@ -6,6 +6,7 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
+import Combine
 import Cocoa
 import Foundation
 import OSLog
@@ -20,6 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var viewModel: WeatherViewModelType!
     private var reachability: NetworkReachability!
     private var menuBarManager: MenuBarManager!
+    private var cancellables: Set<AnyCancellable> = []
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupMenuBar()
@@ -37,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc private func getUpdatedWeather() {
-        viewModel.getUpdatedWeather()
+        viewModel.startRefreshingWeather()
     }
     
     private func buildMenuBarOptions() -> MenuBarManager.Options {
@@ -53,10 +55,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupViewModel() {
         viewModel = WeatherViewModel(
             appId: WeatherAppIDParser().parse(),
+            locationFetcher: SystemLocationFetcher(logger: logger),
+            weatherFactory: WeatherRepositoryFactory.self,
             configManager: configManager,
             logger: logger
         )
-        viewModel.delegate = self
+        viewModel.weatherResult
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case let .success(weatherData):
+                    self?.updateWeather(with: weatherData)
+                case let .failure(error):
+                    self?.menuBarManager.updateMenuBarWith(error: error.localizedDescription)
+                }
+            })
+            .store(in: &cancellables)
     }
     
     private func setupReachability() {
@@ -75,17 +88,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc private func terminate() { NSApp.terminate(self) }
-}
-
-// MARK: WeatherViewModelDelegate
-
-extension AppDelegate: WeatherViewModelDelegate {
-    func didUpdateWeatherData(_ data: WeatherData) {
-        viewModel.updateCityWith(cityId: data.cityId)
-
+    
+    private func updateWeather(with weatherData: WeatherData) {
+        viewModel.updateCity(with: weatherData.cityId)
+        
         let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
         menuBarManager.updateMenuBarWith(
-            weatherData: data,
+            weatherData: weatherData,
             options: .init(
                 unit: measurementUnit,
                 isRoundingOff: configManager.isRoundingOffData,
@@ -94,9 +103,5 @@ extension AppDelegate: WeatherViewModelDelegate {
                 valueSeparator: configManager.valueSeparator
             )
         )
-    }
-    
-    func didFailToUpdateWeatherData(_ error: String) {
-        menuBarManager.updateMenuBarWith(error: error)
     }
 }

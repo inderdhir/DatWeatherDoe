@@ -6,18 +6,17 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
+import Combine
 import CoreLocation
 import Foundation
 import OSLog
 
-protocol SystemLocationFetcherDelegate: AnyObject {
-    func didUpdateLocation(_ location: CLLocationCoordinate2D, isCachedLocation: Bool)
-    func didFailLocationUpdate()
+protocol SystemLocationFetcherType: AnyObject {
+    var locationResult: AnyPublisher<Result<CLLocationCoordinate2D, Error>, Never> { get }
+    func startUpdatingLocation()
 }
 
-final class SystemLocationFetcher: NSObject {
-    
-    weak var delegate: SystemLocationFetcherDelegate?
+final class SystemLocationFetcher: NSObject, SystemLocationFetcherType {
     
     private let logger: Logger
     private var currentLocation: CLLocationCoordinate2D?
@@ -29,9 +28,12 @@ final class SystemLocationFetcher: NSObject {
         return locationManager
     }()
     private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
+    private let locationSubject = PassthroughSubject<Result<CLLocationCoordinate2D, Error>, Never>()
+    let locationResult: AnyPublisher<Result<CLLocationCoordinate2D, Error>, Never>
 
     init(logger: Logger) {
         self.logger = logger
+        locationResult = locationSubject.eraseToAnyPublisher()
     }
     
     func startUpdatingLocation() {
@@ -53,7 +55,7 @@ final class SystemLocationFetcher: NSObject {
     private func updateWithMissingLocationServices() {
         logger.error("Location services not enabled")
         
-        delegate?.didFailLocationUpdate()
+        locationSubject.send(.failure(WeatherError.locationError))
     }
     
     private func requestLocationPermission() {
@@ -72,7 +74,7 @@ final class SystemLocationFetcher: NSObject {
     private func updateWithDeniedUserLocation() {
         logger.error("Location permission has NOT been granted")
         
-        delegate?.didFailLocationUpdate()
+        locationSubject.send(.failure(WeatherError.locationError))
     }
     
     private func sendCachedLocationIfPresent() -> Bool {
@@ -80,7 +82,8 @@ final class SystemLocationFetcher: NSObject {
         
         logger.debug("Sending cached location")
 
-        delegate?.didUpdateLocation(currentLocation, isCachedLocation: true)
+        locationSubject.send(.success(currentLocation))
+
         return true
     }
     
@@ -90,11 +93,11 @@ final class SystemLocationFetcher: NSObject {
         if isAuthorized {
             requestUpdatedLocation()
         } else {
-            delegate?.didFailLocationUpdate()
+            locationSubject.send(.failure(WeatherError.locationError))
         }
     }
     
-    private func updateLocationAfterError(error: Error) {
+    private func updateLocationAfterError(_ error: Error) {
         logger.error("Getting updated location failed with error \(error.localizedDescription)")
         
         currentLocationSerialQueue.sync { [weak self] in
@@ -102,21 +105,23 @@ final class SystemLocationFetcher: NSObject {
             
             let isCachedLocationPresent = self.sendCachedLocationIfPresent()
             if !isCachedLocationPresent {
-                self.delegate?.didFailLocationUpdate()
+                locationSubject.send(.failure(WeatherError.locationError))
             }
         }
     }
     
     private func updateLocation(location: CLLocationCoordinate2D?) {
-        currentLocationSerialQueue.sync {
-            currentLocation = location
+        currentLocationSerialQueue.sync { [weak self] in
+            guard let self else { return }
+            
+            self.currentLocation = location
             
             if let currentLocation {
-                delegate?.didUpdateLocation(currentLocation, isCachedLocation: false)
+                self.locationSubject.send(.success(currentLocation))
             } else {
-                logger.error("Getting location failed")
+                self.logger.error("Getting location failed")
                 
-                delegate?.didFailLocationUpdate()
+                self.locationSubject.send(.failure(WeatherError.locationError))
             }
         }
     }
@@ -132,7 +137,7 @@ extension SystemLocationFetcher: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        updateLocationAfterError(error: error)
+        updateLocationAfterError(error)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

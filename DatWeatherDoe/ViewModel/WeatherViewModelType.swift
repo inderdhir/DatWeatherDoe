@@ -6,10 +6,12 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
+import Combine
+
 protocol WeatherViewModelType: AnyObject {
-    var delegate: WeatherViewModelDelegate? { get set }
-    
-    func getUpdatedWeather()
-    func updateCityWith(cityId: Int)
+    var weatherResult: AnyPublisher<Result<WeatherData, Error>, Never> { get }
+
+    func startRefreshingWeather()
+    func updateCity(with cityId: Int)
     func seeForecastForCurrentCity()
 }
