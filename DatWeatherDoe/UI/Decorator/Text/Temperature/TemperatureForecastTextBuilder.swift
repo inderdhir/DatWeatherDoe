@@ -8,12 +8,17 @@
 
 import Foundation
 
-final class TemperatureForecastTextBuilder {
+protocol TemperatureForecastTextBuilderType {
+    func build() -> String
+}
+
+final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
     
     private let temperatureData: WeatherAPIResponse.TemperatureData
     private let options: TemperatureTextBuilder.Options
     private let upArrowStr = "⬆"
     private let downArrowStr = "⬇"
+    private let degreeString = "\u{00B0}"
 
     init(
         temperatureData: WeatherAPIResponse.TemperatureData,
@@ -40,12 +45,27 @@ final class TemperatureForecastTextBuilder {
     }
     
     private func buildTemperature(_ temperature: Double) -> String? {
-        TemperatureHelpers.getTemperatureWithDegrees(
-            temperature,
-            unit: options.unit,
-            isRoundingOff: options.isRoundingOff,
+        guard let temperatureString = TemperatureFormatter()
+            .getFormattedTemperatureString(temperature, isRoundingOff: options.isRoundingOff) else {
+            return nil
+        }
+        
+        return combineTemperatureWithUnitDegrees(
+            temperature: temperatureString,
+            unit: options.unit.unitString,
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
         )
+    }
+
+    private func combineTemperatureWithUnitDegrees(
+        temperature: String,
+        unit: String,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool
+    ) -> String {
+        let unitLetter = isUnitLetterOff ? "" : unit
+        let unitSymbol = isUnitSymbolOff ? "" : degreeString
+        return [temperature, unitLetter].joined(separator: unitSymbol)
     }
 }

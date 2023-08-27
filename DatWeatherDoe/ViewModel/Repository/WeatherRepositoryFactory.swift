@@ -11,18 +11,9 @@ import Foundation
 import OSLog
 
 protocol WeatherRepositoryFactoryType {
-    static func create(
-        options: WeatherRepositoryFactory.Options,
-        location: CLLocationCoordinate2D
-    ) -> WeatherRepositoryType
-    static func create(
-        options: WeatherRepositoryFactory.Options,
-        latLong: String
-    ) -> WeatherRepositoryType
-    static func create(
-        options: WeatherRepositoryFactory.Options,
-        city: String
-    ) -> WeatherRepositoryType
+    func create(location: CLLocationCoordinate2D) -> WeatherRepositoryType
+    func create(latLong: String) -> WeatherRepositoryType
+    func create(city: String) -> WeatherRepositoryType
 }
 
 final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
@@ -32,39 +23,40 @@ final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
         let logger: Logger
     }
     
-    static func create(
-        options: WeatherRepositoryFactory.Options,
-        location: CLLocationCoordinate2D
-    ) -> WeatherRepositoryType {
+    private let appId: String
+    private let networkClient: NetworkClientType
+    private let logger: Logger
+    
+    init(appId: String, networkClient: NetworkClientType, logger: Logger) {
+        self.appId = appId
+        self.networkClient = networkClient
+        self.logger = logger
+    }
+    
+    func create(location: CLLocationCoordinate2D) -> WeatherRepositoryType {
         SystemLocationWeatherRepository(
-            appId: options.appId,
+            appId: appId,
             location: location,
-            networkClient: options.networkClient,
-            logger: options.logger
+            networkClient: networkClient,
+            logger: logger
         )
     }
     
-    static func create(
-        options: WeatherRepositoryFactory.Options,
-        latLong: String
-    ) -> WeatherRepositoryType {
+    func create(latLong: String) -> WeatherRepositoryType {
         LocationCoordinatesWeatherRepository(
-            appId: options.appId,
+            appId: appId,
             latLong: latLong,
-            networkClient: options.networkClient,
-            logger: options.logger
+            networkClient: networkClient,
+            logger: logger
         )
     }
     
-    static func create(
-        options: WeatherRepositoryFactory.Options,
-        city: String
-    ) -> WeatherRepositoryType {
+    func create(city: String) -> WeatherRepositoryType {
         CityWeatherRepository(
-            appId: options.appId,
+            appId: appId,
             city: city,
-            networkClient: options.networkClient,
-            logger: options.logger
+            networkClient: networkClient,
+            logger: logger
         )
     }
 }

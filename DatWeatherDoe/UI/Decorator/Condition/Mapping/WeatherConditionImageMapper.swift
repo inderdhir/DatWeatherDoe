@@ -8,7 +8,11 @@
 
 import Cocoa
 
-final class WeatherConditionImageMapper {
+protocol WeatherConditionImageMapperType {
+    func map(_ condition: WeatherCondition) -> NSImage?
+}
+
+final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
     
     func map(_ condition: WeatherCondition) -> NSImage? {
         let symbolName: String

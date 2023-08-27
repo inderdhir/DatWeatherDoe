@@ -23,9 +23,13 @@ final class StatusItemManager {
     private let statusItem = NSStatusBar.system.statusItem(
         withLength: NSStatusItem.variableLength
     )
+    private let degreeString = "\u{00B0}"
     private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
     
-    init(menu: NSMenu, configureSelector: Selector) {
+    init(
+        menu: NSMenu, 
+        configureSelector: Selector
+    ) {
         statusItem.menu = menu
         statusItem.button?.action = configureSelector
         
@@ -152,7 +156,7 @@ final class StatusItemManager {
         let windSpeedSuffix = options.unit == .imperial ? "mi/hr" : "m/s"
         let windSpeedStr = [String(data.speed), windSpeedSuffix].joined()
         
-        let windDegreesStr = [String(data.degrees), TemperatureHelpers.degreeString].joined()
+        let windDegreesStr = [String(data.degrees), degreeString].joined()
         let windDirectionStr = [
             "(",
             WindDirectionMapper().getDirection(degrees: data.degrees).direction,

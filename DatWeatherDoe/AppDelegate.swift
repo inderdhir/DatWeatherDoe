@@ -54,9 +54,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func setupViewModel() {
         viewModel = WeatherViewModel(
-            appId: WeatherAppIDParser().parse(),
             locationFetcher: SystemLocationFetcher(logger: logger),
-            weatherFactory: WeatherRepositoryFactory.self,
+            weatherFactory: WeatherRepositoryFactory(
+                appId: WeatherAppIDParser().parse(),
+                networkClient: NetworkClient(),
+                logger: logger
+            ),
             configManager: configManager,
             logger: logger
         )
