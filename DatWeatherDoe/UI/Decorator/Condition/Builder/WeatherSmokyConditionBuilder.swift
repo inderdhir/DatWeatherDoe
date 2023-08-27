@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class WeatherSmokyConditionBuilder {
+protocol WeatherSmokyConditionBuilderType {
+    func build() -> WeatherCondition
+}
+
+final class WeatherSmokyConditionBuilder: WeatherSmokyConditionBuilderType {
     
     private let response: WeatherAPIResponse
     

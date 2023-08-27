@@ -13,13 +13,13 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
     
     private let appId: String
     private let latLong: String
-    private let networkClient: NetworkClient
+    private let networkClient: NetworkClientType
     private let logger: Logger
     
     init(
         appId: String,
         latLong: String,
-        networkClient: NetworkClient,
+        networkClient: NetworkClientType,
         logger: Logger
     ) {
         self.appId = appId

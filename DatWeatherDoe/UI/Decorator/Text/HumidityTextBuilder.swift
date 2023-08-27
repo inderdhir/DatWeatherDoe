@@ -9,7 +9,11 @@
 import Foundation
 import OSLog
 
-final class HumidityTextBuilder {
+protocol HumidityTextBuilderType {
+    func build() -> String
+}
+
+final class HumidityTextBuilder: HumidityTextBuilderType {
     
     private let initial: String
     private let valueSeparator: String

@@ -6,7 +6,11 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
-final class TemperatureTextBuilder {
+protocol TemperatureTextBuilderType {
+    func build() -> String
+}
+
+final class TemperatureTextBuilder: TemperatureTextBuilderType {
     
     struct Options {
         let unit: TemperatureUnit
@@ -18,20 +22,23 @@ final class TemperatureTextBuilder {
     private let initial: String?
     private let response: WeatherAPIResponse
     private let options: Options
+    private let temperatureCreator: TemperatureWithDegreesCreatorType
     private let degreeString = "\u{00B0}"
     
     init(
         initial: String?,
         response: WeatherAPIResponse,
-        options: Options
+        options: Options,
+        temperatureCreator: TemperatureWithDegreesCreatorType
     ) {
         self.initial = initial
         self.response = response
         self.options = options
+        self.temperatureCreator = temperatureCreator
     }
     
     func build() -> String {
-        let temperature = TemperatureHelpers.getTemperatureWithDegrees(
+        let temperature = temperatureCreator.getTemperatureWithDegrees(
             response.temperatureData.temperature,
             unit: options.unit,
             isRoundingOff: options.isRoundingOff,

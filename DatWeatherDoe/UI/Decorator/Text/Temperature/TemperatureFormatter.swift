@@ -8,7 +8,14 @@
 
 import Foundation
 
-final class TemperatureFormatter {
+protocol TemperatureFormatterType {
+    func getFormattedTemperatureString(
+        _ temperature: Double,
+        isRoundingOff: Bool
+    ) -> String?
+}
+
+final class TemperatureFormatter: TemperatureFormatterType {
     private let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal

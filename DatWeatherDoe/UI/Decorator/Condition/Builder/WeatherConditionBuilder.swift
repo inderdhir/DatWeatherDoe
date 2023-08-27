@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class WeatherConditionBuilder {
+protocol WeatherConditionBuilderType {
+    func build() -> WeatherCondition
+}
+
+final class WeatherConditionBuilder: WeatherConditionBuilderType {
     
     private let response: WeatherAPIResponse
     

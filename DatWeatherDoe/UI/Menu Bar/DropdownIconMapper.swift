@@ -8,7 +8,11 @@
 
 import Cocoa
 
-final class DropdownIconMapper {
+protocol DropdownIconMapperType {
+    func map(_ icon: DropdownIcon) -> NSImage?
+}
+
+final class DropdownIconMapper: DropdownIconMapperType {
     
     func map(_ icon: DropdownIcon) -> NSImage? {
         let symbolName: String

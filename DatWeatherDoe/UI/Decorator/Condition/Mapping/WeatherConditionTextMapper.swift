@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class WeatherConditionTextMapper {
+protocol WeatherConditionTextMapperType {
+    func map(_ condition: WeatherCondition) -> String
+}
+
+final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
     func map(_ condition: WeatherCondition) -> String {
         switch condition {
         case .cloudy:

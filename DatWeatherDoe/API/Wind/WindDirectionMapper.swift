@@ -10,7 +10,7 @@ protocol WindDirectionMapperType {
     func getDirection(degrees: Int) -> WindDirection
 }
 
-final class WindDirectionMapper {
+final class WindDirectionMapper: WindDirectionMapperType {
 
     /*
      * Compass directions:

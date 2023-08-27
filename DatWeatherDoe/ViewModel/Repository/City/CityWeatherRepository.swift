@@ -13,13 +13,13 @@ final class CityWeatherRepository: WeatherRepositoryType {
     
     private let appId: String
     private let city: String
-    private let networkClient: NetworkClient
+    private let networkClient: NetworkClientType
     private let logger: Logger
 
     init(
         appId: String,
         city: String,
-        networkClient: NetworkClient,
+        networkClient: NetworkClientType,
         logger: Logger
     ) {
         self.appId = appId

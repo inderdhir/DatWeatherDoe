@@ -6,7 +6,12 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
-final class TemperatureConverter {
+protocol TemperatureConverterType {
+    func convertKelvinToFahrenheit(_ kelvinTemperature: Double) -> Double
+    func convertKelvinToCelsius(_ kelvinTemperature: Double) -> Double
+}
+
+final class TemperatureConverter: TemperatureConverterType {
     func convertKelvinToFahrenheit(_ kelvinTemperature: Double) -> Double {
         kelvinTemperature.fahrenheitTemperature
     }

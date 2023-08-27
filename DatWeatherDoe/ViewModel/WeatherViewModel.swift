@@ -12,29 +12,26 @@ import Foundation
 import OSLog
 
 final class WeatherViewModel: WeatherViewModelType {
-    
+
+    private let locationFetcher: SystemLocationFetcherType
+    private var weatherFactory: WeatherRepositoryFactoryType
+    private let configManager: ConfigManagerType
+    private let logger: Logger
+
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private let forecaster = WeatherForecaster()
-    private let logger: Logger
-    private var weatherTimer: Timer?
-    private let appId: String
-    private let locationFetcher: SystemLocationFetcherType
-    private let configManager: ConfigManagerType
-    private var weatherFactory: WeatherRepositoryFactoryType.Type
     private var weatherTask: Task<Void, Never>?
-    
+    private var weatherTimer: Timer?
     private let weatherSubject = PassthroughSubject<Result<WeatherData, Error>, Never>()
     private var cancellables: Set<AnyCancellable> = []
     let weatherResult: AnyPublisher<Result<WeatherData, Error>, Never>
     
     init(
-        appId: String,
         locationFetcher: SystemLocationFetcher,
-        weatherFactory: WeatherRepositoryFactoryType.Type,
+        weatherFactory: WeatherRepositoryFactoryType,
         configManager: ConfigManagerType,
         logger: Logger
     ) {
-        self.appId = appId
         self.locationFetcher = locationFetcher
         self.configManager = configManager
         self.weatherFactory = weatherFactory
@@ -88,10 +85,7 @@ final class WeatherViewModel: WeatherViewModelType {
                 switch result {
                 case let .success(location):
                     self.getWeather(
-                        repository: weatherFactory.create(
-                            options: .init(appId: appId, networkClient: NetworkClient(), logger: logger),
-                            location: location
-                        ),
+                        repository: weatherFactory.create(location: location),
                         unit: measurementUnit
                     )
                 case let .failure(error):
@@ -109,10 +103,7 @@ final class WeatherViewModel: WeatherViewModelType {
         }
         
         getWeather(
-            repository: weatherFactory.create(
-                options: .init(appId: appId, networkClient: NetworkClient(), logger: logger),
-                latLong: latLong
-            ),
+            repository: weatherFactory.create(latLong: latLong),
             unit: measurementUnit
         )
     }
@@ -124,10 +115,7 @@ final class WeatherViewModel: WeatherViewModelType {
         }
         
         getWeather(
-            repository: weatherFactory.create(
-                options: .init(appId: appId, networkClient: NetworkClient(), logger: logger),
-                city: city
-            ),
+            repository: weatherFactory.create(city: city),
             unit: measurementUnit
         )
     }

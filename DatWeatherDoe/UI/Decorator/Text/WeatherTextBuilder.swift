@@ -8,7 +8,11 @@
 
 import OSLog
 
-final class WeatherTextBuilder {
+protocol WeatherTextBuilderType {
+    func build() -> String
+}
+
+final class WeatherTextBuilder: WeatherTextBuilderType {
     
     struct Options {
         let isWeatherConditionAsTextEnabled: Bool
@@ -50,7 +54,8 @@ final class WeatherTextBuilder {
         TemperatureTextBuilder(
             initial: initial,
             response: response,
-            options: options.temperatureOptions
+            options: options.temperatureOptions,
+            temperatureCreator: TemperatureWithDegreesCreator()
         ).build()
     }
     

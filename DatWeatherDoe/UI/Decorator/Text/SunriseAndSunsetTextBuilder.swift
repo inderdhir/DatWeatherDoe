@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class SunriseAndSunsetTextBuilder {
+protocol SunriseAndSunsetTextBuilderType {
+    func build() -> String
+}
+
+final class SunriseAndSunsetTextBuilder: SunriseAndSunsetTextBuilderType {
 
     private let sunset: TimeInterval
     private let sunrise: TimeInterval
