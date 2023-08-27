@@ -64,7 +64,7 @@ final class MenuBuilder {
         .init(
             title: NSLocalizedString("See Full Weather", comment: "See Full Weather"),
             action: options.seeFullWeatherSelector,
-            keyEquivalent: "F"
+            keyEquivalent: "f"
         )
     }
 
@@ -72,7 +72,7 @@ final class MenuBuilder {
         .init(
             title: NSLocalizedString("Refresh", comment: "Refresh weather"),
             action: options.refreshSelector,
-            keyEquivalent: "R"
+            keyEquivalent: "r"
         )
     }
 
@@ -80,7 +80,7 @@ final class MenuBuilder {
         .init(
             title: NSLocalizedString("Configure", comment: "Configure app"),
             action: options.configureSelector,
-            keyEquivalent: "C"
+            keyEquivalent: "c"
         )
     }
 
@@ -88,7 +88,7 @@ final class MenuBuilder {
         .init(
             title: NSLocalizedString("Quit", comment: "Quit app"),
             action: options.quitSelector,
-            keyEquivalent: "Q"
+            keyEquivalent: "q"
         )
     }
 
