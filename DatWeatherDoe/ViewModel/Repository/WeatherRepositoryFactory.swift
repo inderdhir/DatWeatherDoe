@@ -13,6 +13,7 @@ import OSLog
 protocol WeatherRepositoryFactoryType {
     func create(location: CLLocationCoordinate2D) -> WeatherRepositoryType
     func create(latLong: String) -> WeatherRepositoryType
+    func create(zipCode: String) -> WeatherRepositoryType
     func create(city: String) -> WeatherRepositoryType
 }
 
@@ -46,6 +47,15 @@ final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
         LocationCoordinatesWeatherRepository(
             appId: appId,
             latLong: latLong,
+            networkClient: networkClient,
+            logger: logger
+        )
+    }
+    
+    func create(zipCode: String) -> WeatherRepositoryType {
+        ZipCodeWeatherRepository(
+            appId: appId,
+            zipCode: zipCode,
             networkClient: networkClient,
             logger: logger
         )

@@ -26,7 +26,15 @@ final class WeatherSourceTests: XCTestCase {
         XCTAssertEqual(latLongSource.placeholder, "42,42")
         XCTAssertEqual(latLongSource.textHint, "[latitude],[longitude]")
     }
-    
+
+    func testZipCodeSource() {
+        let zipCodeSource = WeatherSource.zipCode
+        
+        XCTAssertEqual(zipCodeSource.title, "Zip Code")
+        XCTAssertEqual(zipCodeSource.placeholder, "10021,us")
+        XCTAssertEqual(zipCodeSource.textHint, "[zipcode],[iso 3166 country code]")
+    }
+
     func testCitySource() {
         let citySource = WeatherSource.city
         
