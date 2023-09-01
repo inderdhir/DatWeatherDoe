@@ -61,35 +61,43 @@ final class MenuBuilder {
     private func buildTemperatureHumidityAndWindText() -> NSMenuItem { emptyMenuItem() }
 
     private func buildSeeFullWeatherMenuItem() -> NSMenuItem {
-        .init(
+        let menuItem = NSMenuItem(
             title: NSLocalizedString("See Full Weather", comment: "See Full Weather"),
             action: options.seeFullWeatherSelector,
             keyEquivalent: "f"
         )
+        menuItem.keyEquivalentModifierMask = []
+        return menuItem
     }
 
     private func buildRefreshMenuItem() -> NSMenuItem {
-        .init(
+        let menuItem = NSMenuItem(
             title: NSLocalizedString("Refresh", comment: "Refresh weather"),
             action: options.refreshSelector,
             keyEquivalent: "r"
         )
+        menuItem.keyEquivalentModifierMask = []
+        return menuItem
     }
 
     private func buildConfigureMenuItem() -> NSMenuItem {
-        .init(
+        let menuItem = NSMenuItem(
             title: NSLocalizedString("Configure", comment: "Configure app"),
             action: options.configureSelector,
             keyEquivalent: "c"
         )
+        menuItem.keyEquivalentModifierMask = []
+        return menuItem
     }
 
     private func buildQuitMenuItem() -> NSMenuItem {
-        .init(
+        let menuItem = NSMenuItem(
             title: NSLocalizedString("Quit", comment: "Quit app"),
             action: options.quitSelector,
             keyEquivalent: "q"
         )
+        menuItem.keyEquivalentModifierMask = []
+        return menuItem
     }
 
     private func emptyMenuItem() -> NSMenuItem {
