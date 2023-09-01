@@ -71,7 +71,9 @@ final class WeatherViewModel: WeatherViewModelType {
         case .location:
             getWeatherAfterUpdatingLocation()
         case .latLong:
-            getWeatherViaLocationCoordinates(unit: measurementUnit)
+            getWeatherViaLocationCoordinates()
+        case .zipCode:
+            getWeatherViaZipCode()
         case .city:
             getWeatherViaCity(unit: measurementUnit)
         }
@@ -95,8 +97,20 @@ final class WeatherViewModel: WeatherViewModelType {
             .store(in: &cancellables)
         locationFetcher.startUpdatingLocation()
     }
-    
-    private func getWeatherViaLocationCoordinates(unit: MeasurementUnit) {
+
+    private func getWeatherViaZipCode() {
+        guard let zipCode = configManager.weatherSourceText else {
+            weatherSubject.send(.failure(WeatherError.zipCodeIncorrect))
+            return
+        }
+        
+        getWeather(
+            repository: weatherFactory.create(zipCode: zipCode),
+            unit: measurementUnit
+        )
+    }
+
+    private func getWeatherViaLocationCoordinates() {
         guard let latLong = configManager.weatherSourceText else {
             weatherSubject.send(.failure(WeatherError.latLongIncorrect))
             return

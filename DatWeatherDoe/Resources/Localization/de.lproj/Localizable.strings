@@ -31,6 +31,9 @@
 /* Placeholder hint for entering Lat/Long */
 "[latitude],[longitude]" = "[Breite],[Länge]";
 
+/* Placeholder hint for entering zip code */
+"[zipcode],[iso 3166 country code]" = "[PLZ],[ISO 3166 Länderkennung]";
+
 /* Show all temperature units */
 "All" = "Alle";
 
@@ -101,7 +104,7 @@
 "Lat/Long" = "Breite/Länge";
 
 /* Lat/Long error when fetching weather */
-"Lat/Long Error" = "Fehler mit Breite/Länge";
+"❗️Lat/Long" = "Fehler mit Breite/Länge";
 
 /* Launch app at login */
 "Launch at Login" = "Beim Einloggen starten";
@@ -110,7 +113,7 @@
 "Location" = "Position";
 
 /* Location error when fetching weather */
-"Location Error" = "Positionsfehler";
+"❗️Location" = "Positionsfehler";
 
 /* Network error when fetching weather */
 "Network Error" = "Netzwerkfehler";
@@ -139,20 +142,8 @@
 /* Source for fetching weather */
 "Weather Source" = "Wetterquelle";
 
-/* Compass */
-"N" = "N";
-"NNE" = "NNO";
-"NE" = "NO";
-"ENE" = "ONO";
-"E" = "O";
-"ESE" = "OSO";
-"SE" = "SO";
-"SSE" = "SSO";
-"S" = "S";
-"SSW" = "SSW";
-"SW" = "SW";
-"WSW" = "WSW";
-"W" = "W";
-"WNW" = "WNW";
-"NW" = "NW";
-"NNW" = "NNW";
+/* Weather based on Zip Code */
+"Zipcode" = "Postleitzahl";
+
+/* Zip Code error when fetching weather */
+"❗️Zipcode" = "Fehler bei Postleitzahl";
