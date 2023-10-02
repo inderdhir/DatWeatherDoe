@@ -46,7 +46,7 @@ final class ConfigureViewModel: ObservableObject {
         didSet { configManager.isUnitSymbolOff = isUnitSymbolOff }
     }
 
-    @Published var valueSeparator = "" {
+    @Published var valueSeparator = "|" {
         didSet { configManager.valueSeparator = valueSeparator }
     }
 
