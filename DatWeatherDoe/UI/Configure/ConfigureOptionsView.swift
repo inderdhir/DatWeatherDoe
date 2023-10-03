@@ -14,7 +14,7 @@ struct ConfigureOptionsView: View {
     @State var launchAtLogin = LaunchAtLogin.observable
     
     var body: some View {
-        Grid {
+        Grid(verticalSpacing: 16) {
             HStack {
                 Text(LocalizedStringKey("Unit"))
                 Spacer()
