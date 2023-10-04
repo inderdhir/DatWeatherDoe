@@ -1044,16 +1044,18 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = DatWeatherDoe;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 3.3.0;
+				MARKETING_VERSION = 4.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe.debug;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
@@ -1070,16 +1072,18 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = DatWeatherDoe;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 3.3.0;
+				MARKETING_VERSION = 4.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inderdhir.DatWeatherDoe;
 				PRODUCT_NAME = DatWeatherDoe;
 				PROVISIONING_PROFILE = "";
