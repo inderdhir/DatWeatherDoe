@@ -14,8 +14,8 @@ class CityWeatherURLBuilderTests: XCTestCase {
     func testBuild() {
         XCTAssertEqual(
             try? CityWeatherURLBuilder(appId: "123456", city: "Kyiv,ua")
-                .build().absoluteString,
-            "https://api.openweathermap.org/data/2.5/weather?appid=123456&q=Kyiv,ua"
+                .build(unit: .metric).absoluteString,
+            "https://api.openweathermap.org/data/2.5/weather?appid=123456&q=Kyiv,ua&units=metric"
         )
     }
 }

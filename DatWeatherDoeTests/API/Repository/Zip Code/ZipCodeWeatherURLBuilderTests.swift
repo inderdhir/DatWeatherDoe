@@ -22,7 +22,7 @@ class ZipCodeWeatherURLBuilderTests: XCTestCase {
     func testBuild() {
         XCTAssertEqual(
             try? ZipCodeWeatherURLBuilder(appId: "123456", zipCode: "10021,us")
-                .build().absoluteString,
+                .build(unit: .imperial).absoluteString,
             "https://api.openweathermap.org/data/2.5/weather?appid=123456&zip=10021,us"
         )
     }
