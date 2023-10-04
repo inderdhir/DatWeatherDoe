@@ -644,6 +644,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2023EDB01C4ED09C0087FD67 /* Build configuration list for PBXNativeTarget "DatWeatherDoe" */;
 			buildPhases = (
+				20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */,
 				2023ED9F1C4ED09C0087FD67 /* Sources */,
 				2023EDA01C4ED09C0087FD67 /* Frameworks */,
 				2023EDA11C4ED09C0087FD67 /* Resources */,
@@ -757,6 +758,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy “Launch at Login Helper”";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2023ED9F1C4ED09C0087FD67 /* Sources */ = {
