@@ -6,12 +6,10 @@
 //  Copyright © 2023 Inder Dhir. All rights reserved.
 //
 
-import LaunchAtLogin
 import SwiftUI
 
 struct ConfigureOptionsView: View {
     @ObservedObject var viewModel: ConfigureViewModel
-    @State var launchAtLogin = LaunchAtLogin.observable
     
     var body: some View {
         Grid(verticalSpacing: 16) {
@@ -66,12 +64,6 @@ struct ConfigureOptionsView: View {
                 Text(LocalizedStringKey("Weather Condition (as text)"))
                 Spacer()
                 Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
-            }
-            
-            HStack {
-                Text(LocalizedStringKey("Launch at Login"))
-                Spacer()
-                Toggle(isOn: $launchAtLogin.isEnabled) {}
             }
         }
         .padding()

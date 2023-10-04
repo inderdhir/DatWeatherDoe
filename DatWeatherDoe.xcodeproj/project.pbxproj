@@ -40,7 +40,6 @@
 		206523FB265AD5730026C506 /* WeatherSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523FA265AD5730026C506 /* WeatherSource.swift */; };
 		206523FD265AF03E0026C506 /* RefreshInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523FC265AF03E0026C506 /* RefreshInterval.swift */; };
 		206E15252A7C4C5C0096D33C /* ConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206E15242A7C4C5C0096D33C /* ConfigOptions.swift */; };
-		206E152B2A7C51EF0096D33C /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 206E152A2A7C51EF0096D33C /* LaunchAtLogin */; };
 		206E152F2A7C544D0096D33C /* ConfigureOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206E152E2A7C544D0096D33C /* ConfigureOptionsView.swift */; };
 		2074949927A09278002AA589 /* WeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949827A09278002AA589 /* WeatherURLBuilderTests.swift */; };
 		2074949D27A09358002AA589 /* LocationWeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */; };
@@ -209,7 +208,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				206E152B2A7C51EF0096D33C /* LaunchAtLogin in Frameworks */,
 				20012FA6267980EE00553B60 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,7 +642,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2023EDB01C4ED09C0087FD67 /* Build configuration list for PBXNativeTarget "DatWeatherDoe" */;
 			buildPhases = (
-				20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */,
 				2023ED9F1C4ED09C0087FD67 /* Sources */,
 				2023EDA01C4ED09C0087FD67 /* Frameworks */,
 				2023EDA11C4ED09C0087FD67 /* Resources */,
@@ -657,7 +654,6 @@
 			name = DatWeatherDoe;
 			packageProductDependencies = (
 				20012FA5267980EE00553B60 /* Reachability */,
-				206E152A2A7C51EF0096D33C /* LaunchAtLogin */,
 			);
 			productName = SwiftWeather;
 			productReference = 2023EDA31C4ED09C0087FD67 /* DatWeatherDoe.app */;
@@ -726,7 +722,6 @@
 			packageReferences = (
 				20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */,
 				20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				206E15292A7C51EF0096D33C /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 2023EDA41C4ED09C0087FD67 /* Products */;
 			projectDirPath = "";
@@ -758,28 +753,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		20D4756327E83C9400EA1884 /* Copy “Launch at Login Helper” */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 8;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy “Launch at Login Helper”";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2023ED9F1C4ED09C0087FD67 /* Sources */ = {
@@ -1168,14 +1141,6 @@
 				version = 5.1.0;
 			};
 		};
-		206E15292A7C51EF0096D33C /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
-			requirement = {
-				kind = exactVersion;
-				version = 5.0.0;
-			};
-		};
 		20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint";
@@ -1191,11 +1156,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
-		};
-		206E152A2A7C51EF0096D33C /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 206E15292A7C51EF0096D33C /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
 		};
 		20CB68BD2A2D9033001C73B9 /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
