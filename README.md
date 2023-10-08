@@ -1,16 +1,14 @@
 # DatWeatherDoe
 
-✅ Fetch weather using: 
-- Location services
-- Zip Code
-- Latitude / Longitude
-- City
+- Fetch weather using: 
+    - Location services
+    - Zip Code
+    - Latitude / Longitude
+    - City
+- Configurable polling interval
+- Dark mode support
 
-✅ Configurable polling interval
-
-✅ Dark mode support
-
-✅ Supports macOS 11+
+## Screenshots
 
 ![alt tag](screenshot_1.png)\
 ![alt tag](screenshot_2.png)
