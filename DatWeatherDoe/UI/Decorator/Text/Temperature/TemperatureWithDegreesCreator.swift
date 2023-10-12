@@ -8,8 +8,22 @@
 
 import Foundation
 
+struct TemperatureInMultipleUnits {
+    let fahrenheit: Double
+    let celsius: Double
+}
+
 protocol TemperatureWithDegreesCreatorType {
     var degreeString: String { get }
+    
+    func getTemperatureWithDegrees(
+        temperatureInMultipleUnits: TemperatureInMultipleUnits,
+        unit: TemperatureUnit,
+        isRoundingOff: Bool,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool
+    ) -> String?
+    
     func getTemperatureWithDegrees(
         _ temperature: Double,
         unit: TemperatureUnit,
@@ -21,6 +35,43 @@ protocol TemperatureWithDegreesCreatorType {
 
 final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
     let degreeString = "\u{00B0}"
+    
+    func getTemperatureWithDegrees(
+        temperatureInMultipleUnits: TemperatureInMultipleUnits,
+        unit: TemperatureUnit,
+        isRoundingOff: Bool,
+        isUnitLetterOff: Bool,
+        isUnitSymbolOff: Bool
+    ) -> String? {
+        guard let fahrenheitString = TemperatureFormatter().getFormattedTemperatureString(
+            temperatureInMultipleUnits.fahrenheit,
+            isRoundingOff: isRoundingOff
+        ) else {
+            return nil
+        }
+        guard let celsiusString = TemperatureFormatter().getFormattedTemperatureString(
+            temperatureInMultipleUnits.celsius,
+            isRoundingOff: isRoundingOff
+        ) else {
+            return nil
+        }
+        
+        let formattedFahrenheit = combineTemperatureWithUnitDegrees(
+            temperature: fahrenheitString,
+            unit: .fahrenheit,
+            isUnitLetterOff: isUnitLetterOff,
+            isUnitSymbolOff: isUnitSymbolOff
+        )
+        let formattedCelsius = combineTemperatureWithUnitDegrees(
+            temperature: celsiusString,
+            unit: .celsius,
+            isUnitLetterOff: isUnitLetterOff,
+            isUnitSymbolOff: isUnitSymbolOff
+        )
+        
+        return [formattedFahrenheit, formattedCelsius]
+            .joined(separator: " / ")
+    }
     
     func getTemperatureWithDegrees(
         _ temperature: Double,
@@ -38,7 +89,7 @@ final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
         
         return combineTemperatureWithUnitDegrees(
             temperature: temperatureString,
-            unit: unit.unitString,
+            unit: unit,
             isUnitLetterOff: isUnitLetterOff,
             isUnitSymbolOff: isUnitSymbolOff
         )
@@ -46,11 +97,11 @@ final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
 
     private func combineTemperatureWithUnitDegrees(
         temperature: String,
-        unit: String,
+        unit: TemperatureUnit,
         isUnitLetterOff: Bool,
         isUnitSymbolOff: Bool
     ) -> String {
-        let unitLetter = isUnitLetterOff ? "" : unit
+        let unitLetter = isUnitLetterOff ? "" : unit.unitString
         let unitSymbol = isUnitSymbolOff ? "" : degreeString
         return [temperature, unitLetter].joined(separator: unitSymbol)
     }

@@ -17,7 +17,7 @@ final class ZipCodeWeatherURLBuilder: WeatherURLBuilder {
         super.init(appId: appId)
     }
     
-    override func build(unit: MeasurementUnit) throws -> URL {
+    override func build() throws -> URL {
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "appid", value: appId),
             URLQueryItem(name: "zip", value: zipCode)

@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 
 protocol WeatherURLBuilderType {
-    func build(unit: MeasurementUnit) throws -> URL
+    func build() throws -> URL
 }
 
 class WeatherURLBuilder: WeatherURLBuilderType {
@@ -22,5 +22,5 @@ class WeatherURLBuilder: WeatherURLBuilderType {
         self.appId = appId
     }
     
-    func build(unit: MeasurementUnit) throws -> URL { URL(string: apiUrlString)! }
+    func build() throws -> URL { URL(string: apiUrlString)! }
 }

@@ -28,12 +28,12 @@ final class CityWeatherRepository: WeatherRepositoryType {
         self.logger = logger
     }
     
-    func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse {
+    func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via city")
 
         do {
             try CityValidator(city: city).validate()
-            let url = try CityWeatherURLBuilder(appId: appId, city: city).build(unit: unit)
+            let url = try CityWeatherURLBuilder(appId: appId, city: city).build()
             let data = try await networkClient.performRequest(url: url)
             return try WeatherAPIResponseParser().parse(data)
         } catch {

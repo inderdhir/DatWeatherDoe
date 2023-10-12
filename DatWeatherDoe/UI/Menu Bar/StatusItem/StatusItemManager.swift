@@ -23,11 +23,10 @@ final class StatusItemManager {
     private let statusItem = NSStatusBar.system.statusItem(
         withLength: NSStatusItem.variableLength
     )
-    private let degreeString = "\u{00B0}"
     private lazy var unknownString = NSLocalizedString("Unknown", comment: "Unknown location")
     
     init(
-        menu: NSMenu, 
+        menu: NSMenu,
         configureSelector: Selector
     ) {
         statusItem.menu = menu
@@ -153,18 +152,20 @@ final class StatusItemManager {
     }
     
     private func getWindSpeedItemFrom(data: WeatherAPIResponse.WindData, options: Options) -> String {
-        let windSpeedSuffix = options.unit == .imperial ? "mi/hr" : "m/s"
-        let windSpeedStr = [String(data.speed), windSpeedSuffix].joined()
-        
-        let windDegreesStr = [String(data.degrees), degreeString].joined()
-        let windDirectionStr = [
-            "(",
-            WindDirectionMapper().getDirection(degrees: data.degrees).direction,
-            ")"
-        ].joined()
-        let windAndDegreesStr = [windSpeedStr, windDegreesStr].joined(separator: " - ")
-        let windFullStr = [windAndDegreesStr, windDirectionStr].joined(separator: " ")
-        return windFullStr
+        if options.unit == .all {
+            WindSpeedFormatter()
+                .getFormattedWindSpeedStringForAllUnits(
+                    windData: data,
+                    isRoundingOff: options.isRoundingOff
+                )
+        } else {
+            WindSpeedFormatter()
+                .getFormattedWindSpeedString(
+                    unit: options.unit,
+                    windData: data,
+                    isRoundingOff: options.isRoundingOff
+                )
+        }
     }
     
     private func clearNonInteractiveMenuOptions() {

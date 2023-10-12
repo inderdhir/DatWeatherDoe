@@ -28,12 +28,12 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
         self.logger = logger
     }
     
-    func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse {
+    func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via zip code")
         
         do {
             try ZipCodeValidator(zipCode: zipCode).validate()
-            let url = try ZipCodeWeatherURLBuilder(appId: appId, zipCode: zipCode).build(unit: unit)
+            let url = try ZipCodeWeatherURLBuilder(appId: appId, zipCode: zipCode).build()
             let data = try await networkClient.performRequest(url: url)
             return try WeatherAPIResponseParser().parse(data)
         } catch {

@@ -7,5 +7,5 @@
 ////
 
 protocol WeatherRepositoryType: AnyObject {
-    func getWeather(unit: MeasurementUnit) async throws -> WeatherAPIResponse
+    func getWeather() async throws -> WeatherAPIResponse
 }

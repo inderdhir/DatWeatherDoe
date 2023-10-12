@@ -19,6 +19,7 @@ struct ConfigureOptionsView: View {
                 Picker("", selection: $viewModel.measurementUnit) {
                     Text(LocalizedStringKey("Metric")).tag(MeasurementUnit.metric)
                     Text(LocalizedStringKey("Imperial")).tag(MeasurementUnit.imperial)
+                    Text(LocalizedStringKey("All")).tag(MeasurementUnit.all)
                 }
                 .frame(width: 120)
             }

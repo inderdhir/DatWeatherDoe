@@ -9,7 +9,7 @@
 import Foundation
 
 enum MeasurementUnit: String, CaseIterable, Identifiable {
-    case metric, imperial
+    case metric, imperial, all
     
     var id: Self { self }
     
@@ -19,6 +19,8 @@ enum MeasurementUnit: String, CaseIterable, Identifiable {
             return .celsius
         case .imperial:
             return .fahrenheit
+        case .all:
+            return .all
         }
     }
 }

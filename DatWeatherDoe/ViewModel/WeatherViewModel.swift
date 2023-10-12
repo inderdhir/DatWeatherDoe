@@ -160,7 +160,7 @@ final class WeatherViewModel: WeatherViewModelType {
         weatherTask?.cancel()
         weatherTask = Task {
             do {
-                let response = try await repository.getWeather(unit: unit)
+                let response = try await repository.getWeather()
                 let weatherData = buildWeatherDataWith(
                     response: response,
                     options: buildWeatherDataOptions(for: unit)

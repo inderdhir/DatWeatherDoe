@@ -38,15 +38,49 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
     }
     
     func build() -> String {
-        let temperature = temperatureCreator.getTemperatureWithDegrees(
-            response.temperatureData.temperature,
+        if options.unit == .all {
+            buildTemperatureTextForAllUnits()
+        } else {
+            buildTemperatureText(for: options.unit)
+        }
+    }
+    
+    private func buildTemperatureTextForAllUnits() -> String {
+        let fahrenheitTemperature = buildTemperature(isFahrenheit: true)
+        let celsiusTemperature = buildTemperature(isFahrenheit: false)
+
+        let temperatureWithDegrees = temperatureCreator.getTemperatureWithDegrees(
+            temperatureInMultipleUnits:
+                    .init(fahrenheit: fahrenheitTemperature, celsius: celsiusTemperature),
             unit: options.unit,
             isRoundingOff: options.isRoundingOff,
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
         )
-        return [initial, temperature]
+        return [initial, temperatureWithDegrees]
             .compactMap { $0 }
             .joined(separator: ", ")
+    }
+    
+    private func buildTemperatureText(for unit: TemperatureUnit) -> String {
+        let temperatureForUnit = buildTemperature(isFahrenheit: unit == .fahrenheit)
+        let temperatureWithDegrees = temperatureCreator.getTemperatureWithDegrees(
+            temperatureForUnit,
+            unit: unit,
+            isRoundingOff: options.isRoundingOff,
+            isUnitLetterOff: options.isUnitLetterOff,
+            isUnitSymbolOff: options.isUnitSymbolOff
+        )
+        return [initial, temperatureWithDegrees]
+            .compactMap { $0 }
+            .joined(separator: ", ")
+    }
+    
+    private func buildTemperature(isFahrenheit: Bool) -> Double {
+        if isFahrenheit {
+            TemperatureConverter().convertKelvinToFahrenheit(response.temperatureData.temperature)
+        } else {
+            TemperatureConverter().convertKelvinToCelsius(response.temperatureData.temperature)
+        }
     }
 }
