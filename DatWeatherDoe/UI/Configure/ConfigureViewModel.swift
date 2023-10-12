@@ -10,7 +10,6 @@ import Combine
 import Foundation
 
 final class ConfigureViewModel: ObservableObject {
-    
     @Published var measurementUnit: MeasurementUnit {
         didSet { configManager.measurementUnit = measurementUnit.rawValue }
     }
@@ -18,6 +17,7 @@ final class ConfigureViewModel: ObservableObject {
     @Published var weatherSource: WeatherSource {
         didSet { configManager.weatherSource = weatherSource.rawValue }
     }
+
     @Published var weatherSourceText = "" {
         didSet { configManager.weatherSourceText = weatherSourceText }
     }

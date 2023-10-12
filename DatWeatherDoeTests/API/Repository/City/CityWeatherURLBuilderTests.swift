@@ -6,11 +6,10 @@
 //  Copyright © 2023 Inder Dhir. All rights reserved.
 //
 
-import XCTest
 @testable import DatWeatherDoe
+import XCTest
 
 class CityWeatherURLBuilderTests: XCTestCase {
-
     func testBuild() {
         XCTAssertEqual(
             try? CityWeatherURLBuilder(appId: "123456", city: "Kyiv,ua")

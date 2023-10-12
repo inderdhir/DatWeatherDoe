@@ -23,17 +23,17 @@ final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
         let networkClient: NetworkClient
         let logger: Logger
     }
-    
+
     private let appId: String
     private let networkClient: NetworkClientType
     private let logger: Logger
-    
+
     init(appId: String, networkClient: NetworkClientType, logger: Logger) {
         self.appId = appId
         self.networkClient = networkClient
         self.logger = logger
     }
-    
+
     func create(location: CLLocationCoordinate2D) -> WeatherRepositoryType {
         SystemLocationWeatherRepository(
             appId: appId,
@@ -42,7 +42,7 @@ final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
             logger: logger
         )
     }
-    
+
     func create(latLong: String) -> WeatherRepositoryType {
         LocationCoordinatesWeatherRepository(
             appId: appId,
@@ -51,7 +51,7 @@ final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
             logger: logger
         )
     }
-    
+
     func create(zipCode: String) -> WeatherRepositoryType {
         ZipCodeWeatherRepository(
             appId: appId,
@@ -60,7 +60,7 @@ final class WeatherRepositoryFactory: WeatherRepositoryFactoryType {
             logger: logger
         )
     }
-    
+
     func create(city: String) -> WeatherRepositoryType {
         CityWeatherRepository(
             appId: appId,

@@ -14,13 +14,12 @@ protocol WeatherDataBuilderType: AnyObject {
 }
 
 final class WeatherDataBuilder: WeatherDataBuilderType {
-    
     struct Options {
         let unit: MeasurementUnit
         let showWeatherIcon: Bool
         let textOptions: WeatherTextBuilder.Options
     }
-    
+
     private let response: WeatherAPIResponse
     private let options: WeatherDataBuilder.Options
     private let logger: Logger
@@ -34,7 +33,7 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
         self.options = options
         self.logger = logger
     }
-    
+
     func build() -> WeatherData {
         .init(
             showWeatherIcon: options.showWeatherIcon,
@@ -43,7 +42,7 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
             response: response
         )
     }
-    
+
     private func buildTextualRepresentation() -> String {
         WeatherTextBuilder(
             response: response,
@@ -51,7 +50,7 @@ final class WeatherDataBuilder: WeatherDataBuilderType {
             logger: logger
         ).build()
     }
-    
+
     private func buildWeatherCondition() -> WeatherCondition {
         WeatherConditionBuilder(response: response).build()
     }

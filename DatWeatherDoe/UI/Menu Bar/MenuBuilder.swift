@@ -9,7 +9,6 @@
 import Cocoa
 
 final class MenuBuilder {
-
     struct Options {
         let seeFullWeatherSelector: Selector
         let refreshSelector: Selector

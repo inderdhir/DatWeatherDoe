@@ -6,11 +6,10 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
-import XCTest
 @testable import DatWeatherDoe
+import XCTest
 
 class LocationWeatherURLBuilderTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -18,7 +17,7 @@ class LocationWeatherURLBuilderTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
+
     func testBuild() {
         XCTAssertEqual(
             try? LocationWeatherURLBuilder(

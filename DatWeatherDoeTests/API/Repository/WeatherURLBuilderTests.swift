@@ -6,11 +6,10 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
-import XCTest
 @testable import DatWeatherDoe
+import XCTest
 
 final class WeatherURLBuilderTests: XCTestCase {
-
     func testBuild() {
         XCTAssertEqual(
             try? WeatherURLBuilder(appId: "123456").build(unit: .imperial).absoluteString,

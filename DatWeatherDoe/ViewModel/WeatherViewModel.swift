@@ -12,7 +12,6 @@ import Foundation
 import OSLog
 
 final class WeatherViewModel: WeatherViewModelType {
-
     private let locationFetcher: SystemLocationFetcherType
     private var weatherFactory: WeatherRepositoryFactoryType
     private let configManager: ConfigManagerType
@@ -25,7 +24,7 @@ final class WeatherViewModel: WeatherViewModelType {
     private let weatherSubject = PassthroughSubject<Result<WeatherData, Error>, Never>()
     private var cancellables: Set<AnyCancellable> = []
     let weatherResult: AnyPublisher<Result<WeatherData, Error>, Never>
-    
+
     init(
         locationFetcher: SystemLocationFetcher,
         weatherFactory: WeatherRepositoryFactoryType,
@@ -36,37 +35,38 @@ final class WeatherViewModel: WeatherViewModelType {
         self.configManager = configManager
         self.weatherFactory = weatherFactory
         self.logger = logger
-        
+
         weatherResult = weatherSubject.eraseToAnyPublisher()
     }
-    
+
     deinit {
         weatherTimer?.invalidate()
         weatherTask?.cancel()
     }
-    
+
     func startRefreshingWeather() {
         weatherTimerSerialQueue.sync {
             weatherTimer?.invalidate()
             weatherTimer = Timer.scheduledTimer(
                 withTimeInterval: configManager.refreshInterval,
                 repeats: true,
-                block: { [weak self] _ in self?.getWeatherWithSelectedSource() })
+                block: { [weak self] _ in self?.getWeatherWithSelectedSource() }
+            )
             weatherTimer?.fire()
         }
     }
-    
+
     func updateCity(with cityId: Int) {
         forecaster.updateCityWith(cityId: cityId)
     }
-    
+
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-    
+
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-        
+
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
@@ -75,15 +75,15 @@ final class WeatherViewModel: WeatherViewModelType {
         case .zipCode:
             getWeatherViaZipCode()
         case .city:
-            getWeatherViaCity(unit: measurementUnit)
+            getWeatherViaCity()
         }
     }
-    
+
     private func getWeatherAfterUpdatingLocation() {
         locationFetcher.locationResult
             .sink(receiveValue: { [weak self] result in
                 guard let self else { return }
-                
+
                 switch result {
                 case let .success(location):
                     self.getWeather(
@@ -103,7 +103,7 @@ final class WeatherViewModel: WeatherViewModelType {
             weatherSubject.send(.failure(WeatherError.zipCodeIncorrect))
             return
         }
-        
+
         getWeather(
             repository: weatherFactory.create(zipCode: zipCode),
             unit: measurementUnit
@@ -115,25 +115,25 @@ final class WeatherViewModel: WeatherViewModelType {
             weatherSubject.send(.failure(WeatherError.latLongIncorrect))
             return
         }
-        
+
         getWeather(
             repository: weatherFactory.create(latLong: latLong),
             unit: measurementUnit
         )
     }
-    
-    private func getWeatherViaCity(unit: MeasurementUnit) {
+
+    private func getWeatherViaCity() {
         guard let city = configManager.weatherSourceText else {
             weatherSubject.send(.failure(WeatherError.cityIncorrect))
             return
         }
-        
+
         getWeather(
             repository: weatherFactory.create(city: city),
             unit: measurementUnit
         )
     }
-    
+
     private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
         .init(
             unit: unit,
@@ -141,7 +141,7 @@ final class WeatherViewModel: WeatherViewModelType {
             textOptions: buildWeatherTextOptions(for: unit)
         )
     }
-    
+
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
         .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
@@ -155,7 +155,7 @@ final class WeatherViewModel: WeatherViewModelType {
             isShowingHumidity: configManager.isShowingHumidity
         )
     }
-    
+
     private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) {
         weatherTask?.cancel()
         weatherTask = Task {
@@ -171,19 +171,19 @@ final class WeatherViewModel: WeatherViewModelType {
             }
         }
     }
-    
+
     private var measurementUnit: MeasurementUnit {
         MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
     }
-    
+
     private func buildWeatherDataWith(
-          response: WeatherAPIResponse,
-          options: WeatherDataBuilder.Options
-      ) -> WeatherData {
-          WeatherDataBuilder(
-              response: response,
-              options: options,
-              logger: logger
-          ).build()
-      }
+        response: WeatherAPIResponse,
+        options: WeatherDataBuilder.Options
+    ) -> WeatherData {
+        WeatherDataBuilder(
+            response: response,
+            options: options,
+            logger: logger
+        ).build()
+    }
 }

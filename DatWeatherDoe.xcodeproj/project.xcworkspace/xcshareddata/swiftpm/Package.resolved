@@ -55,6 +55,15 @@
       }
     },
     {
+      "identity" : "swiftformat",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicklockwood/SwiftFormat",
+      "state" : {
+        "revision" : "7b0f378f580d8f2fd8c4df8eece0f798d9b855b9",
+        "version" : "0.52.7"
+      }
+    },
+    {
       "identity" : "swiftlint",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/SwiftLint",

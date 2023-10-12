@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ConfigureView: View {
     @ObservedObject var viewModel: ConfigureViewModel
-    
+
     var body: some View {
         VStack {
             ConfigureOptionsView(viewModel: viewModel)
-            
+
             Button(LocalizedStringKey("Done")) {
                 viewModel.saveAndCloseConfig()
             }

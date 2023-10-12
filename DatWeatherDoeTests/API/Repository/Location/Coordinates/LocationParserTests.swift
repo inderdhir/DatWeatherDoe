@@ -6,17 +6,11 @@
 //  Copyright © 2022 Inder Dhir. All rights reserved.
 //
 
-import XCTest
 @testable import DatWeatherDoe
+import XCTest
 
 class LocationParserTests: XCTestCase {
+    func testParseCoordinates_correct() {}
 
-    func testParseCoordinates_correct() {
-        
-    }
-    
-    func testParseCoordinates_incorrect() {
-        
-    }
-
+    func testParseCoordinates_incorrect() {}
 }

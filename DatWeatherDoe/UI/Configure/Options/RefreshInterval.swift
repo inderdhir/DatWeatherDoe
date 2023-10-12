@@ -14,7 +14,7 @@ enum RefreshInterval: TimeInterval, CaseIterable, Identifiable {
     case fifteenMinutes = 900
     case thirtyMinutes = 1800
     case sixtyMinutes = 3600
-    
+
     var id: Self { self }
 
     var title: String {

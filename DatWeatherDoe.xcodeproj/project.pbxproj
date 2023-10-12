@@ -736,6 +736,7 @@
 			packageReferences = (
 				20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */,
 				20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				2000D40D2AD88D6B0052EDA6 /* XCRemoteSwiftPackageReference "SwiftFormat" */,
 			);
 			productRefGroup = 2023EDA41C4ED09C0087FD67 /* Products */;
 			projectDirPath = "";
@@ -1149,6 +1150,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2000D40D2AD88D6B0052EDA6 /* XCRemoteSwiftPackageReference "SwiftFormat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
+			requirement = {
+				kind = exactVersion;
+				version = 0.52.7;
+			};
+		};
 		20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";

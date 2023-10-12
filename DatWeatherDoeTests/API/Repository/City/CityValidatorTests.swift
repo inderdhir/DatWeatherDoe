@@ -6,11 +6,10 @@
 //  Copyright © 2023 Inder Dhir. All rights reserved.
 //
 
-import XCTest
 @testable import DatWeatherDoe
+import XCTest
 
 class CityValidatorTests: XCTestCase {
-    
     func testValidate_cityEmpty() {
         XCTAssertThrowsError(try CityValidator(city: "").validate())
     }
@@ -18,7 +17,7 @@ class CityValidatorTests: XCTestCase {
     func testValidate_cityIncorrect_wrongFormat() {
         XCTAssertThrowsError(try CityValidator(city: "12345").validate())
     }
-    
+
     func testValidate_cityCorrect() {
         XCTAssertNoThrow(try CityValidator(city: "Kyiv,ua").validate())
     }

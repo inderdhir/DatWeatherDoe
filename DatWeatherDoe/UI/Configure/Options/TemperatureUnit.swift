@@ -10,9 +10,9 @@ import Foundation
 
 enum TemperatureUnit: String, CaseIterable, Identifiable {
     case fahrenheit, celsius, all
-    
+
     var id: Self { self }
-    
+
     var unitString: String {
         switch self {
         case .fahrenheit:
@@ -23,7 +23,7 @@ enum TemperatureUnit: String, CaseIterable, Identifiable {
             return "All"
         }
     }
-    
+
     var degreesString: String {
         "\u{00B0}\(unitString)"
     }

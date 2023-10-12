@@ -6,18 +6,17 @@
 //  Copyright © 2021 Inder Dhir. All rights reserved.
 //
 
-import XCTest
 @testable import DatWeatherDoe
+import XCTest
 
 final class ConfigManagerTests: XCTestCase {
-
     var configManager: ConfigManagerType!
 
     override func setUp() {
         super.setUp()
         clearUserDefaults()
     }
-    
+
     func testDefaultMeasurementUnit() {
         XCTAssertEqual(configManager.measurementUnit, MeasurementUnit.imperial.rawValue)
     }
@@ -97,7 +96,6 @@ final class ConfigManagerTests: XCTestCase {
         configManager.isUnitSymbolOff = true
         XCTAssertEqual(configManager.isUnitSymbolOff, true)
     }
-
 
     func testWeatherConditionAsTextDefault() {
         XCTAssertEqual(configManager.isWeatherConditionAsTextEnabled, false)

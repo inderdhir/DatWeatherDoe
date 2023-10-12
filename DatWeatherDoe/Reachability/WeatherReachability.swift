@@ -1,5 +1,5 @@
 //
-//  NetworkReachability.swift
+//  WeatherReachability.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/11/22.
@@ -10,17 +10,16 @@ import OSLog
 import Reachability
 
 final class NetworkReachability {
-    
     private let logger: Logger
     private var reachability: Reachability?
     private var retryWhenReachable = false
-    
+
     init(
         logger: Logger,
         onBecomingReachable: @escaping () -> Void
     ) {
         self.logger = logger
-        
+
         setupWith(callback: onBecomingReachable)
     }
 
@@ -34,22 +33,22 @@ final class NetworkReachability {
             logger.error("Reachability error!")
         }
     }
-    
+
     private func updateReachabilityWhenReachable(callback: @escaping () -> Void) {
         reachability?.whenReachable = { [weak self] _ in
             self?.logger.debug("Reachability status: Reachable")
-            
+
             if self?.retryWhenReachable == true {
                 self?.retryWhenReachable = false
                 callback()
             }
         }
     }
-    
+
     private func updateReachabilityWhenUnreachable() {
         reachability?.whenUnreachable = { [weak self] _ in
             self?.logger.debug("Reachability status: Unreachable")
-            
+
             self?.retryWhenReachable = true
         }
     }

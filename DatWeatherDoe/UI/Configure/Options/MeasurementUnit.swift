@@ -10,9 +10,9 @@ import Foundation
 
 enum MeasurementUnit: String, CaseIterable, Identifiable {
     case metric, imperial, all
-    
+
     var id: Self { self }
-    
+
     var temperatureUnit: TemperatureUnit {
         switch self {
         case .metric:

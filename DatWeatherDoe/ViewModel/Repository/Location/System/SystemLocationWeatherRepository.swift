@@ -10,7 +10,6 @@ import CoreLocation
 import OSLog
 
 final class SystemLocationWeatherRepository: WeatherRepositoryType {
-    
     private let appId: String
     private let location: CLLocationCoordinate2D
     private let networkClient: NetworkClientType
@@ -27,17 +26,17 @@ final class SystemLocationWeatherRepository: WeatherRepositoryType {
         self.networkClient = networkClient
         self.logger = logger
     }
-    
+
     func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via location")
-        
+
         do {
             let url = try LocationWeatherURLBuilder(appId: appId, location: location).build()
             let data = try await networkClient.performRequest(url: url)
             return try WeatherAPIResponseParser().parse(data)
         } catch {
             logger.error("Getting weather via location failed")
-            
+
             throw error
         }
     }

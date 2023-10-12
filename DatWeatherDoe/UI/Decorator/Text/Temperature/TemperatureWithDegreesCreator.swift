@@ -15,15 +15,14 @@ struct TemperatureInMultipleUnits {
 
 protocol TemperatureWithDegreesCreatorType {
     var degreeString: String { get }
-    
+
     func getTemperatureWithDegrees(
         temperatureInMultipleUnits: TemperatureInMultipleUnits,
-        unit: TemperatureUnit,
         isRoundingOff: Bool,
         isUnitLetterOff: Bool,
         isUnitSymbolOff: Bool
     ) -> String?
-    
+
     func getTemperatureWithDegrees(
         _ temperature: Double,
         unit: TemperatureUnit,
@@ -35,10 +34,9 @@ protocol TemperatureWithDegreesCreatorType {
 
 final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
     let degreeString = "\u{00B0}"
-    
+
     func getTemperatureWithDegrees(
         temperatureInMultipleUnits: TemperatureInMultipleUnits,
-        unit: TemperatureUnit,
         isRoundingOff: Bool,
         isUnitLetterOff: Bool,
         isUnitSymbolOff: Bool
@@ -55,7 +53,7 @@ final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
         ) else {
             return nil
         }
-        
+
         let formattedFahrenheit = combineTemperatureWithUnitDegrees(
             temperature: fahrenheitString,
             unit: .fahrenheit,
@@ -68,11 +66,11 @@ final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
             isUnitLetterOff: isUnitLetterOff,
             isUnitSymbolOff: isUnitSymbolOff
         )
-        
+
         return [formattedFahrenheit, formattedCelsius]
             .joined(separator: " / ")
     }
-    
+
     func getTemperatureWithDegrees(
         _ temperature: Double,
         unit: TemperatureUnit,
@@ -86,7 +84,7 @@ final class TemperatureWithDegreesCreator: TemperatureWithDegreesCreatorType {
         ) else {
             return nil
         }
-        
+
         return combineTemperatureWithUnitDegrees(
             temperature: temperatureString,
             unit: unit,

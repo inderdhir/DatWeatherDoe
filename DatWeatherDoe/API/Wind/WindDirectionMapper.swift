@@ -11,7 +11,6 @@ protocol WindDirectionMapperType {
 }
 
 final class WindDirectionMapper: WindDirectionMapperType {
-
     /*
      * Compass directions:
      *    N     348.75 -  11.25    350 -  <=  11
@@ -33,36 +32,36 @@ final class WindDirectionMapper: WindDirectionMapperType {
      */
     func getDirection(degrees: Int) -> WindDirection {
         switch degrees {
-            // "north" (0...11, 350...359) is handled by the default case
-        case 12...34:
+        // "north" (0...11, 350...359) is handled by the default case
+        case 12 ... 34:
             return .northNorthEast
-        case 35...56:
+        case 35 ... 56:
             return .northEast
-        case 57...79:
+        case 57 ... 79:
             return .eastNorthEast
-        case 80...101:
+        case 80 ... 101:
             return .east
-        case 102...124:
+        case 102 ... 124:
             return .eastSouthEast
-        case 125...146:
+        case 125 ... 146:
             return .southEast
-        case 147...169:
+        case 147 ... 169:
             return .southSouthEast
-        case 170...191:
+        case 170 ... 191:
             return .south
-        case 192...214:
+        case 192 ... 214:
             return .southSouthWest
-        case 215...236:
+        case 215 ... 236:
             return .southWest
-        case 237...259:
+        case 237 ... 259:
             return .westSouthWest
-        case 260...281:
+        case 260 ... 281:
             return .west
-        case 282...304:
+        case 282 ... 304:
             return .westNorthWest
-        case 305...326:
+        case 305 ... 326:
             return .northWest
-        case 327...349:
+        case 327 ... 349:
             return .northNorthWest
         default:
             return .north

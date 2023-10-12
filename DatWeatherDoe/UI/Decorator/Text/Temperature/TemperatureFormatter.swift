@@ -23,7 +23,7 @@ final class TemperatureFormatter: TemperatureFormatterType {
         formatter.roundingMode = .halfUp
         return formatter
     }()
-    
+
     func getFormattedTemperatureString(
         _ temperature: Double,
         isRoundingOff: Bool
@@ -31,11 +31,11 @@ final class TemperatureFormatter: TemperatureFormatterType {
         setupTemperatureRounding(isRoundingOff: isRoundingOff)
         return formatTemperatureString(temperature)
     }
-    
+
     private func setupTemperatureRounding(isRoundingOff: Bool) {
         formatter.maximumFractionDigits = isRoundingOff ? 0 : 1
     }
-    
+
     private func formatTemperatureString(_ temperature: Double) -> String? {
         let formattedTemperature = formatter.string(from: NSNumber(value: temperature))
         return fixRoundingIssues(formattedTemperature)

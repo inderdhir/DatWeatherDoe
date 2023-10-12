@@ -13,11 +13,10 @@ protocol DropdownIconMapperType {
 }
 
 final class DropdownIconMapper: DropdownIconMapperType {
-    
     func map(_ icon: DropdownIcon) -> NSImage? {
         let symbolName: String
         let accessibilityDescription: String
-        
+
         switch icon {
         case .location:
             symbolName = "mappin"
@@ -32,7 +31,7 @@ final class DropdownIconMapper: DropdownIconMapperType {
             symbolName = "wind"
             accessibilityDescription = "Wind data"
         }
-        
+
         let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
         return NSImage(
             systemSymbolName: symbolName,

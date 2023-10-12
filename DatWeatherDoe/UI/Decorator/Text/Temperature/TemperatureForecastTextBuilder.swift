@@ -13,7 +13,6 @@ protocol TemperatureForecastTextBuilderType {
 }
 
 final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
-    
     private let temperatureData: WeatherAPIResponse.TemperatureData
     private let options: TemperatureTextBuilder.Options
     private let upArrowStr = "⬆"
@@ -27,15 +26,15 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         self.temperatureData = temperatureData
         self.options = options
     }
-    
-    func build() -> String {        
+
+    func build() -> String {
         if options.unit == .all {
             buildTemperatureForAllUnits()
         } else {
             buildTemperatureForUnit(options.unit)
         }
     }
-    
+
     private func buildTemperatureForAllUnits() -> String {
         let feelsLikeTempFahrenheit = buildFormattedTemperature(
             temperatureData.feelsLikeTemperature, unit: .fahrenheit
@@ -46,7 +45,7 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         let feelsLikeTemperatureCombined = [feelsLikeTempFahrenheit, feelsLikeTempCelsius]
             .compactMap { $0 }
             .joined(separator: " / ")
-        
+
         let maxTempFahrenheit = buildFormattedTemperature(
             temperatureData.maxTemperature, unit: .fahrenheit
         )
@@ -59,7 +58,7 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         let maxTempStr = [upArrowStr, maxTempCombined]
             .compactMap { $0 }
             .joined()
-        
+
         let minTempFahrenheit = buildFormattedTemperature(
             temperatureData.minTemperature, unit: .fahrenheit
         )
@@ -72,7 +71,7 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         let minTempStr = [downArrowStr, minTempCombined]
             .compactMap { $0 }
             .joined()
-        
+
         let maxAndMinTempStr = [maxTempStr, minTempStr]
             .compactMap { $0 }
             .joined(separator: " ")
@@ -80,28 +79,28 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
             .compactMap { $0 }
             .joined(separator: " - ")
     }
-    
+
     private func buildTemperatureForUnit(_ unit: TemperatureUnit) -> String {
         let maxTemperature = buildFormattedTemperature(temperatureData.maxTemperature, unit: unit)
         let maxTempStr = [upArrowStr, maxTemperature]
             .compactMap { $0 }
             .joined()
-        
+
         let minTemperature = buildFormattedTemperature(temperatureData.minTemperature, unit: unit)
         let minTempStr = [downArrowStr, minTemperature]
             .compactMap { $0 }
             .joined()
-        
+
         let maxAndMinTempStr = [maxTempStr, minTempStr]
             .compactMap { $0 }
             .joined(separator: " ")
-        
+
         let feelsLikeTemperature = buildFormattedTemperature(temperatureData.feelsLikeTemperature, unit: unit)
         return [feelsLikeTemperature, maxAndMinTempStr]
             .compactMap { $0 }
             .joined(separator: " - ")
     }
-    
+
     private func buildFormattedTemperature(
         _ kelvinTemperature: Double,
         unit: TemperatureUnit
@@ -111,12 +110,13 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         } else {
             TemperatureConverter().convertKelvinToCelsius(kelvinTemperature)
         }
-        
+
         guard let temperatureString = TemperatureFormatter()
-            .getFormattedTemperatureString(temperatureForUnit, isRoundingOff: options.isRoundingOff) else {
+            .getFormattedTemperatureString(temperatureForUnit, isRoundingOff: options.isRoundingOff)
+        else {
             return nil
         }
-        
+
         return combineTemperatureWithUnitDegrees(
             temperature: temperatureString,
             unit: unit.unitString,

@@ -18,17 +18,16 @@ protocol WindSpeedFormatterType {
         windData: WeatherAPIResponse.WindData,
         isRoundingOff: Bool
     ) -> String
-    
+
     func getFormattedWindSpeedString(
         unit: MeasurementUnit,
-        windData: WeatherAPIResponse.WindData,
-        isRoundingOff: Bool
+        windData: WeatherAPIResponse.WindData
     ) -> String
 }
 
 final class WindSpeedFormatter: WindSpeedFormatterType {
     private let degreeString = "\u{00B0}"
-    
+
     private let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -36,37 +35,36 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
         formatter.roundingMode = .halfUp
         return formatter
     }()
-    
+
     func getFormattedWindSpeedStringForAllUnits(
         windData: WeatherAPIResponse.WindData,
-        isRoundingOff: Bool
+        isRoundingOff _: Bool
     ) -> String {
         let mpsSpeed = windData.speed
-        
+
         let mphSpeed = 2.236 * mpsSpeed
         let mphRounded = formatter.string(from: NSNumber(value: mphSpeed)) ?? ""
         let windSpeedMph = [mphRounded, "mi/hr"].joined()
-        
+
         let mpsRounded = formatter.string(from: NSNumber(value: mpsSpeed)) ?? ""
         let windSpeedMps = [mpsRounded, "m/s"].joined()
-        
+
         let windSpeedStr = [windSpeedMph, windSpeedMps].joined(separator: " | ")
-        
+
         return combinedWindString(windData: windData, windSpeed: windSpeedStr)
     }
-    
+
     func getFormattedWindSpeedString(
         unit: MeasurementUnit,
-        windData: WeatherAPIResponse.WindData,
-        isRoundingOff: Bool
+        windData: WeatherAPIResponse.WindData
     ) -> String {
         let windSpeedRounded = formatter.string(from: NSNumber(value: windData.speed)) ?? ""
         let windSpeedSuffix = unit == .imperial ? "mi/hr" : "m/s"
         let windSpeedStr = [windSpeedRounded, windSpeedSuffix].joined()
-        
+
         return combinedWindString(windData: windData, windSpeed: windSpeedStr)
     }
-    
+
     private func combinedWindString(
         windData: WeatherAPIResponse.WindData,
         windSpeed: String

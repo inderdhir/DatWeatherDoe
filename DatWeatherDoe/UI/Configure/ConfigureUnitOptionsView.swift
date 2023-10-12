@@ -1,5 +1,5 @@
 //
-//  ConfigureOptionsUnitView.swift
+//  ConfigureUnitOptionsView.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 8/8/23.
@@ -18,7 +18,7 @@ struct ConfigureUnitOptionsView: View {
                 Spacer()
                 Toggle(isOn: $viewModel.isUnitLetterOff) {}
             }
-            
+
             HStack {
                 Text(LocalizedStringKey("Hide unit ° symbol"))
                 Spacer()

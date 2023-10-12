@@ -13,18 +13,17 @@ protocol WeatherTextBuilderType {
 }
 
 final class WeatherTextBuilder: WeatherTextBuilderType {
-    
     struct Options {
         let isWeatherConditionAsTextEnabled: Bool
         let valueSeparator: String
         let temperatureOptions: TemperatureTextBuilder.Options
         let isShowingHumidity: Bool
     }
-    
+
     private let response: WeatherAPIResponse
     private let options: Options
     private let logger: Logger
-    
+
     init(
         response: WeatherAPIResponse,
         options: Options,
@@ -34,22 +33,22 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
         self.options = options
         self.logger = logger
     }
-    
+
     func build() -> String {
         let finalString = buildWeatherConditionAsText() |>
-        appendTemperatureAsText |>
-        appendHumidityText
-        
+            appendTemperatureAsText |>
+            appendHumidityText
+
         return finalString
     }
-    
+
     private func buildWeatherConditionAsText() -> String? {
         guard options.isWeatherConditionAsTextEnabled else { return nil }
-        
+
         let weatherCondition = WeatherConditionBuilder(response: response).build()
         return WeatherConditionTextMapper().map(weatherCondition)
     }
-    
+
     private func appendTemperatureAsText(initial: String?) -> String {
         TemperatureTextBuilder(
             initial: initial,
@@ -58,10 +57,10 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
             temperatureCreator: TemperatureWithDegreesCreator()
         ).build()
     }
-    
+
     private func appendHumidityText(initial: String) -> String {
         guard options.isShowingHumidity else { return initial }
-        
+
         return HumidityTextBuilder(
             initial: initial,
             valueSeparator: options.valueSeparator,

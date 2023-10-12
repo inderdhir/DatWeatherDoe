@@ -13,7 +13,6 @@ protocol SunriseAndSunsetTextBuilderType {
 }
 
 final class SunriseAndSunsetTextBuilder: SunriseAndSunsetTextBuilderType {
-
     private let sunset: TimeInterval
     private let sunrise: TimeInterval
 

@@ -10,7 +10,6 @@ import Foundation
 import OSLog
 
 final class ZipCodeWeatherRepository: WeatherRepositoryType {
-    
     private let appId: String
     private let zipCode: String
     private let networkClient: NetworkClientType
@@ -27,10 +26,10 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
         self.networkClient = networkClient
         self.logger = logger
     }
-    
+
     func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via zip code")
-        
+
         do {
             try ZipCodeValidator(zipCode: zipCode).validate()
             let url = try ZipCodeWeatherURLBuilder(appId: appId, zipCode: zipCode).build()
@@ -38,7 +37,7 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
             return try WeatherAPIResponseParser().parse(data)
         } catch {
             logger.error("Getting weather via zip code failed")
-            
+
             throw error
         }
     }

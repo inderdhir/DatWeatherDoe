@@ -13,19 +13,18 @@ protocol LocationParserType {
 }
 
 final class LocationParser: LocationParserType {
-    
     func parseCoordinates(_ latLong: String) throws -> CLLocationCoordinate2D {
         let latLongCombo = latLong.split(separator: ",")
         guard latLongCombo.count == 2 else {
             throw WeatherError.latLongIncorrect
         }
-        
+
         return try parseLocationDegrees(
             possibleLatitude: String(latLongCombo[0]).trim(),
             possibleLongitude: String(latLongCombo[1]).trim()
         )
     }
-    
+
     private func parseLocationDegrees(
         possibleLatitude: String,
         possibleLongitude: String
@@ -35,7 +34,7 @@ final class LocationParser: LocationParserType {
         guard let lat, let long else {
             throw WeatherError.latLongIncorrect
         }
-        
+
         return .init(latitude: lat, longitude: long)
     }
 }

@@ -12,20 +12,20 @@ final class EventMonitor {
     private var monitor: AnyObject?
     private let mask: NSEvent.EventTypeMask
     private let handler: (NSEvent?) -> Void
-    
+
     public init(mask: NSEvent.EventTypeMask, handler: @escaping (NSEvent?) -> Void) {
         self.mask = mask
         self.handler = handler
     }
-    
+
     deinit { stop() }
-    
+
     func start() {
         monitor = NSEvent.addGlobalMonitorForEvents(
             matching: mask, handler: handler
         ) as AnyObject?
     }
-    
+
     func stop() {
         if let monitor {
             NSEvent.removeMonitor(monitor)

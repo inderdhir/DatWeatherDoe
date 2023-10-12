@@ -10,11 +10,10 @@ import Cocoa
 import SwiftUI
 
 final class PopoverManager {
-    
     private let popover = NSPopover()
     private let refreshCallback: () -> Void
     private weak var statusBarButton: NSStatusBarButton?
-    
+
     init(
         statusBarButton: NSStatusBarButton?,
         configManager: ConfigManagerType,
@@ -24,16 +23,16 @@ final class PopoverManager {
         self.refreshCallback = refreshCallback
         setupConfigurationView(configManager)
     }
-    
+
     func togglePopover(_ sender: AnyObject?) {
         if popover.isShown {
             closePopover(sender)
             refreshCallback()
         } else {
-            showPopover(sender)
+            showPopover()
         }
     }
-    
+
     private func setupConfigurationView(_ configManager: ConfigManagerType) {
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(
@@ -42,12 +41,12 @@ final class PopoverManager {
             )
         )
     }
-    
+
     private func closePopover(_ sender: AnyObject?) {
         popover.performClose(sender)
     }
-    
-    private func showPopover(_ sender: AnyObject?) {
+
+    private func showPopover() {
         if let statusBarButton {
             popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: .minY)
         }

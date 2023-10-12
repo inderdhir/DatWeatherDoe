@@ -13,13 +13,12 @@ protocol WeatherSmokyConditionBuilderType {
 }
 
 final class WeatherSmokyConditionBuilder: WeatherSmokyConditionBuilderType {
-    
     private let response: WeatherAPIResponse
-    
+
     init(response: WeatherAPIResponse) {
         self.response = response
     }
-    
+
     func build() -> WeatherCondition {
         switch response.weatherId {
         case 781:
@@ -46,7 +45,7 @@ final class WeatherSmokyConditionBuilder: WeatherSmokyConditionBuilderType {
             return WeatherCondition.getFallback(isNight: isNight)
         }
     }
-    
+
     private var isNight: Bool {
         Date().isNight(sunrise: response.sunset, sunset: response.sunset)
     }

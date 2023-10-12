@@ -10,7 +10,6 @@ import Foundation
 import OSLog
 
 final class CityWeatherRepository: WeatherRepositoryType {
-    
     private let appId: String
     private let city: String
     private let networkClient: NetworkClientType
@@ -27,7 +26,7 @@ final class CityWeatherRepository: WeatherRepositoryType {
         self.networkClient = networkClient
         self.logger = logger
     }
-    
+
     func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via city")
 
@@ -38,7 +37,7 @@ final class CityWeatherRepository: WeatherRepositoryType {
             return try WeatherAPIResponseParser().parse(data)
         } catch {
             logger.error("Getting weather via city failed.")
-            
+
             throw error
         }
     }

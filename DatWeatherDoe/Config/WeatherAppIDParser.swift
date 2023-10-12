@@ -9,7 +9,6 @@
 import Foundation
 
 final class WeatherAppIDParser {
-    
     func parse() -> String {
         guard let appId = Bundle.main.infoDictionary?["OPENWEATHERMAP_APP_ID"] as? String else {
             fatalError("Unable to find OPENWEATHERMAP_APP_ID in `Config.xcconfig`")

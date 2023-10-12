@@ -17,27 +17,27 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
         switch condition {
         case .cloudy:
             return NSLocalizedString("Cloudy", comment: "Cloudy weather condition")
-            
+
         case .partlyCloudy, .partlyCloudyNight:
             return NSLocalizedString("Partly cloudy", comment: "Partly cloudy weather condition")
-            
+
         case .sunny:
             return NSLocalizedString("Sunny", comment: "Sunny weather condition")
         case .clearNight:
             return NSLocalizedString("Clear", comment: "Clear at night weather condition")
-            
+
         case let .smoky(smokyWeatherCondition):
             return SmokyWeatherConditionTextMapper().map(smokyWeatherCondition)
-            
+
         case .snow:
             return NSLocalizedString("Snow", comment: "Snow weather condition")
-            
+
         case .heavyRain:
             return NSLocalizedString("Heavy rain", comment: "Heavy rain weather condition")
-            
+
         case .freezingRain:
             return NSLocalizedString("Freezing rain", comment: "Freezing rain weather condition")
-            
+
         case .lightRain:
             return NSLocalizedString("Light rain", comment: "Light rain weather condition")
         case .partlyCloudyRain:
@@ -45,7 +45,7 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
                 "Partly cloudy with rain",
                 comment: "Partly cloudy with rain weather condition"
             )
-       
+
         case .thunderstorm:
             return NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
         }

@@ -15,14 +15,13 @@ protocol WeatherForecasterType {
 }
 
 final class WeatherForecaster: WeatherForecasterType {
-    
     private let fullWeatherUrl = URL(string: "https://openweathermap.org/city")!
     private var cityId = 0
 
     func updateCityWith(cityId: Int) {
         self.cityId = cityId
     }
-    
+
     func seeForecastForCity() {
         let cityWeatherUrl = fullWeatherUrl.appendingPathComponent(String(cityId))
         NSWorkspace.shared.open(cityWeatherUrl)

@@ -10,12 +10,11 @@ import CoreLocation
 import OSLog
 
 final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
-    
     private let appId: String
     private let latLong: String
     private let networkClient: NetworkClientType
     private let logger: Logger
-    
+
     init(
         appId: String,
         latLong: String,
@@ -27,10 +26,10 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
         self.networkClient = networkClient
         self.logger = logger
     }
-    
+
     func getWeather() async throws -> WeatherAPIResponse {
         logger.debug("Getting weather via lat/long")
-        
+
         do {
             let location = try getLocationCoordinatesFrom(latLong)
             let url = try LocationWeatherURLBuilder(appId: appId, location: location).build()
@@ -38,14 +37,14 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
             return try WeatherAPIResponseParser().parse(data)
         } catch {
             logger.error("Getting weather via lat/long failed")
-            
+
             throw error
         }
     }
-    
+
     private func getLocationCoordinatesFrom(_ latLong: String) throws -> CLLocationCoordinate2D {
         try LocationValidator(latLong: latLong).validate()
-        
+
         let latAndlong = try LocationParser().parseCoordinates(latLong)
         return latAndlong
     }

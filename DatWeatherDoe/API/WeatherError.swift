@@ -15,7 +15,7 @@ enum WeatherError: LocalizedError {
     case zipCodeIncorrect
     case cityIncorrect
     case networkError
-    
+
     var errorDescription: String? {
         switch self {
         case .unableToConstructUrl:

@@ -9,7 +9,6 @@
 import Foundation
 
 final class ZipCodeWeatherRepository: WeatherRepositoryType {
-    
     private let appId: String
     private let zipCode: String
     private let networkClient: NetworkClient
@@ -26,10 +25,10 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
         self.networkClient = networkClient
         self.logger = logger
     }
-    
+
     func getWeather(completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
         logger.debug("Getting weather via zip code")
-        
+
         do {
             try validateZipCode()
             let url = try buildURL()
@@ -38,23 +37,23 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
             })
         } catch {
             logger.error("Getting weather via zip code failed. Zip code is incorrect!")
-            
+
             completion(.failure(error))
         }
     }
-    
+
     private func validateZipCode() throws {
         try ZipCodeValidator(zipCode: zipCode).validate()
     }
-    
+
     private func buildURL() throws -> URL {
         try ZipCodeWeatherURLBuilder(appId: appId, zipCode: zipCode).build()
     }
-    
+
     private func performRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         networkClient.performRequest(url: url, completion: completion)
     }
-    
+
     private func parseNetworkResult(
         result: Result<Data, Error>,
         completion: @escaping (Result<WeatherAPIResponse, Error>) -> Void
@@ -73,7 +72,7 @@ final class ZipCodeWeatherRepository: WeatherRepositoryType {
             completion(.failure(weatherError))
         }
     }
-    
+
     private func parseWeatherData(_ data: Data) throws -> WeatherAPIResponse {
         try WeatherAPIResponseParser().parse(data)
     }

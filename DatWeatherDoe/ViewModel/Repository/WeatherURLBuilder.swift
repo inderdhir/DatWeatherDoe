@@ -14,13 +14,12 @@ protocol WeatherURLBuilderType {
 }
 
 class WeatherURLBuilder: WeatherURLBuilderType {
-    
     let apiUrlString = "https://api.openweathermap.org/data/2.5/weather"
     let appId: String
-    
+
     init(appId: String) {
         self.appId = appId
     }
-    
+
     func build() throws -> URL { URL(string: apiUrlString)! }
 }

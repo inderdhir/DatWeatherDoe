@@ -6,42 +6,41 @@
 //  Copyright © 2016 Inder Dhir. All rights reserved.
 //
 
-import Combine
 import Cocoa
+import Combine
 import Foundation
 import OSLog
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    @IBOutlet weak var window: NSWindow!
-    
+    @IBOutlet var window: NSWindow!
+
     private let configManager: ConfigManagerType = ConfigManager()
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "bundleID", category: "main")
     private var viewModel: WeatherViewModelType!
     private var reachability: NetworkReachability!
     private var menuBarManager: MenuBarManager!
     private var cancellables: Set<AnyCancellable> = []
-    
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+
+    func applicationDidFinishLaunching(_: Notification) {
         setupMenuBar()
         setupWeatherFetching()
         getUpdatedWeather()
     }
-    
+
     private func setupMenuBar() {
         menuBarManager = MenuBarManager(options: buildMenuBarOptions(), configManager: configManager)
     }
-    
+
     private func setupWeatherFetching() {
         setupViewModel()
         setupReachability()
     }
-    
+
     @objc private func getUpdatedWeather() {
         viewModel.startRefreshingWeather()
     }
-    
+
     private func buildMenuBarOptions() -> MenuBarManager.Options {
         .init(
             seeFullWeatherSelector: #selector(seeFullWeather),
@@ -51,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             quitSelector: #selector(terminate)
         )
     }
-    
+
     private func setupViewModel() {
         viewModel = WeatherViewModel(
             locationFetcher: SystemLocationFetcher(logger: logger),
@@ -74,27 +73,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             })
             .store(in: &cancellables)
     }
-    
+
     private func setupReachability() {
         reachability = NetworkReachability(
             logger: logger,
             onBecomingReachable: { [weak self] in self?.getUpdatedWeather() }
         )
     }
-    
+
     @objc private func seeFullWeather() {
         viewModel.seeForecastForCurrentCity()
     }
-    
+
     @objc private func configure(_ sender: AnyObject) {
         menuBarManager.configure(sender)
     }
-    
+
     @objc private func terminate() { NSApp.terminate(self) }
-    
+
     private func updateWeather(with weatherData: WeatherData) {
         viewModel.updateCity(with: weatherData.response.cityId)
-        
+
         let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
         menuBarManager.updateMenuBarWith(
             weatherData: weatherData,

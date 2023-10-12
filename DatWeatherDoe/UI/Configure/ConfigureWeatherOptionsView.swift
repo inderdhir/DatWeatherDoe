@@ -24,7 +24,7 @@ struct ConfigureWeatherOptionsView: View {
                 }
                 .frame(width: 120)
             }
-            
+
             HStack {
                 Text(viewModel.weatherSource.textHint)
                     .font(.caption)

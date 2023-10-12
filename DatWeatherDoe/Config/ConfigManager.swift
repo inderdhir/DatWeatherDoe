@@ -20,7 +20,7 @@ protocol ConfigManagerType: AnyObject {
     var isUnitSymbolOff: Bool { get set }
     var valueSeparator: String { get set }
     var isWeatherConditionAsTextEnabled: Bool { get set }
-    
+
     func updateWeatherSource(_ source: WeatherSource, sourceText: String)
     func setConfigOptions(_ options: ConfigOptions)
 }
@@ -28,42 +28,42 @@ protocol ConfigManagerType: AnyObject {
 final class ConfigManager: ConfigManagerType {
     @Storage(key: "measurementUnit", defaultValue: MeasurementUnit.imperial.rawValue)
     public var measurementUnit: String
-    
+
     @Storage(key: "weatherSource", defaultValue: WeatherSource.location.rawValue)
     public var weatherSource: String
-    
-    @Storage(key: "weatherSourceText", defaultValue: nil)    
+
+    @Storage(key: "weatherSourceText", defaultValue: nil)
     public var weatherSourceText: String?
-    
+
     @Storage(key: "refreshInterval", defaultValue: RefreshInterval.fifteenMinutes.rawValue)
     public var refreshInterval: TimeInterval
-    
+
     @Storage(key: "isShowingWeatherIcon", defaultValue: true)
     public var isShowingWeatherIcon: Bool
-    
+
     @Storage(key: "isShowingHumidity", defaultValue: false)
     public var isShowingHumidity: Bool
-    
+
     @Storage(key: "isRoundingOffData", defaultValue: false)
     public var isRoundingOffData: Bool
-    
+
     @Storage(key: "isUnitLetterOff", defaultValue: false)
     public var isUnitLetterOff: Bool
-    
+
     @Storage(key: "isUnitSymbolOff", defaultValue: false)
     public var isUnitSymbolOff: Bool
-    
+
     @Storage(key: "valueSeparator", defaultValue: "\u{007C}")
     public var valueSeparator: String
-    
+
     @Storage(key: "isWeatherConditionAsTextEnabled", defaultValue: false)
     public var isWeatherConditionAsTextEnabled: Bool
-    
+
     func updateWeatherSource(_ source: WeatherSource, sourceText: String) {
         weatherSource = source.rawValue
         weatherSourceText = source == .location ? nil : sourceText
     }
-    
+
     func setConfigOptions(_ options: ConfigOptions) {
         refreshInterval = options.refreshInterval.rawValue
         isShowingHumidity = options.isShowingHumidity

@@ -7,18 +7,17 @@
 //
 
 final class ZipCodeWeatherResultParser: WeatherResultParser {
-    
     override func parse() {
         switch weatherDataResult {
         case let .success(weatherData):
             delegate?.didUpdateWeatherData(weatherData)
         case let .failure(error):
             guard let weatherError = error as? WeatherError else { return }
-            
+
             let errorString = weatherError == WeatherError.zipCodeIncorrect ?
-            errorLabels.zipCodeErrorString :
-            errorLabels.networkErrorString
-            
+                errorLabels.zipCodeErrorString :
+                errorLabels.networkErrorString
+
             delegate?.didFailToUpdateWeatherData(errorString)
         }
     }

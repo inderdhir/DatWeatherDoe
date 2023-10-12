@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ConfigureOptionsView: View {
     @ObservedObject var viewModel: ConfigureViewModel
-    
+
     var body: some View {
         Grid(verticalSpacing: 16) {
             HStack {
@@ -23,9 +23,9 @@ struct ConfigureOptionsView: View {
                 }
                 .frame(width: 120)
             }
-            
+
             ConfigureWeatherOptionsView(viewModel: viewModel)
-            
+
             HStack {
                 Text(LocalizedStringKey("Refresh Interval"))
                 Spacer()
@@ -38,27 +38,27 @@ struct ConfigureOptionsView: View {
                 }
                 .frame(width: 120)
             }
-            
+
             HStack {
                 Text(LocalizedStringKey("Show Weather Icon"))
                 Spacer()
                 Toggle(isOn: $viewModel.isShowingWeatherIcon) {}
             }
-            
+
             HStack {
                 Text(LocalizedStringKey("Show Humidity"))
                 Spacer()
                 Toggle(isOn: $viewModel.isShowingHumidity) {}
             }
-            
+
             HStack {
                 Text(LocalizedStringKey("Round-off Data"))
                 Spacer()
                 Toggle(isOn: $viewModel.isRoundingOffData) {}
             }
-            
+
             ConfigureUnitOptionsView(viewModel: viewModel)
-            
+
             ConfigureValueSeparatorOptionsView(viewModel: viewModel)
 
             HStack {

@@ -15,7 +15,7 @@ final class TemperatureConverter: TemperatureConverterType {
     func convertKelvinToFahrenheit(_ kelvinTemperature: Double) -> Double {
         kelvinTemperature.fahrenheitTemperature
     }
-    
+
     func convertKelvinToCelsius(_ kelvinTemperature: Double) -> Double {
         kelvinTemperature.celsiusTemperature
     }

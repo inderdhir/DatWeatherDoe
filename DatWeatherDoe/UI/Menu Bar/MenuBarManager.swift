@@ -10,7 +10,6 @@ import Cocoa
 import Foundation
 
 final class MenuBarManager {
-    
     /* Some of these selectors don't work from within this class and
      need to live in AppDelegate
      */
@@ -21,10 +20,10 @@ final class MenuBarManager {
         let configureSelector: Selector
         let quitSelector: Selector
     }
-    
+
     private var statusItemManager: StatusItemManager!
     private var popOverManager: PopoverManager!
-    
+
     init(
         options: MenuBarManager.Options,
         configManager: ConfigManagerType
@@ -39,26 +38,26 @@ final class MenuBarManager {
             refreshCallback: { options.refreshCallback() }
         )
     }
-    
+
     func updateMenuBarWith(weatherData: WeatherData, options: StatusItemManager.Options) {
         statusItemManager.updateStatusItemWith(
             weatherData: weatherData,
             options: options
         )
     }
-    
+
     func updateMenuBarWith(error: String) {
         statusItemManager.updateStatusItemWith(error: error)
     }
-    
+
     func configure(_ sender: AnyObject) {
         popOverManager.togglePopover(sender)
     }
-    
+
     private func buildMenuWith(options: MenuBarManager.Options) -> NSMenu {
         MenuBuilder(options: buildMenuBuilderOptionsWith(options: options)).build()
     }
-    
+
     private func buildMenuBuilderOptionsWith(
         options: MenuBarManager.Options
     ) -> MenuBuilder.Options {

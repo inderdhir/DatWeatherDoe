@@ -8,16 +8,16 @@
 
 final class ZipCodeValidator: WeatherValidatorType {
     private let zipCode: String
-    
+
     init(zipCode: String) {
         self.zipCode = zipCode
     }
-        
+
     func validate() throws {
         let isZipPresent = !zipCode.isEmpty
         let isZipPresentWithCountryCode = zipCode.split(separator: ",").count == 2
         let isValid = isZipPresent && isZipPresentWithCountryCode
-        if(!isValid) {
+        if !isValid {
             throw WeatherError.zipCodeIncorrect
         }
     }

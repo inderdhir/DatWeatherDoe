@@ -14,7 +14,6 @@ protocol HumidityTextBuilderType {
 }
 
 final class HumidityTextBuilder: HumidityTextBuilderType {
-    
     private let initial: String
     private let valueSeparator: String
     private let humidity: Int
@@ -27,7 +26,7 @@ final class HumidityTextBuilder: HumidityTextBuilderType {
         formatter.maximumFractionDigits = 0
         return formatter
     }()
-    
+
     init(
         initial: String,
         valueSeparator: String,
@@ -39,23 +38,23 @@ final class HumidityTextBuilder: HumidityTextBuilderType {
         self.humidity = humidity
         self.logger = logger
     }
-    
+
     func build() -> String {
         guard let humidityString = buildHumidity() else {
             logger.error("Unable to construct humidity string")
-            
+
             return initial
         }
-        
+
         return "\(initial) \(valueSeparator) \(humidityString)"
     }
-    
+
     private func buildHumidity() -> String? {
         guard let formattedString = buildFormattedString() else { return nil }
-        
+
         return "\(formattedString)\(percentString)"
     }
-    
+
     private func buildFormattedString() -> String? {
         humidityFormatter.string(from: NSNumber(value: humidity))
     }
