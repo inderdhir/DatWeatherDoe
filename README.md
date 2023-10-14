@@ -1,4 +1,4 @@
-# DatWeatherDoe
+# [<img src="logo.png" width="20"/>](image.png) DatWeatherDoe
 
 - Fetch weather using: 
     - Location services
@@ -10,9 +10,9 @@
 
 ## Screenshots
 
-![alt tag](screenshot_1.png)\
-![alt tag](screenshot_2.png)
-![alt tag](screenshot_3.png)
+![Screenshot 1](screenshot_1.png)\
+![Screenshot 2](screenshot_2.png)
+![Screenshot 3](screenshot_3.png)
 
 ## Installation
 
@@ -26,8 +26,8 @@ If using location, please make sure that the app has permission to access locati
 
 `System Preferences > Security & Privacy > Privacy > Location Services`
 
-![alt tag](location_services_1.png)
-![alt tag](location_services_2.png)
+![Location services screenshot 1](location_services_1.png)
+![Location services screenshot 2](location_services_2.png)
 
 ## Developer Setup
 
