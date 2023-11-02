@@ -35,9 +35,12 @@ final class PopoverManager {
 
     private func setupConfigurationView(_ configManager: ConfigManagerType) {
         popover.contentSize = NSSize(width: 360, height: 360)
+        
+        let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
         popover.contentViewController = NSHostingController(
             rootView: ConfigureView(
-                viewModel: .init(configManager: configManager, popoverManager: self)
+                viewModel: .init(configManager: configManager, popoverManager: self),
+                version: version
             )
         )
     }
