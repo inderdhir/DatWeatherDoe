@@ -13,8 +13,6 @@ import OSLog
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    @IBOutlet var window: NSWindow!
-
     private let configManager: ConfigManagerType = ConfigManager()
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "bundleID", category: "main")
     private var viewModel: WeatherViewModelType!

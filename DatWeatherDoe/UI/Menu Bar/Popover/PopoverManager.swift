@@ -10,6 +10,8 @@ import Cocoa
 import SwiftUI
 
 final class PopoverManager {
+    private var eventMonitor: EventMonitor?
+    private var configureViewModel: ConfigureViewModel!
     private let popover = NSPopover()
     private let refreshCallback: () -> Void
     private weak var statusBarButton: NSStatusBarButton?
@@ -21,6 +23,10 @@ final class PopoverManager {
     ) {
         self.statusBarButton = statusBarButton
         self.refreshCallback = refreshCallback
+
+        eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
+        configureViewModel = ConfigureViewModel(configManager: configManager, popoverManager: self)
+        
         setupConfigurationView(configManager)
     }
 
@@ -38,20 +44,28 @@ final class PopoverManager {
         
         let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
         popover.contentViewController = NSHostingController(
-            rootView: ConfigureView(
-                viewModel: .init(configManager: configManager, popoverManager: self),
-                version: version
-            )
+            rootView: ConfigureView(viewModel: configureViewModel, version: version)
         )
-    }
-
-    private func closePopover(_ sender: AnyObject?) {
-        popover.performClose(sender)
     }
 
     private func showPopover() {
         if let statusBarButton {
             popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: .minY)
+            popover.contentViewController?.view.window?.makeKey()
+            eventMonitor?.start()
         }
+    }
+    
+    private func closePopover(_ sender: AnyObject?) {
+        popover.performClose(sender)
+        eventMonitor?.stop()
+    }
+    
+    private func mouseEventHandler(_ event: NSEvent?) {
+        if popover.isShown {
+            closePopover(nil)
+        }
+        configureViewModel.saveConfig()
+        refreshCallback()
     }
 }

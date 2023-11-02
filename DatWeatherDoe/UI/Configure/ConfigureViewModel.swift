@@ -79,13 +79,8 @@ final class ConfigureViewModel: ObservableObject {
         isUnitSymbolOff = configManager.isUnitSymbolOff
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
     }
-
-    func saveAndCloseConfig() {
-        saveConfig()
-        popoverManager?.togglePopover(nil)
-    }
-
-    private func saveConfig() {
+    
+    func saveConfig() {
         configManager.updateWeatherSource(weatherSource, sourceText: weatherSourceText)
         configManager.setConfigOptions(
             .init(
@@ -98,5 +93,10 @@ final class ConfigureViewModel: ObservableObject {
                 isWeatherConditionAsTextEnabled: isWeatherConditionAsTextEnabled
             )
         )
+    }
+    
+    func saveAndCloseConfig() {
+        saveConfig()
+        popoverManager?.togglePopover(nil)
     }
 }
