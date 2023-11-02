@@ -7,7 +7,7 @@
 //
 
 protocol TemperatureTextBuilderType {
-    func build() -> String
+    func build() -> String?
 }
 
 final class TemperatureTextBuilder: TemperatureTextBuilderType {
@@ -18,25 +18,22 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
         let isUnitSymbolOff: Bool
     }
 
-    private let initial: String?
     private let response: WeatherAPIResponse
     private let options: Options
     private let temperatureCreator: TemperatureWithDegreesCreatorType
     private let degreeString = "\u{00B0}"
 
     init(
-        initial: String?,
         response: WeatherAPIResponse,
         options: Options,
         temperatureCreator: TemperatureWithDegreesCreatorType
     ) {
-        self.initial = initial
         self.response = response
         self.options = options
         self.temperatureCreator = temperatureCreator
     }
 
-    func build() -> String {
+    func build() -> String? {
         if options.unit == .all {
             buildTemperatureTextForAllUnits()
         } else {
@@ -44,7 +41,7 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
         }
     }
 
-    private func buildTemperatureTextForAllUnits() -> String {
+    private func buildTemperatureTextForAllUnits() -> String? {
         let fahrenheitTemperature = buildTemperature(isFahrenheit: true)
         let celsiusTemperature = buildTemperature(isFahrenheit: false)
 
@@ -55,12 +52,10 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
         )
-        return [initial, temperatureWithDegrees]
-            .compactMap { $0 }
-            .joined(separator: ", ")
+        return temperatureWithDegrees
     }
 
-    private func buildTemperatureText(for unit: TemperatureUnit) -> String {
+    private func buildTemperatureText(for unit: TemperatureUnit) -> String? {
         let temperatureForUnit = buildTemperature(isFahrenheit: unit == .fahrenheit)
         let temperatureWithDegrees = temperatureCreator.getTemperatureWithDegrees(
             temperatureForUnit,
@@ -69,9 +64,7 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
         )
-        return [initial, temperatureWithDegrees]
-            .compactMap { $0 }
-            .joined(separator: ", ")
+        return temperatureWithDegrees
     }
 
     private func buildTemperature(isFahrenheit: Bool) -> Double {

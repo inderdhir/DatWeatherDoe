@@ -35,27 +35,18 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
     }
 
     func build() -> String {
-        let finalString = buildWeatherConditionAsText() |>
-            appendTemperatureAsText |>
-            appendHumidityText
-
+        let finalString = appendTemperatureAsText() |>
+            appendHumidityText |>
+            buildWeatherConditionAsText
         return finalString
     }
-
-    private func buildWeatherConditionAsText() -> String? {
-        guard options.isWeatherConditionAsTextEnabled else { return nil }
-
-        let weatherCondition = WeatherConditionBuilder(response: response).build()
-        return WeatherConditionTextMapper().map(weatherCondition)
-    }
-
-    private func appendTemperatureAsText(initial: String?) -> String {
+    
+    private func appendTemperatureAsText() -> String {
         TemperatureTextBuilder(
-            initial: initial,
             response: response,
             options: options.temperatureOptions,
             temperatureCreator: TemperatureWithDegreesCreator()
-        ).build()
+        ).build() ?? ""
     }
 
     private func appendHumidityText(initial: String) -> String {
@@ -67,6 +58,16 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
             humidity: response.humidity,
             logger: logger
         ).build()
+    }
+    
+    private func buildWeatherConditionAsText(initial: String) -> String {
+        guard options.isWeatherConditionAsTextEnabled else { return initial }
+
+        let weatherCondition = WeatherConditionBuilder(response: response).build()
+        let weatherConditionText = WeatherConditionTextMapper().map(weatherCondition)
+        return [initial, weatherConditionText]
+            .compactMap { $0 }
+            .joined(separator: ", ")
     }
 }
 
