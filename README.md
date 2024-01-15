@@ -16,9 +16,14 @@
 
 ## Installation
 
-[Download latest release](https://github.com/inderdhir/DatWeatherDoe/releases/latest) or install via Homebrew Cask:
+### Homebrew Cask
 
-    brew install --cask datweatherdoe
+`brew install --cask datweatherdoe`
+
+### Manual
+
+- [MacOS 13.0+](https://github.com/inderdhir/DatWeatherDoe/releases/latest)
+- [MacOS 11.0-13.0](https://github.com/inderdhir/DatWeatherDoe/releases/tag/3.3.0)
 
 ## Using Location Services
 
