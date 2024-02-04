@@ -37,6 +37,8 @@ final class WeatherViewModel: WeatherViewModelType {
         self.logger = logger
 
         weatherResult = weatherSubject.eraseToAnyPublisher()
+        
+        setupLocationFetching()
     }
 
     deinit {
@@ -63,6 +65,24 @@ final class WeatherViewModel: WeatherViewModelType {
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
+    
+    private func setupLocationFetching() {
+        locationFetcher.locationResult
+            .sink(receiveValue: { [weak self] result in
+                guard let self else { return }
+
+                switch result {
+                case let .success(location):
+                    self.getWeather(
+                        repository: weatherFactory.create(location: location),
+                        unit: measurementUnit
+                    )
+                case let .failure(error):
+                    self.weatherSubject.send(.failure(error))
+                }
+            })
+            .store(in: &cancellables)
+    }
 
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
@@ -80,21 +100,6 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func getWeatherAfterUpdatingLocation() {
-        locationFetcher.locationResult
-            .sink(receiveValue: { [weak self] result in
-                guard let self else { return }
-
-                switch result {
-                case let .success(location):
-                    self.getWeather(
-                        repository: weatherFactory.create(location: location),
-                        unit: measurementUnit
-                    )
-                case let .failure(error):
-                    self.weatherSubject.send(.failure(error))
-                }
-            })
-            .store(in: &cancellables)
         locationFetcher.startUpdatingLocation()
     }
 
@@ -157,7 +162,6 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) {
-        weatherTask?.cancel()
         weatherTask = Task {
             do {
                 let response = try await repository.getWeather()
