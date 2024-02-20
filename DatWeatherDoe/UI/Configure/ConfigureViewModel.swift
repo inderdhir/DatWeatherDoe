@@ -55,7 +55,9 @@ final class ConfigureViewModel: ObservableObject {
     }
 
     private let configManager: ConfigManagerType
+    private var hasConfigChanged = false
     private weak var popoverManager: PopoverManager?
+    private var cancellables: Set<AnyCancellable> = []
 
     init(configManager: ConfigManagerType, popoverManager: PopoverManager?) {
         self.configManager = configManager
@@ -78,6 +80,8 @@ final class ConfigureViewModel: ObservableObject {
         isUnitLetterOff = configManager.isUnitLetterOff
         isUnitSymbolOff = configManager.isUnitSymbolOff
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
+        
+        listenForConfigChange()
     }
     
     func saveConfig() {
@@ -97,6 +101,15 @@ final class ConfigureViewModel: ObservableObject {
     
     func saveAndCloseConfig() {
         saveConfig()
-        popoverManager?.togglePopover(nil)
+
+        popoverManager?.togglePopover(nil, shouldRefresh: hasConfigChanged)
+        hasConfigChanged = false
+    }
+    
+    private func listenForConfigChange() {
+        objectWillChange.sink { [weak self] in
+            self?.hasConfigChanged = true
+        }
+        .store(in: &cancellables)
     }
 }

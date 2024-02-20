@@ -51,7 +51,7 @@ final class MenuBarManager {
     }
 
     func configure(_ sender: AnyObject) {
-        popOverManager.togglePopover(sender)
+        popOverManager.togglePopover(sender, shouldRefresh: false)
     }
 
     private func buildMenuWith(options: MenuBarManager.Options) -> NSMenu {

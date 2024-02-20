@@ -30,10 +30,13 @@ final class PopoverManager {
         setupConfigurationView(configManager)
     }
 
-    func togglePopover(_ sender: AnyObject?) {
+    func togglePopover(_ sender: AnyObject?, shouldRefresh: Bool) {
         if popover.isShown {
             closePopover(sender)
-            refreshCallback()
+            
+            if shouldRefresh {
+                refreshCallback()
+            }
         } else {
             showPopover()
         }
