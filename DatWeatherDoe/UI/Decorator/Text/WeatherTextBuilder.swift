@@ -65,7 +65,7 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
 
         let weatherCondition = WeatherConditionBuilder(response: response).build()
         let weatherConditionText = WeatherConditionTextMapper().map(weatherCondition)
-        return [initial, weatherConditionText]
+        return [weatherConditionText, initial]
             .compactMap { $0 }
             .joined(separator: ", ")
     }
