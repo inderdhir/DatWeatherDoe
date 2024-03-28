@@ -43,6 +43,7 @@
 		206523FD265AF03E0026C506 /* RefreshInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206523FC265AF03E0026C506 /* RefreshInterval.swift */; };
 		206E15252A7C4C5C0096D33C /* ConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206E15242A7C4C5C0096D33C /* ConfigOptions.swift */; };
 		206E152F2A7C544D0096D33C /* ConfigureOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206E152E2A7C544D0096D33C /* ConfigureOptionsView.swift */; };
+		206FF1BB2BB4BB9400111EAE /* WeatherConditionPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FF1BA2BB4BB9400111EAE /* WeatherConditionPosition.swift */; };
 		2074949927A09278002AA589 /* WeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949827A09278002AA589 /* WeatherURLBuilderTests.swift */; };
 		2074949D27A09358002AA589 /* LocationWeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */; };
 		2074949F27A0944E002AA589 /* ZipCodeWeatherURLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2074949E27A0944E002AA589 /* ZipCodeWeatherURLBuilderTests.swift */; };
@@ -141,6 +142,7 @@
 		206523FC265AF03E0026C506 /* RefreshInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshInterval.swift; sourceTree = "<group>"; };
 		206E15242A7C4C5C0096D33C /* ConfigOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigOptions.swift; sourceTree = "<group>"; };
 		206E152E2A7C544D0096D33C /* ConfigureOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureOptionsView.swift; sourceTree = "<group>"; };
+		206FF1BA2BB4BB9400111EAE /* WeatherConditionPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherConditionPosition.swift; sourceTree = "<group>"; };
 		2074949827A09278002AA589 /* WeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherURLBuilderTests.swift; sourceTree = "<group>"; };
 		2074949C27A09358002AA589 /* LocationWeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeatherURLBuilderTests.swift; sourceTree = "<group>"; };
 		2074949E27A0944E002AA589 /* ZipCodeWeatherURLBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCodeWeatherURLBuilderTests.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				209482C529934BFF00AF39D4 /* MeasurementUnit.swift */,
 				206523FA265AD5730026C506 /* WeatherSource.swift */,
 				206523FC265AF03E0026C506 /* RefreshInterval.swift */,
+				206FF1BA2BB4BB9400111EAE /* WeatherConditionPosition.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				20B46810279392B200FC6050 /* WeatherSmokyConditionBuilder.swift in Sources */,
 				20B468192793989B00FC6050 /* HumidityTextBuilder.swift in Sources */,
 				206523D62659A92B0026C506 /* WeatherDataBuilder.swift in Sources */,
+				206FF1BB2BB4BB9400111EAE /* WeatherConditionPosition.swift in Sources */,
 				20206F0727BFF3D7004B418F /* ConfigureView.swift in Sources */,
 				20BBCDA4278B6E37007DEEB0 /* SmokyWeatherCondition.swift in Sources */,
 				20F17D3A26597A02003A164E /* WeatherData.swift in Sources */,

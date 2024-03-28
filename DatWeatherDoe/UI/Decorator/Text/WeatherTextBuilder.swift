@@ -15,6 +15,7 @@ protocol WeatherTextBuilderType {
 final class WeatherTextBuilder: WeatherTextBuilderType {
     struct Options {
         let isWeatherConditionAsTextEnabled: Bool
+        let conditionPosition: WeatherConditionPosition
         let valueSeparator: String
         let temperatureOptions: TemperatureTextBuilder.Options
         let isShowingHumidity: Bool
@@ -65,7 +66,12 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
 
         let weatherCondition = WeatherConditionBuilder(response: response).build()
         let weatherConditionText = WeatherConditionTextMapper().map(weatherCondition)
-        return [weatherConditionText, initial]
+        
+        let combinedString = options.conditionPosition == .beforeTemperature ?
+        [weatherConditionText, initial] :
+        [initial, weatherConditionText.lowercased()]
+        
+        return combinedString
             .compactMap { $0 }
             .joined(separator: ", ")
     }

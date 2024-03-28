@@ -62,10 +62,23 @@ struct ConfigureOptionsView: View {
             ConfigureValueSeparatorOptionsView(viewModel: viewModel)
 
             HStack {
-                Text(LocalizedStringKey("Weather Condition (as text)"))
+                Text(LocalizedStringKey("Weather Condition Text"))
                 Spacer()
                 Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
             }
+            
+            HStack {
+                Text(LocalizedStringKey("Weather Condition Position"))
+                Spacer()
+                Picker("", selection: $viewModel.weatherConditionPosition) {
+                    Text(LocalizedStringKey("Before Temperature"))
+                        .tag(WeatherConditionPosition.beforeTemperature)
+                    Text(LocalizedStringKey("After Temperature"))
+                        .tag(WeatherConditionPosition.afterTemperature)
+                }
+                .frame(maxWidth: 120)
+            }
+            .disabled(!viewModel.isWeatherConditionAsTextEnabled)
         }
         .padding()
     }

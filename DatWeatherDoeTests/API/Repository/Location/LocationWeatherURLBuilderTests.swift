@@ -23,7 +23,7 @@ class LocationWeatherURLBuilderTests: XCTestCase {
             try? LocationWeatherURLBuilder(
                 appId: "123456",
                 location: .init(latitude: 42, longitude: 42)
-            ).build(unit: .imperial).absoluteString,
+            ).build().absoluteString,
             "https://api.openweathermap.org/data/2.5/weather?appid=123456&lat=42.0&lon=42.0&units=imperial"
         )
     }

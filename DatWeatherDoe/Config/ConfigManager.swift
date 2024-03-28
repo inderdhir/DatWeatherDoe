@@ -20,6 +20,7 @@ protocol ConfigManagerType: AnyObject {
     var isUnitSymbolOff: Bool { get set }
     var valueSeparator: String { get set }
     var isWeatherConditionAsTextEnabled: Bool { get set }
+    var weatherConditionPosition: String { get set }
 
     func updateWeatherSource(_ source: WeatherSource, sourceText: String)
     func setConfigOptions(_ options: ConfigOptions)
@@ -58,6 +59,12 @@ final class ConfigManager: ConfigManagerType {
 
     @Storage(key: "isWeatherConditionAsTextEnabled", defaultValue: false)
     public var isWeatherConditionAsTextEnabled: Bool
+    
+    @Storage(
+        key: "weatherConditionPosition",
+        defaultValue: WeatherConditionPosition.beforeTemperature.rawValue
+    )
+    public var weatherConditionPosition: String
 
     func updateWeatherSource(_ source: WeatherSource, sourceText: String) {
         weatherSource = source.rawValue

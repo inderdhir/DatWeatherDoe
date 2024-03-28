@@ -53,6 +53,10 @@ final class ConfigureViewModel: ObservableObject {
     @Published var isWeatherConditionAsTextEnabled: Bool {
         didSet { configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled }
     }
+    
+    @Published var weatherConditionPosition: WeatherConditionPosition {
+        didSet { configManager.weatherConditionPosition = weatherConditionPosition.rawValue }
+    }
 
     private let configManager: ConfigManagerType
     private var hasConfigChanged = false
@@ -80,6 +84,8 @@ final class ConfigureViewModel: ObservableObject {
         isUnitLetterOff = configManager.isUnitLetterOff
         isUnitSymbolOff = configManager.isUnitSymbolOff
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
+        weatherConditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition)
+        ?? .beforeTemperature
         
         listenForConfigChange()
     }

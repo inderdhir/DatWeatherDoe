@@ -139,8 +139,14 @@
 /* Unknown location */
 "Unknown" = "Unknown";
 
-/* Weather condition as text */
-"Weather Condition (as text)" = "Weather Condition (as text)";
+/* Weather Condition Text */
+"Weather Condition Text" = "Weather Condition Text";
+
+/* Weather condition before temperature */
+"Before Temperature" = "Before Temperature";
+
+/* Weather condition after temperature */
+"After Temperature" = "After Temperature";
 
 /* Source for fetching weather */
 "Weather Source" = "Weather Source";

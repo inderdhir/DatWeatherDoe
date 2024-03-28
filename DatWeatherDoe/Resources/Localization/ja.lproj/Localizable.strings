@@ -133,8 +133,14 @@
 /* Unknown location */
 "Unknown" = "不明";
 
-/* Weather condition as text */
-"Weather Condition (as text)" = "天気状況(テキスト)";
+/* Weather Condition Text */
+"Weather Condition Text" = "気象条件テキスト";
+
+/* Weather condition before temperature */
+"Before Temperature" = "温度前";
+
+/* Weather condition after temperature */
+"After Temperature" = "温度後";
 
 /* Source for fetching weather */
 "Weather Source" = "気象情報源";

@@ -148,8 +148,11 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
-        .init(
+        let conditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition) 
+        ?? .beforeTemperature
+        return .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
+            conditionPosition: conditionPosition,
             valueSeparator: configManager.valueSeparator,
             temperatureOptions: .init(
                 unit: unit.temperatureUnit,
