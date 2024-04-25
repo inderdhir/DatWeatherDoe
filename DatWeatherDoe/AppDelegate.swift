@@ -65,8 +65,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 switch result {
                 case let .success(weatherData):
                     self?.updateWeather(with: weatherData)
-                case .failure:
-                    self?.menuBarManager.updateMenuBarWith(error: "Network Error")
+                case let .failure(error):
+                    self?.menuBarManager.updateMenuBarWith(error: error.localizedDescription)
                 }
             })
             .store(in: &cancellables)

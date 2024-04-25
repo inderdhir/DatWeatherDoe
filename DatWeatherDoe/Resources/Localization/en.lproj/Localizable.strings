@@ -118,9 +118,6 @@
 /* City error when fetching weather */
 "❗️City" = "❗️City";
 
-/* Network error when fetching weather */
-"Network Error" = "Network Error";
-
 /* Weather refresh interval */
 "Refresh Interval" = "Refresh Interval";
 
