@@ -100,9 +100,6 @@
 /* Mist weather condition */
 "Mist" = "Brumeux";
 
-/* Network error when fetching weather */
-"Network Error" = "Erreur Réseau";
-
 /* Partly cloudy weather condition */
 "Partly cloudy" = "Partiellement couvert";
 
