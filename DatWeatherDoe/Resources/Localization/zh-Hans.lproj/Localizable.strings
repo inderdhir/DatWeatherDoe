@@ -36,6 +36,8 @@
 
 /* Show all temperature units */
 "All" = "全部";
+"Metric" = "温度";
+
 
 /* Cloudy weather condition */
 "Cloudy" = "多云";
@@ -134,13 +136,13 @@
 "Unknown" = "未知";
 
 /* Weather Condition Text */
-"Weather Condition Text" = "天气状况文本";
+"Weather Condition Text" = "显示天气文本";
 
 /* Weather condition before temperature */
-"Before Temperature" = "温度在前";
+"Before Temperature" = "在温度前面";
 
 /* Weather condition after temperature */
-"After Temperature" = "温度在后";
+"After Temperature" = "在温度后面";
 
 /* Source for fetching weather */
 "Weather Source" = "天气数据来源";
