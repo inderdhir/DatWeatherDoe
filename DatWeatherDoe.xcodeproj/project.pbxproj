@@ -207,6 +207,9 @@
 		F43E55C92962592E0033F7FF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		F43E55CA2962592E0033F7FF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F43E55CB2962592E0033F7FF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		G53E55C96962592E0033F734 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		G53E55C96972592E0033F734 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
+		G53E55C96945592E0033F734 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -734,6 +737,7 @@
 				de,
 				it,
 				ja,
+				zh-Hans,
 			);
 			mainGroup = 2023ED9A1C4ED09C0087FD67;
 			packageReferences = (
@@ -890,6 +894,7 @@
 				E3EFBCE8281B26AA0011DD54 /* de */,
 				D14D8DEE29450090006BC780 /* it */,
 				F43E55C92962592E0033F7FF /* ja */,
+				G53E55C96962592E0033F734 /* zh-Hans */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -902,6 +907,7 @@
 				E3EFBCEA281B26AA0011DD54 /* de */,
 				D14D8DF029450090006BC780 /* it */,
 				F43E55CB2962592E0033F7FF /* ja */,
+				G53E55C96972592E0033F734 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -914,6 +920,7 @@
 				E3EFBCE9281B26AA0011DD54 /* de */,
 				D14D8DEF29450090006BC780 /* it */,
 				F43E55CA2962592E0033F7FF /* ja */,
+				G53E55C96945592E0033F734 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
