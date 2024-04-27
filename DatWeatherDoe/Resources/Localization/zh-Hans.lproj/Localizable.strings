@@ -34,9 +34,15 @@
 /* Placeholder hint for entering zip code */
 "[zipcode],[iso 3166 country code]" = "[邮政编码],[ISO 3166国家代码]";
 
+/* Placeholder hint for entering city */
+"[city],[iso 3166 country code]" = "[城市],[ISO 3166国家代码]";
+
 /* Show all temperature units */
 "All" = "全部";
-"Metric" = "温度";
+
+"Metric" = "公制";
+
+"Imperial" ="英制";
 
 
 /* Cloudy weather condition */
@@ -135,6 +141,18 @@
 /* Unknown location */
 "Unknown" = "未知";
 
+/*Hide temperature letters*/
+"Hide unit letter" = "隐藏温度字母C";
+
+/*Hide temperature symbol*/
+"Hide unit ° symbol" = "隐藏温度符号°";
+
+/*Temperature and humidity separator," for example: "/", "-", "_"*/
+"Separate values with" = "温湿度之间的分隔符";
+
+/*Weather Text Position*/
+"Weather Condition Position" = "天气文本位置";
+
 /* Weather Condition Text */
 "Weather Condition Text" = "显示天气文本";
 
@@ -148,7 +166,13 @@
 "Weather Source" = "天气数据来源";
 
 /* Weather based on Zip Code */
-"Zipcode" = "邮政编码";
+"Zip Code" = "邮政编码";
+
+/* Weather based on City */
+"City" = "城市";
 
 /* Zip Code error when fetching weather */
 "❗️Zipcode" = "获取天气数据邮政编码错误";
+
+/* City error when fetching weather */
+"❗️City" = "获取天气数据城市位置错误";
