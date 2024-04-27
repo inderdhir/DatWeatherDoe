@@ -1,0 +1,152 @@
+/* Unknown weather location */
+"Unknown Location" = "未知地区";
+
+/* See Full Weather */
+"See Full Weather" = "查看完整天气";
+
+/* Refresh weather */
+"Refresh" = "刷新";
+
+/* Configure app */
+"Configure" = "设置";
+
+/* Quit app */
+"Quit" = "退出";
+
+/* 1 min refresh interval */
+"1 min" = "1分";
+
+/* 15 min refresh interval */
+"15 min" = "15分";
+
+/* 30 min refresh interval */
+"30 min" = "30分";
+
+/* 5 min refresh interval */
+"5 min" = "5分";
+
+/* 60 min refresh interval */
+"60 min" = "60分";
+
+/* Placeholder hint for entering Lat/Long */
+"[latitude],[longitude]" = "[纬度],[经度]";
+
+/* Placeholder hint for entering zip code */
+"[zipcode],[iso 3166 country code]" = "[邮政编码],[ISO 3166国家代码]";
+
+/* Show all temperature units */
+"All" = "全部";
+
+/* Cloudy weather condition */
+"Cloudy" = "多云";
+
+/* Partly cloudy weather condition */
+"Partly cloudy" = "局部多云";
+
+/* Sunny weather condition */
+"Sunny" = "晴";
+
+/* Clear at night weather condition */
+"Clear" = "无云";
+
+/* Tornado weather condition */
+"Tornado" = "龙卷风";
+
+/* Squall weather condition */
+"Squall" = "雷暴雨";
+
+/* Ash weather condition */
+"Ash" = "火山灰天气";
+
+/* Dust weather condition */
+"Dust" = "尘埃天气";
+
+/* Sand weather condition */
+"Sand" = "沙尘";
+
+/* Fog weather condition */
+"Fog" = "雾";
+
+/* Sand/Dust Whirls weather condition */
+"Sand/Dust Whirls" = "局部龙卷风";
+
+/* Haze weather condition */
+"Haze" = "霾";
+
+/* Smoke weather condition */
+"Smoke" = "烟尘";
+
+/* Mist weather condition */
+"Mist" = "雾";
+
+/* Snow weather condition */
+"Snow" = "雪";
+
+/* Heavy rain weather condition */
+"Heavy rain" = "大雨";
+
+/* Freezing rain weather condition */
+"Freezing rain" = "雨夹雪";
+
+/* Light rain weather condition */
+"Light rain" = "小雨";
+
+/* Partly cloudy with rain weather condition */
+"Partly cloudy with rain" = "多云转阴有雨";
+
+/* Thunderstorm weather condition */
+"Thunderstorm" = "雷雨";
+
+/* Finish configuring app */
+"Done" = "完成";
+
+/* Weather based on Lat/Long */
+"Lat/Long" = "纬度/经度";
+
+/* Lat/Long error when fetching weather */
+"❗️Lat/Long" = "获取天气数据时出现错误";
+
+/* Launch app at login */
+"Launch at Login" = "自动启动";
+
+/* Weather based on location */
+"Location" = "所在位置";
+
+/* Location error when fetching weather */
+"❗️Location" = "获取天气数据时的位置错误";
+
+/* Weather refresh interval */
+"Refresh Interval" = "刷新间隔";
+
+/* Round-off Data (temperature) */
+"Round-off Data" = "数据四舍五入（温度）";
+
+/* "Show Weather Icon" */
+"Show Weather Icon" = "显示天气图标";
+
+/* Show humidity */
+"Show Humidity" = "显示湿度";
+
+/* Temperature unit */
+"Unit" = "温度单位";
+
+/* Unknown location */
+"Unknown" = "未知";
+
+/* Weather Condition Text */
+"Weather Condition Text" = "天气状况文本";
+
+/* Weather condition before temperature */
+"Before Temperature" = "温度在前";
+
+/* Weather condition after temperature */
+"After Temperature" = "温度在后";
+
+/* Source for fetching weather */
+"Weather Source" = "天气数据来源";
+
+/* Weather based on Zip Code */
+"Zipcode" = "邮政编码";
+
+/* Zip Code error when fetching weather */
+"❗️Zipcode" = "获取天气数据邮政编码错误";
