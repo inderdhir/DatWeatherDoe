@@ -1166,7 +1166,7 @@
 			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
 			requirement = {
 				kind = exactVersion;
-				version = 0.52.7;
+				version = 0.53.8;
 			};
 		};
 		20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */ = {
@@ -1182,7 +1182,7 @@
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
 				kind = exactVersion;
-				version = 0.52.4;
+				version = 0.54.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
