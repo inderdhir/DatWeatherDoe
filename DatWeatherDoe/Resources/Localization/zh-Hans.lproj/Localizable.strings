@@ -82,14 +82,16 @@
 "Haze" = "霾";
 
 /* Smoke weather condition */
-"Smoke" = "烟尘";
+"Smoke" = "烟雾";
 
 /* Mist weather condition */
-"Mist" = "雾";
+"Mist" = "薄雾";
 
 /* Snow weather condition */
 "Snow" = "雪";
-
+"Rainy" = "雨天";
+"Squall" = "狂风";
+"Cloudy with Fog" = "多云有雾"
 /* Heavy rain weather condition */
 "Heavy rain" = "大雨";
 
