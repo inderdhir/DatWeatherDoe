@@ -89,9 +89,13 @@
 
 /* Snow weather condition */
 "Snow" = "雪";
+
 "Rainy" = "雨天";
+
 "Squall" = "狂风";
-"Cloudy with Fog" = "多云有雾"
+
+"Cloudy with Fog" = "多云有雾";
+
 /* Heavy rain weather condition */
 "Heavy rain" = "大雨";
 
@@ -178,3 +182,194 @@
 
 /* City error when fetching weather */
 "❗️City" = "获取天气数据城市位置错误";
+
+
+/*1、天气状况
+AM Clouds / PM Sun=上午有云/下午后晴
+AM Showers=上午阵雨
+AM Snow Showers=上午阵雪
+AM T-Storms=上午雷暴雨
+Clear=晴朗
+Cloudy=多云
+Cloudy / Wind=阴时有风
+Clouds Early / Clearing Late=早多云/晚转晴
+Drifting Snow=飘雪
+Drizzle=毛毛雨
+Dust=灰尘
+Fair=晴
+Few Showers=短暂阵雨
+Few Snow Showers=短暂阵雪
+Few Snow Showers / Wind=短暂阵雪时有风
+Fog=雾
+Haze=薄雾
+Hail=冰雹
+Heavy Rain=大雨
+Heavy Rain Icy=大冰雨
+Heavy Snow=大雪
+Heavy T-Storm=强烈雷雨
+Isolated T-Storms=局部雷雨
+Light Drizzle=微雨
+Light Rain=小雨
+Light Rain Shower=小阵雨
+Light Rain Shower and Windy=小阵雨带风
+Light Rain with Thunder=小雨有雷声
+Light Snow=小雪
+Light Snow Fall=小降雪
+Light Snow Grains=小粒雪
+Light Snow Shower=小阵雪
+Lightening=雷电
+Mist=薄雾
+Mostly Clear=大部晴朗
+Mostly Cloudy=大部多云
+Mostly Cloudy/ Windy=多云时阴有风
+Mostly Sunny=晴时多云
+Partly Cloudy=局部多云
+Partly Cloudy/ Windy=多云时有风
+PM Rain / Wind=下午小雨时有风
+PM Light Rain=下午小雨
+PM Showers=下午阵雨
+PM Snow Showers=下午阵雪
+PM T-Storms=下午雷雨
+Rain=雨
+Rain Shower=阵雨
+Rain Shower/ Windy=阵雨/有风
+Rain / Snow Showers=雨或阵雪
+Rain / Snow Showers Early=下雨/早间阵雪
+Rain / Wind=雨时有风
+Rain and Snow=雨夹雪
+Scattered Showers=零星阵雨
+Scattered Showers / Wind=零星阵雨时有风
+Scattered Snow Showers=零星阵雪
+Scattered Snow Showers / Wind=零星阵雪时有风
+Scattered Strong Storms=零星强烈暴风雨
+Scattered T-Storms=零星雷雨
+Showers=阵雨
+Showers Early=早有阵雨
+Showers Late=晚有阵雨
+Showers / Wind=阵雨时有风
+Showers in the Vicinity=周围有阵雨
+Smoke=烟雾
+Snow=雪
+Snow / Rain Icy Mix=冰雨夹雪
+Snow and Fog=雾夹雪
+Snow Shower=阵雪
+Snowflakes=雪花
+Sunny=阳光
+Sunny / Wind=晴时有风
+Sunny Day=晴天
+Thunder=雷鸣
+Thunder in the Vicinity=周围有雷雨
+T-Storms=雷雨
+T-Storms Early=早有持续雷雨
+T-Storms Late=晚有持续雷雨
+Windy=有风
+Windy / Snowy=有风/有雪
+Windy Rain=刮风下雨
+Wintry Mix=雨雪混合
+2、气象用语
+天气预报 weather forecast
+晴 clear
+阴天 cloudy day
+炎热 scorching heat
+闷热天气 muggy weather
+反常天气 freakish weather
+虹 rainbow
+雾 fog
+凉 cool
+霜 frost
+露 dew
+雪 snow
+雹 hail
+雷 thunder
+冰 ice
+雪堆 snowdrift
+雪花 snowflake
+闪电 lightning
+零度 zero
+寒冷 chilly
+冰点 freezing point
+冰柱 icicle
+地形雨 local rains
+雨量 rainfall
+雨季 rainy season
+雨点 raindrops
+间歇雨 intermittent rain
+大雨 heavy rain
+甘霖 welcome rain
+滂沱大雨 downpour
+风级 wind scale
+气压 barometric pressure
+气团 air mass
+风眼 eye of a storm
+气旋 cyclone
+低气压 low-pressure
+高气压 high-pressure
+锋面 frontal edge
+暖锋 warm front
+冷峰 cold front
+3、风的名称
+恒风 constant wind
+微风 breeze
+无风 calm
+轻风 light breeze
+信风 trade wind
+微风 gentle breeze
+和风 moderate breeze
+逆风 headwind
+台风 typhoon
+清风 fresh breeze
+强风 strong breeze
+西北风 northwester
+疾风 near gale
+大风 gale
+狂风 squall
+烈风 strong gale
+东北风 northeaster
+狂风 storm
+暴风 violent storm
+东北信风 northeast trades
+飓风 hurricane
+东南风 southeaster
+台风 typhoon
+龙卷风 tornado
+西南风 southwester
+北风 north wind
+疾风 gusty wind
+顺风 favorable wind
+东风 east wind
+4、浪的名称
+热浪 heat wave
+强浪 high seas
+微浪 smooth wavelets
+细浪 light seas
+小浪 moderate seas
+中浪 rough seas
+大浪 very rough seas
+巨浪 very high seas
+微波 rippled
+狂浪 monster waves
+5、自然灾害
+自然灾害 Natural Disaster
+地震 earthquake
+火山地震 volcanic earthquake
+海啸 tidal wave
+山崩 landslide
+雪崩 avalanche
+火山泥流 lahar
+泥石流 mudflow/landslide
+超级火山爆发 supervolcano
+洪水 flood
+大(或急剧的)漩涡 maelstrom
+海啸 Tsunami
+暴风雪 blizzard
+干旱 Drought
+雹暴 Hailstorm
+热浪 heat wave
+飓风（台风）Hurricanes, Tropical cyclones, and Typhoons
+冰雹 ice storm
+龙卷风 tornado
+冰河时代 ice age
+森林大火 wildfire
+流行病 Epidemic
+饥荒 Famine
+太阳耀斑 Solar flare   */
