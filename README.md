@@ -7,6 +7,7 @@
     - City
 - Configurable polling interval
 - Dark mode support
+- Supports MacOS 13.0+
 
 ## Screenshots
 
@@ -22,8 +23,7 @@
 
 ### Manual
 
-- [MacOS 13.0+](https://github.com/inderdhir/DatWeatherDoe/releases/latest)
-- [MacOS 11.0-13.0](https://github.com/inderdhir/DatWeatherDoe/releases/tag/3.3.0)
+https://github.com/inderdhir/DatWeatherDoe/releases/latest
 
 ## Using Location Services
 
