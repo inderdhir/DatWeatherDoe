@@ -13,17 +13,20 @@ protocol TemperatureForecastTextBuilderType {
 }
 
 final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
-    private let response: WeatherAPIResponse
+    private let temperatureData: TemperatureData
+    private let forecastTemperatureData: ForecastTemperatureData
     private let options: TemperatureTextBuilder.Options
     private let upArrowStr = "⬆"
     private let downArrowStr = "⬇"
     private let degreeString = "\u{00B0}"
 
     init(
-        response: WeatherAPIResponse,
+        temperatureData: TemperatureData,
+        forecastTemperatureData: ForecastTemperatureData,
         options: TemperatureTextBuilder.Options
     ) {
-        self.response = response
+        self.temperatureData = temperatureData
+        self.forecastTemperatureData = forecastTemperatureData
         self.options = options
     }
 
@@ -36,29 +39,38 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
     }
 
     private func buildTemperatureForAllUnits() -> String {
-        let feelsLikeTemperatureCombined = [
-            String(response.temperatureData.feelsLikeTempFahrenheit),
-            String(response.temperatureData.feelsLikeTempCelsius)
-        ]
-        .compactMap { $0 }
-        .joined(separator: " / ")
+        let feelsLikeTempFahrenheit = buildFormattedTemperature(
+            temperatureData.feelsLikeTempFahrenheit, unit: .fahrenheit
+        )
+        let feelsLikeTempCelsius = buildFormattedTemperature(
+            temperatureData.feelsLikeTempCelsius, unit: .celsius
+        )
+        let feelsLikeTemperatureCombined = [feelsLikeTempFahrenheit, feelsLikeTempCelsius]
+            .compactMap { $0 }
+            .joined(separator: " / ")
 
-        let maxTempCombined = [
-            String(response.forecastDayData.temp.maxTempF),
-            String(response.forecastDayData.temp.maxTempC)
-        ]
-        .compactMap { $0 }
-        .joined(separator: " / ")
+        let maxTempFahrenheit = buildFormattedTemperature(
+            forecastTemperatureData.maxTempF, unit: .fahrenheit
+        )
+        let maxTempCelsius = buildFormattedTemperature(
+            forecastTemperatureData.maxTempC, unit: .celsius
+        )
+        let maxTempCombined = [maxTempFahrenheit, maxTempCelsius]
+            .compactMap { $0 }
+            .joined(separator: " / ")
         let maxTempStr = [upArrowStr, maxTempCombined]
             .compactMap { $0 }
             .joined()
 
-        let minTempCombined = [
-            String(response.forecastDayData.temp.minTempF),
-            String(response.forecastDayData.temp.minTempC)
-        ]
-        .compactMap { $0 }
-        .joined(separator: " / ")
+        let minTempFahrenheit = buildFormattedTemperature(
+            forecastTemperatureData.minTempF, unit: .fahrenheit
+        )
+        let minTempCelsius = buildFormattedTemperature(
+            forecastTemperatureData.minTempC, unit: .celsius
+        )
+        let minTempCombined = [minTempFahrenheit, minTempCelsius]
+            .compactMap { $0 }
+            .joined(separator: " / ")
         let minTempStr = [downArrowStr, minTempCombined]
             .compactMap { $0 }
             .joined()
@@ -72,51 +84,47 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
     }
 
     private func buildTemperatureForUnit(_ unit: TemperatureUnit) -> String {
-        let maxTemp, minTemp, feelsLikeTemp: Double
-        if unit == .fahrenheit {
-            maxTemp = response.forecastDayData.temp.maxTempF
-            minTemp = response.forecastDayData.temp.minTempF
-            feelsLikeTemp = response.temperatureData.feelsLikeTempFahrenheit
-        } else {
-            maxTemp = response.forecastDayData.temp.maxTempC
-            minTemp = response.forecastDayData.temp.minTempC
-            feelsLikeTemp = response.temperatureData.feelsLikeTempCelsius
-        }
-
-        let maxTemperatureWithDegrees = combineTemperatureWithUnitDegrees(
-            temperature: String(maxTemp),
-            unit: unit.unitString,
-            isUnitLetterOff: options.isUnitLetterOff,
-            isUnitSymbolOff: options.isUnitSymbolOff
-        )
-        let maxTempStr = [upArrowStr, maxTemperatureWithDegrees]
+        let maxTemp = unit == .fahrenheit ? forecastTemperatureData.maxTempF : forecastTemperatureData.maxTempC
+        let formattedMaxTemp = buildFormattedTemperature(maxTemp, unit: unit)
+        let maxTempStr = [upArrowStr, formattedMaxTemp]
             .compactMap { $0 }
             .joined()
 
-        let minTemperatureWithDegrees = combineTemperatureWithUnitDegrees(
-            temperature: String(minTemp),
-            unit: unit.unitString,
-            isUnitLetterOff: options.isUnitLetterOff,
-            isUnitSymbolOff: options.isUnitSymbolOff
-        )
-        let minTempStr = [downArrowStr, minTemperatureWithDegrees]
+        let minTemp = unit == .fahrenheit ? forecastTemperatureData.minTempF : forecastTemperatureData.minTempC
+        let formatedMinTemp = buildFormattedTemperature(minTemp, unit: unit)
+        let minTempStr = [downArrowStr, formatedMinTemp]
             .compactMap { $0 }
             .joined()
 
         let maxAndMinTempStr = [maxTempStr, minTempStr]
             .compactMap { $0 }
             .joined(separator: " ")
+        
+        let feelsLikeTemp = unit == .fahrenheit ? 
+        temperatureData.feelsLikeTempFahrenheit :
+        temperatureData.feelsLikeTempCelsius
+        let formattedFeelsLikeTemp = buildFormattedTemperature(feelsLikeTemp, unit: unit)
+        return [formattedFeelsLikeTemp, maxAndMinTempStr]
+            .compactMap { $0 }
+            .joined(separator: " - ")
+    }
 
-        let feelsLikeTempWithDegrees = combineTemperatureWithUnitDegrees(
-            temperature: String(feelsLikeTemp),
+    private func buildFormattedTemperature(
+        _ temperatureForUnit: Double,
+        unit: TemperatureUnit
+    ) -> String? {
+        guard let temperatureString = TemperatureFormatter()
+            .getFormattedTemperatureString(temperatureForUnit, isRoundingOff: options.isRoundingOff)
+        else {
+            return nil
+        }
+
+        return combineTemperatureWithUnitDegrees(
+            temperature: temperatureString,
             unit: unit.unitString,
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
         )
-
-        return [feelsLikeTempWithDegrees, maxAndMinTempStr]
-            .compactMap { $0 }
-            .joined(separator: " - ")
     }
 
     private func combineTemperatureWithUnitDegrees(

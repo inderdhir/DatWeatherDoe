@@ -41,6 +41,7 @@ final class StatusItemManager {
             if let textualRepresentation = weatherData.textualRepresentation {
                 self.statusItem.button?.title = textualRepresentation
             }
+            
             if weatherData.showWeatherIcon {
                 self.statusItem.button?.image = self.getImageFrom(weatherData: weatherData)
                 self.statusItem.button?.imagePosition = .imageLeading
@@ -129,7 +130,8 @@ final class StatusItemManager {
 
     private func getWeatherTextFrom(weatherData: WeatherData, options: Options) -> String {
         TemperatureForecastTextBuilder(
-            response: weatherData.response,
+            temperatureData: weatherData.response.temperatureData,
+            forecastTemperatureData: weatherData.response.forecastDayData.temp,
             options: .init(
                 unit: options.unit.temperatureUnit,
                 isRoundingOff: options.isRoundingOff,
