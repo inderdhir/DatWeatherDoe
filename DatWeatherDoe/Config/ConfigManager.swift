@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 protocol ConfigManagerType: AnyObject {
     var measurementUnit: String { get set }
@@ -27,44 +28,41 @@ protocol ConfigManagerType: AnyObject {
 }
 
 final class ConfigManager: ConfigManagerType {
-    @Storage(key: "measurementUnit", defaultValue: MeasurementUnit.imperial.rawValue)
-    public var measurementUnit: String
+    @AppStorage("measurementUnit")
+    public var measurementUnit = MeasurementUnit.imperial.rawValue
 
-    @Storage(key: "weatherSource", defaultValue: WeatherSource.location.rawValue)
-    public var weatherSource: String
+    @AppStorage("weatherSource")
+    public var weatherSource = WeatherSource.location.rawValue
 
-    @Storage(key: "weatherSourceText", defaultValue: nil)
+    @AppStorage("weatherSourceText")
     public var weatherSourceText: String?
 
-    @Storage(key: "refreshInterval", defaultValue: RefreshInterval.fifteenMinutes.rawValue)
-    public var refreshInterval: TimeInterval
+    @AppStorage("refreshInterval")
+    public var refreshInterval = RefreshInterval.fifteenMinutes.rawValue
 
-    @Storage(key: "isShowingWeatherIcon", defaultValue: true)
-    public var isShowingWeatherIcon: Bool
+    @AppStorage("isShowingWeatherIcon")
+    public var isShowingWeatherIcon = true
 
-    @Storage(key: "isShowingHumidity", defaultValue: false)
-    public var isShowingHumidity: Bool
+    @AppStorage("isShowingHumidity")
+    public var isShowingHumidity = false
 
-    @Storage(key: "isRoundingOffData", defaultValue: false)
-    public var isRoundingOffData: Bool
+    @AppStorage("isRoundingOffData")
+    public var isRoundingOffData = false
 
-    @Storage(key: "isUnitLetterOff", defaultValue: false)
-    public var isUnitLetterOff: Bool
+    @AppStorage("isUnitLetterOff")
+    public var isUnitLetterOff = false
 
-    @Storage(key: "isUnitSymbolOff", defaultValue: false)
-    public var isUnitSymbolOff: Bool
+    @AppStorage("isUnitSymbolOff")
+    public var isUnitSymbolOff = false
 
-    @Storage(key: "valueSeparator", defaultValue: "\u{007C}")
-    public var valueSeparator: String
+    @AppStorage("valueSeparator")
+    public var valueSeparator = "\u{007C}"
 
-    @Storage(key: "isWeatherConditionAsTextEnabled", defaultValue: false)
-    public var isWeatherConditionAsTextEnabled: Bool
+    @AppStorage("isWeatherConditionAsTextEnabled")
+    public var isWeatherConditionAsTextEnabled = false
 
-    @Storage(
-        key: "weatherConditionPosition",
-        defaultValue: WeatherConditionPosition.beforeTemperature.rawValue
-    )
-    public var weatherConditionPosition: String
+    @AppStorage("weatherConditionPosition")
+    public var weatherConditionPosition = WeatherConditionPosition.beforeTemperature.rawValue
 
     func updateWeatherSource(_ source: WeatherSource, sourceText: String) {
         weatherSource = source.rawValue
