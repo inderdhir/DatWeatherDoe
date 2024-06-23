@@ -26,14 +26,14 @@ final class PopoverManager {
 
         eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
         configureViewModel = ConfigureViewModel(configManager: configManager, popoverManager: self)
-        
-        setupConfigurationView(configManager)
+
+        setupConfigurationView()
     }
 
     func togglePopover(_ sender: AnyObject?, shouldRefresh: Bool) {
         if popover.isShown {
             closePopover(sender)
-            
+
             if shouldRefresh {
                 refreshCallback()
             }
@@ -42,9 +42,9 @@ final class PopoverManager {
         }
     }
 
-    private func setupConfigurationView(_ configManager: ConfigManagerType) {
+    private func setupConfigurationView() {
         popover.contentSize = NSSize(width: 360, height: 360)
-        
+
         let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
         popover.contentViewController = NSHostingController(
             rootView: ConfigureView(viewModel: configureViewModel, version: version)
@@ -58,13 +58,13 @@ final class PopoverManager {
             eventMonitor?.start()
         }
     }
-    
+
     private func closePopover(_ sender: AnyObject?) {
         popover.performClose(sender)
         eventMonitor?.stop()
     }
-    
-    private func mouseEventHandler(_ event: NSEvent?) {
+
+    private func mouseEventHandler(_: NSEvent?) {
         if popover.isShown {
             closePopover(nil)
         }

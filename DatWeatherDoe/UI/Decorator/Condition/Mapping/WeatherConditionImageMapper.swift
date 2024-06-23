@@ -25,6 +25,7 @@ final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
         case .partlyCloudy:
             symbolName = "cloud.sun"
             accessibilityDescription = "Partly Cloudy"
+
         case .partlyCloudyNight:
             symbolName = "cloud.moon"
             accessibilityDescription = "Partly Cloudy"
@@ -32,6 +33,7 @@ final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
         case .sunny:
             symbolName = "sun.max"
             accessibilityDescription = "Sunny"
+
         case .clearNight:
             symbolName = "moon"
             accessibilityDescription = "Clear"
@@ -51,7 +53,7 @@ final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
         case .thunderstorm:
             symbolName = "cloud.bolt.rain"
             accessibilityDescription = "Thunderstorm"
-            
+
         case .mist, .fog:
             symbolName = "cloud.fog"
             accessibilityDescription = "Cloudy with Fog"

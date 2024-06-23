@@ -23,6 +23,7 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
 
         case .sunny:
             return NSLocalizedString("Sunny", comment: "Sunny weather condition")
+
         case .clearNight:
             return NSLocalizedString("Clear", comment: "Clear at night weather condition")
 
@@ -37,6 +38,7 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
 
         case .lightRain:
             return NSLocalizedString("Light rain", comment: "Light rain weather condition")
+
         case .partlyCloudyRain:
             return NSLocalizedString(
                 "Partly cloudy with rain",
@@ -45,9 +47,10 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
 
         case .thunderstorm:
             return NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
-            
+
         case .mist:
             return NSLocalizedString("Mist", comment: "Mist weather condition")
+
         case .fog:
             return NSLocalizedString("Fog", comment: "Fog weather condition")
         }

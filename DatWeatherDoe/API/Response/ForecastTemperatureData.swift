@@ -13,7 +13,7 @@ struct ForecastTemperatureData: Decodable {
     let maxTempF: Double
     let minTempC: Double
     let minTempF: Double
-    
+
     private enum CodingKeys: String, CodingKey {
         case maxTempC = "maxtemp_c"
         case maxTempF = "maxtemp_f"
