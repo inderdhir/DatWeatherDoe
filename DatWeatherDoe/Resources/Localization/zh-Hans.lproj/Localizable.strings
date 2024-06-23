@@ -13,9 +13,6 @@
 /* Quit app */
 "Quit" = "退出";
 
-/* 1 min refresh interval */
-"1 min" = "1分";
-
 /* 15 min refresh interval */
 "15 min" = "15分";
 
@@ -30,12 +27,6 @@
 
 /* Placeholder hint for entering Lat/Long */
 "[latitude],[longitude]" = "[纬度],[经度]";
-
-/* Placeholder hint for entering zip code */
-"[zipcode],[iso 3166 country code]" = "[邮政编码],[ISO 3166国家代码]";
-
-/* Placeholder hint for entering city */
-"[city],[iso 3166 country code]" = "[城市],[ISO 3166国家代码]";
 
 /* Show all temperature units */
 "All" = "全部";
@@ -170,19 +161,6 @@
 
 /* Source for fetching weather */
 "Weather Source" = "天气数据来源";
-
-/* Weather based on Zip Code */
-"Zip Code" = "邮政编码";
-
-/* Weather based on City */
-"City" = "城市";
-
-/* Zip Code error when fetching weather */
-"❗️Zipcode" = "获取天气数据邮政编码错误";
-
-/* City error when fetching weather */
-"❗️City" = "获取天气数据城市位置错误";
-
 
 /*1、天气状况
 AM Clouds / PM Sun=上午有云/下午后晴

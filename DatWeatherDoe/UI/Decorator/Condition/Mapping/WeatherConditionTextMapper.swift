@@ -26,9 +26,6 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
         case .clearNight:
             return NSLocalizedString("Clear", comment: "Clear at night weather condition")
 
-        case let .smoky(smokyWeatherCondition):
-            return SmokyWeatherConditionTextMapper().map(smokyWeatherCondition)
-
         case .snow:
             return NSLocalizedString("Snow", comment: "Snow weather condition")
 
@@ -48,33 +45,11 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
 
         case .thunderstorm:
             return NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
-        }
-    }
-}
-
-private class SmokyWeatherConditionTextMapper {
-    func map(_ smokyWeatherCondition: SmokyWeatherCondition) -> String {
-        switch smokyWeatherCondition {
-        case .tornado:
-            return NSLocalizedString("Tornado", comment: "Tornado weather condition")
-        case .squall:
-            return NSLocalizedString("Squall", comment: "Squall weather condition")
-        case .ash:
-            return NSLocalizedString("Ash", comment: "Ash weather condition")
-        case .dust:
-            return NSLocalizedString("Dust", comment: "Dust weather condition")
-        case .sand:
-            return NSLocalizedString("Sand", comment: "Sand weather condition")
-        case .fog:
-            return NSLocalizedString("Fog", comment: "Fog weather condition")
-        case .sandOrDustWhirls:
-            return NSLocalizedString("Sand/Dust Whirls", comment: "Sand/Dust Whirls weather condition")
-        case .haze:
-            return NSLocalizedString("Haze", comment: "Haze weather condition")
-        case .smoke:
-            return NSLocalizedString("Smoke", comment: "Smoke weather condition")
+            
         case .mist:
             return NSLocalizedString("Mist", comment: "Mist weather condition")
+        case .fog:
+            return NSLocalizedString("Fog", comment: "Fog weather condition")
         }
     }
 }

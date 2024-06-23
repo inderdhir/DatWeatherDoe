@@ -53,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         viewModel = WeatherViewModel(
             locationFetcher: SystemLocationFetcher(logger: logger),
             weatherFactory: WeatherRepositoryFactory(
-                appId: WeatherAppIDParser().parse(),
+                appId: APIKeyParser().parse(),
                 networkClient: NetworkClient(),
                 logger: logger
             ),
@@ -90,8 +90,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func terminate() { NSApp.terminate(self) }
 
     private func updateWeather(with weatherData: WeatherData) {
-        viewModel.updateCity(with: weatherData.response.cityId)
-
         let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
         menuBarManager.updateMenuBarWith(
             weatherData: weatherData,

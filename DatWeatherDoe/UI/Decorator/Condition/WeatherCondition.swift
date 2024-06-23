@@ -10,23 +10,14 @@ import AppKit
 import Foundation
 
 enum WeatherCondition {
-    case cloudy
-
-    case partlyCloudy, partlyCloudyNight
+    case cloudy, partlyCloudy, partlyCloudyNight
     case sunny, clearNight
-
-    case smoky(condition: SmokyWeatherCondition)
-
     case snow
-
-    case heavyRain
-    case freezingRain
-    case lightRain
-    case partlyCloudyRain
-
+    case heavyRain, freezingRain, lightRain, partlyCloudyRain
     case thunderstorm
+    case mist, fog
 
-    static func getFallback(isNight: Bool) -> WeatherCondition {
-        isNight ? .clearNight : .sunny
+    static func getFallback(isDay: Bool) -> WeatherCondition {
+        isDay ? .sunny : .clearNight
     }
 }

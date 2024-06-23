@@ -36,9 +36,6 @@ final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
             symbolName = "moon"
             accessibilityDescription = "Clear"
 
-        case let .smoky(smokyWeatherCondition):
-            return SmokyWeatherConditionImageMapper().map(smokyWeatherCondition)
-
         case .snow:
             symbolName = "cloud.snow"
             accessibilityDescription = "Snow"
@@ -54,6 +51,10 @@ final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
         case .thunderstorm:
             symbolName = "cloud.bolt.rain"
             accessibilityDescription = "Thunderstorm"
+            
+        case .mist, .fog:
+            symbolName = "cloud.fog"
+            accessibilityDescription = "Cloudy with Fog"
         }
 
         let config = NSImage.SymbolConfiguration(textStyle: .title2, scale: .medium)
@@ -61,29 +62,5 @@ final class WeatherConditionImageMapper: WeatherConditionImageMapperType {
             systemSymbolName: symbolName,
             accessibilityDescription: accessibilityDescription
         )?.withSymbolConfiguration(config)
-    }
-}
-
-private class SmokyWeatherConditionImageMapper {
-    func map(_ condition: SmokyWeatherCondition) -> NSImage? {
-        let symbolName: String
-        let accessibilityDescription: String
-
-        switch condition {
-        case .tornado:
-            symbolName = "tornado"
-            accessibilityDescription = "Tornado"
-        case .squall:
-            symbolName = "wind"
-            accessibilityDescription = "Squall"
-        default:
-            symbolName = "cloud.fog"
-            accessibilityDescription = "Cloudy with Fog"
-        }
-
-        return NSImage(
-            systemSymbolName: symbolName,
-            accessibilityDescription: accessibilityDescription
-        )
     }
 }

@@ -1,5 +1,5 @@
 //
-//  WeatherAppIDParser.swift
+//  APIKeyParser.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 1/11/22.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class WeatherAppIDParser {
+final class APIKeyParser {
     func parse() -> String {
-        guard let appId = Bundle.main.infoDictionary?["OPENWEATHERMAP_APP_ID"] as? String else {
+        guard let apiKey = Bundle.main.infoDictionary?["WEATHER_API_KEY"] as? String else {
             fatalError("Unable to find OPENWEATHERMAP_APP_ID in `Config.xcconfig`")
         }
-        return appId
+        return apiKey
     }
 }

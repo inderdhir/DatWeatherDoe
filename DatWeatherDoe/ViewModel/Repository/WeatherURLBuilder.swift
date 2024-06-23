@@ -13,13 +13,36 @@ protocol WeatherURLBuilderType {
     func build() throws -> URL
 }
 
-class WeatherURLBuilder: WeatherURLBuilderType {
-    let apiUrlString = "https://api.openweathermap.org/data/2.5/weather"
-    let appId: String
+final class WeatherURLBuilder: WeatherURLBuilderType {
+    private let apiUrlString = "https://api.weatherapi.com/v1/forecast.json"
+    private let appId: String
+    private let location: CLLocationCoordinate2D
 
-    init(appId: String) {
+    init(appId: String, location: CLLocationCoordinate2D) {
         self.appId = appId
+        self.location = location
     }
 
-    func build() throws -> URL { URL(string: apiUrlString)! }
+    func build() throws -> URL {
+        let latLonString = "\(location.latitude),\(location.longitude)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.string(from: Date())
+        
+        let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "key", value: appId),
+            URLQueryItem(name: "aqi", value: String("no")),
+            URLQueryItem(name: "q", value: latLonString),
+            URLQueryItem(name: "dt", value: date)
+        ]
+
+        var urlComps = URLComponents(string: apiUrlString)
+        urlComps?.queryItems = queryItems
+
+        guard let finalUrl = urlComps?.url else {
+            throw WeatherError.unableToConstructUrl
+        }
+        return finalUrl
+    }
 }

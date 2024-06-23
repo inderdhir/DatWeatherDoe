@@ -12,6 +12,5 @@ protocol WeatherViewModelType: AnyObject {
     var weatherResult: AnyPublisher<Result<WeatherData, Error>, Never> { get }
 
     func startRefreshingWeather()
-    func updateCity(with cityId: Int)
     func seeForecastForCurrentCity()
 }

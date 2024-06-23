@@ -75,7 +75,7 @@ final class ConfigureViewModel: ObservableObject {
         case 900: refreshInterval = .fifteenMinutes
         case 1800: refreshInterval = .thirtyMinutes
         case 3600: refreshInterval = .sixtyMinutes
-        default: refreshInterval = .oneMinute
+        default: refreshInterval = .fifteenMinutes
         }
 
         isShowingWeatherIcon = configManager.isShowingWeatherIcon

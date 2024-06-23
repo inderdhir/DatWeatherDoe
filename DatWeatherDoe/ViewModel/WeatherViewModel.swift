@@ -58,10 +58,6 @@ final class WeatherViewModel: WeatherViewModelType {
         }
     }
 
-    func updateCity(with cityId: Int) {
-        forecaster.updateCityWith(cityId: cityId)
-    }
-
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
@@ -92,27 +88,11 @@ final class WeatherViewModel: WeatherViewModelType {
             getWeatherAfterUpdatingLocation()
         case .latLong:
             getWeatherViaLocationCoordinates()
-        case .zipCode:
-            getWeatherViaZipCode()
-        case .city:
-            getWeatherViaCity()
         }
     }
 
     private func getWeatherAfterUpdatingLocation() {
         locationFetcher.startUpdatingLocation()
-    }
-
-    private func getWeatherViaZipCode() {
-        guard let zipCode = configManager.weatherSourceText else {
-            weatherSubject.send(.failure(WeatherError.zipCodeIncorrect))
-            return
-        }
-
-        getWeather(
-            repository: weatherFactory.create(zipCode: zipCode),
-            unit: measurementUnit
-        )
     }
 
     private func getWeatherViaLocationCoordinates() {
@@ -123,18 +103,6 @@ final class WeatherViewModel: WeatherViewModelType {
 
         getWeather(
             repository: weatherFactory.create(latLong: latLong),
-            unit: measurementUnit
-        )
-    }
-
-    private func getWeatherViaCity() {
-        guard let city = configManager.weatherSourceText else {
-            weatherSubject.send(.failure(WeatherError.cityIncorrect))
-            return
-        }
-
-        getWeather(
-            repository: weatherFactory.create(city: city),
             unit: measurementUnit
         )
     }
