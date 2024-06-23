@@ -43,36 +43,6 @@
 /* Clear at night weather condition */
 "Clear" = "クリア";
 
-/* Tornado weather condition */
-"Tornado" = "竜巻";
-
-/* Squall weather condition */
-"Squall" = "スコール";
-
-/* Ash weather condition */
-"Ash" = "灰";
-
-/* Dust weather condition */
-"Dust" = "埃";
-
-/* Sand weather condition */
-"Sand" = "砂";
-
-/* Fog weather condition */
-"Fog" = "霧";
-
-/* Sand/Dust Whirls weather condition */
-"Sand/Dust Whirls" = "砂または埃の渦";
-
-/* Haze weather condition */
-"Haze" = "霞";
-
-/* Smoke weather condition */
-"Smoke" = "煙";
-
-/* Mist weather condition */
-"Mist" = "靄";
-
 /* Snow weather condition */
 "Snow" = "雪";
 

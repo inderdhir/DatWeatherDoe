@@ -43,36 +43,6 @@
 /* Clear at night weather condition */
 "Clear" = "Sereno";
 
-/* Tornado weather condition */
-"Tornado" = "Tornado";
-
-/* Squall weather condition */
-"Squall" = "Acquazzone";
-
-/* Ash weather condition */
-"Ash" = "Cenere";
-
-/* Dust weather condition */
-"Dust" = "Polvere";
-
-/* Sand weather condition */
-"Sand" = "Sabbia";
-
-/* Fog weather condition */
-"Fog" = "Nebbia";
-
-/* Sand/Dust Whirls weather condition */
-"Sand/Dust Whirls" = "Vortici Sabbia/Polvere";
-
-/* Haze weather condition */
-"Haze" = "Caligine";
-
-/* Smoke weather condition */
-"Smoke" = "Fumo";
-
-/* Mist weather condition */
-"Mist" = "Foschia";
-
 /* Snow weather condition */
 "Snow" = "Neve";
 
