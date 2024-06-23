@@ -48,36 +48,6 @@
 /* Clear at night weather condition */
 "Clear" = "无云";
 
-/* Tornado weather condition */
-"Tornado" = "龙卷风";
-
-/* Squall weather condition */
-"Squall" = "雷暴雨";
-
-/* Ash weather condition */
-"Ash" = "火山灰天气";
-
-/* Dust weather condition */
-"Dust" = "尘埃天气";
-
-/* Sand weather condition */
-"Sand" = "沙尘";
-
-/* Fog weather condition */
-"Fog" = "雾";
-
-/* Sand/Dust Whirls weather condition */
-"Sand/Dust Whirls" = "局部龙卷风";
-
-/* Haze weather condition */
-"Haze" = "霾";
-
-/* Smoke weather condition */
-"Smoke" = "烟雾";
-
-/* Mist weather condition */
-"Mist" = "薄雾";
-
 /* Snow weather condition */
 "Snow" = "雪";
 

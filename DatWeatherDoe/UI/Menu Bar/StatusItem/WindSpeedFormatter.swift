@@ -41,7 +41,7 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
         isRoundingOff _: Bool
     ) -> String {
         let mphSpeed = windData.speedMph
-        let mpsSpeed = 0.4469 * mphSpeed
+        let mpsSpeed = mpsSpeedFrom(mphSpeed: mphSpeed)
 
         let mphRounded = formatter.string(from: NSNumber(value: mphSpeed)) ?? ""
         let windSpeedMph = [mphRounded, "mi/hr"].joined()
@@ -59,7 +59,7 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
         windData: WindData
     ) -> String {
         let mphSpeed = windData.speedMph
-        let mpsSpeed = 0.4469 * mphSpeed
+        let mpsSpeed = mpsSpeedFrom(mphSpeed: mphSpeed)
 
         let speed = unit == .imperial ? mphSpeed : mpsSpeed
         let speedRounded = formatter.string(from: NSNumber(value: speed)) ?? ""
@@ -82,5 +82,9 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
         let windAndDegreesStr = [windSpeed, windDegreesStr].joined(separator: " - ")
         let windFullStr = [windAndDegreesStr, windDirectionStr].joined(separator: " ")
         return windFullStr
+    }
+    
+    private func mpsSpeedFrom(mphSpeed: Double) -> Double {
+        0.4469 * mphSpeed
     }
 }
