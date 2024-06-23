@@ -65,7 +65,7 @@ struct ConfigureOptionsView: View {
                 Spacer()
                 Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
             }
-            
+
             HStack {
                 Text(LocalizedStringKey("Weather Condition Position"))
                 Spacer()

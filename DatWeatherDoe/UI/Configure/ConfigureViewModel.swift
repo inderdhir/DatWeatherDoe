@@ -53,7 +53,7 @@ final class ConfigureViewModel: ObservableObject {
     @Published var isWeatherConditionAsTextEnabled: Bool {
         didSet { configManager.isWeatherConditionAsTextEnabled = isWeatherConditionAsTextEnabled }
     }
-    
+
     @Published var weatherConditionPosition: WeatherConditionPosition {
         didSet { configManager.weatherConditionPosition = weatherConditionPosition.rawValue }
     }
@@ -85,11 +85,11 @@ final class ConfigureViewModel: ObservableObject {
         isUnitSymbolOff = configManager.isUnitSymbolOff
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
         weatherConditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition)
-        ?? .beforeTemperature
-        
+            ?? .beforeTemperature
+
         listenForConfigChange()
     }
-    
+
     func saveConfig() {
         configManager.updateWeatherSource(weatherSource, sourceText: weatherSourceText)
         configManager.setConfigOptions(
@@ -104,14 +104,14 @@ final class ConfigureViewModel: ObservableObject {
             )
         )
     }
-    
+
     func saveAndCloseConfig() {
         saveConfig()
 
         popoverManager?.togglePopover(nil, shouldRefresh: hasConfigChanged)
         hasConfigChanged = false
     }
-    
+
     private func listenForConfigChange() {
         objectWillChange.sink { [weak self] in
             self?.hasConfigChanged = true

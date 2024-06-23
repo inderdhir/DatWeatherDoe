@@ -10,7 +10,7 @@ import Foundation
 
 struct Forecast: Decodable {
     let dayDataArr: [ForecastDayData]
-    
+
     private enum CodingKeys: String, CodingKey {
         case dayDataArr = "forecastday"
     }
@@ -19,7 +19,7 @@ struct Forecast: Decodable {
 struct ForecastDayData: Decodable {
     let temp: ForecastTemperatureData
     let astro: SunriseSunsetData
-    
+
     private enum CodingKeys: String, CodingKey {
         case temp = "day"
         case astro

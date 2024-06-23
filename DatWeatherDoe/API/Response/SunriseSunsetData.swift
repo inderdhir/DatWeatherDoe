@@ -17,7 +17,7 @@ struct SunriseSunsetData: Decodable {
         case isDay = "is_sun_up"
         case sunrise, sunset
     }
-    
+
     var isDayBool: Bool {
         isDay > 0
     }

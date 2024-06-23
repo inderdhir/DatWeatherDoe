@@ -41,7 +41,7 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
             buildWeatherConditionAsText
         return finalString
     }
-    
+
     private func appendTemperatureAsText() -> String {
         TemperatureTextBuilder(
             response: response,
@@ -60,17 +60,17 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
             logger: logger
         ).build()
     }
-    
+
     private func buildWeatherConditionAsText(initial: String) -> String {
         guard options.isWeatherConditionAsTextEnabled else { return initial }
 
         let weatherCondition = WeatherConditionBuilder(response: response).build()
         let weatherConditionText = WeatherConditionTextMapper().map(weatherCondition)
-        
+
         let combinedString = options.conditionPosition == .beforeTemperature ?
-        [weatherConditionText, initial] :
-        [initial, weatherConditionText.lowercased()]
-        
+            [weatherConditionText, initial] :
+            [initial, weatherConditionText.lowercased()]
+
         return combinedString
             .compactMap { $0 }
             .joined(separator: ", ")

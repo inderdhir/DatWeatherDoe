@@ -42,7 +42,7 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
     ) -> String {
         let mphSpeed = windData.speedMph
         let mpsSpeed = 0.4469 * mphSpeed
-        
+
         let mphRounded = formatter.string(from: NSNumber(value: mphSpeed)) ?? ""
         let windSpeedMph = [mphRounded, "mi/hr"].joined()
 
@@ -60,7 +60,7 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
     ) -> String {
         let mphSpeed = windData.speedMph
         let mpsSpeed = 0.4469 * mphSpeed
-        
+
         let speed = unit == .imperial ? mphSpeed : mpsSpeed
         let speedRounded = formatter.string(from: NSNumber(value: speed)) ?? ""
         let windSpeedSuffix = unit == .imperial ? "mi/hr" : "m/s"

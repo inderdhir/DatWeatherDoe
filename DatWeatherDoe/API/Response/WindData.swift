@@ -13,7 +13,7 @@ struct WindData: Decodable {
     let speedKph: Double
     let degrees: Int
     let direction: String
-    
+
     private enum CodingKeys: String, CodingKey {
         case speedMph = "wind_mph"
         case speedKph = "wind_kph"

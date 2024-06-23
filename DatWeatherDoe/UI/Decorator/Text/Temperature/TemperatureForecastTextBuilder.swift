@@ -40,15 +40,15 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
             String(response.temperatureData.feelsLikeTempFahrenheit),
             String(response.temperatureData.feelsLikeTempCelsius)
         ]
-            .compactMap { $0 }
-            .joined(separator: " / ")
+        .compactMap { $0 }
+        .joined(separator: " / ")
 
         let maxTempCombined = [
             String(response.forecastDayData.temp.maxTempF),
             String(response.forecastDayData.temp.maxTempC)
         ]
-            .compactMap { $0 }
-            .joined(separator: " / ")
+        .compactMap { $0 }
+        .joined(separator: " / ")
         let maxTempStr = [upArrowStr, maxTempCombined]
             .compactMap { $0 }
             .joined()
@@ -57,8 +57,8 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
             String(response.forecastDayData.temp.minTempF),
             String(response.forecastDayData.temp.minTempC)
         ]
-            .compactMap { $0 }
-            .joined(separator: " / ")
+        .compactMap { $0 }
+        .joined(separator: " / ")
         let minTempStr = [downArrowStr, minTempCombined]
             .compactMap { $0 }
             .joined()
@@ -82,7 +82,7 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
             minTemp = response.forecastDayData.temp.minTempC
             feelsLikeTemp = response.temperatureData.feelsLikeTempCelsius
         }
-        
+
         let maxTemperatureWithDegrees = combineTemperatureWithUnitDegrees(
             temperature: String(maxTemp),
             unit: unit.unitString,
@@ -92,7 +92,7 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         let maxTempStr = [upArrowStr, maxTemperatureWithDegrees]
             .compactMap { $0 }
             .joined()
-        
+
         let minTemperatureWithDegrees = combineTemperatureWithUnitDegrees(
             temperature: String(minTemp),
             unit: unit.unitString,
@@ -106,14 +106,14 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         let maxAndMinTempStr = [maxTempStr, minTempStr]
             .compactMap { $0 }
             .joined(separator: " ")
-        
+
         let feelsLikeTempWithDegrees = combineTemperatureWithUnitDegrees(
             temperature: String(feelsLikeTemp),
             unit: unit.unitString,
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
         )
-        
+
         return [feelsLikeTempWithDegrees, maxAndMinTempStr]
             .compactMap { $0 }
             .joined(separator: " - ")

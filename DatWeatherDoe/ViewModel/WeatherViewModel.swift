@@ -37,7 +37,7 @@ final class WeatherViewModel: WeatherViewModelType {
         self.logger = logger
 
         weatherResult = weatherSubject.eraseToAnyPublisher()
-        
+
         setupLocationFetching()
     }
 
@@ -61,7 +61,7 @@ final class WeatherViewModel: WeatherViewModelType {
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-    
+
     private func setupLocationFetching() {
         locationFetcher.locationResult
             .sink(receiveValue: { [weak self] result in
@@ -116,8 +116,8 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
-        let conditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition) 
-        ?? .beforeTemperature
+        let conditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition)
+            ?? .beforeTemperature
         return .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
             conditionPosition: conditionPosition,

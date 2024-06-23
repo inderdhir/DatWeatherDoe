@@ -59,7 +59,7 @@ final class ConfigManager: ConfigManagerType {
 
     @Storage(key: "isWeatherConditionAsTextEnabled", defaultValue: false)
     public var isWeatherConditionAsTextEnabled: Bool
-    
+
     @Storage(
         key: "weatherConditionPosition",
         defaultValue: WeatherConditionPosition.beforeTemperature.rawValue

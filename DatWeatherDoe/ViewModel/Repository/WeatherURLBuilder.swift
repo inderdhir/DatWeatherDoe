@@ -25,11 +25,11 @@ final class WeatherURLBuilder: WeatherURLBuilderType {
 
     func build() throws -> URL {
         let latLonString = "\(location.latitude),\(location.longitude)"
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.string(from: Date())
-        
+
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "key", value: appId),
             URLQueryItem(name: "aqi", value: String("no")),

@@ -19,7 +19,7 @@ struct ConfigureView: View {
             HStack {
                 Spacer()
                     .frame(alignment: .leading)
-                
+
                 Button(LocalizedStringKey("Done")) {
                     viewModel.saveAndCloseConfig()
                 }
