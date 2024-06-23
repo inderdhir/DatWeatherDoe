@@ -20,40 +20,39 @@ final class WeatherConditionBuilder: WeatherConditionBuilderType {
     }
 
     func build() -> WeatherCondition {
-        switch response.weatherId {
-        case 803 ... 804:
+        switch response.weatherConditionCode {
+        case 1006, 1009:
             return .cloudy
-        case 801 ... 802:
-            return isNight ? .partlyCloudyNight : .partlyCloudy
-        case 800:
-            return isNight ? .clearNight : .sunny
-
-        case 701 ... 781:
-            return buildSmokyWeatherCondition()
-
-        case 600 ... 622:
+        case 1003:
+            return isDay ? .partlyCloudy : .partlyCloudyNight
+        case 1000:
+            return isDay ? .sunny : .clearNight
+        case 1030:
+            return .mist
+        case 1135, 1147:
+            return .fog
+            
+        case 1066, 
+            1114, 1117,
+            1210, 1213, 1216, 1219, 1222, 1225, 1237, 1249, 1252, 1255, 1258, 1261, 1264, 1279, 1282:
             return .snow
-
-        case 521 ... 531, 502 ... 504:
+            
+        case 1192, 1195, 1243, 1246, 1276:
             return .heavyRain
-        case 511:
+        case 1069, 1072, 1168, 1171, 1198, 1201, 1204, 1207:
             return .freezingRain
-        case 500 ... 501, 520, 300 ... 321:
-            return isNight ? .lightRain : .partlyCloudyRain
-
-        case 200 ... 232:
+        case 1063, 1150, 1153, 1180, 1183, 1186, 1189, 1240:
+            return isDay ? .partlyCloudyRain : .lightRain
+            
+        case 1087, 1273:
             return .thunderstorm
-
+            
         default:
-            return WeatherCondition.getFallback(isNight: isNight)
+            return WeatherCondition.getFallback(isDay: isDay)
         }
     }
-
-    private var isNight: Bool {
-        Date().isNight(sunrise: response.sunrise, sunset: response.sunset)
-    }
-
-    private func buildSmokyWeatherCondition() -> WeatherCondition {
-        WeatherSmokyConditionBuilder(response: response).build()
+    
+    private var isDay: Bool {
+        response.forecastDayData.astro.isDayBool
     }
 }

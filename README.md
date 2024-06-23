@@ -1,10 +1,10 @@
 # [<img src="logo.png" width="20"/>](image.png) DatWeatherDoe
 
-- Fetch weather using: 
-    - Location services
-    - Zip Code
-    - Latitude / Longitude
-    - City
+- Fetch weather using:
+  - Location services
+  - Zip Code
+  - Latitude / Longitude
+  - City
 - Configurable polling interval
 - Dark mode support
 - Supports MacOS 13.0+
@@ -23,7 +23,7 @@
 
 ### Manual
 
-https://github.com/inderdhir/DatWeatherDoe/releases/latest
+<https://github.com/inderdhir/DatWeatherDoe/releases/latest>
 
 ## Using Location Services
 
@@ -36,10 +36,11 @@ If using location, please make sure that the app has permission to access locati
 
 ## Developer Setup
 
-- Get your personal API key for openweathermap [here](http://openweathermap.org/appid)
+- Get your personal API key for WeatherAPI [here](https://www.weatherapi.com)
 - Add the following in "Config.xcconfig":
-```
-OPENWEATHERMAP_APP_ID = YOUR_KEY
+
+```env
+WEATHER_API_KEY=YOUR_KEY
 ```
 
 ## Donate

@@ -42,12 +42,12 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
     }
 
     private func buildTemperatureTextForAllUnits() -> String? {
-        let fahrenheitTemperature = buildTemperature(isFahrenheit: true)
-        let celsiusTemperature = buildTemperature(isFahrenheit: false)
-
         let temperatureWithDegrees = temperatureCreator.getTemperatureWithDegrees(
             temperatureInMultipleUnits:
-            .init(fahrenheit: fahrenheitTemperature, celsius: celsiusTemperature),
+                    .init(
+                        fahrenheit: response.temperatureData.tempFahrenheit,
+                        celsius: response.temperatureData.tempCelsius
+                    ),
             isRoundingOff: options.isRoundingOff,
             isUnitLetterOff: options.isUnitLetterOff,
             isUnitSymbolOff: options.isUnitSymbolOff
@@ -56,7 +56,9 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
     }
 
     private func buildTemperatureText(for unit: TemperatureUnit) -> String? {
-        let temperatureForUnit = buildTemperature(isFahrenheit: unit == .fahrenheit)
+        let temperatureForUnit = unit == .fahrenheit ?
+        response.temperatureData.tempFahrenheit :
+        response.temperatureData.tempCelsius
         let temperatureWithDegrees = temperatureCreator.getTemperatureWithDegrees(
             temperatureForUnit,
             unit: unit,
@@ -65,13 +67,5 @@ final class TemperatureTextBuilder: TemperatureTextBuilderType {
             isUnitSymbolOff: options.isUnitSymbolOff
         )
         return temperatureWithDegrees
-    }
-
-    private func buildTemperature(isFahrenheit: Bool) -> Double {
-        if isFahrenheit {
-            TemperatureConverter().convertKelvinToFahrenheit(response.temperatureData.temperature)
-        } else {
-            TemperatureConverter().convertKelvinToCelsius(response.temperatureData.temperature)
-        }
     }
 }

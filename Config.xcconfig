@@ -9,4 +9,4 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-OPENWEATHERMAP_APP_ID =
+WEATHER_API_KEY=

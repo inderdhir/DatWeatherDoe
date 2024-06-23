@@ -13,34 +13,18 @@ protocol SunriseAndSunsetTextBuilderType {
 }
 
 final class SunriseAndSunsetTextBuilder: SunriseAndSunsetTextBuilderType {
-    private let sunset: TimeInterval
-    private let sunrise: TimeInterval
+    private let sunset: String
+    private let sunrise: String
 
     private let upArrowStr = "⬆"
     private let downArrowStr = "⬇"
 
-    init(
-        sunset: TimeInterval,
-        sunrise: TimeInterval
-    ) {
+    init(sunset: String, sunrise: String) {
         self.sunset = sunset
         self.sunrise = sunrise
     }
 
     func build() -> String {
-        buildRiseSet()
-    }
-
-    private func buildRiseSet() -> String {
-        let sunRiseText = buildFormattedString(timestamp: sunrise)
-        let sunSetText = buildFormattedString(timestamp: sunset)
-        let sunriseAndSunsetString = "\(upArrowStr)\(sunRiseText) \(downArrowStr)\(sunSetText)"
-        return sunriseAndSunsetString
-    }
-
-    private func buildFormattedString(timestamp: TimeInterval) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: Date(timeIntervalSince1970: timestamp))
+        "\(upArrowStr)\(sunrise) \(downArrowStr)\(sunset)"
     }
 }

@@ -32,7 +32,7 @@ final class LocationCoordinatesWeatherRepository: WeatherRepositoryType {
 
         do {
             let location = try getLocationCoordinatesFrom(latLong)
-            let url = try LocationWeatherURLBuilder(appId: appId, location: location).build()
+            let url = try WeatherURLBuilder(appId: appId, location: location).build()
             let data = try await networkClient.performRequest(url: url)
             return try WeatherAPIResponseParser().parse(data)
         } catch {

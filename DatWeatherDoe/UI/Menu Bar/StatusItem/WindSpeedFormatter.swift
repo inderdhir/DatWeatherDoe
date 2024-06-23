@@ -15,13 +15,13 @@ struct WindSpeedInMultipleUnits {
 
 protocol WindSpeedFormatterType {
     func getFormattedWindSpeedStringForAllUnits(
-        windData: WeatherAPIResponse.WindData,
+        windData: WindData,
         isRoundingOff: Bool
     ) -> String
 
     func getFormattedWindSpeedString(
         unit: MeasurementUnit,
-        windData: WeatherAPIResponse.WindData
+        windData: WindData
     ) -> String
 }
 
@@ -37,12 +37,12 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
     }()
 
     func getFormattedWindSpeedStringForAllUnits(
-        windData: WeatherAPIResponse.WindData,
+        windData: WindData,
         isRoundingOff _: Bool
     ) -> String {
-        let mpsSpeed = windData.speed
-
-        let mphSpeed = 2.236 * mpsSpeed
+        let mphSpeed = windData.speedMph
+        let mpsSpeed = 0.4469 * mphSpeed
+        
         let mphRounded = formatter.string(from: NSNumber(value: mphSpeed)) ?? ""
         let windSpeedMph = [mphRounded, "mi/hr"].joined()
 
@@ -56,17 +56,21 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
 
     func getFormattedWindSpeedString(
         unit: MeasurementUnit,
-        windData: WeatherAPIResponse.WindData
+        windData: WindData
     ) -> String {
-        let windSpeedRounded = formatter.string(from: NSNumber(value: windData.speed)) ?? ""
+        let mphSpeed = windData.speedMph
+        let mpsSpeed = 0.4469 * mphSpeed
+        
+        let speed = unit == .imperial ? mphSpeed : mpsSpeed
+        let speedRounded = formatter.string(from: NSNumber(value: speed)) ?? ""
         let windSpeedSuffix = unit == .imperial ? "mi/hr" : "m/s"
-        let windSpeedStr = [windSpeedRounded, windSpeedSuffix].joined()
+        let windSpeedStr = [speedRounded, windSpeedSuffix].joined()
 
         return combinedWindString(windData: windData, windSpeed: windSpeedStr)
     }
 
     private func combinedWindString(
-        windData: WeatherAPIResponse.WindData,
+        windData: WindData,
         windSpeed: String
     ) -> String {
         let windDegreesStr = [String(windData.degrees), degreeString].joined()

@@ -9,77 +9,64 @@
 import Foundation
 
 struct WeatherAPIResponse: Decodable {
-    let cityId: Int
+    let locationName: String
     let temperatureData: TemperatureData
+    let weatherConditionCode: Int
     let humidity: Int
-    let location: String
-    let weatherId: Int
-    let sunrise: TimeInterval
-    let sunset: TimeInterval
     let windData: WindData
-
-    struct TemperatureData: Decodable {
-        let temperature: Double
-        let feelsLikeTemperature: Double
-        let minTemperature: Double
-        let maxTemperature: Double
-
-        // swiftlint:disable:next nesting
-        private enum CodingKeys: String, CodingKey {
-            case temperature = "temp"
-            case feelsLikeTemperature = "feels_like"
-            case minTemperature = "temp_min"
-            case maxTemperature = "temp_max"
-        }
-    }
-
-    struct WindData: Decodable {
-        let speed: Double
-        let degrees: Int
-
-        // swiftlint:disable:next nesting
-        private enum CodingKeys: String, CodingKey {
-            case speed
-            case degrees = "deg"
-        }
-    }
+    let forecastDayData: ForecastDayData
 
     private enum RootKeys: String, CodingKey {
-        case cityId = "id"
-        case main, weather, humidity, name, sys, wind
+        case location, current, forecast
     }
-
-    private enum MainKeys: String, CodingKey {
-        case humidity
+    
+    private enum LocationKeys: String, CodingKey {
+        case name
     }
-
-    private enum SysKeys: String, CodingKey {
-        case sunrise, sunset
+    
+    private enum CurrentKeys: String, CodingKey {
+        case condition, humidity
     }
-
-    private enum WeatherKeys: String, CodingKey {
-        case id
+    
+    private enum WeatherConditionKeys: String, CodingKey {
+        case code
+    }
+    
+    private enum ForecastKeys: String, CodingKey {
+        case forecastDay = "forecastday"
+    }
+    
+    private enum ForecastDayKeys: String, CodingKey {
+        case day, astro
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: RootKeys.self)
-
-        cityId = try container.decode(Int.self, forKey: .cityId)
-        temperatureData = try container.decode(TemperatureData.self, forKey: .main)
-
-        let mainContainer = try container.nestedContainer(keyedBy: MainKeys.self, forKey: .main)
-        humidity = try mainContainer.decode(Int.self, forKey: .humidity)
-
-        location = try container.decode(String.self, forKey: .name)
-
-        var weatherContainer = try container.nestedUnkeyedContainer(forKey: .weather)
-        let weatherChildContainer = try weatherContainer.nestedContainer(keyedBy: WeatherKeys.self)
-        weatherId = try weatherChildContainer.decode(Int.self, forKey: .id)
-
-        let sysContainer = try container.nestedContainer(keyedBy: SysKeys.self, forKey: .sys)
-        sunrise = try sysContainer.decode(TimeInterval.self, forKey: .sunrise)
-        sunset = try sysContainer.decode(TimeInterval.self, forKey: .sunset)
-
-        windData = try container.decode(WindData.self, forKey: .wind)
+        
+        let locationContainer = try container.nestedContainer(keyedBy: LocationKeys.self, forKey: .location)
+        locationName = try locationContainer.decode(String.self, forKey: .name)
+        temperatureData = try container.decode(TemperatureData.self, forKey: .current)
+        
+        let currentContainer = try container.nestedContainer(keyedBy: CurrentKeys.self, forKey: .current)
+        let weatherConditionContainer = try currentContainer.nestedContainer(
+            keyedBy: WeatherConditionKeys.self,
+            forKey: .condition
+        )
+        weatherConditionCode = try weatherConditionContainer.decode(Int.self, forKey: .code)
+        
+        windData =  try container.decode(WindData.self, forKey: .current)
+        
+        humidity = try currentContainer.decode(Int.self, forKey: .humidity)
+        
+        let forecast = try container.decode(Forecast.self, forKey: .forecast)
+        if let dayData = forecast.dayDataArr.first {
+            forecastDayData = dayData
+        } else {
+            throw DecodingError.dataCorruptedError(
+                forKey: .forecast,
+                in: container,
+                debugDescription: "Missing forecast day data"
+            )
+        }
     }
 }

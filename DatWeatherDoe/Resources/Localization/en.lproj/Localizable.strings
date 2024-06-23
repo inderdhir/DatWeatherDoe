@@ -13,9 +13,6 @@
 /* Quit app */
 "Quit" = "Quit";
 
-/* 1 min refresh interval */
-"1 min" = "1 min";
-
 /* 15 min refresh interval */
 "15 min" = "15 min";
 
@@ -30,9 +27,6 @@
 
 /* Placeholder hint for entering Lat/Long */
 "[latitude],[longitude]" = "[latitude],[longitude]";
-
-/* Placeholder hint for entering zip code */
-"[zipcode],[iso 3166 country code]" = "[zipcode],[iso 3166 country code]";
 
 /* Show all temperature units */
 "All" = "All";
@@ -147,9 +141,3 @@
 
 /* Source for fetching weather */
 "Weather Source" = "Weather Source";
-
-/* Weather based on Zip Code */
-"Zipcode" = "Zipcode";
-
-/* Zip Code error when fetching weather */
-"❗️Zipcode" = "❗️Zipcode";

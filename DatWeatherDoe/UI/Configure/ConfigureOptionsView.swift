@@ -30,7 +30,6 @@ struct ConfigureOptionsView: View {
                 Text(LocalizedStringKey("Refresh Interval"))
                 Spacer()
                 Picker("", selection: $viewModel.refreshInterval) {
-                    Text(LocalizedStringKey("1 min")).tag(RefreshInterval.oneMinute)
                     Text(LocalizedStringKey("5 min")).tag(RefreshInterval.fiveMinutes)
                     Text(LocalizedStringKey("15 min")).tag(RefreshInterval.fifteenMinutes)
                     Text(LocalizedStringKey("30 min")).tag(RefreshInterval.thirtyMinutes)
