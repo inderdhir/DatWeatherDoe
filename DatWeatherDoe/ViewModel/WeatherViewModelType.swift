@@ -8,6 +8,7 @@
 
 import Combine
 
+@MainActor
 protocol WeatherViewModelType: AnyObject {
     func getUpdatedWeatherAfterRefresh()
     func seeForecastForCurrentCity()
