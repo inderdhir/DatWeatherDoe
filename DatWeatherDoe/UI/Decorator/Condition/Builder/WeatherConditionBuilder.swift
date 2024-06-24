@@ -49,6 +49,6 @@ final class WeatherConditionBuilder: WeatherConditionBuilderType {
     }
 
     private var isDay: Bool {
-        response.forecastDayData.astro.isDayBool
+        response.isDayBool
     }
 }

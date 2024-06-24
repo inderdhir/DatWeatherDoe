@@ -9,16 +9,10 @@
 import Foundation
 
 struct SunriseSunsetData: Decodable {
-    let isDay: Int
     let sunrise: String
     let sunset: String
 
     private enum CodingKeys: String, CodingKey {
-        case isDay = "is_sun_up"
         case sunrise, sunset
-    }
-
-    var isDayBool: Bool {
-        isDay > 0
     }
 }
