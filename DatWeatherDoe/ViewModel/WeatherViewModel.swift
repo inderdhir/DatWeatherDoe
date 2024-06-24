@@ -176,77 +176,18 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     }
     
     private func updateWeatherData(_ data: WeatherData) {
-        updateReadOnlyData(weatherData: data)
+        let parser = WeatherDataParser(data: data, configManager: configManager)
+        menuOptionData = MenuOptionData(
+            locationText: parser.getLocation(),
+            weatherText: parser.getWeatherText(),
+            sunriseSunsetText: parser.getSunriseSunset(),
+            tempHumidityWindText: parser.getWindSpeedItem()
+        )
         weatherResult = .success(data)
     }
     
     private func updateWeatherData(_ error: Error) {
         menuOptionData = nil
         weatherResult = .failure(error)
-    }
-    
-    // MARK: FIX
-    
-    private func updateReadOnlyData(weatherData: WeatherData) {
-        let locationTitle = [
-            getLocationFrom(weatherData: weatherData),
-            getConditionItemFrom(weatherData: weatherData)
-        ].joined(separator: " - ")
-        let temperatureForecastTitle = getWeatherTextFrom(weatherData: weatherData)
-        let sunriseSetTitle = getSunRiseSetFrom(weatherData: weatherData)
-        let windSpeedTitle = getWindSpeedItemFrom(data: weatherData.response.windData)
-        
-        menuOptionData = MenuOptionData(
-            locationText: locationTitle,
-            weatherText: temperatureForecastTitle,
-            sunriseSunsetText: sunriseSetTitle,
-            tempHumidityWindText: windSpeedTitle
-        )
-    }
-    
-    private func getLocationFrom(weatherData: WeatherData) -> String {
-        weatherData.response.locationName
-    }
-    
-    private func getConditionItemFrom(weatherData: WeatherData) -> String {
-        WeatherConditionTextMapper().map(weatherData.weatherCondition)
-    }
-    
-    private func getWeatherTextFrom(weatherData: WeatherData) -> String {
-        let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
-        
-        return TemperatureForecastTextBuilder(
-            temperatureData: weatherData.response.temperatureData,
-            forecastTemperatureData: weatherData.response.forecastDayData.temp,
-            options: .init(
-                unit: measurementUnit.temperatureUnit,
-                isRoundingOff: configManager.isRoundingOffData,
-                isUnitLetterOff: configManager.isUnitLetterOff,
-                isUnitSymbolOff: configManager.isUnitSymbolOff
-            )
-        ).build()
-    }
-    
-    private func getSunRiseSetFrom(weatherData: WeatherData) -> String {
-        SunriseAndSunsetTextBuilder(
-            sunset: weatherData.response.forecastDayData.astro.sunset,
-            sunrise: weatherData.response.forecastDayData.astro.sunrise
-        ).build()
-    }
-    
-    private func getWindSpeedItemFrom(data: WindData) -> String {
-        if configManager.measurementUnit == MeasurementUnit.all.rawValue {
-            WindSpeedFormatter()
-                .getFormattedWindSpeedStringForAllUnits(
-                    windData: data,
-                    isRoundingOff: configManager.isRoundingOffData
-                )
-        } else {
-            WindSpeedFormatter()
-                .getFormattedWindSpeedString(
-                    unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial,
-                    windData: data
-                )
-        }
     }
 }

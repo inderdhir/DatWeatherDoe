@@ -11,6 +11,7 @@ import Foundation
 struct WeatherAPIResponse: Decodable {
     let locationName: String
     let temperatureData: TemperatureData
+    let isDay: Int
     let weatherConditionCode: Int
     let humidity: Int
     let windData: WindData
@@ -25,6 +26,7 @@ struct WeatherAPIResponse: Decodable {
     }
 
     private enum CurrentKeys: String, CodingKey {
+        case isDay = "is_day"
         case condition, humidity
     }
 
@@ -48,6 +50,8 @@ struct WeatherAPIResponse: Decodable {
         temperatureData = try container.decode(TemperatureData.self, forKey: .current)
 
         let currentContainer = try container.nestedContainer(keyedBy: CurrentKeys.self, forKey: .current)
+        isDay = try currentContainer.decode(Int.self, forKey: .isDay)
+        
         let weatherConditionContainer = try currentContainer.nestedContainer(
             keyedBy: WeatherConditionKeys.self,
             forKey: .condition
@@ -68,5 +72,9 @@ struct WeatherAPIResponse: Decodable {
                 debugDescription: "Missing forecast day data"
             )
         }
+    }
+    
+    var isDayBool: Bool {
+        isDay > 0
     }
 }
