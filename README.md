@@ -16,7 +16,6 @@ OpenWeatherMap API 2.5 support is ending in June 2024. The app uses WeatherAPI g
 
 ![Screenshot 1](screenshot_1.png)\
 ![Screenshot 2](screenshot_2.png)
-![Screenshot 3](screenshot_3.png)
 
 ## Installation
 
