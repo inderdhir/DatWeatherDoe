@@ -99,10 +99,10 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
         let maxAndMinTempStr = [maxTempStr, minTempStr]
             .compactMap { $0 }
             .joined(separator: " ")
-        
-        let feelsLikeTemp = unit == .fahrenheit ? 
-        temperatureData.feelsLikeTempFahrenheit :
-        temperatureData.feelsLikeTempCelsius
+
+        let feelsLikeTemp = unit == .fahrenheit ?
+            temperatureData.feelsLikeTempFahrenheit :
+            temperatureData.feelsLikeTempCelsius
         let formattedFeelsLikeTemp = buildFormattedTemperature(feelsLikeTemp, unit: unit)
         return [formattedFeelsLikeTemp, maxAndMinTempStr]
             .compactMap { $0 }

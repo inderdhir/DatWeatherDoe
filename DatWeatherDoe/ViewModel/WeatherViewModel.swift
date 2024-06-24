@@ -18,16 +18,16 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     private let configManager: ConfigManagerType
     private let logger: Logger
     private var reachability: NetworkReachability!
-    
+
     private let forecaster = WeatherForecaster()
     private var weatherTask: Task<Void, Never>?
     private var weatherTimer: Timer?
     private var weatherTimerTask: Task<Void, Never>?
     private var cancellables: Set<AnyCancellable> = []
-    
+
     @Published var menuOptionData: MenuOptionData?
     @Published var weatherResult: Result<WeatherData, Error>?
-    
+
     init(
         locationFetcher: SystemLocationFetcher,
         weatherFactory: WeatherRepositoryFactoryType,
@@ -38,37 +38,38 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
         self.configManager = configManager
         self.weatherFactory = weatherFactory
         self.logger = logger
-        
+
         setupLocationFetching()
         setupReachability()
     }
-    
+
     deinit {
         Task { [weatherTask] in
             weatherTask?.cancel()
         }
     }
+
     func getUpdatedWeatherAfterRefresh() {
         weatherTimerTask?.cancel()
         weatherTimerTask = Task { [weak self] in
             guard let self else { return }
-            
+
             while !Task.isCancelled {
                 self.getWeatherWithSelectedSource()
                 try? await Task.sleep(for: .seconds(configManager.refreshInterval))
             }
         }
     }
-    
+
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-    
+
     private func setupLocationFetching() {
         locationFetcher.locationResult
             .sink(receiveValue: { [weak self] result in
                 guard let self else { return }
-                
+
                 switch result {
                 case let .success(location):
                     self.getWeather(
@@ -81,7 +82,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
+
     private func setupReachability() {
         reachability = NetworkReachability(
             logger: logger,
@@ -90,10 +91,10 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             }
         )
     }
-    
+
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-        
+
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
@@ -101,24 +102,24 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             getWeatherViaLocationCoordinates()
         }
     }
-    
+
     private func getWeatherAfterUpdatingLocation() {
         locationFetcher.startUpdatingLocation()
     }
-    
+
     private func getWeatherViaLocationCoordinates() {
         let latLong = configManager.weatherSourceText
         guard !latLong.isEmpty else {
             weatherResult = .failure(WeatherError.latLongIncorrect)
             return
         }
-        
+
         getWeather(
             repository: weatherFactory.create(latLong: latLong),
             unit: measurementUnit
         )
     }
-    
+
     private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
         .init(
             unit: unit,
@@ -126,10 +127,10 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             textOptions: buildWeatherTextOptions(for: unit)
         )
     }
-    
+
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
         let conditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition)
-        ?? .beforeTemperature
+            ?? .beforeTemperature
         return .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
             conditionPosition: conditionPosition,
@@ -143,7 +144,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             isShowingHumidity: configManager.isShowingHumidity
         )
     }
-    
+
     private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) {
         weatherTask = Task {
             do {
@@ -152,18 +153,18 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
                     response: response,
                     options: buildWeatherDataOptions(for: unit)
                 )
-                
+
                 updateWeatherData(weatherData)
             } catch {
                 updateWeatherData(error)
             }
         }
     }
-    
+
     private var measurementUnit: MeasurementUnit {
         MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
     }
-    
+
     private func buildWeatherDataWith(
         response: WeatherAPIResponse,
         options: WeatherDataBuilder.Options
@@ -174,7 +175,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             logger: logger
         ).build()
     }
-    
+
     private func updateWeatherData(_ data: WeatherData) {
         let parser = WeatherDataParser(data: data, configManager: configManager)
         menuOptionData = MenuOptionData(
@@ -185,7 +186,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
         )
         weatherResult = .success(data)
     }
-    
+
     private func updateWeatherData(_ error: Error) {
         menuOptionData = nil
         weatherResult = .failure(error)

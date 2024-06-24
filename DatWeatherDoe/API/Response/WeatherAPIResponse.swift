@@ -51,7 +51,7 @@ struct WeatherAPIResponse: Decodable {
 
         let currentContainer = try container.nestedContainer(keyedBy: CurrentKeys.self, forKey: .current)
         isDay = try currentContainer.decode(Int.self, forKey: .isDay)
-        
+
         let weatherConditionContainer = try currentContainer.nestedContainer(
             keyedBy: WeatherConditionKeys.self,
             forKey: .condition
@@ -73,7 +73,7 @@ struct WeatherAPIResponse: Decodable {
             )
         }
     }
-    
+
     var isDayBool: Bool {
         isDay > 0
     }

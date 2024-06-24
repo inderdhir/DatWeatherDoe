@@ -11,7 +11,7 @@ import SwiftUI
 struct NonInteractiveMenuOptionView: View {
     let image: NSImage?
     let text: String?
-    
+
     var body: some View {
         HStack(spacing: 6) {
             if let image {

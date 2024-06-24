@@ -11,23 +11,23 @@ import Foundation
 final class WeatherDataParser {
     let data: WeatherData
     let configManager: ConfigManagerType
-    
+
     init(data: WeatherData, configManager: ConfigManagerType) {
         self.data = data
         self.configManager = configManager
     }
-    
+
     func getLocation() -> String {
         [
             data.response.locationName,
             WeatherConditionTextMapper().map(data.weatherCondition)
         ]
-            .joined(separator: " - ")
+        .joined(separator: " - ")
     }
-    
+
     func getWeatherText() -> String {
         let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
-        
+
         return TemperatureForecastTextBuilder(
             temperatureData: data.response.temperatureData,
             forecastTemperatureData: data.response.forecastDayData.temp,
@@ -39,14 +39,14 @@ final class WeatherDataParser {
             )
         ).build()
     }
-    
+
     func getSunriseSunset() -> String {
         SunriseAndSunsetTextBuilder(
             sunset: data.response.forecastDayData.astro.sunset,
             sunrise: data.response.forecastDayData.astro.sunrise
         ).build()
     }
-    
+
     func getWindSpeedItem() -> String {
         if configManager.measurementUnit == MeasurementUnit.all.rawValue {
             WindSpeedFormatter()

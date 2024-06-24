@@ -7,8 +7,8 @@
 //
 
 import MenuBarExtraAccess
-import SwiftUI
 import OSLog
+import SwiftUI
 
 @main
 struct DatWeatherDoeApp: App {
@@ -16,10 +16,10 @@ struct DatWeatherDoeApp: App {
     @ObservedObject private var viewModel: WeatherViewModel
     @State private var isMenuPresented: Bool = false
     @State private var statusItem: NSStatusItem?
-    
+
     init() {
         configManager = ConfigManager()
-        
+
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "bundleID", category: "main")
         viewModel = WeatherViewModel(
             locationFetcher: SystemLocationFetcher(logger: logger),
@@ -32,7 +32,7 @@ struct DatWeatherDoeApp: App {
             logger: logger
         )
     }
-    
+
     var body: some Scene {
         MenuBarExtra(
             content: {
@@ -65,7 +65,7 @@ struct DatWeatherDoeApp: App {
         .windowStyle(.hiddenTitleBar)
         .menuBarExtraStyle(.window)
     }
-    
+
     private func closePopover() {
         statusItem?.togglePresented()
     }
