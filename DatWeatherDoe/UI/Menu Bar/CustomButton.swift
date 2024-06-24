@@ -14,7 +14,7 @@ struct CustomButton: View {
     let shortcutKey: String
     let onClick: () -> Void
 
-    init(text: LocalizedStringKey, textColor: Color = Color.white, shortcutKey: String, onClick: @escaping () -> Void) {
+    init(text: LocalizedStringKey, textColor: Color = Color.primary, shortcutKey: String, onClick: @escaping () -> Void) {
         self.text = text
         self.textColor = textColor
         self.shortcutKey = shortcutKey
