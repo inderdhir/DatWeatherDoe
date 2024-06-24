@@ -11,14 +11,14 @@ import CoreLocation
 import Foundation
 import OSLog
 
+@MainActor
 final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     private let locationFetcher: SystemLocationFetcherType
     private var weatherFactory: WeatherRepositoryFactoryType
     private let configManager: ConfigManagerType
     private let logger: Logger
     private var reachability: NetworkReachability!
-
-    private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
+    
     private let forecaster = WeatherForecaster()
     private var weatherTask: Task<Void, Never>?
     private var weatherTimer: Timer?
@@ -27,7 +27,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     
     @Published var menuOptionData: MenuOptionData?
     @Published var weatherResult: Result<WeatherData, Error>?
-
+    
     init(
         locationFetcher: SystemLocationFetcher,
         weatherFactory: WeatherRepositoryFactoryType,
@@ -42,33 +42,33 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
         setupLocationFetching()
         setupReachability()
     }
-
+    
     deinit {
-        weatherTimer?.invalidate()
-        weatherTask?.cancel()
+        Task { [weatherTask] in
+            weatherTask?.cancel()
+        }
     }
     func getUpdatedWeatherAfterRefresh() {
-          // TODO: Use AsyncSequence
-          weatherTimerTask?.cancel()
-          weatherTimerTask = Task { [weak self] in
-              guard let self else { return }
-              
-              while !Task.isCancelled {
-                  self.getWeatherWithSelectedSource()
-                  try? await Task.sleep(for: .seconds(configManager.refreshInterval))
-              }
-          }
-      }
-
+        weatherTimerTask?.cancel()
+        weatherTimerTask = Task { [weak self] in
+            guard let self else { return }
+            
+            while !Task.isCancelled {
+                self.getWeatherWithSelectedSource()
+                try? await Task.sleep(for: .seconds(configManager.refreshInterval))
+            }
+        }
+    }
+    
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-
+    
     private func setupLocationFetching() {
         locationFetcher.locationResult
             .sink(receiveValue: { [weak self] result in
                 guard let self else { return }
-
+                
                 switch result {
                 case let .success(location):
                     self.getWeather(
@@ -83,17 +83,17 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     }
     
     private func setupReachability() {
-         reachability = NetworkReachability(
-             logger: logger,
-             onBecomingReachable: { [weak self] in
-                 self?.getUpdatedWeatherAfterRefresh()
-             }
-         )
-     }
-
+        reachability = NetworkReachability(
+            logger: logger,
+            onBecomingReachable: { [weak self] in
+                self?.getUpdatedWeatherAfterRefresh()
+            }
+        )
+    }
+    
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-
+        
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()
@@ -101,24 +101,24 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             getWeatherViaLocationCoordinates()
         }
     }
-
+    
     private func getWeatherAfterUpdatingLocation() {
         locationFetcher.startUpdatingLocation()
     }
-
+    
     private func getWeatherViaLocationCoordinates() {
         let latLong = configManager.weatherSourceText
-//        guard let latLong = configManager.weatherSourceText else {
-//            weatherResult = .failure(WeatherError.latLongIncorrect)
-//            return
-//        }
-
+        guard !latLong.isEmpty else {
+            weatherResult = .failure(WeatherError.latLongIncorrect)
+            return
+        }
+        
         getWeather(
             repository: weatherFactory.create(latLong: latLong),
             unit: measurementUnit
         )
     }
-
+    
     private func buildWeatherDataOptions(for unit: MeasurementUnit) -> WeatherDataBuilder.Options {
         .init(
             unit: unit,
@@ -126,10 +126,10 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             textOptions: buildWeatherTextOptions(for: unit)
         )
     }
-
+    
     private func buildWeatherTextOptions(for unit: MeasurementUnit) -> WeatherTextBuilder.Options {
         let conditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition)
-            ?? .beforeTemperature
+        ?? .beforeTemperature
         return .init(
             isWeatherConditionAsTextEnabled: configManager.isWeatherConditionAsTextEnabled,
             conditionPosition: conditionPosition,
@@ -143,7 +143,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             isShowingHumidity: configManager.isShowingHumidity
         )
     }
-
+    
     private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) {
         weatherTask = Task {
             do {
@@ -159,11 +159,11 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             }
         }
     }
-
+    
     private var measurementUnit: MeasurementUnit {
         MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
     }
-
+    
     private func buildWeatherDataWith(
         response: WeatherAPIResponse,
         options: WeatherDataBuilder.Options
@@ -176,17 +176,13 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     }
     
     private func updateWeatherData(_ data: WeatherData) {
-        DispatchQueue.main.async { [weak self] in
-            self?.updateReadOnlyData(weatherData: data)
-            self?.weatherResult = .success(data)
-        }
+        updateReadOnlyData(weatherData: data)
+        weatherResult = .success(data)
     }
     
     private func updateWeatherData(_ error: Error) {
-        DispatchQueue.main.async { [weak self] in
-            self?.menuOptionData = nil
-            self?.weatherResult = .failure(error)
-        }
+        menuOptionData = nil
+        weatherResult = .failure(error)
     }
     
     // MARK: FIX

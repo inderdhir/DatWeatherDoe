@@ -14,7 +14,8 @@ final class LocationValidator: WeatherValidatorType {
     }
 
     func validate() throws {
-        let isValid = !latLong.isEmpty
+        let coordinates = latLong.split(separator: ",")
+        let isValid = coordinates.count == 2
         if !isValid {
             throw WeatherError.latLongIncorrect
         }
