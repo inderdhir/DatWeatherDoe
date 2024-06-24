@@ -17,7 +17,8 @@ struct StatusBarView: View {
             case let .success(success):
                 HStack {
                     if success.showWeatherIcon,
-                       let image = WeatherConditionImageMapper().map(success.weatherCondition) {
+                       let image = WeatherConditionImageMapper().map(success.weatherCondition)
+                    {
                         Image(nsImage: image)
                             .renderingMode(.template)
                             .accessibilityLabel(WeatherConditionTextMapper().map(success.weatherCondition))

@@ -83,7 +83,7 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
         let windFullStr = [windAndDegreesStr, windDirectionStr].joined(separator: " ")
         return windFullStr
     }
-    
+
     private func mpsSpeedFrom(mphSpeed: Double) -> Double {
         0.4469 * mphSpeed
     }

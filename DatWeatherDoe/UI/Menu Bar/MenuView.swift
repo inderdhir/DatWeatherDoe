@@ -27,11 +27,11 @@ struct MenuView: View {
         self.onSeeWeather = onSeeWeather
         self.onRefresh = onRefresh
         self.onSave = onSave
-        
+
         configureViewModel = ConfigureViewModel(configManager: ConfigManager())
         version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
     }
-    
+
     var body: some View {
         VStack {
             MenuOptionsView(
@@ -39,9 +39,9 @@ struct MenuView: View {
                 onSeeWeather: onSeeWeather,
                 onRefresh: onRefresh
             )
-            
+
             Divider()
-            
+
             ConfigureView(
                 viewModel: configureViewModel,
                 version: version,

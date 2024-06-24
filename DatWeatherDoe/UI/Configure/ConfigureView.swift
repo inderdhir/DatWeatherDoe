@@ -13,24 +13,24 @@ struct ConfigureView: View {
     let version: String
     let onSave: () -> Void
     let onQuit: () -> Void
-    
+
     var body: some View {
         VStack {
             ConfigureOptionsView(viewModel: viewModel)
-            
+
             HStack {
                 Text(version)
                     .font(.footnote)
                     .fontWeight(.thin)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 CustomButton(
                     text: LocalizedStringKey("Done"),
                     shortcutKey: "d",
                     onClick: onSave
                 )
                 .frame(maxWidth: .infinity, alignment: .center)
-                
+
                 Text(LocalizedStringKey("Quit"))
                     .foregroundStyle(Color.red)
                     .onTapGesture(perform: onQuit)

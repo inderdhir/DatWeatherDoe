@@ -19,9 +19,9 @@ struct MenuOptionsView: View {
     let data: MenuOptionData?
     let onSeeWeather: () -> Void
     let onRefresh: () -> Void
-    
+
     private let iconMapper = DropdownIconMapper()
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading) {
@@ -36,7 +36,7 @@ struct MenuOptionsView: View {
                 NonInteractiveMenuOptionView(image: iconMapper.map(.sun), text: data?.sunriseSunsetText)
                 NonInteractiveMenuOptionView(image: iconMapper.map(.wind), text: data?.tempHumidityWindText)
             }
-            
+
             HStack {
                 CustomButton(
                     text: LocalizedStringKey("See Full Weather"),
@@ -44,10 +44,10 @@ struct MenuOptionsView: View {
                     onClick: onSeeWeather
                 )
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Spacer()
                     .frame(maxWidth: .infinity)
-                
+
                 CustomButton(text: LocalizedStringKey("Refresh"), shortcutKey: "r", onClick: onRefresh)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
