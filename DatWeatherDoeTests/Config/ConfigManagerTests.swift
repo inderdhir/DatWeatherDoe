@@ -43,8 +43,8 @@ final class ConfigManagerTests: XCTestCase {
 
     func testWeatherSourceTextSaved() {
         XCTAssertEqual(configManager.weatherSourceText, nil)
-        configManager.weatherSourceText = "10021,us"
-        XCTAssertEqual(configManager.weatherSourceText, "10021,us")
+        configManager.weatherSourceText = "40,40"
+        XCTAssertEqual(configManager.weatherSourceText, "40,40")
     }
 
     func testDefaultRefreshInterval() {

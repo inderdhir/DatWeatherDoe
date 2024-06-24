@@ -12,7 +12,7 @@ import SwiftUI
 protocol ConfigManagerType: AnyObject {
     var measurementUnit: String { get set }
     var weatherSource: String { get set }
-    var weatherSourceText: String? { get set }
+    var weatherSourceText: String { get set }
     var refreshInterval: TimeInterval { get set }
     var isShowingWeatherIcon: Bool { get set }
     var isShowingHumidity: Bool { get set }
@@ -32,10 +32,10 @@ final class ConfigManager: ConfigManagerType {
     public var measurementUnit = MeasurementUnit.imperial.rawValue
 
     @AppStorage("weatherSource")
-    public var weatherSource = WeatherSource.location.rawValue
+    public var weatherSource = WeatherSource.latLong.rawValue
 
     @AppStorage("weatherSourceText")
-    public var weatherSourceText: String?
+    public var weatherSourceText = ""
 
     @AppStorage("refreshInterval")
     public var refreshInterval = RefreshInterval.fifteenMinutes.rawValue
@@ -66,7 +66,7 @@ final class ConfigManager: ConfigManagerType {
 
     func updateWeatherSource(_ source: WeatherSource, sourceText: String) {
         weatherSource = source.rawValue
-        weatherSourceText = source == .location ? nil : sourceText
+        weatherSourceText = source == .location ? "" : sourceText
     }
 
     func setConfigOptions(_ options: ConfigOptions) {

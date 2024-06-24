@@ -32,10 +32,7 @@ struct ConfigureUnitOptionsView_Previews: PreviewProvider {
     static var previews: some View {
         Grid {
             ConfigureUnitOptionsView(
-                viewModel: .init(
-                    configManager: ConfigManager(),
-                    popoverManager: nil
-                )
+                viewModel: .init(configManager: ConfigManager())
             )
         }
     }

@@ -19,16 +19,16 @@ final class DropdownIconMapper: DropdownIconMapperType {
 
         switch icon {
         case .location:
-            symbolName = "mappin"
+            symbolName = "location.north.circle"
             accessibilityDescription = "Location"
         case .thermometer:
-            symbolName = "thermometer"
+            symbolName = "thermometer.snowflake.circle"
             accessibilityDescription = "Temperature"
         case .sun:
-            symbolName = "sun.max"
+            symbolName = "sun.horizon.circle"
             accessibilityDescription = "Sunrise and Sunset"
         case .wind:
-            symbolName = "wind"
+            symbolName = "wind.circle"
             accessibilityDescription = "Wind data"
         }
 

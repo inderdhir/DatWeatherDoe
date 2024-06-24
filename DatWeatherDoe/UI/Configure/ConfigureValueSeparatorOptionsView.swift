@@ -27,10 +27,7 @@ struct ConfigureValueSeparatorOptionsView: View {
 struct ConfigureValueSeparatorOptionsView_Previews: PreviewProvider {
     static var previews: some View {
         ConfigureValueSeparatorOptionsView(
-            viewModel: .init(
-                configManager: ConfigManager(),
-                popoverManager: nil
-            )
+            viewModel: .init(configManager: ConfigManager())
         )
     }
 }

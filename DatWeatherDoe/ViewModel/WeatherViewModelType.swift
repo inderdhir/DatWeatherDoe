@@ -9,8 +9,6 @@
 import Combine
 
 protocol WeatherViewModelType: AnyObject {
-    var weatherResult: AnyPublisher<Result<WeatherData, Error>, Never> { get }
-
-    func startRefreshingWeather()
+    func getUpdatedWeatherAfterRefresh()
     func seeForecastForCurrentCity()
 }
