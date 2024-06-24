@@ -59,13 +59,9 @@ final class ConfigureViewModel: ObservableObject {
     }
 
     private let configManager: ConfigManagerType
-    private var hasConfigChanged = false
-    private weak var popoverManager: PopoverManager?
-    private var cancellables: Set<AnyCancellable> = []
 
-    init(configManager: ConfigManagerType, popoverManager: PopoverManager?) {
+    init(configManager: ConfigManagerType) {
         self.configManager = configManager
-        self.popoverManager = popoverManager
 
         measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
         weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
@@ -86,8 +82,6 @@ final class ConfigureViewModel: ObservableObject {
         isWeatherConditionAsTextEnabled = configManager.isWeatherConditionAsTextEnabled
         weatherConditionPosition = WeatherConditionPosition(rawValue: configManager.weatherConditionPosition)
             ?? .beforeTemperature
-
-        listenForConfigChange()
     }
 
     func saveConfig() {
@@ -103,19 +97,5 @@ final class ConfigureViewModel: ObservableObject {
                 isWeatherConditionAsTextEnabled: isWeatherConditionAsTextEnabled
             )
         )
-    }
-
-    func saveAndCloseConfig() {
-        saveConfig()
-
-        popoverManager?.togglePopover(nil, shouldRefresh: hasConfigChanged)
-        hasConfigChanged = false
-    }
-
-    private func listenForConfigChange() {
-        objectWillChange.sink { [weak self] in
-            self?.hasConfigChanged = true
-        }
-        .store(in: &cancellables)
     }
 }

@@ -11,19 +11,22 @@ import CoreLocation
 import Foundation
 import OSLog
 
-final class WeatherViewModel: WeatherViewModelType {
+final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     private let locationFetcher: SystemLocationFetcherType
     private var weatherFactory: WeatherRepositoryFactoryType
     private let configManager: ConfigManagerType
     private let logger: Logger
+    private var reachability: NetworkReachability!
 
     private let weatherTimerSerialQueue = DispatchQueue(label: "Weather Timer Serial Queue")
     private let forecaster = WeatherForecaster()
     private var weatherTask: Task<Void, Never>?
     private var weatherTimer: Timer?
-    private let weatherSubject = PassthroughSubject<Result<WeatherData, Error>, Never>()
+    private var weatherTimerTask: Task<Void, Never>?
     private var cancellables: Set<AnyCancellable> = []
-    let weatherResult: AnyPublisher<Result<WeatherData, Error>, Never>
+    
+    @Published var menuOptionData: MenuOptionData?
+    @Published var weatherResult: Result<WeatherData, Error>?
 
     init(
         locationFetcher: SystemLocationFetcher,
@@ -35,28 +38,27 @@ final class WeatherViewModel: WeatherViewModelType {
         self.configManager = configManager
         self.weatherFactory = weatherFactory
         self.logger = logger
-
-        weatherResult = weatherSubject.eraseToAnyPublisher()
-
+        
         setupLocationFetching()
+        setupReachability()
     }
 
     deinit {
         weatherTimer?.invalidate()
         weatherTask?.cancel()
     }
-
-    func startRefreshingWeather() {
-        weatherTimerSerialQueue.sync {
-            weatherTimer?.invalidate()
-            weatherTimer = Timer.scheduledTimer(
-                withTimeInterval: configManager.refreshInterval,
-                repeats: true,
-                block: { [weak self] _ in self?.getWeatherWithSelectedSource() }
-            )
-            weatherTimer?.fire()
-        }
-    }
+    func getUpdatedWeatherAfterRefresh() {
+          // TODO: Use AsyncSequence
+          weatherTimerTask?.cancel()
+          weatherTimerTask = Task { [weak self] in
+              guard let self else { return }
+              
+              while !Task.isCancelled {
+                  self.getWeatherWithSelectedSource()
+                  try? await Task.sleep(for: .seconds(configManager.refreshInterval))
+              }
+          }
+      }
 
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
@@ -74,11 +76,20 @@ final class WeatherViewModel: WeatherViewModelType {
                         unit: measurementUnit
                     )
                 case let .failure(error):
-                    self.weatherSubject.send(.failure(error))
+                    updateWeatherData(error)
                 }
             })
             .store(in: &cancellables)
     }
+    
+    private func setupReachability() {
+         reachability = NetworkReachability(
+             logger: logger,
+             onBecomingReachable: { [weak self] in
+                 self?.getUpdatedWeatherAfterRefresh()
+             }
+         )
+     }
 
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
@@ -96,10 +107,11 @@ final class WeatherViewModel: WeatherViewModelType {
     }
 
     private func getWeatherViaLocationCoordinates() {
-        guard let latLong = configManager.weatherSourceText else {
-            weatherSubject.send(.failure(WeatherError.latLongIncorrect))
-            return
-        }
+        let latLong = configManager.weatherSourceText
+//        guard let latLong = configManager.weatherSourceText else {
+//            weatherResult = .failure(WeatherError.latLongIncorrect)
+//            return
+//        }
 
         getWeather(
             repository: weatherFactory.create(latLong: latLong),
@@ -140,9 +152,10 @@ final class WeatherViewModel: WeatherViewModelType {
                     response: response,
                     options: buildWeatherDataOptions(for: unit)
                 )
-                weatherSubject.send(.success(weatherData))
+                
+                updateWeatherData(weatherData)
             } catch {
-                weatherSubject.send(.failure(error))
+                updateWeatherData(error)
             }
         }
     }
@@ -160,5 +173,84 @@ final class WeatherViewModel: WeatherViewModelType {
             options: options,
             logger: logger
         ).build()
+    }
+    
+    private func updateWeatherData(_ data: WeatherData) {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateReadOnlyData(weatherData: data)
+            self?.weatherResult = .success(data)
+        }
+    }
+    
+    private func updateWeatherData(_ error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.menuOptionData = nil
+            self?.weatherResult = .failure(error)
+        }
+    }
+    
+    // MARK: FIX
+    
+    private func updateReadOnlyData(weatherData: WeatherData) {
+        let locationTitle = [
+            getLocationFrom(weatherData: weatherData),
+            getConditionItemFrom(weatherData: weatherData)
+        ].joined(separator: " - ")
+        let temperatureForecastTitle = getWeatherTextFrom(weatherData: weatherData)
+        let sunriseSetTitle = getSunRiseSetFrom(weatherData: weatherData)
+        let windSpeedTitle = getWindSpeedItemFrom(data: weatherData.response.windData)
+        
+        menuOptionData = MenuOptionData(
+            locationText: locationTitle,
+            weatherText: temperatureForecastTitle,
+            sunriseSunsetText: sunriseSetTitle,
+            tempHumidityWindText: windSpeedTitle
+        )
+    }
+    
+    private func getLocationFrom(weatherData: WeatherData) -> String {
+        weatherData.response.locationName
+    }
+    
+    private func getConditionItemFrom(weatherData: WeatherData) -> String {
+        WeatherConditionTextMapper().map(weatherData.weatherCondition)
+    }
+    
+    private func getWeatherTextFrom(weatherData: WeatherData) -> String {
+        let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
+        
+        return TemperatureForecastTextBuilder(
+            temperatureData: weatherData.response.temperatureData,
+            forecastTemperatureData: weatherData.response.forecastDayData.temp,
+            options: .init(
+                unit: measurementUnit.temperatureUnit,
+                isRoundingOff: configManager.isRoundingOffData,
+                isUnitLetterOff: configManager.isUnitLetterOff,
+                isUnitSymbolOff: configManager.isUnitSymbolOff
+            )
+        ).build()
+    }
+    
+    private func getSunRiseSetFrom(weatherData: WeatherData) -> String {
+        SunriseAndSunsetTextBuilder(
+            sunset: weatherData.response.forecastDayData.astro.sunset,
+            sunrise: weatherData.response.forecastDayData.astro.sunrise
+        ).build()
+    }
+    
+    private func getWindSpeedItemFrom(data: WindData) -> String {
+        if configManager.measurementUnit == MeasurementUnit.all.rawValue {
+            WindSpeedFormatter()
+                .getFormattedWindSpeedStringForAllUnits(
+                    windData: data,
+                    isRoundingOff: configManager.isRoundingOffData
+                )
+        } else {
+            WindSpeedFormatter()
+                .getFormattedWindSpeedString(
+                    unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial,
+                    windData: data
+                )
+        }
     }
 }

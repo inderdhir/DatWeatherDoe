@@ -12,7 +12,7 @@ import XCTest
 final class WeatherURLBuilderTests: XCTestCase {
     func testBuild() {
         XCTAssertEqual(
-            try? WeatherURLBuilder(appId: "123456").build().absoluteString,
+            try? WeatherURLBuilder(appId: "123456", location: .init(latitude: 42, longitude: 42)).build().absoluteString,
             "https://api.openweathermap.org/data/2.5/weather"
         )
     }

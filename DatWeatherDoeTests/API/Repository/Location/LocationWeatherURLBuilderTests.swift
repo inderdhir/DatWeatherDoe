@@ -20,7 +20,7 @@ class LocationWeatherURLBuilderTests: XCTestCase {
 
     func testBuild() {
         XCTAssertEqual(
-            try? LocationWeatherURLBuilder(
+            try? WeatherURLBuilder(
                 appId: "123456",
                 location: .init(latitude: 42, longitude: 42)
             ).build().absoluteString,
