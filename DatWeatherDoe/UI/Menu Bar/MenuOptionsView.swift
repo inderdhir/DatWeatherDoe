@@ -50,7 +50,3 @@ struct MenuOptionsView: View {
         .padding()
     }
 }
-
-//#Preview {
-//    MenuOptionsView()
-//}
