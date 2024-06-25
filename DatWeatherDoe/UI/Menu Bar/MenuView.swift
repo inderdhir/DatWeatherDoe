@@ -57,6 +57,6 @@ struct MenuView: View {
     }
 }
 
-#Preview {
+//#Preview {
 //    MenuView()
-}
+//}

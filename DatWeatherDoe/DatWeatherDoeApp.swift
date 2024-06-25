@@ -31,6 +31,7 @@ struct DatWeatherDoeApp: App {
             configManager: ConfigManager(),
             logger: logger
         )
+        viewModel.setup(with: WeatherDataFormatter(configManager: configManager))
     }
 
     var body: some Scene {

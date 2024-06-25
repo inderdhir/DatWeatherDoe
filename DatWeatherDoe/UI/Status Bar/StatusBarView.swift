@@ -34,6 +34,6 @@ struct StatusBarView: View {
     }
 }
 
-#Preview {
+//#Preview {
 //    StatusBarView()
-}
+//}

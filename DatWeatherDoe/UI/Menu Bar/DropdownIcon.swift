@@ -12,4 +12,30 @@ enum DropdownIcon {
     case thermometer
     case sun
     case wind
+    
+    var symbolName: String {
+        switch self {
+        case .location:
+            "location.north.circle"
+        case .thermometer:
+            "thermometer.snowflake.circle"
+        case .sun:
+            "sun.horizon.circle"
+        case .wind:
+            "wind.circle"
+        }
+    }
+    
+    var accessibilityLabel: String {
+        switch self {
+        case .location:
+            "Location"
+        case .thermometer:
+            "Temperature"
+        case .sun:
+            "Sunrise and Sunset"
+        case .wind:
+            "Wind data"
+        }
+    }
 }

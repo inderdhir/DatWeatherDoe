@@ -16,6 +16,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     private let locationFetcher: SystemLocationFetcherType
     private var weatherFactory: WeatherRepositoryFactoryType
     private let configManager: ConfigManagerType
+    private var dataFormatter: WeatherDataFormatterType!
     private let logger: Logger
     private var reachability: NetworkReachability!
 
@@ -48,6 +49,10 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             weatherTask?.cancel()
         }
     }
+    
+    func setup(with formatter: WeatherDataFormatter) {
+        dataFormatter = formatter
+    }
 
     func getUpdatedWeatherAfterRefresh() {
         weatherTimerTask?.cancel()
@@ -74,7 +79,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
                 case let .success(location):
                     self.getWeather(
                         repository: weatherFactory.create(location: location),
-                        unit: measurementUnit
+                        unit: configManager.parsedMeasurementUnit
                     )
                 case let .failure(error):
                     updateWeatherData(error)
@@ -116,7 +121,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
 
         getWeather(
             repository: weatherFactory.create(latLong: latLong),
-            unit: measurementUnit
+            unit: configManager.parsedMeasurementUnit
         )
     }
 
@@ -161,10 +166,6 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
         }
     }
 
-    private var measurementUnit: MeasurementUnit {
-        MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
-    }
-
     private func buildWeatherDataWith(
         response: WeatherAPIResponse,
         options: WeatherDataBuilder.Options
@@ -177,12 +178,11 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     }
 
     private func updateWeatherData(_ data: WeatherData) {
-        let parser = WeatherDataParser(data: data, configManager: configManager)
         menuOptionData = MenuOptionData(
-            locationText: parser.getLocation(),
-            weatherText: parser.getWeatherText(),
-            sunriseSunsetText: parser.getSunriseSunset(),
-            tempHumidityWindText: parser.getWindSpeedItem()
+            locationText: dataFormatter.getLocation(for: data),
+            weatherText: dataFormatter.getWeatherText(for: data),
+            sunriseSunsetText: dataFormatter.getSunriseSunset(for: data),
+            tempHumidityWindText: dataFormatter.getWindSpeedItem(for: data)
         )
         weatherResult = .success(data)
     }

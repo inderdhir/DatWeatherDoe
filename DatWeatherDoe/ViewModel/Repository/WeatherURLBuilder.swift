@@ -26,15 +26,11 @@ final class WeatherURLBuilder: WeatherURLBuilderType {
     func build() throws -> URL {
         let latLonString = "\(location.latitude),\(location.longitude)"
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.string(from: Date())
-
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "key", value: appId),
             URLQueryItem(name: "aqi", value: String("no")),
             URLQueryItem(name: "q", value: latLonString),
-            URLQueryItem(name: "dt", value: date)
+            URLQueryItem(name: "dt", value: parsedDateToday)
         ]
 
         var urlComps = URLComponents(string: apiUrlString)
@@ -44,5 +40,11 @@ final class WeatherURLBuilder: WeatherURLBuilderType {
             throw WeatherError.unableToConstructUrl
         }
         return finalUrl
+    }
+    
+    private var parsedDateToday: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: Date())
     }
 }

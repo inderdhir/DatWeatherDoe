@@ -74,11 +74,7 @@ final class WindSpeedFormatter: WindSpeedFormatterType {
         windSpeed: String
     ) -> String {
         let windDegreesStr = [String(windData.degrees), degreeString].joined()
-        let windDirectionStr = [
-            "(",
-            WindDirectionMapper().getDirection(degrees: windData.degrees).direction,
-            ")"
-        ].joined()
+        let windDirectionStr = "(\(windData.direction))"
         let windAndDegreesStr = [windSpeed, windDegreesStr].joined(separator: " - ")
         let windFullStr = [windAndDegreesStr, windDirectionStr].joined(separator: " ")
         return windFullStr

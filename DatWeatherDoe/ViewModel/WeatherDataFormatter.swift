@@ -8,16 +8,21 @@
 
 import Foundation
 
-final class WeatherDataParser {
-    let data: WeatherData
+protocol WeatherDataFormatterType {
+    func getLocation(for data: WeatherData) -> String
+    func getWeatherText(for data: WeatherData) -> String
+    func getSunriseSunset(for data: WeatherData) -> String
+    func getWindSpeedItem(for data: WeatherData) -> String
+}
+
+final class WeatherDataFormatter: WeatherDataFormatterType {
     let configManager: ConfigManagerType
 
-    init(data: WeatherData, configManager: ConfigManagerType) {
-        self.data = data
+    init(configManager: ConfigManagerType) {
         self.configManager = configManager
     }
 
-    func getLocation() -> String {
+    func getLocation(for data: WeatherData) -> String {
         [
             data.response.locationName,
             WeatherConditionTextMapper().map(data.weatherCondition)
@@ -25,8 +30,8 @@ final class WeatherDataParser {
         .joined(separator: " - ")
     }
 
-    func getWeatherText() -> String {
-        let measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
+    func getWeatherText(for data: WeatherData) -> String {
+        let measurementUnit = configManager.parsedMeasurementUnit
 
         return TemperatureForecastTextBuilder(
             temperatureData: data.response.temperatureData,
@@ -40,14 +45,14 @@ final class WeatherDataParser {
         ).build()
     }
 
-    func getSunriseSunset() -> String {
+    func getSunriseSunset(for data: WeatherData) -> String {
         SunriseAndSunsetTextBuilder(
             sunset: data.response.forecastDayData.astro.sunset,
             sunrise: data.response.forecastDayData.astro.sunrise
         ).build()
     }
 
-    func getWindSpeedItem() -> String {
+    func getWindSpeedItem(for data: WeatherData) -> String {
         if configManager.measurementUnit == MeasurementUnit.all.rawValue {
             WindSpeedFormatter()
                 .getFormattedWindSpeedStringForAllUnits(
@@ -57,7 +62,7 @@ final class WeatherDataParser {
         } else {
             WindSpeedFormatter()
                 .getFormattedWindSpeedString(
-                    unit: MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial,
+                    unit: configManager.parsedMeasurementUnit,
                     windData: data.response.windData
                 )
         }

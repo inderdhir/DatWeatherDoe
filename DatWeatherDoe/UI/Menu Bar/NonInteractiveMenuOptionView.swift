@@ -9,17 +9,17 @@
 import SwiftUI
 
 struct NonInteractiveMenuOptionView: View {
-    let image: NSImage?
+    let icon: DropdownIcon
     let text: String?
 
     var body: some View {
         HStack(spacing: 6) {
-            if let image {
-                Image(nsImage: image)
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
+            Image(systemName: icon.symbolName)
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 24, height: 24)
+                .accessibilityLabel(icon.accessibilityLabel)
+
             if let text {
                 Text(text)
                     .foregroundStyle(Color.secondary)
@@ -31,7 +31,7 @@ struct NonInteractiveMenuOptionView: View {
 
 #Preview {
     NonInteractiveMenuOptionView(
-        image: NSImage(systemSymbolName: "location.north.circle", accessibilityDescription: nil),
+        icon: .wind,
         text: "Test location"
     )
     .frame(width: 300, height: 100, alignment: .leading)
