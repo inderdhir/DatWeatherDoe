@@ -99,7 +99,6 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
 
     private func getWeatherWithSelectedSource() {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-
         switch weatherSource {
         case .location:
             getWeatherAfterUpdatingLocation()

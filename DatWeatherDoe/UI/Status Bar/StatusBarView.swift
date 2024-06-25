@@ -16,12 +16,10 @@ struct StatusBarView: View {
             switch weatherResult {
             case let .success(success):
                 HStack {
-                    if success.showWeatherIcon,
-                       let image = WeatherConditionImageMapper().map(success.weatherCondition)
-                    {
-                        Image(nsImage: image)
+                    if success.showWeatherIcon {
+                        Image(systemName: success.weatherCondition.symbolName)
                             .renderingMode(.template)
-                            .accessibilityLabel(WeatherConditionTextMapper().map(success.weatherCondition))
+                            .accessibilityLabel(success.weatherCondition.accessibilityLabel)
                     }
                     if let text = success.textualRepresentation {
                         Text(text)
