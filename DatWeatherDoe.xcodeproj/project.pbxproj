@@ -72,6 +72,7 @@
 		20D8571F2A832AC6005727BB /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D8571E2A832AC6005727BB /* TemperatureUnit.swift */; };
 		20E4E18529AC719E00860C18 /* WeatherConditionImageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4E18429AC719E00860C18 /* WeatherConditionImageMapper.swift */; };
 		20E8A1A62C2B3C5A007E8733 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 20E8A1A52C2B3C5A007E8733 /* Localizable.xcstrings */; };
+		20E8A1AB2C2B3FE6007E8733 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A1AA2C2B3FE6007E8733 /* TestData.swift */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
 		E3105BA62818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */; };
 		E3BE2C91292C505A00C4F468 /* DropdownIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BE2C90292C505A00C4F468 /* DropdownIcon.swift */; };
@@ -156,6 +157,7 @@
 		20D8571E2A832AC6005727BB /* TemperatureUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnit.swift; sourceTree = "<group>"; };
 		20E4E18429AC719E00860C18 /* WeatherConditionImageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherConditionImageMapper.swift; sourceTree = "<group>"; };
 		20E8A1A52C2B3C5A007E8733 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		20E8A1AA2C2B3FE6007E8733 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -287,6 +289,7 @@
 		206523CD265983750026C506 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				20E8A1A92C2B3E4A007E8733 /* DevelopmentAssets */,
 				20652400265B0F870026C506 /* Localization */,
 				20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */,
 				2023EDA81C4ED09C0087FD67 /* Assets.xcassets */,
@@ -501,6 +504,14 @@
 			path = Configure;
 			sourceTree = "<group>";
 		};
+		20E8A1A92C2B3E4A007E8733 /* DevelopmentAssets */ = {
+			isa = PBXGroup;
+			children = (
+				20E8A1AA2C2B3FE6007E8733 /* TestData.swift */,
+			);
+			path = DevelopmentAssets;
+			sourceTree = "<group>";
+		};
 		61D04A301C7B7BCF00CBE6AE /* DatWeatherDoeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -648,6 +659,7 @@
 				209174102A9BDA4A00BB63E0 /* ConfigureViewModel.swift in Sources */,
 				2005C055278CB4E40067BBD1 /* WeatherValidatorType.swift in Sources */,
 				20B468222793B85900FC6050 /* SystemLocationWeatherRepository.swift in Sources */,
+				20E8A1AB2C2B3FE6007E8733 /* TestData.swift in Sources */,
 				2039B3FB2C28D1B0006A6B6D /* CustomButton.swift in Sources */,
 				20BBCDAF278B92A7007DEEB0 /* SystemLocationFetcher.swift in Sources */,
 				209482C629934BFF00AF39D4 /* MeasurementUnit.swift in Sources */,
@@ -858,6 +870,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 46;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"DatWeatherDoe/Resources/DevelopmentAssets\" \"DatWeatherDoe/Resources/DevelopmentAssets/TestData.swift\"";
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
@@ -887,6 +900,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 46;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"DatWeatherDoe/Resources/DevelopmentAssets\" \"DatWeatherDoe/Resources/DevelopmentAssets/TestData.swift\"";
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";

@@ -11,10 +11,10 @@ import SwiftUI
 struct CustomButton: View {
     let text: LocalizedStringKey
     let textColor: Color
-    let shortcutKey: String
+    let shortcutKey: KeyEquivalent
     let onClick: () -> Void
 
-    init(text: LocalizedStringKey, textColor: Color = Color.primary, shortcutKey: String, onClick: @escaping () -> Void) {
+    init(text: LocalizedStringKey, textColor: Color = Color.primary, shortcutKey: KeyEquivalent, onClick: @escaping () -> Void) {
         self.text = text
         self.textColor = textColor
         self.shortcutKey = shortcutKey
@@ -26,7 +26,7 @@ struct CustomButton: View {
             Text(text)
                 .foregroundStyle(textColor)
                 .frame(width: 110, height: 22)
-        }
+        }.keyboardShortcut(KeyboardShortcut(shortcutKey))
     }
 }
 
