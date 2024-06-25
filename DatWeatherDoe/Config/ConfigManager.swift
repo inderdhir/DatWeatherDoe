@@ -34,7 +34,7 @@ final class ConfigManager: ConfigManagerType {
     public var measurementUnit = MeasurementUnit.imperial.rawValue
 
     @AppStorage("weatherSource")
-    public var weatherSource = WeatherSource.latLong.rawValue
+    public var weatherSource = WeatherSource.location.rawValue
 
     @AppStorage("weatherSourceText")
     public var weatherSourceText = ""
