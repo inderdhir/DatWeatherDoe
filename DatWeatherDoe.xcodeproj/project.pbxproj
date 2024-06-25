@@ -57,8 +57,6 @@
 		20B468192793989B00FC6050 /* HumidityTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B468182793989B00FC6050 /* HumidityTextBuilder.swift */; };
 		20B4681B2793A7E300FC6050 /* TemperatureTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4681A2793A7E300FC6050 /* TemperatureTextBuilder.swift */; };
 		20B468222793B85900FC6050 /* SystemLocationWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B468212793B85900FC6050 /* SystemLocationWeatherRepository.swift */; };
-		20B952FC2682DAD20016F20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 20B952FA2682DAD20016F20A /* InfoPlist.strings */; };
-		20B952FF2682DAD20016F20A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 20B952FD2682DAD20016F20A /* Localizable.strings */; };
 		20B9CDCD27B8325900C42508 /* WeatherSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B9CDCC27B8325900C42508 /* WeatherSourceTests.swift */; };
 		20B9CDCF27B8335A00C42508 /* TemperatureUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B9CDCE27B8335A00C42508 /* TemperatureUnitTests.swift */; };
 		20B9CDD127B833EE00C42508 /* RefreshIntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B9CDD027B833EE00C42508 /* RefreshIntervalTests.swift */; };
@@ -73,6 +71,7 @@
 		20D8571D2A831F40005727BB /* WeatherRepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D8571C2A831F40005727BB /* WeatherRepositoryFactory.swift */; };
 		20D8571F2A832AC6005727BB /* TemperatureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D8571E2A832AC6005727BB /* TemperatureUnit.swift */; };
 		20E4E18529AC719E00860C18 /* WeatherConditionImageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4E18429AC719E00860C18 /* WeatherConditionImageMapper.swift */; };
+		20E8A1A62C2B3C5A007E8733 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 20E8A1A52C2B3C5A007E8733 /* Localizable.xcstrings */; };
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
 		E3105BA62818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */; };
 		E3BE2C91292C505A00C4F468 /* DropdownIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BE2C90292C505A00C4F468 /* DropdownIcon.swift */; };
@@ -141,10 +140,6 @@
 		20B468182793989B00FC6050 /* HumidityTextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityTextBuilder.swift; sourceTree = "<group>"; };
 		20B4681A2793A7E300FC6050 /* TemperatureTextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureTextBuilder.swift; sourceTree = "<group>"; };
 		20B468212793B85900FC6050 /* SystemLocationWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLocationWeatherRepository.swift; sourceTree = "<group>"; };
-		20B952FB2682DAD20016F20A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		20B952FE2682DAD20016F20A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		20B953012682DCFF0016F20A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		20B953022682DCFF0016F20A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		20B9CDCC27B8325900C42508 /* WeatherSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSourceTests.swift; sourceTree = "<group>"; };
 		20B9CDCE27B8335A00C42508 /* TemperatureUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTests.swift; sourceTree = "<group>"; };
 		20B9CDD027B833EE00C42508 /* RefreshIntervalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIntervalTests.swift; sourceTree = "<group>"; };
@@ -160,20 +155,13 @@
 		20D8571C2A831F40005727BB /* WeatherRepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryFactory.swift; sourceTree = "<group>"; };
 		20D8571E2A832AC6005727BB /* TemperatureUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnit.swift; sourceTree = "<group>"; };
 		20E4E18429AC719E00860C18 /* WeatherConditionImageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherConditionImageMapper.swift; sourceTree = "<group>"; };
+		20E8A1A52C2B3C5A007E8733 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		20F17D3926597A02003A164E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		20FF84E92456326400FC9DAA /* DatWeatherDoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DatWeatherDoe.entitlements; sourceTree = "<group>"; };
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D14D8DEF29450090006BC780 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D14D8DF029450090006BC780 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SunriseAndSunsetTextBuilder.swift; sourceTree = "<group>"; };
 		E3BE2C90292C505A00C4F468 /* DropdownIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIcon.swift; sourceTree = "<group>"; };
 		E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIconMapper.swift; sourceTree = "<group>"; };
-		E3EFBCE9281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E3EFBCEA281B26AA0011DD54 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F43E55CA2962592E0033F7FF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F43E55CB2962592E0033F7FF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		G53E55C96945592E0033F734 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		G53E55C96972592E0033F734 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,8 +329,7 @@
 		20652400265B0F870026C506 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				20B952FD2682DAD20016F20A /* Localizable.strings */,
-				20B952FA2682DAD20016F20A /* InfoPlist.strings */,
+				20E8A1A52C2B3C5A007E8733 /* Localizable.xcstrings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -639,9 +626,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20B952FC2682DAD20016F20A /* InfoPlist.strings in Resources */,
 				2023EDA91C4ED09C0087FD67 /* Assets.xcassets in Resources */,
-				20B952FF2682DAD20016F20A /* Localizable.strings in Resources */,
+				20E8A1A62C2B3C5A007E8733 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,35 +734,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		20B952FA2682DAD20016F20A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				20B952FB2682DAD20016F20A /* fr */,
-				20B953022682DCFF0016F20A /* en */,
-				E3EFBCEA281B26AA0011DD54 /* de */,
-				D14D8DF029450090006BC780 /* it */,
-				F43E55CB2962592E0033F7FF /* ja */,
-				G53E55C96972592E0033F734 /* zh-Hans */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		20B952FD2682DAD20016F20A /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				20B952FE2682DAD20016F20A /* fr */,
-				20B953012682DCFF0016F20A /* en */,
-				E3EFBCE9281B26AA0011DD54 /* de */,
-				D14D8DEF29450090006BC780 /* it */,
-				F43E55CA2962592E0033F7FF /* ja */,
-				G53E55C96945592E0033F734 /* zh-Hans */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		2023EDAE1C4ED09C0087FD67 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -825,10 +782,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -877,10 +836,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
