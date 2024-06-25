@@ -10,13 +10,11 @@ import Foundation
 
 struct WindData: Decodable {
     let speedMph: Double
-    let speedKph: Double
     let degrees: Int
     let direction: String
 
     private enum CodingKeys: String, CodingKey {
         case speedMph = "wind_mph"
-        case speedKph = "wind_kph"
         case degrees = "wind_degree"
         case direction = "wind_dir"
     }

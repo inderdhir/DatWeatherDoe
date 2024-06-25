@@ -63,7 +63,7 @@ final class ConfigureViewModel: ObservableObject {
     init(configManager: ConfigManagerType) {
         self.configManager = configManager
 
-        measurementUnit = MeasurementUnit(rawValue: configManager.measurementUnit) ?? .imperial
+        measurementUnit = configManager.parsedMeasurementUnit
         weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
 
         switch configManager.refreshInterval {

@@ -25,16 +25,10 @@ struct MenuOptionsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading) {
-                NonInteractiveMenuOptionView(
-                    image: iconMapper.map(.location),
-                    text: data?.locationText
-                )
-                NonInteractiveMenuOptionView(
-                    image: iconMapper.map(.thermometer),
-                    text: data?.weatherText
-                )
-                NonInteractiveMenuOptionView(image: iconMapper.map(.sun), text: data?.sunriseSunsetText)
-                NonInteractiveMenuOptionView(image: iconMapper.map(.wind), text: data?.tempHumidityWindText)
+                NonInteractiveMenuOptionView(icon: .location, text: data?.locationText)
+                NonInteractiveMenuOptionView(icon: .thermometer, text: data?.weatherText)
+                NonInteractiveMenuOptionView(icon: .sun, text: data?.sunriseSunsetText)
+                NonInteractiveMenuOptionView(icon: .wind, text: data?.tempHumidityWindText)
             }
 
             HStack {
@@ -57,6 +51,6 @@ struct MenuOptionsView: View {
     }
 }
 
-#Preview {
+//#Preview {
 //    MenuOptionsView()
-}
+//}
