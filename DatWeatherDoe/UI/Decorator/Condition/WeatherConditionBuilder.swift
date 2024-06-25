@@ -24,9 +24,9 @@ final class WeatherConditionBuilder: WeatherConditionBuilderType {
         case 1006, 1009:
             return .cloudy
         case 1003:
-            return isDay ? .partlyCloudy : .partlyCloudyNight
+            return response.isDay ? .partlyCloudy : .partlyCloudyNight
         case 1000:
-            return isDay ? .sunny : .clearNight
+            return response.isDay ? .sunny : .clearNight
         case 1030:
             return .mist
         case 1135, 1147:
@@ -40,15 +40,11 @@ final class WeatherConditionBuilder: WeatherConditionBuilderType {
         case 1069, 1072, 1168, 1171, 1198, 1201, 1204, 1207:
             return .freezingRain
         case 1063, 1150, 1153, 1180, 1183, 1186, 1189, 1240:
-            return isDay ? .partlyCloudyRain : .lightRain
+            return response.isDay ? .partlyCloudyRain : .lightRain
         case 1087, 1273:
             return .thunderstorm
         default:
-            return WeatherCondition.getFallback(isDay: isDay)
+            return WeatherCondition.getFallback(isDay: response.isDay)
         }
-    }
-
-    private var isDay: Bool {
-        response.isDayBool
     }
 }
