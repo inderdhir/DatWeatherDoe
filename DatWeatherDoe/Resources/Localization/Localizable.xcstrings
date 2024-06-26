@@ -30,6 +30,12 @@
             "state" : "translated",
             "value" : "[緯度],[経度]"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[纬度]、[经度]"
+          }
         }
       }
     },
@@ -41,6 +47,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "❗️City"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "城市"
           }
         }
       }
@@ -71,6 +83,12 @@
             "state" : "translated",
             "value" : "緯度/経度のエラー"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "经纬度"
+          }
         }
       }
     },
@@ -99,6 +117,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "所在地のエラー"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "位置"
           }
         }
       }
@@ -129,6 +153,12 @@
             "state" : "translated",
             "value" : "5分"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5分钟"
+          }
         }
       }
     },
@@ -157,6 +187,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "15分"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15分钟"
           }
         }
       }
@@ -187,6 +223,12 @@
             "state" : "translated",
             "value" : "30分"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30分钟"
+          }
         }
       }
     },
@@ -215,6 +257,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "60分"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "60分钟"
           }
         }
       }
@@ -245,6 +293,12 @@
             "state" : "translated",
             "value" : "温度後"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在温度后"
+          }
         }
       }
     },
@@ -274,6 +328,12 @@
             "state" : "translated",
             "value" : "全て"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部"
+          }
         }
       }
     },
@@ -302,6 +362,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "温度前"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在温度前"
           }
         }
       }
@@ -344,6 +410,12 @@
             "state" : "translated",
             "value" : "クリア"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "晴朗"
+          }
         }
       }
     },
@@ -372,6 +444,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "曇り"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多云"
           }
         }
       }
@@ -409,6 +487,12 @@
             "state" : "translated",
             "value" : "設定する"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配置"
+          }
         }
       }
     },
@@ -438,11 +522,25 @@
             "state" : "translated",
             "value" : "完了"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
         }
       }
     },
     "Fog" : {
-      "comment" : "Fog weather condition"
+      "comment" : "Fog weather condition",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雾"
+          }
+        }
+      }
     },
     "Freezing rain" : {
       "comment" : "Freezing rain weather condition",
@@ -469,6 +567,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "雨氷"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冻雨"
           }
         }
       }
@@ -499,17 +603,44 @@
             "state" : "translated",
             "value" : "豪雨"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大雨"
+          }
         }
       }
     },
     "Hide unit ° symbol" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏单位符号 °"
+          }
+        }
+      }
     },
     "Hide unit letter" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏单位字母 C"
+          }
+        }
+      }
     },
     "Imperial" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英制"
+          }
+        }
+      }
     },
     "Lat/Long" : {
       "comment" : "Weather based on Lat/Long",
@@ -536,6 +667,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "緯度/経度"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "纬度/经度"
           }
         }
       }
@@ -573,6 +710,12 @@
             "state" : "translated",
             "value" : "ログイン時に起動"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动启动"
+          }
         }
       }
     },
@@ -598,6 +741,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小雨"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "小雨"
@@ -631,14 +780,35 @@
             "state" : "translated",
             "value" : "所在地"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "定位"
+          }
         }
       }
     },
     "Metric" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公制"
+          }
+        }
+      }
     },
     "Mist" : {
-      "comment" : "Mist weather condition"
+      "comment" : "Mist weather condition",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "薄雾"
+          }
+        }
+      }
     },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
@@ -690,6 +860,12 @@
             "state" : "translated",
             "value" : "晴れ時々曇り"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "局部多云"
+          }
         }
       }
     },
@@ -718,6 +894,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "部分的に曇り雨"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多云转阴有雨"
           }
         }
       }
@@ -748,6 +930,12 @@
             "state" : "translated",
             "value" : "終了する"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出"
+          }
         }
       }
     },
@@ -776,6 +964,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "再読み込みする"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新"
           }
         }
       }
@@ -806,6 +1000,12 @@
             "state" : "translated",
             "value" : "再読み込み間隔"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新间隔"
+          }
         }
       }
     },
@@ -834,6 +1034,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "データを四捨五入する"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据四舍五入"
           }
         }
       }
@@ -864,11 +1070,24 @@
             "state" : "translated",
             "value" : "全ての天気情報を見る"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看完整天气"
+          }
         }
       }
     },
     "Separate values with" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分隔符号"
+          }
+        }
+      }
     },
     "Show Humidity" : {
       "comment" : "Show humidity",
@@ -895,6 +1114,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "湿度を表示する"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示湿度"
           }
         }
       }
@@ -925,6 +1150,12 @@
             "state" : "translated",
             "value" : "天気アイコンを表示する"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示天气图标"
+          }
         }
       }
     },
@@ -950,6 +1181,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雪"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "雪"
@@ -983,6 +1220,12 @@
             "state" : "translated",
             "value" : "晴れ"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阳光"
+          }
         }
       }
     },
@@ -1008,6 +1251,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雷雨"
+          }
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "雷雨"
@@ -1040,6 +1289,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "単位"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "单位"
           }
         }
       }
@@ -1077,6 +1332,12 @@
             "state" : "translated",
             "value" : "不明"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知"
+          }
         }
       }
     },
@@ -1113,11 +1374,24 @@
             "state" : "translated",
             "value" : "所在地不明"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知地区"
+          }
         }
       }
     },
     "Weather Condition Position" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天气文本位置"
+          }
+        }
+      }
     },
     "Weather Condition Text" : {
       "comment" : "Weather Condition Text",
@@ -1144,6 +1418,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "気象条件テキスト"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示天气文本信息"
           }
         }
       }
@@ -1173,6 +1453,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "気象情報源"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获取天气方式"
           }
         }
       }
