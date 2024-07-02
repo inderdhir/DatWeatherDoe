@@ -25,5 +25,6 @@ let response = WeatherAPIResponse(
             maxTempC: 32.8, maxTempF: 91.0, minTempC: 20.6, minTempF: 69.2
         ),
         astro: .init(sunrise: "05:26 AM", sunset: "08:31 PM")
-    )
+    ),
+    airQualityIndex: .good
 )

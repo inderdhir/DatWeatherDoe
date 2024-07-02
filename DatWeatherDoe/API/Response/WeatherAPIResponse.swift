@@ -16,6 +16,7 @@ struct WeatherAPIResponse: Decodable {
     let humidity: Int
     let windData: WindData
     let forecastDayData: ForecastDayData
+    let airQualityIndex: AirQualityIndex
     
     private enum RootKeys: String, CodingKey {
         case location, current, forecast
@@ -28,6 +29,7 @@ struct WeatherAPIResponse: Decodable {
     private enum CurrentKeys: String, CodingKey {
         case isDay = "is_day"
         case condition, humidity
+        case airQuality = "air_quality"
     }
     
     private enum WeatherConditionKeys: String, CodingKey {
@@ -40,6 +42,10 @@ struct WeatherAPIResponse: Decodable {
     
     private enum ForecastDayKeys: String, CodingKey {
         case day, astro
+    }
+    
+    private enum AirQualityKeys: String, CodingKey {
+        case usEpaIndex = "us-epa-index"
     }
     
     init(from decoder: Decoder) throws {
@@ -73,6 +79,9 @@ struct WeatherAPIResponse: Decodable {
                 debugDescription: "Missing forecast day data"
             )
         }
+        
+        let airQualityContainer = try currentContainer.nestedContainer(keyedBy: AirQualityKeys.self, forKey: .airQuality)
+        airQualityIndex = try airQualityContainer.decode(AirQualityIndex.self, forKey: .usEpaIndex)
     }
     
     init(
@@ -82,7 +91,8 @@ struct WeatherAPIResponse: Decodable {
         weatherConditionCode: Int,
         humidity: Int,
         windData: WindData,
-        forecastDayData: ForecastDayData
+        forecastDayData: ForecastDayData,
+        airQualityIndex: AirQualityIndex
     ) {
         self.locationName = locationName
         self.temperatureData = temperatureData
@@ -91,5 +101,6 @@ struct WeatherAPIResponse: Decodable {
         self.humidity = humidity
         self.windData = windData
         self.forecastDayData = forecastDayData
+        self.airQualityIndex = airQualityIndex
     }
 }

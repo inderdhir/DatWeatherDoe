@@ -28,7 +28,7 @@ final class WeatherURLBuilder: WeatherURLBuilderType {
 
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "key", value: appId),
-            URLQueryItem(name: "aqi", value: String("no")),
+            URLQueryItem(name: "aqi", value: String("yes")),
             URLQueryItem(name: "q", value: latLonString),
             URLQueryItem(name: "dt", value: parsedDateToday)
         ]
