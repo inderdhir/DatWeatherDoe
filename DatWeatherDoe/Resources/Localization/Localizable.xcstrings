@@ -577,6 +577,14 @@
         }
       }
     },
+    "Good" : {
+      "comment" : "Air quality index: Good",
+      "extractionState" : "manual"
+    },
+    "Hazardous" : {
+      "comment" : "Air quality index: Hazardous",
+      "extractionState" : "manual"
+    },
     "Heavy rain" : {
       "comment" : "Heavy rain weather condition",
       "localizations" : {
@@ -641,6 +649,9 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "Lat/Long" : {
       "comment" : "Weather based on Lat/Long",
@@ -809,6 +820,10 @@
           }
         }
       }
+    },
+    "Moderate" : {
+      "comment" : "Air quality index: Moderate",
+      "extractionState" : "manual"
     },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
@@ -1264,6 +1279,14 @@
         }
       }
     },
+    "Unhealthy" : {
+      "comment" : "Air quality index: Unhealthy",
+      "extractionState" : "manual"
+    },
+    "Unhealthy for sensitive groups" : {
+      "comment" : "Air quality index: Unhealthy for sensitive groups",
+      "extractionState" : "manual"
+    },
     "Unit" : {
       "comment" : "Temperature unit",
       "localizations" : {
@@ -1382,6 +1405,10 @@
           }
         }
       }
+    },
+    "Very unhealthy" : {
+      "comment" : "Air quality index: Very unhealthy",
+      "extractionState" : "manual"
     },
     "Weather Condition Position" : {
       "localizations" : {

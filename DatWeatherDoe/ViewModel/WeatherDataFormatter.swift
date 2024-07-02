@@ -53,7 +53,7 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
     }
 
     func getWindSpeedItem(for data: WeatherData) -> String {
-        if configManager.measurementUnit == MeasurementUnit.all.rawValue {
+        let windData = if configManager.measurementUnit == MeasurementUnit.all.rawValue {
             WindSpeedFormatter()
                 .getFormattedWindSpeedStringForAllUnits(
                     windData: data.response.windData,
@@ -66,5 +66,9 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
                     windData: data.response.windData
                 )
         }
+        
+        let airQuality = "AQI: \(data.response.airQualityIndex.description)"
+        
+        return "\(windData) | \(airQuality)"
     }
 }
