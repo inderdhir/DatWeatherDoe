@@ -15,6 +15,7 @@ struct WeatherAPIResponse: Decodable {
     let weatherConditionCode: Int
     let humidity: Int
     let windData: WindData
+    let uvIndex: Double
     let forecastDayData: ForecastDayData
     let airQualityIndex: AirQualityIndex
     
@@ -30,6 +31,7 @@ struct WeatherAPIResponse: Decodable {
         case isDay = "is_day"
         case condition, humidity
         case airQuality = "air_quality"
+        case uvIndex = "uv"
     }
     
     private enum WeatherConditionKeys: String, CodingKey {
@@ -65,9 +67,11 @@ struct WeatherAPIResponse: Decodable {
         )
         weatherConditionCode = try weatherConditionContainer.decode(Int.self, forKey: .code)
         
+        humidity = try currentContainer.decode(Int.self, forKey: .humidity)
+
         windData = try container.decode(WindData.self, forKey: .current)
         
-        humidity = try currentContainer.decode(Int.self, forKey: .humidity)
+        uvIndex = try currentContainer.decode(Double.self, forKey: .uvIndex)
         
         let forecast = try container.decode(Forecast.self, forKey: .forecast)
         if let dayData = forecast.dayDataArr.first {
@@ -91,6 +95,7 @@ struct WeatherAPIResponse: Decodable {
         weatherConditionCode: Int,
         humidity: Int,
         windData: WindData,
+        uvIndex: Double,
         forecastDayData: ForecastDayData,
         airQualityIndex: AirQualityIndex
     ) {
@@ -100,6 +105,7 @@ struct WeatherAPIResponse: Decodable {
         self.weatherConditionCode = weatherConditionCode
         self.humidity = humidity
         self.windData = windData
+        self.uvIndex = uvIndex
         self.forecastDayData = forecastDayData
         self.airQualityIndex = airQualityIndex
     }
