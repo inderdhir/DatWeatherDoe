@@ -33,7 +33,7 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
     func getWeatherText(for data: WeatherData) -> String {
         let measurementUnit = configManager.parsedMeasurementUnit
 
-        return TemperatureForecastTextBuilder(
+        let temperatureForecastText = TemperatureForecastTextBuilder(
             temperatureData: data.response.temperatureData,
             forecastTemperatureData: data.response.forecastDayData.temp,
             options: .init(
@@ -43,6 +43,10 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
                 isUnitSymbolOff: configManager.isUnitSymbolOff
             )
         ).build()
+        
+        let uvIndex = "UV: \(data.response.uvIndex)"
+        
+        return "\(temperatureForecastText) | \(uvIndex)"
     }
 
     func getSunriseSunset(for data: WeatherData) -> String {

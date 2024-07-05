@@ -20,6 +20,7 @@ let response = WeatherAPIResponse(
     weatherConditionCode: 1000,
     humidity: 45,
     windData: .init(speedMph: 12.3, degrees: 305, direction: "NW"),
+    uvIndex: 7.0,
     forecastDayData: .init(
         temp: .init(
             maxTempC: 32.8, maxTempF: 91.0, minTempC: 20.6, minTempF: 69.2
