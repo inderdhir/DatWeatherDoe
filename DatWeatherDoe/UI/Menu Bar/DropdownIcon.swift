@@ -13,7 +13,7 @@ enum DropdownIcon {
     case sun
     case wind
     case uvIndexAndAirQualityText
-    
+
     var symbolName: String {
         switch self {
         case .location:
@@ -28,7 +28,7 @@ enum DropdownIcon {
             "sun.max.circle"
         }
     }
-    
+
     var accessibilityLabel: String {
         switch self {
         case .location:

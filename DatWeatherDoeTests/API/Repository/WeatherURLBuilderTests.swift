@@ -16,7 +16,7 @@ final class WeatherURLBuilderTests: XCTestCase {
             "https://api.weatherapi.com/v1/forecast.json?key=123456&aqi=no&q=42.0,42.0&dt=\(parsedDateToday)"
         )
     }
-    
+
     private var parsedDateToday: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
