@@ -76,7 +76,6 @@
 		20F17D3A26597A02003A164E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F17D3926597A02003A164E /* WeatherData.swift */; };
 		E3105BA62818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */; };
 		E3BE2C91292C505A00C4F468 /* DropdownIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BE2C90292C505A00C4F468 /* DropdownIcon.swift */; };
-		E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,7 +162,6 @@
 		61D04A2F1C7B7BCF00CBE6AE /* DatWeatherDoeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatWeatherDoeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3105BA52818805A00FB4C55 /* SunriseAndSunsetTextBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SunriseAndSunsetTextBuilder.swift; sourceTree = "<group>"; };
 		E3BE2C90292C505A00C4F468 /* DropdownIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIcon.swift; sourceTree = "<group>"; };
-		E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownIconMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,7 +254,6 @@
 			children = (
 				2000D4072AD86DAA0052EDA6 /* WindSpeedFormatter.swift */,
 				E3BE2C90292C505A00C4F468 /* DropdownIcon.swift */,
-				E3BE2C92292C50ED00C4F468 /* DropdownIconMapper.swift */,
 				2039B3FA2C28D1B0006A6B6D /* CustomButton.swift */,
 				2039B3FC2C28D1C0006A6B6D /* MenuOptionsView.swift */,
 				2039B3FE2C28D1D3006A6B6D /* NonInteractiveMenuOptionView.swift */,
@@ -699,7 +696,6 @@
 				206E15252A7C4C5C0096D33C /* ConfigOptions.swift in Sources */,
 				2039B3E72C2896BD006A6B6D /* WindData.swift in Sources */,
 				2005C059278CB5FC0067BBD1 /* WeatherURLBuilder.swift in Sources */,
-				E3BE2C93292C50ED00C4F468 /* DropdownIconMapper.swift in Sources */,
 				20D857122A831802005727BB /* ConfigureWeatherOptionsView.swift in Sources */,
 				20D8571D2A831F40005727BB /* WeatherRepositoryFactory.swift in Sources */,
 				20B468192793989B00FC6050 /* HumidityTextBuilder.swift in Sources */,

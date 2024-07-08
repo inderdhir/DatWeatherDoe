@@ -13,6 +13,7 @@ protocol WeatherDataFormatterType {
     func getWeatherText(for data: WeatherData) -> String
     func getSunriseSunset(for data: WeatherData) -> String
     func getWindSpeedItem(for data: WeatherData) -> String
+    func getUVIndexAndAirQuality(for data: WeatherData) -> String
 }
 
 final class WeatherDataFormatter: WeatherDataFormatterType {
@@ -31,22 +32,16 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
     }
 
     func getWeatherText(for data: WeatherData) -> String {
-        let measurementUnit = configManager.parsedMeasurementUnit
-
-        let temperatureForecastText = TemperatureForecastTextBuilder(
+        TemperatureForecastTextBuilder(
             temperatureData: data.response.temperatureData,
             forecastTemperatureData: data.response.forecastDayData.temp,
             options: .init(
-                unit: measurementUnit.temperatureUnit,
+                unit:  configManager.parsedMeasurementUnit.temperatureUnit,
                 isRoundingOff: configManager.isRoundingOffData,
                 isUnitLetterOff: configManager.isUnitLetterOff,
                 isUnitSymbolOff: configManager.isUnitSymbolOff
             )
         ).build()
-        
-        let uvIndex = "UV: \(data.response.uvIndex)"
-        
-        return "\(temperatureForecastText) | \(uvIndex)"
     }
 
     func getSunriseSunset(for data: WeatherData) -> String {
@@ -57,7 +52,7 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
     }
 
     func getWindSpeedItem(for data: WeatherData) -> String {
-        let windData = if configManager.measurementUnit == MeasurementUnit.all.rawValue {
+        if configManager.measurementUnit == MeasurementUnit.all.rawValue {
             WindSpeedFormatter()
                 .getFormattedWindSpeedStringForAllUnits(
                     windData: data.response.windData,
@@ -70,9 +65,11 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
                     windData: data.response.windData
                 )
         }
-        
-        let airQuality = "AQI: \(data.response.airQualityIndex.description)"
-        
-        return "\(windData) | \(airQuality)"
+    }
+    
+    func getUVIndexAndAirQuality(for data: WeatherData) -> String {
+        let uvIndex = "UV Index: \(data.response.uvIndex)"
+        let airQualityIndex = "AQI: \(data.response.airQualityIndex.description)"
+        return [uvIndex, airQualityIndex].joined(separator: " | ")
     }
 }
