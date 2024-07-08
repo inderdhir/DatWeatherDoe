@@ -1,5 +1,5 @@
 //
-//  AirQualityIndex.swift
+//  AirQuality.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 7/1/24.
@@ -16,7 +16,7 @@ enum AirQualityIndex: Int, Decodable {
     case unhealthy = 4
     case veryUnhealthy = 5
     case hazardous = 6
-    
+
     var description: String {
         switch self {
         case .good:

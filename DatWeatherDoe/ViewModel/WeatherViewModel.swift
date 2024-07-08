@@ -49,7 +49,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             weatherTask?.cancel()
         }
     }
-    
+
     func setup(with formatter: WeatherDataFormatter) {
         dataFormatter = formatter
     }

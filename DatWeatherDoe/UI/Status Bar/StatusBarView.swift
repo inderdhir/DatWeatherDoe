@@ -10,7 +10,7 @@ import SwiftUI
 
 struct StatusBarView: View {
     let weatherResult: Result<WeatherData, Error>?
-    
+
     var body: some View {
         if let weatherResult {
             switch weatherResult {
@@ -33,22 +33,22 @@ struct StatusBarView: View {
 }
 
 #if DEBUG
-#Preview {
-    StatusBarView(
-        weatherResult: .success(
-            .init(
-                showWeatherIcon: true,
-                textualRepresentation: "88",
-                weatherCondition: .cloudy,
-                response: response
+    #Preview {
+        StatusBarView(
+            weatherResult: .success(
+                .init(
+                    showWeatherIcon: true,
+                    textualRepresentation: "88",
+                    weatherCondition: .cloudy,
+                    response: response
+                )
             )
         )
-    )
-    .frame(width: 100, height: 50)
-}
-
-#Preview {
-    StatusBarView(weatherResult: .failure(WeatherError.latLongIncorrect))
         .frame(width: 100, height: 50)
-}
+    }
+
+    #Preview {
+        StatusBarView(weatherResult: .failure(WeatherError.latLongIncorrect))
+            .frame(width: 100, height: 50)
+    }
 #endif

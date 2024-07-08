@@ -20,7 +20,7 @@ enum WeatherCondition {
     static func getFallback(isDay: Bool) -> WeatherCondition {
         isDay ? .sunny : .clearNight
     }
-    
+
     var symbolName: String {
         switch self {
         case .cloudy:
@@ -45,7 +45,7 @@ enum WeatherCondition {
             "cloud.fog"
         }
     }
-    
+
     var accessibilityLabel: String {
         switch self {
         case .cloudy:

@@ -25,7 +25,7 @@ protocol ConfigManagerType: AnyObject {
 
     func updateWeatherSource(_ source: WeatherSource, sourceText: String)
     func setConfigOptions(_ options: ConfigOptions)
-    
+
     var parsedMeasurementUnit: MeasurementUnit { get }
 }
 
@@ -80,7 +80,7 @@ final class ConfigManager: ConfigManagerType {
         valueSeparator = options.valueSeparator
         isWeatherConditionAsTextEnabled = options.isWeatherConditionAsTextEnabled
     }
-    
+
     var parsedMeasurementUnit: MeasurementUnit {
         MeasurementUnit(rawValue: measurementUnit) ?? .imperial
     }

@@ -1,5 +1,5 @@
 //
-//  WeatherDataParser.swift
+//  WeatherDataFormatter.swift
 //  DatWeatherDoe
 //
 //  Created by Inder Dhir on 6/24/24.
@@ -36,7 +36,7 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
             temperatureData: data.response.temperatureData,
             forecastTemperatureData: data.response.forecastDayData.temp,
             options: .init(
-                unit:  configManager.parsedMeasurementUnit.temperatureUnit,
+                unit: configManager.parsedMeasurementUnit.temperatureUnit,
                 isRoundingOff: configManager.isRoundingOffData,
                 isUnitLetterOff: configManager.isUnitLetterOff,
                 isUnitSymbolOff: configManager.isUnitSymbolOff
@@ -66,7 +66,7 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
                 )
         }
     }
-    
+
     func getUVIndexAndAirQuality(for data: WeatherData) -> String {
         let uvIndex = "UV Index: \(data.response.uvIndex)"
         let airQualityIndex = "AQI: \(data.response.airQualityIndex.description)"
