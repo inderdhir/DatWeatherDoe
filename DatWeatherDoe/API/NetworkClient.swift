@@ -14,6 +14,10 @@ protocol NetworkClientType {
 
 final actor NetworkClient: NetworkClientType {
     func performRequest(url: URL) async throws -> Data {
-        try await URLSession.shared.data(from: url).0
+        do {
+            return try await URLSession.shared.data(from: url).0
+        } catch {
+            throw WeatherError.networkError
+        }
     }
 }
