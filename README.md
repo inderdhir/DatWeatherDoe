@@ -5,9 +5,7 @@ OpenWeatherMap API 2.5 support is ending in June 2024. The app uses WeatherAPI g
 
 - Fetch weather using:
   - Location services
-  - Zip Code
   - Latitude / Longitude
-  - City
 - Configurable polling interval
 - Dark mode support
 - Supports MacOS 13.0+
