@@ -337,6 +337,10 @@
         }
       }
     },
+    "AQI" : {
+      "comment" : "Air Quality Index",
+      "extractionState" : "manual"
+    },
     "Before Temperature" : {
       "comment" : "Weather condition before temperature",
       "localizations" : {
@@ -578,11 +582,11 @@
       }
     },
     "Good" : {
-      "comment" : "Air quality index: Good",
+      "comment" : "Air Quality Index: Good",
       "extractionState" : "manual"
     },
     "Hazardous" : {
-      "comment" : "Air quality index: Hazardous",
+      "comment" : "Air Quality Index: Hazardous",
       "extractionState" : "manual"
     },
     "Heavy rain" : {
@@ -649,9 +653,6 @@
           }
         }
       }
-    },
-    "Key" : {
-      "extractionState" : "manual"
     },
     "Lat/Long" : {
       "comment" : "Weather based on Lat/Long",
@@ -822,7 +823,7 @@
       }
     },
     "Moderate" : {
-      "comment" : "Air quality index: Moderate",
+      "comment" : "Air Quality Index: Moderate",
       "extractionState" : "manual"
     },
     "NSHumanReadableCopyright" : {
@@ -1280,11 +1281,11 @@
       }
     },
     "Unhealthy" : {
-      "comment" : "Air quality index: Unhealthy",
+      "comment" : "Air Quality Index: Unhealthy",
       "extractionState" : "manual"
     },
     "Unhealthy for sensitive groups" : {
-      "comment" : "Air quality index: Unhealthy for sensitive groups",
+      "comment" : "Air Quality Index: Unhealthy for sensitive groups",
       "extractionState" : "manual"
     },
     "Unit" : {
@@ -1406,8 +1407,12 @@
         }
       }
     },
+    "UVI" : {
+      "comment" : "UV Index",
+      "extractionState" : "manual"
+    },
     "Very unhealthy" : {
-      "comment" : "Air quality index: Very unhealthy",
+      "comment" : "Air Quality Index: Very unhealthy",
       "extractionState" : "manual"
     },
     "Weather Condition Position" : {
