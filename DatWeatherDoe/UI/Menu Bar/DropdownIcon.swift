@@ -12,6 +12,7 @@ enum DropdownIcon {
     case thermometer
     case sun
     case wind
+    case uvIndexAndAirQualityText
     
     var symbolName: String {
         switch self {
@@ -23,6 +24,8 @@ enum DropdownIcon {
             "sun.horizon.circle"
         case .wind:
             "wind.circle"
+        case .uvIndexAndAirQualityText:
+            "sun.max.circle"
         }
     }
     
@@ -36,6 +39,8 @@ enum DropdownIcon {
             "Sunrise and Sunset"
         case .wind:
             "Wind data"
+        case .uvIndexAndAirQualityText:
+            "UV Index and Air Quality Index"
         }
     }
 }

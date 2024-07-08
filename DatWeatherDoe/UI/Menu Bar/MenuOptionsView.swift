@@ -13,14 +13,13 @@ struct MenuOptionData {
     let weatherText: String
     let sunriseSunsetText: String
     let tempHumidityWindText: String
+    let uvIndexAndAirQualityText: String
 }
 
 struct MenuOptionsView: View {
     let data: MenuOptionData?
     let onSeeWeather: () -> Void
     let onRefresh: () -> Void
-
-    private let iconMapper = DropdownIconMapper()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -29,6 +28,7 @@ struct MenuOptionsView: View {
                 NonInteractiveMenuOptionView(icon: .thermometer, text: data?.weatherText)
                 NonInteractiveMenuOptionView(icon: .sun, text: data?.sunriseSunsetText)
                 NonInteractiveMenuOptionView(icon: .wind, text: data?.tempHumidityWindText)
+                NonInteractiveMenuOptionView(icon: .uvIndexAndAirQualityText, text: data?.uvIndexAndAirQualityText)
             }
 
             HStack {

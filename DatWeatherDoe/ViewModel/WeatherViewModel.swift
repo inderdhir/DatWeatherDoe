@@ -181,7 +181,8 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             locationText: dataFormatter.getLocation(for: data),
             weatherText: dataFormatter.getWeatherText(for: data),
             sunriseSunsetText: dataFormatter.getSunriseSunset(for: data),
-            tempHumidityWindText: dataFormatter.getWindSpeedItem(for: data)
+            tempHumidityWindText: dataFormatter.getWindSpeedItem(for: data),
+            uvIndexAndAirQualityText: dataFormatter.getUVIndexAndAirQuality(for: data)
         )
         weatherResult = .success(data)
     }
