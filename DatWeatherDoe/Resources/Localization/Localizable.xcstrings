@@ -1457,7 +1457,15 @@
     },
     "UV Index" : {
       "comment" : "UV Index",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紫外线指数"
+          }
+        }
+      }
     },
     "Very unhealthy" : {
       "comment" : "Air Quality Index: Very unhealthy",
