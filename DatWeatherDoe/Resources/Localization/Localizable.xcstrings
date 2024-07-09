@@ -339,7 +339,15 @@
     },
     "AQI" : {
       "comment" : "Air Quality Index",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空气质量"
+          }
+        }
+      }
     },
     "Before Temperature" : {
       "comment" : "Weather condition before temperature",
@@ -583,11 +591,27 @@
     },
     "Good" : {
       "comment" : "Air Quality Index: Good",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "优"
+          }
+        }
+      }
     },
     "Hazardous" : {
       "comment" : "Air Quality Index: Hazardous",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "良"
+          }
+        }
+      }
     },
     "Heavy rain" : {
       "comment" : "Heavy rain weather condition",
@@ -824,7 +848,15 @@
     },
     "Moderate" : {
       "comment" : "Air Quality Index: Moderate",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轻度污染"
+          }
+        }
+      }
     },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
@@ -1282,11 +1314,27 @@
     },
     "Unhealthy" : {
       "comment" : "Air Quality Index: Unhealthy",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中度污染"
+          }
+        }
+      }
     },
     "Unhealthy for sensitive groups" : {
       "comment" : "Air Quality Index: Unhealthy for sensitive groups",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重度污染"
+          }
+        }
+      }
     },
     "Unit" : {
       "comment" : "Temperature unit",
@@ -1413,7 +1461,15 @@
     },
     "Very unhealthy" : {
       "comment" : "Air Quality Index: Very unhealthy",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "严重污染"
+          }
+        }
+      }
     },
     "Weather Condition Position" : {
       "localizations" : {
