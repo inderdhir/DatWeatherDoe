@@ -340,6 +340,14 @@
     "AQI" : {
       "comment" : "Air Quality Index",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IQA"
+          }
+        }
+      }
     },
     "Before Temperature" : {
       "comment" : "Weather condition before temperature",
@@ -584,10 +592,26 @@
     "Good" : {
       "comment" : "Air Quality Index: Good",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bon"
+          }
+        }
+      }
     },
     "Hazardous" : {
       "comment" : "Air Quality Index: Hazardous",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hasardeux"
+          }
+        }
+      }
     },
     "Heavy rain" : {
       "comment" : "Heavy rain weather condition",
@@ -626,6 +650,12 @@
     },
     "Hide unit ° symbol" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cacher le symbole ° d'unité"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -636,6 +666,12 @@
     },
     "Hide unit letter" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cacher le symbole d'unité"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -825,6 +861,14 @@
     "Moderate" : {
       "comment" : "Air Quality Index: Moderate",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modéré"
+          }
+        }
+      }
     },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
@@ -1097,6 +1141,12 @@
     },
     "Separate values with" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Séparer les valeurs avec"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1283,10 +1333,26 @@
     "Unhealthy" : {
       "comment" : "Air Quality Index: Unhealthy",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malsain"
+          }
+        }
+      }
     },
     "Unhealthy for sensitive groups" : {
       "comment" : "Air Quality Index: Unhealthy for sensitive groups",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malsain pour les groupes sensibles"
+          }
+        }
+      }
     },
     "Unit" : {
       "comment" : "Temperature unit",
@@ -1409,14 +1475,36 @@
     },
     "UV Index" : {
       "comment" : "UV Index",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Index UV"
+          }
+        }
+      }
     },
     "Very unhealthy" : {
       "comment" : "Air Quality Index: Very unhealthy",
       "extractionState" : "manual"
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Très malsain"
+          }
+        }
+      }
     },
     "Weather Condition Position" : {
       "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position de la condition météo"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
