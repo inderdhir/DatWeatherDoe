@@ -339,7 +339,7 @@
     },
     "AQI" : {
       "comment" : "Air Quality Index",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -591,7 +591,7 @@
     },
     "Good" : {
       "comment" : "Air Quality Index: Good",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -603,7 +603,7 @@
     },
     "Hazardous" : {
       "comment" : "Air Quality Index: Hazardous",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -860,7 +860,7 @@
     },
     "Moderate" : {
       "comment" : "Air Quality Index: Moderate",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1332,7 +1332,7 @@
     },
     "Unhealthy" : {
       "comment" : "Air Quality Index: Unhealthy",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1344,7 +1344,7 @@
     },
     "Unhealthy for sensitive groups" : {
       "comment" : "Air Quality Index: Unhealthy for sensitive groups",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1487,7 +1487,7 @@
     },
     "Very unhealthy" : {
       "comment" : "Air Quality Index: Very unhealthy",
-      "extractionState" : "manual"
+      "extractionState" : "manual",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
