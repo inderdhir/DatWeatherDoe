@@ -160,7 +160,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
 
                 updateWeatherData(weatherData)
             } catch {
-                updateWeatherData(error)
+                updateWeatherData(WeatherError.networkError)
             }
         }
     }
