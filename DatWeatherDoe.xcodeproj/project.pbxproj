@@ -864,7 +864,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DatWeatherDoe/Resources/DevelopmentAssets\" \"DatWeatherDoe/Resources/DevelopmentAssets/TestData.swift\"";
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
@@ -894,7 +894,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DatWeatherDoe/Resources/DevelopmentAssets\" \"DatWeatherDoe/Resources/DevelopmentAssets/TestData.swift\"";
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
