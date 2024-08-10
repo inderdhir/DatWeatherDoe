@@ -47,8 +47,8 @@ WEATHER_API_KEY=YOUR_KEY
 
 Buy me a coffee to support the development of this project.
 
-<a href="https://www.buymeacoffee.com/inderdhir"><img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=inderdhir&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"></a>
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y211O253)
 
-## Contribute
+## Contributing
 
 Please see CONTRIBUTING.md
