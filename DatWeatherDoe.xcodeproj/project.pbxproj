@@ -580,7 +580,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
@@ -858,7 +858,6 @@
 		2023EDB11C4ED09C0087FD67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DatWeatherDoe/Resources/DatWeatherDoe.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -888,7 +887,6 @@
 		2023EDB21C4ED09C0087FD67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DatWeatherDoe/Resources/DatWeatherDoe.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -988,32 +986,32 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
 			requirement = {
-				kind = exactVersion;
-				version = 0.54.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
 			};
 		};
 		20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
 			requirement = {
-				kind = exactVersion;
-				version = 5.2.3;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.3;
 			};
 		};
 		2039B4052C2920BF006A6B6D /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/orchetect/MenuBarExtraAccess";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.5;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
 			};
 		};
 		20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
-				kind = exactVersion;
-				version = 0.55.1;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.55.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
