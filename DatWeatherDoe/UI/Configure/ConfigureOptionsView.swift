@@ -51,6 +51,12 @@ struct ConfigureOptionsView: View {
             }
 
             HStack {
+                Text(LocalizedStringKey("Show UV Index"))
+                Spacer()
+                Toggle(isOn: $viewModel.isShowingUVIndex) {}
+            }
+            
+            HStack {
                 Text(LocalizedStringKey("Round-off Data"))
                 Spacer()
                 Toggle(isOn: $viewModel.isRoundingOffData) {}

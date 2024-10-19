@@ -19,6 +19,7 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
         let valueSeparator: String
         let temperatureOptions: TemperatureTextBuilder.Options
         let isShowingHumidity: Bool
+        let isShowingUVIndex: Bool
     }
 
     private let response: WeatherAPIResponse
@@ -37,6 +38,7 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
 
     func build() -> String {
         let finalString = appendTemperatureAsText() |>
+            appendUVIndex |>
             appendHumidityText |>
             buildWeatherConditionAsText
         return finalString
@@ -48,6 +50,15 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
             options: options.temperatureOptions,
             temperatureCreator: TemperatureWithDegreesCreator()
         ).build() ?? ""
+    }
+    
+    private func appendUVIndex(initial: String) -> String {
+        guard options.isShowingUVIndex else { return initial }
+        
+        return UVIndexTextBuilder(
+            initial: initial,
+            separator: options.valueSeparator
+        ).build(from: response)
     }
 
     private func appendHumidityText(initial: String) -> String {
