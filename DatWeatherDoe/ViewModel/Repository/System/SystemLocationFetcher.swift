@@ -61,7 +61,7 @@ final class SystemLocationFetcher: NSObject, SystemLocationFetcherType {
     private func requestLocationPermission() {
         logger.debug("Location permission not determined")
 
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
     }
 
     private func requestUpdatedLocation() {
