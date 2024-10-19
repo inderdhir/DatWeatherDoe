@@ -145,7 +145,8 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
                 isUnitLetterOff: configManager.isUnitLetterOff,
                 isUnitSymbolOff: configManager.isUnitSymbolOff
             ),
-            isShowingHumidity: configManager.isShowingHumidity
+            isShowingHumidity: configManager.isShowingHumidity,
+            isShowingUVIndex: configManager.isShowingUVIndex
         )
     }
 

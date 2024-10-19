@@ -16,6 +16,7 @@ protocol ConfigManagerType: AnyObject {
     var refreshInterval: TimeInterval { get set }
     var isShowingWeatherIcon: Bool { get set }
     var isShowingHumidity: Bool { get set }
+    var isShowingUVIndex: Bool { get set }
     var isRoundingOffData: Bool { get set }
     var isUnitLetterOff: Bool { get set }
     var isUnitSymbolOff: Bool { get set }
@@ -47,6 +48,9 @@ final class ConfigManager: ConfigManagerType {
 
     @AppStorage("isShowingHumidity")
     public var isShowingHumidity = false
+    
+    @AppStorage("isShowingUVIndex")
+    public var isShowingUVIndex = false
 
     @AppStorage("isRoundingOffData")
     public var isRoundingOffData = false
@@ -74,6 +78,7 @@ final class ConfigManager: ConfigManagerType {
     func setConfigOptions(_ options: ConfigOptions) {
         refreshInterval = options.refreshInterval.rawValue
         isShowingHumidity = options.isShowingHumidity
+        isShowingUVIndex = options.isShowingUVIndex
         isRoundingOffData = options.isRoundingOffData
         isUnitLetterOff = options.isUnitLetterOff
         isUnitSymbolOff = options.isUnitSymbolOff

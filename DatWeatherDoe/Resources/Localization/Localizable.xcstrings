@@ -1172,6 +1172,9 @@
         }
       }
     },
+    "Show UV Index" : {
+
+    },
     "Show Weather Icon" : {
       "comment" : "\"Show Weather Icon\"",
       "localizations" : {

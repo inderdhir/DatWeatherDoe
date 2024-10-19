@@ -11,6 +11,7 @@ import Foundation
 struct ConfigOptions {
     let refreshInterval: RefreshInterval
     let isShowingHumidity: Bool
+    let isShowingUVIndex: Bool
     let isRoundingOffData: Bool
     let isUnitLetterOff: Bool
     let isUnitSymbolOff: Bool

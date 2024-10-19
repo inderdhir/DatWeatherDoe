@@ -34,6 +34,10 @@ final class ConfigureViewModel: ObservableObject {
         didSet { configManager.isShowingHumidity = isShowingHumidity }
     }
 
+    @Published var isShowingUVIndex: Bool {
+        didSet { configManager.isShowingUVIndex = isShowingUVIndex }
+    }
+    
     @Published var isRoundingOffData: Bool {
         didSet { configManager.isRoundingOffData = isRoundingOffData }
     }
@@ -76,6 +80,7 @@ final class ConfigureViewModel: ObservableObject {
 
         isShowingWeatherIcon = configManager.isShowingWeatherIcon
         isShowingHumidity = configManager.isShowingHumidity
+        isShowingUVIndex = configManager.isShowingUVIndex
         isRoundingOffData = configManager.isRoundingOffData
         isUnitLetterOff = configManager.isUnitLetterOff
         isUnitSymbolOff = configManager.isUnitSymbolOff
@@ -90,6 +95,7 @@ final class ConfigureViewModel: ObservableObject {
             .init(
                 refreshInterval: refreshInterval,
                 isShowingHumidity: isShowingHumidity,
+                isShowingUVIndex: isShowingUVIndex,
                 isRoundingOffData: isRoundingOffData,
                 isUnitLetterOff: isUnitLetterOff,
                 isUnitSymbolOff: isUnitSymbolOff,
