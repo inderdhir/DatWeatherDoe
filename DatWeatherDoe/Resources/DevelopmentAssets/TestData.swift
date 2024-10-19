@@ -8,6 +8,14 @@
 
 import Foundation
 
+let uvIndicesFor24Hours: [HourlyUVIndex] = {
+    var arr: [HourlyUVIndex] = []
+    for i in 1...24 {
+        arr.append(HourlyUVIndex(uv: 0))
+    }
+    return arr
+}()
+
 let response = WeatherAPIResponse(
     locationName: "New York City",
     temperatureData: .init(
@@ -25,7 +33,8 @@ let response = WeatherAPIResponse(
         temp: .init(
             maxTempC: 32.8, maxTempF: 91.0, minTempC: 20.6, minTempF: 69.2
         ),
-        astro: .init(sunrise: "05:26 AM", sunset: "08:31 PM")
+        astro: .init(sunrise: "05:26 AM", sunset: "08:31 PM"),
+        hour: uvIndicesFor24Hours
     ),
     airQualityIndex: .good
 )
