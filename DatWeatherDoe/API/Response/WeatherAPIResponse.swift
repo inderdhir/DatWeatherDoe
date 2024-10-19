@@ -109,4 +109,15 @@ struct WeatherAPIResponse: Decodable {
         self.forecastDayData = forecastDayData
         self.airQualityIndex = airQualityIndex
     }
+    
+    // hour = [0-23]
+    func getHourlyUVIndex(hour: Int) -> Double {
+        forecastDayData.hour[safe: hour]?.uv ?? uvIndex
+    }
+}
+
+private extension Array {
+    subscript(safe index: Index) -> Element? {
+        get { indices ~= index ? self[index] : nil }
+    }
 }
