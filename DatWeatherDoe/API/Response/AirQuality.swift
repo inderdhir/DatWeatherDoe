@@ -18,34 +18,34 @@ enum AirQualityIndex: Int, Decodable {
     case hazardous = 6
 
     var description: String {
-        switch self {
+        return switch self {
         case .good:
-            return NSLocalizedString(
+            NSLocalizedString(
                 "Good",
                 comment: "Air quality index: Good"
             )
         case .moderate:
-            return NSLocalizedString(
+            NSLocalizedString(
                 "Moderate",
                 comment: "Air quality index: Moderate"
             )
         case .unhealthyForSensitive:
-            return NSLocalizedString(
+            NSLocalizedString(
                 "Unhealthy for sensitive groups",
                 comment: "Air quality index: Unhealthy for sensitive groups"
             )
         case .unhealthy:
-            return NSLocalizedString(
+            NSLocalizedString(
                 "Unhealthy",
                 comment: "Air quality index: Unhealthy"
             )
         case .veryUnhealthy:
-            return NSLocalizedString(
+            NSLocalizedString(
                 "Very unhealthy",
                 comment: "Air quality index: Very unhealthy"
             )
         case .hazardous:
-            return NSLocalizedString(
+            NSLocalizedString(
                 "Hazardous",
                 comment: "Air quality index: Hazardous"
             )
