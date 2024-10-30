@@ -12,13 +12,16 @@ import Foundation
 import OSLog
 
 protocol SystemLocationFetcherType: AnyObject {
-    var locationResult: AnyPublisher<Result<CLLocationCoordinate2D, Error>, Never> { get }
-    func startUpdatingLocation()
+    func getLocation() async throws -> CLLocationCoordinate2D
 }
 
-final class SystemLocationFetcher: NSObject, SystemLocationFetcherType {
+final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
     private let logger: Logger
-    private var currentLocation: CLLocationCoordinate2D?
+    private var cachedLocation: CLLocationCoordinate2D?
+    private var permissionContinuation: CheckedContinuation<Bool, Never>?
+    private var locationUpdateContinuation: CheckedContinuation<CLLocationCoordinate2D, Error>?
+    
+    @MainActor
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -26,120 +29,103 @@ final class SystemLocationFetcher: NSObject, SystemLocationFetcherType {
         locationManager.distanceFilter = 1000
         return locationManager
     }()
-
-    private lazy var currentLocationSerialQueue = DispatchQueue(label: "Location Serial Queue")
-    private let locationSubject = PassthroughSubject<Result<CLLocationCoordinate2D, Error>, Never>()
-    let locationResult: AnyPublisher<Result<CLLocationCoordinate2D, Error>, Never>
-
+    
     init(logger: Logger) {
         self.logger = logger
-        locationResult = locationSubject.eraseToAnyPublisher()
     }
-
-    func startUpdatingLocation() {
+    
+    func getLocation() async throws(WeatherError) -> CLLocationCoordinate2D {
         guard CLLocationManager.locationServicesEnabled() else {
-            updateWithMissingLocationServices()
-            return
+            logger.error("Location services not enabled")
+            
+            throw WeatherError.locationError
         }
-
+        
         switch CLLocationManager().authorizationStatus {
         case .notDetermined:
-            requestLocationPermission()
+            let isAuthorized = await withCheckedContinuation { continuation in
+                Task(priority: .high) {
+                    logger.debug("Location permission not determined")
+                    
+                    permissionContinuation = continuation
+                    
+                    await MainActor.run {
+                        locationManager.requestWhenInUseAuthorization()
+                    }
+                }
+            }
+            
+            logger.debug("Location permission changed, isAuthorized?: \(isAuthorized)")
+            
+            if isAuthorized {
+                return try await requestLatestOrCachedLocation()
+            }
+            
+            throw WeatherError.locationError
+
         case .authorized:
-            requestUpdatedLocation()
+            return try await requestLatestOrCachedLocation()
+            
         default:
-            updateWithDeniedUserLocation()
+            logger.error("Location permission has NOT been granted")
+            
+            throw WeatherError.locationError
         }
     }
-
-    private func updateWithMissingLocationServices() {
-        logger.error("Location services not enabled")
-
-        locationSubject.send(.failure(WeatherError.locationError))
-    }
-
-    private func requestLocationPermission() {
-        logger.debug("Location permission not determined")
-
-        locationManager.requestAlwaysAuthorization()
-    }
-
-    private func requestUpdatedLocation() {
-        currentLocationSerialQueue.sync { [weak self] in
-            _ = self?.sendCachedLocationIfPresent()
-        }
-        locationManager.startUpdatingLocation()
-    }
-
-    private func updateWithDeniedUserLocation() {
-        logger.error("Location permission has NOT been granted")
-
-        locationSubject.send(.failure(WeatherError.locationError))
-    }
-
-    private func sendCachedLocationIfPresent() -> Bool {
-        guard let currentLocation else { return false }
-
-        logger.debug("Sending cached location")
-
-        locationSubject.send(.success(currentLocation))
-
-        return true
-    }
-
-    private func updateLocationAfterAuthChange(isAuthorized: Bool) {
-        logger.debug("Location permission changed, isAuthorized?: \(isAuthorized)")
-
-        if isAuthorized {
-            requestUpdatedLocation()
-        } else {
-            locationSubject.send(.failure(WeatherError.locationError))
-        }
-    }
-
-    private func updateLocationAfterError(_ error: Error) {
-        logger.error("Getting updated location failed with error \(error.localizedDescription)")
-
-        currentLocationSerialQueue.sync { [weak self] in
-            guard let self else { return }
-
-            let isCachedLocationPresent = self.sendCachedLocationIfPresent()
-            if !isCachedLocationPresent {
-                locationSubject.send(.failure(WeatherError.locationError))
+    
+    private func requestLatestOrCachedLocation() async throws(WeatherError) -> CLLocationCoordinate2D {
+        do {
+            let latestLocation = try await withCheckedThrowingContinuation { continuation in
+                Task(priority: .high) {
+                    locationUpdateContinuation = continuation
+                    
+                    await MainActor.run {
+                        locationManager.startUpdatingLocation()
+                    }
+                }
+            }
+            return latestLocation
+        } catch {
+            if let cachedLocation = getCachedLocationIfPresent() {
+                return cachedLocation
             }
         }
+        
+        throw WeatherError.locationError
     }
-
-    private func updateLocation(location: CLLocationCoordinate2D?) {
-        currentLocationSerialQueue.sync { [weak self] in
-            guard let self else { return }
-
-            self.currentLocation = location
-
-            if let currentLocation {
-                self.locationSubject.send(.success(currentLocation))
-            } else {
-                self.logger.error("Getting location failed")
-
-                self.locationSubject.send(.failure(WeatherError.locationError))
-            }
+    
+    private func getCachedLocationIfPresent() -> CLLocationCoordinate2D? {
+        if let cachedLocation {
+            logger.debug("Sending cached location")
+            
+            return cachedLocation
         }
+        
+        return nil
     }
 }
 
 // MARK: CLLocationManagerDelegate
 
 extension SystemLocationFetcher: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_: CLLocationManager) {
+    nonisolated func locationManagerDidChangeAuthorization(_: CLLocationManager) {
         let isAuthorized = CLLocationManager().authorizationStatus == .authorized
-        updateLocationAfterAuthChange(isAuthorized: isAuthorized)
+        
+        Task(priority: .high) {
+            await permissionContinuation?.resume(returning: isAuthorized)
+        }
     }
-
-    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
-        updateLocationAfterError(error)
+    
+    nonisolated func locationManager(_: CLLocationManager, didFailWithError error: Error) {
+        Task(priority: .high) {
+            await locationUpdateContinuation?.resume(throwing: error)
+        }
     }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations _: [CLLocation]) {
-        updateLocation(location: manager.location?.coordinate)
+    
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations _: [CLLocation]) {
+        let coordinate =  manager.location?.coordinate ?? .init(latitude: .zero, longitude: .zero)
+        Task(priority: .high) {
+            await locationUpdateContinuation?.resume(returning: coordinate)
+        }
     }
 }
