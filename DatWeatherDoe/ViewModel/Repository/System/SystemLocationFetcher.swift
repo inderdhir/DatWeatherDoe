@@ -55,6 +55,8 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
                 }
             }
             
+            permissionContinuation = nil
+            
             logger.debug("Location permission changed, isAuthorized?: \(isAuthorized)")
             
             if isAuthorized {
@@ -73,7 +75,15 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
         }
     }
     
+    private func updateCachedLocation(_ location: CLLocationCoordinate2D) {
+        cachedLocation = location
+    }
+    
     private func requestLatestOrCachedLocation() async throws(WeatherError) -> CLLocationCoordinate2D {
+        if let cachedLocation = getCachedLocationIfPresent() {
+            return cachedLocation
+        }
+        
         do {
             let latestLocation = try await withCheckedThrowingContinuation { continuation in
                 Task(priority: .high) {
@@ -84,14 +94,13 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
                     }
                 }
             }
+            
+            locationUpdateContinuation = nil
+            
             return latestLocation
         } catch {
-            if let cachedLocation = getCachedLocationIfPresent() {
-                return cachedLocation
-            }
+            throw WeatherError.locationError
         }
-        
-        throw WeatherError.locationError
     }
     
     private func getCachedLocationIfPresent() -> CLLocationCoordinate2D? {
@@ -122,10 +131,11 @@ extension SystemLocationFetcher: CLLocationManagerDelegate {
         }
     }
     
-    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations _: [CLLocation]) {
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations _: [CLLocation]) {        
         let coordinate =  manager.location?.coordinate ?? .init(latitude: .zero, longitude: .zero)
         Task(priority: .high) {
             await locationUpdateContinuation?.resume(returning: coordinate)
+            await updateCachedLocation(coordinate)
         }
     }
 }
