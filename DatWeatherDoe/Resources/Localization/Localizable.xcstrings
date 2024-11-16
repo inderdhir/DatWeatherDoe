@@ -1173,7 +1173,14 @@
       }
     },
     "Show UV Index" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紫外线指数"
+          }
+        }
+      }
     },
     "Show Weather Icon" : {
       "comment" : "\"Show Weather Icon\"",
