@@ -18,7 +18,7 @@ enum AirQualityIndex: Int, Decodable {
     case hazardous = 6
 
     var description: String {
-        return switch self {
+        switch self {
         case .good:
             NSLocalizedString(
                 "Good",
