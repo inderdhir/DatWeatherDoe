@@ -37,7 +37,7 @@ final class ConfigureViewModel: ObservableObject {
     @Published var isShowingUVIndex: Bool {
         didSet { configManager.isShowingUVIndex = isShowingUVIndex }
     }
-    
+
     @Published var isRoundingOffData: Bool {
         didSet { configManager.isRoundingOffData = isRoundingOffData }
     }

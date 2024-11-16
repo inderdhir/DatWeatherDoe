@@ -63,7 +63,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     func seeForecastForCurrentCity() {
         forecaster.seeForecastForCity()
     }
-    
+
     private func setupReachability() {
         reachability = NetworkReachability(
             logger: logger,
@@ -75,7 +75,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
 
     private func getWeatherWithSelectedSource() async {
         let weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
-        
+
         do {
             let weatherData = switch weatherSource {
             case .location:
@@ -95,7 +95,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
             let location = try await locationFetcher.getLocation()
             return location
         }
-        
+
         let location = try await locationTask.value
         return try await getWeather(
             repository: weatherFactory.create(location: location),
@@ -143,17 +143,17 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
 
     private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) async throws -> WeatherData {
         let repository = repository
-        
+
         let responseTask = Task {
             let response = try await repository.getWeather()
             return response
         }
-        
+
         do {
             let response = try await responseTask.value
             let weatherData = WeatherDataBuilder(
                 response: response,
-                options:  buildWeatherDataOptions(for: unit),
+                options: buildWeatherDataOptions(for: unit),
                 logger: logger
             ).build()
             return weatherData

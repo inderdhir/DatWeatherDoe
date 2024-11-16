@@ -71,9 +71,9 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
         let currentHour = Calendar.current.component(.hour, from: Date())
         let currentUVIndex = data.response.getHourlyUVIndex(hour: currentHour)
         let uvIndex = "UV Index: \(currentUVIndex)"
-        
+
         let airQualityIndex = "AQI: \(data.response.airQualityIndex.description)"
-        
+
         return [uvIndex, airQualityIndex].joined(separator: " | ")
     }
 }

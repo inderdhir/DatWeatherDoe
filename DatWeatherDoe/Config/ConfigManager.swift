@@ -48,7 +48,7 @@ final class ConfigManager: ConfigManagerType {
 
     @AppStorage("isShowingHumidity")
     public var isShowingHumidity = false
-    
+
     @AppStorage("isShowingUVIndex")
     public var isShowingUVIndex = false
 

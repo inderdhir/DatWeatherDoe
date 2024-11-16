@@ -51,10 +51,10 @@ final class WeatherTextBuilder: WeatherTextBuilderType {
             temperatureCreator: TemperatureWithDegreesCreator()
         ).build() ?? ""
     }
-    
+
     private func appendUVIndex(initial: String) -> String {
         guard options.isShowingUVIndex else { return initial }
-        
+
         return UVIndexTextBuilder(
             initial: initial,
             separator: options.valueSeparator

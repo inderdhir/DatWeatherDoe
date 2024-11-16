@@ -10,7 +10,7 @@ import Foundation
 
 let uvIndicesFor24Hours: [HourlyUVIndex] = {
     var arr: [HourlyUVIndex] = []
-    for i in 1...24 {
+    for i in 1 ... 24 {
         arr.append(HourlyUVIndex(uv: 0))
     }
     return arr
