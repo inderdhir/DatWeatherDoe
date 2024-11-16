@@ -76,7 +76,6 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
     }
 
     private func updateCachedLocation(_ location: CLLocationCoordinate2D) {
-        print("WTF updating cached location")
         cachedLocation = location
     }
 
