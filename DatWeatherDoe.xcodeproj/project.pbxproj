@@ -583,7 +583,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Inder Dhir";
 				TargetAttributes = {
 					2023EDA21C4ED09C0087FD67 = {
@@ -799,6 +799,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
@@ -852,6 +853,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -871,7 +873,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DatWeatherDoe/Resources/DevelopmentAssets\" \"DatWeatherDoe/Resources/DevelopmentAssets/TestData.swift\"";
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = DatWeatherDoe;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
@@ -900,7 +905,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DatWeatherDoe/Resources/DevelopmentAssets\" \"DatWeatherDoe/Resources/DevelopmentAssets/TestData.swift\"";
 				DEVELOPMENT_TEAM = Q8X4D3A8MT;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/DatWeatherDoe/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = DatWeatherDoe;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
@@ -991,7 +999,7 @@
 			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.54.0;
+				minimumVersion = 0.56.3;
 			};
 		};
 		20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */ = {
@@ -999,7 +1007,7 @@
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.2.3;
+				minimumVersion = 5.2.4;
 			};
 		};
 		2039B4052C2920BF006A6B6D /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */ = {
@@ -1007,7 +1015,7 @@
 			repositoryURL = "https://github.com/orchetect/MenuBarExtraAccess";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.2.1;
 			};
 		};
 		20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
@@ -1015,7 +1023,7 @@
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.55.1;
+				minimumVersion = 0.59.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
