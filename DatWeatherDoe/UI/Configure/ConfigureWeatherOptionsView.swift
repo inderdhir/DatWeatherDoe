@@ -14,11 +14,11 @@ struct ConfigureWeatherOptionsView: View {
     var body: some View {
         Group {
             HStack {
-                Text(LocalizedStringKey("Weather Source"))
+                Text("Weather Source")
                 Spacer()
                 Picker("", selection: $viewModel.weatherSource) {
-                    Text(LocalizedStringKey("Location")).tag(WeatherSource.location)
-                    Text(LocalizedStringKey("Lat/Long")).tag(WeatherSource.latLong)
+                    Text("Location").tag(WeatherSource.location)
+                    Text("Lat/Long").tag(WeatherSource.latLong)
                 }
                 .frame(width: 120)
             }

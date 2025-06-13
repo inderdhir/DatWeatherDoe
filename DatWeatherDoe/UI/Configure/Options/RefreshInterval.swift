@@ -19,13 +19,13 @@ enum RefreshInterval: TimeInterval, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .fiveMinutes:
-            return NSLocalizedString("5 min", comment: "5 min refresh interval")
+            String(localized: "5 min", comment: "5 min refresh interval")
         case .fifteenMinutes:
-            return NSLocalizedString("15 min", comment: "15 min refresh interval")
+            String(localized: "15 min", comment: "15 min refresh interval")
         case .thirtyMinutes:
-            return NSLocalizedString("30 min", comment: "30 min refresh interval")
+            String(localized: "30 min", comment: "30 min refresh interval")
         case .sixtyMinutes:
-            return NSLocalizedString("60 min", comment: "60 min refresh interval")
+            String(localized: "60 min", comment: "60 min refresh interval")
         }
     }
 }

@@ -16,43 +16,43 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
     func map(_ condition: WeatherCondition) -> String {
         switch condition {
         case .cloudy:
-            NSLocalizedString("Cloudy", comment: "Cloudy weather condition")
+            String(localized: "Cloudy", comment: "Cloudy weather condition")
 
         case .partlyCloudy, .partlyCloudyNight:
-            NSLocalizedString("Partly cloudy", comment: "Partly cloudy weather condition")
+            String(localized: "Partly cloudy", comment: "Partly cloudy weather condition")
 
         case .sunny:
-            NSLocalizedString("Sunny", comment: "Sunny weather condition")
+            String(localized: "Sunny", comment: "Sunny weather condition")
 
         case .clearNight:
-            NSLocalizedString("Clear", comment: "Clear at night weather condition")
+            String(localized: "Clear", comment: "Clear at night weather condition")
 
         case .snow:
-            NSLocalizedString("Snow", comment: "Snow weather condition")
+            String(localized: "Snow", comment: "Snow weather condition")
 
         case .heavyRain:
-            NSLocalizedString("Heavy rain", comment: "Heavy rain weather condition")
+            String(localized: "Heavy rain", comment: "Heavy rain weather condition")
 
         case .freezingRain:
-            NSLocalizedString("Freezing rain", comment: "Freezing rain weather condition")
+            String(localized: "Freezing rain", comment: "Freezing rain weather condition")
 
         case .lightRain:
-            NSLocalizedString("Light rain", comment: "Light rain weather condition")
+            String(localized: "Light rain", comment: "Light rain weather condition")
 
         case .partlyCloudyRain:
-            NSLocalizedString(
-                "Partly cloudy with rain",
+            String(
+                localized: "Partly cloudy with rain",
                 comment: "Partly cloudy with rain weather condition"
             )
 
         case .thunderstorm:
-            NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
+            String(localized: "Thunderstorm", comment: "Thunderstorm weather condition")
 
         case .mist:
-            NSLocalizedString("Mist", comment: "Mist weather condition")
+            String(localized: "Mist", comment: "Mist weather condition")
 
         case .fog:
-            NSLocalizedString("Fog", comment: "Fog weather condition")
+            String(localized: "Fog", comment: "Fog weather condition")
         }
     }
 }

@@ -16,9 +16,9 @@ enum WeatherConditionPosition: String, Identifiable {
     var title: String {
         switch self {
         case .beforeTemperature:
-            return NSLocalizedString("Before Temperature", comment: "Weather condition before temperature")
+            String(localized: "Before Temperature", comment: "Weather condition before temperature")
         case .afterTemperature:
-            return NSLocalizedString("After Temperature", comment: "Weather condition after temperature")
+            String(localized: "After Temperature", comment: "Weather condition after temperature")
         }
     }
 }

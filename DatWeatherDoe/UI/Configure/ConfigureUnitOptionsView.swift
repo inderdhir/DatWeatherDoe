@@ -14,13 +14,13 @@ struct ConfigureUnitOptionsView: View {
     var body: some View {
         Group {
             HStack {
-                Text(LocalizedStringKey("Hide unit letter"))
+                Text("Hide unit letter")
                 Spacer()
                 Toggle(isOn: $viewModel.isUnitLetterOff) {}
             }
 
             HStack {
-                Text(LocalizedStringKey("Hide unit ° symbol"))
+                Text("Hide unit ° symbol")
                 Spacer()
                 Toggle(isOn: $viewModel.isUnitSymbolOff) {}
             }

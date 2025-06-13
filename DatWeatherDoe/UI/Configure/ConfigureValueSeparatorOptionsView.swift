@@ -14,7 +14,7 @@ struct ConfigureValueSeparatorOptionsView: View {
 
     var body: some View {
         HStack {
-            Text(LocalizedStringKey("Separate values with"))
+            Text("Separate values with")
             Spacer()
             TextField(valueSeparatorPlaceholder, text: $viewModel.valueSeparator)
                 .font(.body)

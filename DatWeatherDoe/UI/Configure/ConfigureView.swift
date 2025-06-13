@@ -25,13 +25,13 @@ struct ConfigureView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 CustomButton(
-                    text: LocalizedStringKey("Done"),
+                    text: String(localized: "Done"),
                     shortcutKey: "d",
                     onClick: onSave
                 )
                 .frame(maxWidth: .infinity, alignment: .center)
 
-                Text(LocalizedStringKey("Quit"))
+                Text("Quit")
                     .foregroundStyle(Color.red)
                     .onTapGesture(perform: onQuit)
                     .frame(maxWidth: .infinity, alignment: .trailing)

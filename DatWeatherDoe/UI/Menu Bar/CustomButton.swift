@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct CustomButton: View {
-    let text: LocalizedStringKey
+    let text: String
     let textColor: Color
     let shortcutKey: KeyEquivalent
     let onClick: () -> Void
 
-    init(text: LocalizedStringKey, textColor: Color = Color.primary, shortcutKey: KeyEquivalent, onClick: @escaping () -> Void) {
+    init(text: String, textColor: Color = Color.primary, shortcutKey: KeyEquivalent, onClick: @escaping () -> Void) {
         self.text = text
         self.textColor = textColor
         self.shortcutKey = shortcutKey

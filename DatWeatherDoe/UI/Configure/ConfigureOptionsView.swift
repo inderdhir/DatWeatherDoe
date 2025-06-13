@@ -14,12 +14,12 @@ struct ConfigureOptionsView: View {
     var body: some View {
         Grid(verticalSpacing: 16) {
             HStack {
-                Text(LocalizedStringKey("Unit"))
+                Text("Unit")
                 Spacer()
                 Picker("", selection: $viewModel.measurementUnit) {
-                    Text(LocalizedStringKey("Metric")).tag(MeasurementUnit.metric)
-                    Text(LocalizedStringKey("Imperial")).tag(MeasurementUnit.imperial)
-                    Text(LocalizedStringKey("All")).tag(MeasurementUnit.all)
+                    Text("Metric").tag(MeasurementUnit.metric)
+                    Text("Imperial").tag(MeasurementUnit.imperial)
+                    Text("All").tag(MeasurementUnit.all)
                 }
                 .frame(width: 120)
             }
@@ -27,37 +27,37 @@ struct ConfigureOptionsView: View {
             ConfigureWeatherOptionsView(viewModel: viewModel)
 
             HStack {
-                Text(LocalizedStringKey("Refresh Interval"))
+                Text("Refresh Interval")
                 Spacer()
                 Picker("", selection: $viewModel.refreshInterval) {
-                    Text(LocalizedStringKey("5 min")).tag(RefreshInterval.fiveMinutes)
-                    Text(LocalizedStringKey("15 min")).tag(RefreshInterval.fifteenMinutes)
-                    Text(LocalizedStringKey("30 min")).tag(RefreshInterval.thirtyMinutes)
-                    Text(LocalizedStringKey("60 min")).tag(RefreshInterval.sixtyMinutes)
+                    Text("5 min").tag(RefreshInterval.fiveMinutes)
+                    Text("15 min").tag(RefreshInterval.fifteenMinutes)
+                    Text("30 min").tag(RefreshInterval.thirtyMinutes)
+                    Text("60 min").tag(RefreshInterval.sixtyMinutes)
                 }
                 .frame(width: 120)
             }
 
             HStack {
-                Text(LocalizedStringKey("Show Weather Icon"))
+                Text("Show Weather Icon")
                 Spacer()
                 Toggle(isOn: $viewModel.isShowingWeatherIcon) {}
             }
 
             HStack {
-                Text(LocalizedStringKey("Show Humidity"))
+                Text("Show Humidity")
                 Spacer()
                 Toggle(isOn: $viewModel.isShowingHumidity) {}
             }
 
             HStack {
-                Text(LocalizedStringKey("Show UV Index"))
+                Text("Show UV Index")
                 Spacer()
                 Toggle(isOn: $viewModel.isShowingUVIndex) {}
             }
 
             HStack {
-                Text(LocalizedStringKey("Round-off Data"))
+                Text("Round-off Data")
                 Spacer()
                 Toggle(isOn: $viewModel.isRoundingOffData) {}
             }
@@ -67,18 +67,18 @@ struct ConfigureOptionsView: View {
             ConfigureValueSeparatorOptionsView(viewModel: viewModel)
 
             HStack {
-                Text(LocalizedStringKey("Weather Condition Text"))
+                Text("Weather Condition Text")
                 Spacer()
                 Toggle(isOn: $viewModel.isWeatherConditionAsTextEnabled) {}
             }
 
             HStack {
-                Text(LocalizedStringKey("Weather Condition Position"))
+                Text("Weather Condition Position")
                 Spacer()
                 Picker("", selection: $viewModel.weatherConditionPosition) {
-                    Text(LocalizedStringKey("Before Temperature"))
+                    Text("Before Temperature")
                         .tag(WeatherConditionPosition.beforeTemperature)
-                    Text(LocalizedStringKey("After Temperature"))
+                    Text("After Temperature")
                         .tag(WeatherConditionPosition.afterTemperature)
                 }
                 .frame(maxWidth: 120)

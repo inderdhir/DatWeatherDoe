@@ -33,7 +33,7 @@ struct MenuOptionsView: View {
 
             HStack {
                 CustomButton(
-                    text: LocalizedStringKey("See Full Weather"),
+                    text: String(localized: "See Full Weather"),
                     shortcutKey: "f",
                     onClick: onSeeWeather
                 )
@@ -42,7 +42,7 @@ struct MenuOptionsView: View {
                 Spacer()
                     .frame(maxWidth: .infinity)
 
-                CustomButton(text: LocalizedStringKey("Refresh"), shortcutKey: "r", onClick: onRefresh)
+                CustomButton(text: String(localized: "Refresh"), shortcutKey: "r", onClick: onRefresh)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .frame(maxWidth: .infinity)
