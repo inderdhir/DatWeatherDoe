@@ -29,5 +29,6 @@ struct ForecastDayData: Decodable {
 }
 
 struct HourlyUVIndex: Decodable {
+    // swiftlint:disable:next identifier_name
     let uv: Double
 }

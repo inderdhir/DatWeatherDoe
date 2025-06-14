@@ -141,7 +141,10 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
         )
     }
 
-    private func getWeather(repository: WeatherRepositoryType, unit: MeasurementUnit) async throws -> WeatherData {
+    private func getWeather(
+        repository: WeatherRepositoryType,
+        unit: MeasurementUnit
+    ) async throws -> WeatherData {
         let repository = repository
 
         let responseTask = Task {

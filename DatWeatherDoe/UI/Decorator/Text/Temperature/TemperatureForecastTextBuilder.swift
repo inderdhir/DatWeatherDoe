@@ -84,13 +84,15 @@ final class TemperatureForecastTextBuilder: TemperatureForecastTextBuilderType {
     }
 
     private func buildTemperatureForUnit(_ unit: TemperatureUnit) -> String {
-        let maxTemp = unit == .fahrenheit ? forecastTemperatureData.maxTempF : forecastTemperatureData.maxTempC
+        let maxTemp = unit == .fahrenheit ?
+        forecastTemperatureData.maxTempF : forecastTemperatureData.maxTempC
         let formattedMaxTemp = buildFormattedTemperature(maxTemp, unit: unit)
         let maxTempStr = [upArrowStr, formattedMaxTemp]
             .compactMap { $0 }
             .joined()
 
-        let minTemp = unit == .fahrenheit ? forecastTemperatureData.minTempF : forecastTemperatureData.minTempC
+        let minTemp = unit == .fahrenheit ?
+        forecastTemperatureData.minTempF : forecastTemperatureData.minTempC
         let formatedMinTemp = buildFormattedTemperature(minTemp, unit: unit)
         let minTempStr = [downArrowStr, formatedMinTemp]
             .compactMap { $0 }

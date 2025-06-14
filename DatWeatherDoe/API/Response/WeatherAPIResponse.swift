@@ -84,7 +84,8 @@ struct WeatherAPIResponse: Decodable {
             )
         }
 
-        let airQualityContainer = try currentContainer.nestedContainer(keyedBy: AirQualityKeys.self, forKey: .airQuality)
+        let airQualityContainer =
+        try currentContainer.nestedContainer(keyedBy: AirQualityKeys.self, forKey: .airQuality)
         airQualityIndex = try airQualityContainer.decode(AirQualityIndex.self, forKey: .usEpaIndex)
     }
 

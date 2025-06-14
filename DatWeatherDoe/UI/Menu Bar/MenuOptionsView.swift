@@ -28,7 +28,10 @@ struct MenuOptionsView: View {
                 NonInteractiveMenuOptionView(icon: .thermometer, text: data?.weatherText)
                 NonInteractiveMenuOptionView(icon: .sun, text: data?.sunriseSunsetText)
                 NonInteractiveMenuOptionView(icon: .wind, text: data?.tempHumidityWindText)
-                NonInteractiveMenuOptionView(icon: .uvIndexAndAirQualityText, text: data?.uvIndexAndAirQualityText)
+                NonInteractiveMenuOptionView(
+                    icon: .uvIndexAndAirQualityText,
+                    text: data?.uvIndexAndAirQualityText
+                )
             }
 
             HStack {
