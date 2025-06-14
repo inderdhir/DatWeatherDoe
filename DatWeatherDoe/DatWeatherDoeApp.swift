@@ -13,8 +13,9 @@ import SwiftUI
 @main
 struct DatWeatherDoeApp: App {
     @State private var configManager: ConfigManager
+    @ObservedObject private var configureViewModel = ConfigureViewModel(configManager: ConfigManager())
     @ObservedObject private var viewModel: WeatherViewModel
-    @State private var isMenuPresented: Bool = false
+    @State private var isMenuPresented = false
     @State private var statusItem: NSStatusItem?
 
     init() {
@@ -39,6 +40,7 @@ struct DatWeatherDoeApp: App {
             content: {
                 MenuView(
                     viewModel: viewModel,
+                    configureViewModel: configureViewModel,
                     onSeeWeather: {
                         viewModel.seeForecastForCurrentCity()
                         closePopover()
@@ -48,7 +50,6 @@ struct DatWeatherDoeApp: App {
                         closePopover()
                     },
                     onSave: {
-                        viewModel.getUpdatedWeatherAfterRefresh()
                         closePopover()
                     }
                 )
@@ -61,7 +62,15 @@ struct DatWeatherDoeApp: App {
             }
         )
         .menuBarExtraAccess(isPresented: $isMenuPresented) { statusItem in
-            self.statusItem = statusItem
+            Task { @MainActor in
+                self.statusItem = statusItem
+            }
+        }
+        .onChange(of: isMenuPresented) { newValue in
+            if !newValue {                
+                configureViewModel.saveConfig()
+                viewModel.getUpdatedWeatherAfterRefresh()
+            }
         }
         .windowStyle(.hiddenTitleBar)
         .menuBarExtraStyle(.window)

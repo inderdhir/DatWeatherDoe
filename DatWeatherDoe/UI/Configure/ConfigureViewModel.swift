@@ -18,7 +18,7 @@ final class ConfigureViewModel: ObservableObject {
         didSet { configManager.weatherSource = weatherSource.rawValue }
     }
 
-    @Published var weatherSourceText = "" {
+    @Published var weatherSourceText: String {
         didSet { configManager.weatherSourceText = weatherSourceText }
     }
 
@@ -69,6 +69,7 @@ final class ConfigureViewModel: ObservableObject {
 
         measurementUnit = configManager.parsedMeasurementUnit
         weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
+        weatherSourceText = configManager.weatherSourceText
 
         switch configManager.refreshInterval {
         case 300: refreshInterval = .fiveMinutes

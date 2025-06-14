@@ -10,8 +10,8 @@ import SwiftUI
 
 struct MenuView: View {
     @ObservedObject var viewModel: WeatherViewModel
+    @ObservedObject var configureViewModel: ConfigureViewModel
     private var menuOptionData: MenuOptionData?
-    @State private var configureViewModel: ConfigureViewModel
     private var version: String
     private var onSeeWeather: () -> Void
     private var onRefresh: () -> Void
@@ -19,16 +19,17 @@ struct MenuView: View {
 
     init(
         viewModel: WeatherViewModel,
+        configureViewModel: ConfigureViewModel,
         onSeeWeather: @escaping () -> Void,
         onRefresh: @escaping () -> Void,
         onSave: @escaping () -> Void
     ) {
         self.viewModel = viewModel
+        self.configureViewModel = configureViewModel
         self.onSeeWeather = onSeeWeather
         self.onRefresh = onRefresh
         self.onSave = onSave
 
-        configureViewModel = ConfigureViewModel(configManager: ConfigManager())
         version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
     }
 
@@ -45,10 +46,7 @@ struct MenuView: View {
             ConfigureView(
                 viewModel: configureViewModel,
                 version: version,
-                onSave: {
-                    configureViewModel.saveConfig()
-                    onSave()
-                },
+                onSave: onSave,
                 onQuit: {
                     NSApp.terminate(self)
                 }
