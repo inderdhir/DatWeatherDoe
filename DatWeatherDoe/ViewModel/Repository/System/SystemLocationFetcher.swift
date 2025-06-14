@@ -134,8 +134,8 @@ extension SystemLocationFetcher: CLLocationManagerDelegate {
     nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations _: [CLLocation]) {
         let coordinate = manager.location?.coordinate ?? .init(latitude: .zero, longitude: .zero)
         Task(priority: .high) {
-            await locationUpdateContinuation?.resume(returning: coordinate)
             await updateCachedLocation(coordinate)
+            await locationUpdateContinuation?.resume(returning: coordinate)
         }
     }
 }
