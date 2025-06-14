@@ -67,7 +67,7 @@ struct DatWeatherDoeApp: App {
             }
         }
         .onChange(of: isMenuPresented) { newValue in
-            if !newValue {                
+            if !newValue {
                 configureViewModel.saveConfig()
                 viewModel.getUpdatedWeatherAfterRefresh()
             }

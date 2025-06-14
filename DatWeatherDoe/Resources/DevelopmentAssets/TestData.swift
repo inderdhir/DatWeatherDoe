@@ -10,6 +10,7 @@ import Foundation
 
 let uvIndicesFor24Hours: [HourlyUVIndex] = {
     var arr: [HourlyUVIndex] = []
+    // swiftlint:disable:next identifier_name
     for i in 1 ... 24 {
         arr.append(HourlyUVIndex(uv: 0))
     }
