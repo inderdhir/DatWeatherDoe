@@ -991,7 +991,7 @@
 			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.54.0;
+				minimumVersion = 0.57.2;
 			};
 		};
 		20012FA4267980EE00553B60 /* XCRemoteSwiftPackageReference "Reachability" */ = {
@@ -999,7 +999,7 @@
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.2.3;
+				minimumVersion = 5.2.4;
 			};
 		};
 		2039B4052C2920BF006A6B6D /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */ = {
@@ -1007,7 +1007,7 @@
 			repositoryURL = "https://github.com/orchetect/MenuBarExtraAccess";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.2.1;
 			};
 		};
 		20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
@@ -1015,7 +1015,7 @@
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.55.1;
+				minimumVersion = 0.59.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
