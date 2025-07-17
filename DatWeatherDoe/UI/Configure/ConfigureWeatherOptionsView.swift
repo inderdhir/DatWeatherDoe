@@ -38,12 +38,10 @@ struct ConfigureWeatherOptionsView: View {
     }
 }
 
-struct ConfigureWeatherOptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        Grid {
-            ConfigureWeatherOptionsView(
-                viewModel: .init(configManager: ConfigManager())
-            )
-        }
+#Preview {
+    Grid {
+        ConfigureWeatherOptionsView(
+            viewModel: .init(configManager: ConfigManager())
+        )
     }
 }

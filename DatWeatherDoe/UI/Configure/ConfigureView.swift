@@ -44,13 +44,11 @@ struct ConfigureView: View {
     }
 }
 
-struct ConfigureView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConfigureView(
-            viewModel: .init(configManager: ConfigManager()),
-            version: "5.0.0",
-            onSave: {},
-            onQuit: {}
-        )
-    }
+#Preview {
+    ConfigureView(
+        viewModel: .init(configManager: ConfigManager()),
+        version: "5.0.0",
+        onSave: {},
+        onQuit: {}
+    )
 }
