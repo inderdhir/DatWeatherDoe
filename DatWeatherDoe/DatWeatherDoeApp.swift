@@ -80,3 +80,4 @@ struct DatWeatherDoeApp: App {
         statusItem?.togglePresented()
     }
 }
+    

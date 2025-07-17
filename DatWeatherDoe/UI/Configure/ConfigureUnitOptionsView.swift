@@ -28,12 +28,10 @@ struct ConfigureUnitOptionsView: View {
     }
 }
 
-struct ConfigureUnitOptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        Grid {
-            ConfigureUnitOptionsView(
-                viewModel: .init(configManager: ConfigManager())
-            )
-        }
+#Preview {
+    Grid {
+        ConfigureUnitOptionsView(
+            viewModel: .init(configManager: ConfigManager())
+        )
     }
 }

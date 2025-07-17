@@ -89,11 +89,9 @@ struct ConfigureOptionsView: View {
     }
 }
 
-struct ConfigureOptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConfigureOptionsView(
-            viewModel: .init(configManager: ConfigManager())
-        )
-        .frame(width: 380)
-    }
+#Preview {
+    ConfigureOptionsView(
+        viewModel: .init(configManager: ConfigManager())
+    )
+    .frame(width: 380)
 }
