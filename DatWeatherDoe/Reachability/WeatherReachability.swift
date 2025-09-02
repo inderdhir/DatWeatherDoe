@@ -20,10 +20,10 @@ final class NetworkReachability {
     ) {
         self.logger = logger
 
-        setupWith(callback: onBecomingReachable)
+        setup(callback: onBecomingReachable)
     }
 
-    private func setupWith(callback: @escaping () -> Void) {
+    private func setup(callback: @escaping () -> Void) {
         do {
             reachability = try Reachability()
             try reachability?.startNotifier()

@@ -17,12 +17,12 @@ struct Forecast: Decodable {
 }
 
 struct ForecastDayData: Decodable {
-    let temp: ForecastTemperatureData
+    let temperatureData: ForecastTemperatureData
     let astro: SunriseSunsetData
     let hour: [HourlyUVIndex]
 
     private enum CodingKeys: String, CodingKey {
-        case temp = "day"
+        case temperatureData = "day"
         case astro
         case hour
     }

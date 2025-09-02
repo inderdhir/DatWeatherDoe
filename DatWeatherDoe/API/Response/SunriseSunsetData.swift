@@ -11,8 +11,4 @@ import Foundation
 struct SunriseSunsetData: Decodable {
     let sunrise: String
     let sunset: String
-
-    private enum CodingKeys: String, CodingKey {
-        case sunrise, sunset
-    }
 }
