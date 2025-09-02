@@ -31,7 +31,7 @@ let response = WeatherAPIResponse(
     windData: .init(speedMph: 12.3, degrees: 305, direction: "NW"),
     uvIndex: 7.0,
     forecastDayData: .init(
-        temp: .init(
+        temperatureData: .init(
             maxTempC: 32.8, maxTempF: 91.0, minTempC: 20.6, minTempF: 69.2
         ),
         astro: .init(sunrise: "05:26 AM", sunset: "08:31 PM"),

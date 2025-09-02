@@ -34,7 +34,7 @@ final class WeatherDataFormatter: WeatherDataFormatterType {
     func getWeatherText(for data: WeatherData) -> String {
         TemperatureForecastTextBuilder(
             temperatureData: data.response.temperatureData,
-            forecastTemperatureData: data.response.forecastDayData.temp,
+            forecastTemperatureData: data.response.forecastDayData.temperatureData,
             options: .init(
                 unit: configManager.parsedMeasurementUnit.temperatureUnit,
                 isRoundingOff: configManager.isRoundingOffData,

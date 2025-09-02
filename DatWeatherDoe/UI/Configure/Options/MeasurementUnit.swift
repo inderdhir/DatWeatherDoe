@@ -16,11 +16,11 @@ enum MeasurementUnit: String, CaseIterable, Identifiable {
     var temperatureUnit: TemperatureUnit {
         switch self {
         case .metric:
-            return .celsius
+            .celsius
         case .imperial:
-            return .fahrenheit
+            .fahrenheit
         case .all:
-            return .all
+            .all
         }
     }
 }

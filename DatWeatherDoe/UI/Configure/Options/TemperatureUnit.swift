@@ -16,11 +16,11 @@ enum TemperatureUnit: String, CaseIterable, Identifiable {
     var unitString: String {
         switch self {
         case .fahrenheit:
-            return "F"
+            "F"
         case .celsius:
-            return "C"
+            "C"
         case .all:
-            return "All"
+            "All"
         }
     }
 
