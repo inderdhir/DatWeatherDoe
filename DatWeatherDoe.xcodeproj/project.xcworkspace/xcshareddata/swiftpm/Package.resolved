@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/orchetect/MenuBarExtraAccess",
       "state" : {
-        "revision" : "e911e6454f8cbfe34a52136fc48e1ceb989a60e7",
-        "version" : "1.2.1"
+        "revision" : "707dff6f55217b3ef5b6be84ced3e83511d4df5c",
+        "version" : "1.2.2"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jpsim/SourceKitten.git",
       "state" : {
-        "revision" : "453f75b8a3bb2c3596c0d2dd422c289788233a22",
-        "version" : "0.37.1"
+        "revision" : "731ffe6a35344a19bab00cdca1c952d5b4fee4d8",
+        "version" : "0.37.2"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",
       "state" : {
-        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
-        "version" : "1.5.0"
+        "revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
+        "version" : "1.6.1"
       }
     },
     {
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swiftlang/swift-syntax.git",
       "state" : {
-        "revision" : "1103c45ece4f7fe160b8f75b4ea1ee2e5fac1841",
-        "version" : "601.0.0"
+        "revision" : "21b3b45635decd1a0b89968f81b6d9a93128f773",
+        "version" : "602.0.0-prerelease-2025-08-11"
       }
     },
     {
@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/SwiftLint",
       "state" : {
-        "revision" : "625792423014cc49b0a1e5a1a5c0d6b8b3de10f9",
-        "version" : "0.59.1"
+        "revision" : "cc6fbaf355caf9ebe02c1b631a8edaa6df9145c5",
+        "version" : "0.61.0"
       }
     },
     {
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jpsim/Yams.git",
       "state" : {
-        "revision" : "3d6871d5b4a5cd519adf233fbb576e0a2af71c17",
-        "version" : "5.4.0"
+        "revision" : "d41ba4e7164c0838c6d48351f7575f7f762151fe",
+        "version" : "6.1.0"
       }
     }
   ],
