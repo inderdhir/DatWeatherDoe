@@ -7,27 +7,31 @@
 //
 
 @testable import DatWeatherDoe
-import XCTest
+import Testing
 
-final class TemperatureUnitTests: XCTestCase {
-    func testFahrenheit() {
+struct TemperatureUnitTests {
+    
+    @Test
+    func fahrenheit() {
         let fahrenheitUnit = TemperatureUnit.fahrenheit
 
-        XCTAssertEqual(fahrenheitUnit.unitString, "F")
-        XCTAssertEqual(fahrenheitUnit.degreesString, "\u{00B0}F")
+        #expect(fahrenheitUnit.unitString == "F")
+        #expect(fahrenheitUnit.degreesString == "\u{00B0}F")
     }
 
-    func testCelsius() {
+    @Test
+    func celsius() {
         let fahrenheitUnit = TemperatureUnit.celsius
 
-        XCTAssertEqual(fahrenheitUnit.unitString, "C")
-        XCTAssertEqual(fahrenheitUnit.degreesString, "\u{00B0}C")
+        #expect(fahrenheitUnit.unitString == "C")
+        #expect(fahrenheitUnit.degreesString == "\u{00B0}C")
     }
 
-    func testAll() {
+    @Test
+    func all() {
         let fahrenheitUnit = TemperatureUnit.all
 
-        XCTAssertEqual(fahrenheitUnit.unitString, "All")
-        XCTAssertEqual(fahrenheitUnit.degreesString, "\u{00B0}All")
+        #expect(fahrenheitUnit.unitString == "All")
+        #expect(fahrenheitUnit.degreesString == "\u{00B0}All")
     }
 }

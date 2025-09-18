@@ -7,14 +7,21 @@
 //
 
 @testable import DatWeatherDoe
-import XCTest
+import Testing
 
-class LocationValidatorTests: XCTestCase {
-    func testLocation_empty() {
-        XCTAssertThrowsError(try LocationValidator(latLong: "").validate())
+struct LocationValidatorTests {
+    
+    @Test
+    func testLocation_empty() async throws {
+        #expect(throws: (any Error).self) {
+            try LocationValidator(latLong: "").validate()
+        }
     }
 
-    func testLocation_correct() {
-        XCTAssertNoThrow(try LocationValidator(latLong: "12,24").validate())
+    @Test
+    func testLocation_correct() async throws {
+        #expect(throws: Never.self) {
+            try LocationValidator(latLong: "12,24").validate()
+        }
     }
 }
