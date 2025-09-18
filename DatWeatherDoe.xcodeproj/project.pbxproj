@@ -1015,7 +1015,7 @@
 			repositoryURL = "https://github.com/orchetect/MenuBarExtraAccess";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = 1.2.2;
 			};
 		};
 		20CB68BC2A2D9029001C73B9 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
@@ -1023,7 +1023,7 @@
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.59.1;
+				minimumVersion = 0.61.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
