@@ -7,20 +7,23 @@
 //
 
 @testable import DatWeatherDoe
-import XCTest
+import Testing
 
-final class RefreshIntervalTests: XCTestCase {
-    func testRefreshIntervalTimes() {
-        XCTAssertEqual(RefreshInterval.fiveMinutes.rawValue, 300)
-        XCTAssertEqual(RefreshInterval.fifteenMinutes.rawValue, 900)
-        XCTAssertEqual(RefreshInterval.thirtyMinutes.rawValue, 1800)
-        XCTAssertEqual(RefreshInterval.sixtyMinutes.rawValue, 3600)
+struct RefreshIntervalTests {
+    
+    @Test
+    func refreshIntervalTimes() {
+        #expect(RefreshInterval.fiveMinutes.rawValue == 300)
+        #expect(RefreshInterval.fifteenMinutes.rawValue == 900)
+        #expect(RefreshInterval.thirtyMinutes.rawValue == 1800)
+        #expect(RefreshInterval.sixtyMinutes.rawValue == 3600)
     }
 
-    func testRefreshintervalStrings() {
-        XCTAssertEqual(RefreshInterval.fiveMinutes.title, "5 min")
-        XCTAssertEqual(RefreshInterval.fifteenMinutes.title, "15 min")
-        XCTAssertEqual(RefreshInterval.thirtyMinutes.title, "30 min")
-        XCTAssertEqual(RefreshInterval.sixtyMinutes.title, "60 min")
+    @Test
+    func refreshintervalStrings() {
+        #expect(RefreshInterval.fiveMinutes.title == "5 min")
+        #expect(RefreshInterval.fifteenMinutes.title == "15 min")
+        #expect(RefreshInterval.thirtyMinutes.title == "30 min")
+        #expect(RefreshInterval.sixtyMinutes.title == "60 min")
     }
 }

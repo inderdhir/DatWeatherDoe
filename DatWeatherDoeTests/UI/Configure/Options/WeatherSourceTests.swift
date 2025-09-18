@@ -7,22 +7,25 @@
 //
 
 @testable import DatWeatherDoe
-import XCTest
+import Testing
 
-final class WeatherSourceTests: XCTestCase {
-    func testLocationSource() {
+struct WeatherSourceTests {
+    
+    @Test
+    func locationSource() {
         let locationSource = WeatherSource.location
 
-        XCTAssertEqual(locationSource.title, "Location")
-        XCTAssertEqual(locationSource.placeholder, "")
-        XCTAssertEqual(locationSource.textHint, "")
+        #expect(locationSource.title == "Location")
+        #expect(locationSource.placeholder == "")
+        #expect(locationSource.textHint == "")
     }
 
-    func testLatLongSource() {
+    @Test
+    func latLongSource() {
         let latLongSource = WeatherSource.latLong
 
-        XCTAssertEqual(latLongSource.title, "Lat/Long")
-        XCTAssertEqual(latLongSource.placeholder, "42,42")
-        XCTAssertEqual(latLongSource.textHint, "[latitude],[longitude]")
+        #expect(latLongSource.title == "Lat/Long")
+        #expect(latLongSource.placeholder == "42,42")
+        #expect(latLongSource.textHint == "[latitude],[longitude]")
     }
 }

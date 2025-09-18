@@ -7,14 +7,17 @@
 //
 
 @testable import DatWeatherDoe
-import XCTest
+import Foundation
+import Testing
 
-final class WeatherURLBuilderTests: XCTestCase {
-    func testBuild() {
-        XCTAssertEqual(
-            try? WeatherURLBuilder(appId: "123456", location: .init(latitude: 42, longitude: 42)).build().absoluteString,
-            "https://api.weatherapi.com/v1/forecast.json?key=123456&aqi=no&q=42.0,42.0&dt=\(parsedDateToday)"
-        )
+struct WeatherURLBuilderTests {
+    
+    @Test func testBuild() async throws {
+        let urlString = try WeatherURLBuilder(
+            appId: "123456",
+            location: .init(latitude: 42, longitude: 42)
+        ).build().absoluteString
+        #expect(urlString == "https://api.weatherapi.com/v1/forecast.json?key=123456&aqi=yes&q=42.0,42.0&dt=\(parsedDateToday)")
     }
 
     private var parsedDateToday: String {
