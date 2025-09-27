@@ -49,6 +49,12 @@
             "value" : "❗️City"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "❗️Città"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -81,7 +87,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Errore Lat/Long"
+            "value" : "❗️ Lat/Long"
           }
         },
         "ja" : {
@@ -116,7 +122,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Errore Posizione"
+            "value" : "❗️Posizione"
           }
         },
         "ja" : {
@@ -359,7 +365,8 @@
             "value" : "空气质量"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Before Temperature" : {
       "comment" : "Weather condition before temperature",
@@ -412,7 +419,8 @@
             "value" : "DatWeatherDoe"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Clear" : {
       "comment" : "Clear at night weather condition",
@@ -544,7 +552,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fine"
+            "value" : "Fatto"
           }
         },
         "ja" : {
@@ -564,6 +572,12 @@
     "Fog" : {
       "comment" : "Fog weather condition",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nebbia"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -617,6 +631,12 @@
       "comment" : "Air Quality Index: Good",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buona"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -635,6 +655,12 @@
       "comment" : "Air Quality Index: Hazardous",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pericolosa"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -686,6 +712,12 @@
     },
     "Hide unit ° symbol" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondi simbolo °"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -702,6 +734,12 @@
     },
     "Hide unit letter" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondi unità C"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -718,6 +756,12 @@
     },
     "Imperial" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imperiale"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -881,6 +925,12 @@
     },
     "Metric" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Metrico"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -898,6 +948,12 @@
     "Mist" : {
       "comment" : "Mist weather condition",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foschia"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -916,6 +972,12 @@
       "comment" : "Air Quality Index: Moderate",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderata"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -946,7 +1008,8 @@
             "value" : "Copyright © 2016 Inder Dhir. Alle Rechte vorbehalten."
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "NSLocationWhenInUseUsageDescription" : {
       "comment" : "Privacy - Location When In Use Usage Description",
@@ -964,7 +1027,8 @@
             "value" : "DatWeatherDoe根据请求使用您的地理位置来确定天气."
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Partly cloudy" : {
       "comment" : "Partly cloudy weather condition",
@@ -1019,7 +1083,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Parzialmente nuvoloso con pioggia"
+            "value" : "Pioggia, parzialmente nuvoloso"
           }
         },
         "ja" : {
@@ -1054,7 +1118,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chiudi"
+            "value" : "Esci"
           }
         },
         "ja" : {
@@ -1124,7 +1188,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Intervallo Refresh"
+            "value" : "Intervallo Aggiornamento"
           }
         },
         "ja" : {
@@ -1194,7 +1258,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vedi Meteo Completo"
+            "value" : "Meteo Completo"
           }
         },
         "ja" : {
@@ -1213,6 +1277,12 @@
     },
     "Separate values with" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Separa valori con"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1264,6 +1334,12 @@
     },
     "Show UV Index" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra Indice UV"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1422,6 +1498,12 @@
       "comment" : "Air Quality Index: Unhealthy",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malsana"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1440,6 +1522,12 @@
       "comment" : "Air Quality Index: Unhealthy for sensitive groups",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malsana per soggetti sensibili"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1472,7 +1560,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unità"
+            "value" : "Sistema"
           }
         },
         "ja" : {
@@ -1514,7 +1602,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sconosciuto"
+            "value" : "Sconosciuta"
           }
         },
         "ja" : {
@@ -1577,6 +1665,12 @@
       "comment" : "UV Index",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indice UV"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1595,6 +1689,12 @@
       "comment" : "Air Quality Index: Very unhealthy",
       "extractionState" : "manual",
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Molto bassa"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1611,6 +1711,12 @@
     },
     "Weather Condition Position" : {
       "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posizione Condizioni Meteo"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1643,7 +1749,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Condizioni meteo scritte"
+            "value" : "Testo Condizioni Meteo"
           }
         },
         "ja" : {
