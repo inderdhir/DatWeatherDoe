@@ -44,14 +44,12 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
         switch CLLocationManager().authorizationStatus {
         case .notDetermined:
             let isAuthorized = await withCheckedContinuation { continuation in
-                Task(priority: .high) {
-                    logger.debug("Location permission not determined")
+                logger.debug("Location permission not determined")
 
-                    permissionContinuation = continuation
+                permissionContinuation = continuation
 
-                    await MainActor.run {
-                        locationManager.requestWhenInUseAuthorization()
-                    }
+                Task { @MainActor in
+                    locationManager.requestWhenInUseAuthorization()
                 }
             }
 
@@ -86,12 +84,10 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
 
         do {
             let latestLocation = try await withCheckedThrowingContinuation { continuation in
-                Task(priority: .high) {
-                    locationUpdateContinuation = continuation
-
-                    await MainActor.run {
-                        locationManager.startUpdatingLocation()
-                    }
+                locationUpdateContinuation = continuation
+                
+                Task { @MainActor in
+                    locationManager.startUpdatingLocation()
                 }
             }
 
@@ -120,22 +116,23 @@ extension SystemLocationFetcher: CLLocationManagerDelegate {
     nonisolated func locationManagerDidChangeAuthorization(_: CLLocationManager) {
         let isAuthorized = CLLocationManager().authorizationStatus == .authorized
 
-        Task(priority: .high) {
+        Task {
             await permissionContinuation?.resume(returning: isAuthorized)
         }
     }
 
     nonisolated func locationManager(_: CLLocationManager, didFailWithError error: Error) {
-        Task(priority: .high) {
+        Task {
             await locationUpdateContinuation?.resume(throwing: error)
         }
     }
 
     nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations _: [CLLocation]) {
         let coordinate = manager.location?.coordinate ?? .init(latitude: .zero, longitude: .zero)
-        Task(priority: .high) {
+        Task {
             await updateCachedLocation(coordinate)
             await locationUpdateContinuation?.resume(returning: coordinate)
         }
     }
 }
+

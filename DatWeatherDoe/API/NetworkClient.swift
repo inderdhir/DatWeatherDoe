@@ -12,7 +12,7 @@ protocol NetworkClientType {
     func performRequest(url: URL) async throws -> Data
 }
 
-final actor NetworkClient: NetworkClientType {
+final class NetworkClient: NetworkClientType {
     func performRequest(url: URL) async throws -> Data {
         do {
             return try await URLSession.shared.data(from: url).0

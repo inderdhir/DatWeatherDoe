@@ -62,9 +62,7 @@ struct DatWeatherDoeApp: App {
             }
         )
         .menuBarExtraAccess(isPresented: $isMenuPresented) { statusItem in
-            Task { @MainActor in
-                self.statusItem = statusItem
-            }
+            self.statusItem = statusItem
         }
         .onChange(of: isMenuPresented) { newValue in
             if !newValue {

@@ -9,7 +9,6 @@
 import Foundation
 import OSLog
 
-@MainActor
 final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     private let locationFetcher: SystemLocationFetcherType
     private var weatherFactory: WeatherRepositoryFactoryType
@@ -39,9 +38,7 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
     }
 
     deinit {
-        Task { [weatherTimerTask] in
-            weatherTimerTask?.cancel()
-        }
+        weatherTimerTask?.cancel()
     }
 
     func setup(with formatter: WeatherDataFormatter) {
@@ -91,12 +88,8 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
 
     private func getWeatherAfterUpdatingLocation() async throws -> WeatherData {
         let locationFetcher = locationFetcher
-        let locationTask = Task {
-            let location = try await locationFetcher.getLocation()
-            return location
-        }
+        let location = try await locationFetcher.getLocation()
 
-        let location = try await locationTask.value
         return try await getWeather(
             repository: weatherFactory.create(location: location),
             unit: configManager.parsedMeasurementUnit
@@ -145,15 +138,8 @@ final class WeatherViewModel: WeatherViewModelType, ObservableObject {
         repository: WeatherRepositoryType,
         unit: MeasurementUnit
     ) async throws -> WeatherData {
-        let repository = repository
-
-        let responseTask = Task {
-            let response = try await repository.getWeather()
-            return response
-        }
-
         do {
-            let response = try await responseTask.value
+            let response = try await repository.getWeather()
             let weatherData = WeatherDataBuilder(
                 response: response,
                 options: buildWeatherDataOptions(for: unit),
