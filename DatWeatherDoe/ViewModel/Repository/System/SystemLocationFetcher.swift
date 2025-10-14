@@ -83,15 +83,9 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
         }
 
         do {
-            let latestLocation = try await withCheckedThrowingContinuation { continuation in
-                locationUpdateContinuation = continuation
-                
-                Task { @MainActor in
-                    locationManager.startUpdatingLocation()
-                }
-            }
-
-            locationUpdateContinuation = nil
+            let latestLocation = try await Task.retrying {
+                try await self.requestLocation()
+            }.value
 
             return latestLocation
         } catch {
@@ -107,6 +101,16 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
         }
 
         return nil
+    }
+    
+    private func requestLocation() async throws -> CLLocationCoordinate2D {
+        try await withCheckedThrowingContinuation { continuation in
+            locationUpdateContinuation = continuation
+            
+            Task { @MainActor in
+                locationManager.startUpdatingLocation()
+            }
+        }
     }
 }
 
