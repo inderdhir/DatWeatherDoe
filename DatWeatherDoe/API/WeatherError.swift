@@ -19,9 +19,9 @@ enum WeatherError: LocalizedError {
         case .unableToConstructUrl:
             "Unable to construct URL"
         case .locationError:
-            NSLocalizedString("❗️Location", comment: "Location error when fetching weather")
+            String(localized: "❗️Location")
         case .latLongIncorrect:
-            NSLocalizedString("❗️Lat/Long", comment: "Lat/Long error when fetching weather")
+            String(localized: "❗️Lat/Long")
         case .networkError:
             "🖧"
         }
