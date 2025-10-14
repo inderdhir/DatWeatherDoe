@@ -8,7 +8,6 @@
 
 import Combine
 
-@MainActor
 protocol WeatherViewModelType: AnyObject {
     func setup(with formatter: WeatherDataFormatter)
     func getUpdatedWeatherAfterRefresh()
