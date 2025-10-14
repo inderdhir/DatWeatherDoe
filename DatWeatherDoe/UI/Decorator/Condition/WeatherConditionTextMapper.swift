@@ -16,43 +16,40 @@ final class WeatherConditionTextMapper: WeatherConditionTextMapperType {
     func map(_ condition: WeatherCondition) -> String {
         switch condition {
         case .cloudy:
-            NSLocalizedString("Cloudy", comment: "Cloudy weather condition")
+            String(localized: "Cloudy")
 
         case .partlyCloudy, .partlyCloudyNight:
-            NSLocalizedString("Partly cloudy", comment: "Partly cloudy weather condition")
+            String(localized: "Partly cloudy")
 
         case .sunny:
-            NSLocalizedString("Sunny", comment: "Sunny weather condition")
+            String(localized: "Sunny")
 
         case .clearNight:
-            NSLocalizedString("Clear", comment: "Clear at night weather condition")
+            String(localized: "Clear")
 
         case .snow:
-            NSLocalizedString("Snow", comment: "Snow weather condition")
+            String(localized: "Snow")
 
         case .heavyRain:
-            NSLocalizedString("Heavy rain", comment: "Heavy rain weather condition")
+            String(localized: "Heavy rain")
 
         case .freezingRain:
-            NSLocalizedString("Freezing rain", comment: "Freezing rain weather condition")
+            String(localized: "Freezing rain")
 
         case .lightRain:
-            NSLocalizedString("Light rain", comment: "Light rain weather condition")
+            String(localized: "Light rain")
 
         case .partlyCloudyRain:
-            NSLocalizedString(
-                "Partly cloudy with rain",
-                comment: "Partly cloudy with rain weather condition"
-            )
+            String(localized: "Partly cloudy with rain")
 
         case .thunderstorm:
-            NSLocalizedString("Thunderstorm", comment: "Thunderstorm weather condition")
+            String(localized: "Thunderstorm")
 
         case .mist:
-            NSLocalizedString("Mist", comment: "Mist weather condition")
+            String(localized: "Mist")
 
         case .fog:
-            NSLocalizedString("Fog", comment: "Fog weather condition")
+            String(localized: "Fog")
         }
     }
 }

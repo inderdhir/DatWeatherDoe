@@ -14,9 +14,9 @@ enum WeatherSource: String, CaseIterable {
     var title: String {
         switch self {
         case .location:
-            NSLocalizedString("Location", comment: "Weather based on location")
+            String(localized: "Location")
         case .latLong:
-            NSLocalizedString("Lat/Long", comment: "Weather based on Lat/Long")
+            String(localized: "Lat/Long")
         }
     }
 
@@ -34,10 +34,7 @@ enum WeatherSource: String, CaseIterable {
         case .location:
             ""
         case .latLong:
-            NSLocalizedString(
-                "[latitude],[longitude]",
-                comment: "Placeholder hint for entering Lat/Long"
-            )
+            String(localized: "[latitude],[longitude]")
         }
     }
 }
