@@ -14,13 +14,9 @@ final class ConfigureViewModel: ObservableObject {
         didSet { configManager.measurementUnit = measurementUnit.rawValue }
     }
 
-    @Published var weatherSource: WeatherSource {
-        didSet { configManager.weatherSource = weatherSource.rawValue }
-    }
+    @Published var weatherSource: WeatherSource
 
-    @Published var weatherSourceText: String {
-        didSet { configManager.weatherSourceText = weatherSourceText }
-    }
+    @Published var weatherSourceText: String
 
     @Published var refreshInterval: RefreshInterval {
         didSet { configManager.refreshInterval = refreshInterval.rawValue }
@@ -68,6 +64,7 @@ final class ConfigureViewModel: ObservableObject {
         self.configManager = configManager
 
         measurementUnit = configManager.parsedMeasurementUnit
+        
         weatherSource = WeatherSource(rawValue: configManager.weatherSource) ?? .location
         weatherSourceText = configManager.weatherSourceText
 
@@ -92,6 +89,8 @@ final class ConfigureViewModel: ObservableObject {
 
     func saveConfig() {
         configManager.updateWeatherSource(weatherSource, sourceText: weatherSourceText)
+        weatherSourceText = configManager.weatherSourceText
+
         configManager.setConfigOptions(
             .init(
                 refreshInterval: refreshInterval,
