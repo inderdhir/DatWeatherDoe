@@ -104,13 +104,15 @@ final actor SystemLocationFetcher: NSObject, SystemLocationFetcherType {
     }
     
     private func requestLocation() async throws -> CLLocationCoordinate2D {
-        try await withCheckedThrowingContinuation { continuation in
+        let coordinate = try await withCheckedThrowingContinuation { continuation in
             locationUpdateContinuation = continuation
             
             Task { @MainActor in
                 locationManager.startUpdatingLocation()
             }
         }
+        locationUpdateContinuation = nil
+        return coordinate
     }
 }
 
